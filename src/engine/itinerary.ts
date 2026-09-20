@@ -94,6 +94,12 @@ export type GenerateInput = {
   anchorPoints?: Record<string, { lat: number; lng: number }>;
   /** úroveň míňania na atrakcie (default balanced) a počet osôb pre mešec */
   attractionBudget?: AttractionBudgetLevel;
+  /** vlastný mešec: € na osobu za celú cestu (má prednosť pred úrovňou; 0 = len zadarmo) */
+  attractionPoolPpEur?: number | null;
+  /** jeden 5★ zážitok so záujmom skupiny smie mešec prekročiť (default true, nie pri „úsporne“) */
+  attractionSplurge?: boolean;
+  /** explicitná penalizácia ceny (λ bodov za €) – len na ladenie; inak z úrovne / vlastného limitu */
+  attractionLambda?: number;
   pax?: number;
 };
 
@@ -111,6 +117,26 @@ export const ATTRACTION_BUDGET: Record<
   balanced: { ppPerDayEur: 35, lambda: 0.025, labelSk: 'vyvážene · ≤ 35 €/os/deň' },
   unlimited: { ppPerDayEur: null, lambda: 0.005, labelSk: 'bez limitu' },
 };
+
+/**
+ * Penalizácia ceny (λ bodov za €) pre vlastný mešec: lineárne medzi úrovňami podľa € na osobu a deň
+ * (≤ 12 → 0,06 ako „úsporne“, 35 → 0,025 „vyvážene“, ≥ 100 → 0,005 „bez limitu“).
+ */
+export function lambdaForPpPerDay(ppPerDay: number): number {
+  const pts: [number, number][] = [
+    [12, ATTRACTION_BUDGET.budget.lambda],
+    [35, ATTRACTION_BUDGET.balanced.lambda],
+    [100, ATTRACTION_BUDGET.unlimited.lambda],
+  ];
+  if (ppPerDay <= pts[0][0]) return pts[0][1];
+  if (ppPerDay >= pts[2][0]) return pts[2][1];
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1];
+    const [x1, y1] = pts[i];
+    if (ppPerDay <= x1) return Math.round((y0 + ((y1 - y0) * (ppPerDay - x0)) / (x1 - x0)) * 10000) / 10000;
+  }
+  return pts[2][1];
+}
 
 /** Hviezdičky kvality 1–5 (zo seedu `popularity` = „oplatí sa vidieť“) a hodnota za peniaze: hviezdičky na 10 € na osobu. */
 export const stars = (p: Pick<PoiCandidate, 'popularity'>) =>
@@ -166,7 +192,10 @@ export function scorePoi(p: PoiCandidate, interests: string[], gemShare = 0.3, l
   return Math.round(s * 100) / 100;
 }
 
-/** Regióny „po ceste“ medzi dvoma regiónmi v smere okruhu (vrátane oboch); okruh je cyklický (sever → Reykjavík ide cez západ). */
+/**
+ * Regióny „po ceste“ medzi dvoma regiónmi (vrátane oboch) – kratším smerom po cyklickom okruhu: sever → Reykjavík
+ * ide cez západ, ale návrat z juhovýchodu na KEF (okruhy „tam a späť“) ide späť cez juh, nie okolo celého ostrova.
+ */
 export function regionsBetween(from: string | null, to: string | null, order = RING_ORDER): string[] {
   if (!from && !to) return [];
   if (!from) return [to!];
@@ -175,8 +204,11 @@ export function regionsBetween(from: string | null, to: string | null, order = R
   const a = order.indexOf(from);
   const b = order.indexOf(to);
   if (a === -1 || b === -1) return [from, to];
-  if (a <= b) return order.slice(a, b + 1);
-  return [...order.slice(a), ...order.slice(0, b + 1)];
+  const n = order.length;
+  const forward = (b - a + n) % n;
+  const backward = (a - b + n) % n;
+  if (forward <= backward) return Array.from({ length: forward + 1 }, (_, i) => order[(a + i) % n]);
+  return Array.from({ length: backward + 1 }, (_, i) => order[(a - i + n) % n]);
 }
 
 /** Východ a západ slnka v minútach dňa (KEF), symetricky okolo 13:30 (Island je „posunutý“ voči UTC). */
@@ -300,6 +332,8 @@ type DayCtx = {
   cap: { dayMin: number; maxStops: number; maxDriveMin: number };
   reserve: boolean;
   baselineMin: number;
+  /** posledný deň: odchod posunutý skôr kvôli odletu */
+  earlyStart: boolean;
   chosen: PoiCandidate[];
 };
 
@@ -311,16 +345,27 @@ type DayCtx = {
  */
 export function generateItinerary(input: GenerateInput): GeneratedDay[] {
   const cap = PACE_CAPACITY[input.pace];
-  const budget = ATTRACTION_BUDGET[input.attractionBudget ?? 'balanced'];
+  const level = ATTRACTION_BUDGET[input.attractionBudget ?? 'balanced'];
   const pax = Math.max(1, input.pax ?? 1);
-  const poolEur = budget.ppPerDayEur == null ? Infinity : budget.ppPerDayEur * input.days.length * pax;
+  const nDays = Math.max(1, input.days.length);
+  // mešec: vlastné € na osobu za cestu má prednosť; inak limit úrovne × dni; „bez limitu“ = ∞
+  const custom = input.attractionPoolPpEur;
+  const poolPp = custom != null ? Math.max(0, custom) : level.ppPerDayEur == null ? Infinity : level.ppPerDayEur * nDays;
+  const poolEur = poolPp * pax;
+  const onlyFree = poolPp === 0;
+  // vlastný limit: mešec je hlavná brzda, penalizácia ceny len polovičná (inak by 200 €/os skončilo na ~90 €)
+  const lambda =
+    input.attractionLambda ??
+    (custom != null ? (onlyFree ? Infinity : lambdaForPpPerDay(custom / nDays) / 2) : level.lambda);
   let spentEur = 0;
-  // jeden „veľký zážitok“ nad mešec: 5★ miesto, ktoré sedí na záujem skupiny (nie pri „úsporne“)
+  // jeden „veľký zážitok“ nad mešec: 5★ miesto, ktoré sedí na záujem skupiny (nie pri „úsporne“ / bez povolenia)
   let splurgeUsed = false;
+  const splurgeAllowed =
+    (input.attractionSplurge ?? true) && !onlyFree && (custom != null || input.attractionBudget !== 'budget');
   const costOf = (p: PoiCandidate) => (p.entryPpEur ?? 0) * pax;
   const isSplurge = (p: PoiCandidate) =>
     !splurgeUsed &&
-    input.attractionBudget !== 'budget' &&
+    splurgeAllowed &&
     stars(p) === 5 &&
     input.interests.some((k) => (p.interestWeight[k] ?? 0) >= 0.8);
   const airport = input.airportKey ?? 'kef';
@@ -341,7 +386,14 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
     const startKey = idx === 0 ? airport : regionKey(startRegion, airport);
     const endKey = isLast && !day.overnightRegionId ? airport : regionKey(endRegion, airport);
     const sun = sunTimes(day.date || '2027-09-15');
-    const startMin = day.startMin ?? DEFAULT_START_MIN;
+    let startMin = day.startMin ?? DEFAULT_START_MIN;
+    const baselineMin = leg(startKey, endKey).min;
+    // odlet skoro: ak sa presun na KEF nezmestí pred limit, vyráža sa skôr (najskôr 05:00) – nie „prísť neskoro“
+    let earlyStart = false;
+    if (day.endMin != null && day.startMin == null && startMin + baselineMin * DRIVE_REAL_FACTOR > day.endMin) {
+      startMin = Math.max(5 * 60, Math.floor(day.endMin - baselineMin * DRIVE_REAL_FACTOR));
+      earlyStart = true;
+    }
     const endLimit = Math.min(day.endMin ?? sun.sunset + 30, startMin + cap.dayMin);
     return {
       day,
@@ -360,7 +412,8 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
       sunset: sun.sunset,
       cap,
       reserve: false,
-      baselineMin: leg(startKey, endKey).min,
+      baselineMin,
+      earlyStart,
       chosen: [],
     };
   });
@@ -440,7 +493,7 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
     .filter((p) => !used.has(p.slug))
     .filter((p) => !p.requires4x4 || input.allow4x4)
     .filter((p) => p.monthRating == null || p.monthRating >= 2)
-    .filter((p) => budget.ppPerDayEur !== 0 || !(p.entryPpEur && p.entryPpEur > 0))
+    .filter((p) => !onlyFree || !(p.entryPpEur && p.entryPpEur > 0))
     .map((p) => {
       const options: Option[] = ctxs
         .filter((c) => !c.day.locked && p.regionId && c.regions.includes(p.regionId))
@@ -452,7 +505,7 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
         // 5★ miesto stojí za dlhšiu obchádzku (Dettifoss z Ring Road ≈ 60 min)
         .filter((o) => o.detour <= (stars(p) === 5 ? MAX_DETOUR_MIN * 1.3 : MAX_DETOUR_MIN))
         .sort((a, b) => a.detour - b.detour || a.c.idx - b.c.idx);
-      return { p, score: scorePoi(p, input.interests, input.gemShare), options };
+      return { p, score: scorePoi(p, input.interests, input.gemShare, lambda), options };
     })
     .filter((x) => x.options.length > 0)
     // hodnota za čas: 45-min 5★ miesto (Geysir) ide pred 3-h túru s rovnakým skóre; dlhé zážitky doplnia zvyšok kapacity
@@ -506,8 +559,16 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
       );
     else if (r.arriveEnd > c.sunset + 30)
       warnings.push(`Príchod ${fmtClock(r.arriveEnd)} po západe slnka (${fmtClock(c.sunset)})`);
+    if (c.earlyStart)
+      warnings.push(`Odchod už o ${fmtClock(c.startMin)} – presun na KEF ${fmtH(c.baselineMin * DRIVE_REAL_FACTOR)} kvôli odletu`);
     if (stops.length === 0 && !c.reserve)
-      warnings.push(c.regions.length ? 'Voľný deň – v regióne nie je POI v seede' : 'Voľný deň');
+      warnings.push(
+        c.day.endMin != null && c.endLimit - c.startMin - c.baselineMin * DRIVE_REAL_FACTOR < 60
+          ? 'Len presun na letisko – na zastávku nezostáva čas'
+          : c.regions.length
+            ? 'Voľný deň – nič sa nezmestilo do času'
+            : 'Voľný deň',
+      );
     return {
       dayIndex: c.day.dayIndex,
       startKey: c.startKey,

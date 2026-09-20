@@ -3,6 +3,7 @@ import { deriveFromFlight } from './cascade';
 import { foodTotal, type FoodDayInput } from './food';
 import { campingCardDecision, kitchenByNight, stayCost } from './lodging';
 import { confidenceOf, mergeConfidence, rangeFor, round2, sum, toEur } from './money';
+import { LODGING_KIND_SK, REGION_LABEL_SK } from './presets';
 import { splitAmount } from './split';
 import { daysBetween, inSeason } from './time';
 import { transportCost } from './transport';
@@ -232,7 +233,7 @@ export function computeBudget(snapshot: TripSnapshot): BudgetResult {
           {
             id: `stay-${s.id}`,
             category: 'lodging',
-            label: `Noc ${s.nightIndex} · ${s.regionId ?? '?'} · ${s.kind}`,
+            label: `Noc ${s.nightIndex} · ${REGION_LABEL_SK[s.regionId ?? ''] ?? s.regionId ?? '?'} · ${LODGING_KIND_SK[s.kind] ?? s.kind}`,
             amount: c.amount,
             min: c.min,
             max: c.max,

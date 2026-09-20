@@ -46,10 +46,9 @@ import {
   generateItineraryAction,
   lockDayAction,
   removeStopAction,
-  setAttractionBudgetAction,
   setRoutePresetAction,
 } from '../step05-actions';
-import { ATTRACTION_BUDGET, type AttractionBudgetLevel } from '@/engine/itinerary';
+import { AttractionBudgetPanel, type AttractionBudgetState } from './attraction-budget';
 import { DRONE, PoiSheet } from './poi-sheet';
 
 const dm = (iso: string) => `${Number(iso.slice(8, 10))}. ${Number(iso.slice(5, 7))}.`;
@@ -89,7 +88,7 @@ export function Step05Client({
   autoKey: PresetKey;
   ratings: PresetRating[];
   recommended: PresetKey;
-  attractionBudget: AttractionBudgetLevel;
+  attractionBudget: AttractionBudgetState;
   canEdit: boolean;
 }) {
   const [open, setOpen] = useState<Set<string>>(new Set(days.slice(0, 1).map((d) => d.dayId)));
@@ -97,7 +96,6 @@ export function Step05Client({
   const [addTo, setAddTo] = useState<DayLite | null>(null);
   const [gem, setGem] = useState(0.3);
   const [genState, genAct, genPending] = useActionState<ActionState, FormData>(generateItineraryAction, null);
-  const [, budgetAct, budgetPending] = useActionState<ActionState, FormData>(setAttractionBudgetAction, null);
   const [presetState, presetAct, presetPending] = useActionState<ActionState, FormData>(setRoutePresetAction, null);
   const [allPresets, setAllPresets] = useState(false);
   const activeKey: PresetKey = presetChoice === PRESET_AUTO ? autoKey : (presetChoice as PresetKey);
@@ -275,26 +273,19 @@ export function Step05Client({
             </Button>
           )}
         </form>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-ink-3 text-[12px]">Atrakcie – koľko míňať:</span>
-          {(Object.keys(ATTRACTION_BUDGET) as AttractionBudgetLevel[]).map((k) => (
-            <form key={k} action={budgetAct} className="contents">
-              <input type="hidden" name="tripId" value={tripId} />
-              <input type="hidden" name="level" value={k} />
-              <Chip on={attractionBudget === k} type="submit" disabled={!canEdit || budgetPending}>
-                {ATTRACTION_BUDGET[k].labelSk}
-              </Chip>
-            </form>
-          ))}
-          <span className="text-ink-3 text-[12px]">
-            mešec = limit × dni × osoby, jeden 5★ zážitok nad limit; potom Generovať
-          </span>
-        </div>
+        <AttractionBudgetPanel
+          tripId={tripId}
+          budget={attractionBudget}
+          days={days.length}
+          pax={pax}
+          spentGroup={totals.entryGroup}
+          canEdit={canEdit}
+        />
         {genState && !genState.ok && <Notice tone="bad">{genState.error}</Notice>}
         {empty && (
           <Notice tone="info">
-            Zatiaľ bez zastávok – klikni Generovať. Seed má 25 POI (juh, Golden Circle, Reykjavík,
-            juhovýchod); sever a východ sa doplnia v 1.1.
+            Zatiaľ bez zastávok – klikni Generovať (86 miest zo seedu po celom okruhu; limit na atrakcie
+            nastav vyššie).
           </Notice>
         )}
       </StepSection>
@@ -328,8 +319,8 @@ export function Step05Client({
                   badges={
                     <>
                       {d.locked && <Tag tone="info">zamknutý</Tag>}
-                      {d.reserve && <Tag tone="vio">rezerva na počasie</Tag>}
-                      {d.warnings.map((w, i) => (
+                      {d.reserve && <Tag tone="vio">rezerva na počasie – pri zlom počasí sem presuň zastávky</Tag>}
+                      {d.warnings.filter((w) => !w.startsWith('Rezervný deň')).map((w, i) => (
                         <Tag key={i} tone="warn">
                           {w}
                         </Tag>

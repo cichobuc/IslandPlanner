@@ -88,8 +88,7 @@ export function Step07Client({
             kuchynka {kitchenDays} z {days.length} dní
           </Chip>
           <Chip icon={Tent} iconClassName="text-ink-3">
-            vetva {active === 'camper' ? 'karavan' : 'auto'} ·{' '}
-            {otherBranch.key === 'camper' ? 'karavan' : 'auto'} by stál {fmtEur(otherBranch.total)}
+            vetva {active === 'camper' ? 'karavan' : 'auto'} (03)
           </Chip>
         </ChipRow>
       </StepSection>
@@ -239,7 +238,10 @@ export function Step07Client({
             { label: 'Na osobu a deň', value: fmtEur(perDay) },
             {
               label: `${otherBranch.key === 'camper' ? 'Karavan' : 'Auto'} by stál`,
-              value: fmtEur(otherBranch.total),
+              value:
+                Math.abs(otherBranch.total - total.total) < 1
+                  ? 'rovnako'
+                  : `${otherBranch.total > total.total ? '+' : '−'}${fmtEur(Math.abs(otherBranch.total - total.total))}`,
             },
           ]}
         />

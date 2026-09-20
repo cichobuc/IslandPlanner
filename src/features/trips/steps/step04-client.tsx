@@ -31,6 +31,7 @@ import {
   assignCampsiteAction,
   assignOfferAction,
   setCampingCardAction,
+  setEstimateKindAction,
   setNightRegionAction,
   updateStayAction,
 } from '../step04-actions';
@@ -51,7 +52,13 @@ export function Step04Client({ data }: { data: Step04Data }) {
   const [open, setOpen] = useState<string | null>(null);
   const night = nights.find((n) => n.stayId === open) ?? null;
   const [cardState, cardAct, cardPending] = useActionState<ActionState, FormData>(setCampingCardAction, null);
+  const [kindState, kindAct, kindPending] = useActionState<ActionState, FormData>(setEstimateKindAction, null);
   const isCamper = mode === 'camper';
+  // štandard odhadovaných nocí (bez ponuky): typ, ktorý má väčšina; mieša sa → null
+  const estimated = nights.filter((n) => !n.assigned && !n.noLodging);
+  const kindCounts = estimated.reduce<Record<string, number>>((a, n) => ((a[n.kind] = (a[n.kind] ?? 0) + 1), a), {});
+  const estKind = Object.entries(kindCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+  const mixedKinds = Object.keys(kindCounts).length > 1;
   const title = isCamper ? 'Kempy' : 'Ubytovanie';
   const assigned = nights.filter((n) => n.assigned || n.noLodging).length;
 
@@ -171,6 +178,30 @@ export function Step04Client({ data }: { data: Step04Data }) {
         title={`Noci · ${nights.length}`}
         hint={`${assigned} presných · ${nights.length - assigned} odhadov${isCamper && !data.tjaldaOk ? ' · tjalda nedostupná, kempy zo seedu' : ''}`}
       >
+        {!isCamper && estimated.length > 0 && (
+          <ChipRow>
+            <span className="text-ink-3 text-[12px]">Štandard pre {estimated.length} odhadovaných nocí:</span>
+            {(['hostel', 'guesthouse', 'airbnb', 'hotel'] as const).map((k) => (
+              <form key={k} action={kindAct} className="contents">
+                <input type="hidden" name="tripId" value={tripId} />
+                <input type="hidden" name="kind" value={k} />
+                <Chip on={!mixedKinds && estKind === k} type="submit" disabled={!canEdit || kindPending}>
+                  {k === 'hostel'
+                    ? `hostel · ${pax} lôžka`
+                    : k === 'guesthouse'
+                      ? `penzión · ${Math.max(1, Math.ceil(pax / 2))} izby`
+                      : k === 'airbnb'
+                        ? `Airbnb · byt pre ${pax}`
+                        : `hotel · ${Math.max(1, Math.ceil(pax / 2))} izby`}
+                </Chip>
+              </form>
+            ))}
+            <span className="text-ink-3 text-[12px]">
+              {mixedKinds ? 'noci majú rôzne typy – nastav v detaile noci' : 'rozpätie zo seedu 2026 · mesiac noci mení cenu'}
+            </span>
+          </ChipRow>
+        )}
+        {kindState && !kindState.ok && <Notice tone="bad">{kindState.error}</Notice>}
         <ListCard>
           {nights.map((n) => (
             <ListRow
@@ -198,7 +229,7 @@ export function Step04Client({ data }: { data: Step04Data }) {
                         .join(' · ')
                     : isCamper
                       ? `kemp v regióne · ${pax} os. + elektrina + daň · odhad zo seedu`
-                      : `${KIND_LABEL[n.kind] ?? 'izba'}/Airbnb pre ${pax} · rozpätie z regiónu${n.hasKitchen ? ' · kuchynka ✓' : ''}`
+                      : `${KIND_LABEL[n.kind] ?? 'izba'} pre ${pax} · rozpätie z regiónu${n.hasKitchen ? ' · kuchynka ✓' : ''}`
               }
               badges={
                 <>

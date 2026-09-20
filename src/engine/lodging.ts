@@ -5,6 +5,7 @@ import {
   CAMPING_TAX_ISK,
   CAMPSITE_SEED,
   LODGING_RANGE,
+  lodgingSeasonFactor,
 } from './presets';
 import type { Confidence, LodgingKind, LodgingStayInput, MoneySource } from './types';
 
@@ -21,15 +22,19 @@ export type StayCost = {
 
 const isCamp = (k: LodgingKind) => k === 'campsite' || k === 'camper_site';
 
-/** Odhad izby z rozpätia seedu (4 os./noc) škálovaný na pax (2 izby = 4 os.; +1 izba na každé 2 osoby). */
+/**
+ * Odhad izby z rozpätia seedu (4 os./noc, september) škálovaný na pax (2 izby = 4 os.; +1 izba na každé 2 osoby)
+ * a na mesiac noci (`LODGING_SEASON_FACTOR`; bez dátumu = september).
+ */
 export function lodgingEstimate(
   regionId: string | null | undefined,
   kind: LodgingKind,
   pax: number,
+  nightDate?: string | null,
 ): { min: number; max: number } | null {
   const r = LODGING_RANGE[regionId ?? 'south']?.[kind] ?? LODGING_RANGE.south[kind];
   if (!r) return null;
-  const factor = Math.max(1, Math.ceil(pax / 2)) / 2; // 4 os. = 1×
+  const factor = (Math.max(1, Math.ceil(pax / 2)) / 2) * lodgingSeasonFactor(nightDate); // 4 os. v septembri = 1×
   return { min: round2(r[0] * factor), max: round2(r[1] * factor) };
 }
 
@@ -108,7 +113,7 @@ export function stayCost(
     const max = toEur(stay.priceRangeMax, fx);
     return { ...base, amount: round2((min + max) / 2), min, max, source: 'seed', confidence: 'estimate' };
   }
-  const est = lodgingEstimate(stay.regionId, stay.kind, pax);
+  const est = lodgingEstimate(stay.regionId, stay.kind, pax, stay.nightDate);
   if (!est) return { ...base, amount: 0, min: 0, max: 0, source: 'estimate', confidence: 'estimate' };
   return {
     ...base,

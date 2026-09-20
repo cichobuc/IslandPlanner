@@ -33,6 +33,8 @@ export type BranchEstimateInput = {
   food: FoodInput;
   /** komfort skupiny → typ izby pre vetvu Auto */
   lodgingKind?: LodgingKind;
+  /** dátum prvej noci (sezónny faktor izieb); bez dátumu = september */
+  startDate?: string | null;
   vehicleClass?: Partial<Record<'car' | 'camper', VehicleClass>>;
   /** Bez auta: odhad výletov na osobu za deň (seed) */
   tourPpPerDay?: number;
@@ -82,14 +84,14 @@ export function estimateBranch(mode: TransportMode, input: BranchEstimateInput):
   } else if (mode === 'car') {
     const kind = input.lodgingKind ?? 'guesthouse';
     for (const r of regions) {
-      const e = lodgingEstimate(r, kind, input.pax) ?? { min: 0, max: 0 };
+      const e = lodgingEstimate(r, kind, input.pax, input.startDate) ?? { min: 0, max: 0 };
       lmin += e.min;
       lmax += e.max;
     }
   } else {
     // základňa v Reykjavíku
     const kind = input.hotelKind ?? input.lodgingKind ?? 'guesthouse';
-    const e = lodgingEstimate('reykjavik', kind, input.pax) ?? { min: 0, max: 0 };
+    const e = lodgingEstimate('reykjavik', kind, input.pax, input.startDate) ?? { min: 0, max: 0 };
     lmin = e.min * nights;
     lmax = e.max * nights;
   }

@@ -15,6 +15,30 @@ export type RegionId =
   | 'westfjords'
   | 'highlands';
 
+/** Slovenské názvy regiónov (zhodné so seed `regions.name_sk`) pre štítky v rozpočte a tlači. */
+export const REGION_LABEL_SK: Record<string, string> = {
+  reykjanes: 'Reykjanes (KEF)',
+  reykjavik: 'Reykjavík',
+  golden_circle: 'Golden Circle',
+  south: 'Juh (Selfoss–Vík)',
+  southeast: 'Juhovýchod (Skaftafell–Höfn)',
+  eastfjords: 'Východné fjordy',
+  north_myvatn: 'Mývatn a okolie',
+  akureyri: 'Akureyri / Eyjafjörður',
+  north_west: 'Severozápad',
+  snaefellsnes: 'Snæfellsnes',
+  westfjords: 'Západné fjordy',
+  highlands: 'Vysočina (F-cesty)',
+};
+export const LODGING_KIND_SK: Record<LodgingKind, string> = {
+  airbnb: 'Airbnb',
+  hotel: 'hotel',
+  guesthouse: 'penzión',
+  hostel: 'hostel',
+  campsite: 'kemp',
+  camper_site: 'kemp',
+};
+
 export type PresetKey =
   | 'golden_only'
   | 'golden_south'
@@ -77,14 +101,17 @@ export const PRESETS: Record<PresetKey, Preset> = {
   south_only: {
     key: 'south_only',
     nameSk: 'Juh po Jökulsárlón',
-    noteSk: 'Bez Golden Circle: vodopády, Reynisfjara, Skaftafell a ľadovcová lagúna, späť tou istou cestou.',
+    noteSk:
+      'Bez Golden Circle: vodopády, Reynisfjara, Skaftafell a ľadovcová lagúna, späť tou istou cestou s nocou pri Víku.',
     highlights: ['Seljalandsfoss', 'Skógafoss', 'Reynisfjara', 'Skaftafell', 'Jökulsárlón', 'Diamond Beach'],
     minDays: 4,
     maxDays: 6,
+    // posledná noc späť na juhu, aby posledný deň nebol 6 h jazdy z Höfnu na KEF
     legs: [
-      { region: 'south', nights: 2, km: 230 },
+      { region: 'south', nights: 1, km: 230 },
       { region: 'southeast', nights: 2, km: 200 },
-      { region: 'reykjanes', nights: 0, km: 470 },
+      { region: 'south', nights: 1, km: 270 },
+      { region: 'reykjanes', nights: 0, km: 230 },
     ],
     totalKm: 900,
   },
@@ -122,16 +149,18 @@ export const PRESETS: Record<PresetKey, Preset> = {
   south_east: {
     key: 'south_east',
     nameSk: 'Juh + juhovýchod (Stokksnes)',
-    noteSk: 'Golden Circle, celý juh po Jökulsárlón a Stokksnes, späť tou istou cestou.',
+    noteSk: 'Golden Circle, celý juh po Jökulsárlón a Stokksnes, späť tou istou cestou s nocou pri Víku.',
     highlights: ['Gullfoss', 'Skógafoss', 'Reynisfjara', 'Jökulsárlón', 'Stokksnes', 'Höfn'],
     minDays: 6,
     maxDays: 7,
+    // posledná noc späť na juhu (Vík ~ 2,5 h od KEF), nie v Höfne (6 h)
     legs: [
       { region: 'reykjavik', nights: 1, km: 50 },
       { region: 'golden_circle', nights: 1, km: 120 },
-      { region: 'south', nights: 2, km: 180 },
+      { region: 'south', nights: 1, km: 180 },
       { region: 'southeast', nights: 2, km: 300 },
-      { region: 'reykjanes', nights: 0, km: 500 },
+      { region: 'south', nights: 1, km: 270 },
+      { region: 'reykjanes', nights: 0, km: 230 },
     ],
     totalKm: 1250,
   },
@@ -406,37 +435,64 @@ export function allocateNights(
 export const PACE_KM_PER_DAY: Record<Pace, number> = { relaxed: 200, normal: 300, intense: 400 };
 export const PACE_DRIVE_MIN_PER_DAY: Record<Pace, number> = { relaxed: 180, normal: 270, intense: 360 };
 
-/** Seed rozpätia izieb per región × typ, 4 os./noc, € (docs/07). */
+/**
+ * Seed rozpätia izieb per región × typ – 4 dospelí / noc, €, základ = september (docs/07, overené 09/2026 podľa
+ * Booking/Airbnb: penzión = 2 dvojlôžkové izby, Airbnb = celý byt/chata pre 4, hostel = 4 lôžka, hotel = 2 izby).
+ * Mesiac škáluje `LODGING_SEASON_FACTOR`.
+ */
 export const LODGING_RANGE: Record<string, Partial<Record<LodgingKind, [number, number]>>> = {
-  reykjavik: { airbnb: [180, 260], guesthouse: [200, 280], hostel: [120, 160], hotel: [240, 340] },
-  reykjanes: { airbnb: [180, 260], guesthouse: [200, 280], hostel: [120, 160], hotel: [240, 340] },
-  golden_circle: { airbnb: [160, 240], guesthouse: [180, 260], hostel: [100, 150], hotel: [220, 320] },
-  south: { airbnb: [160, 240], guesthouse: [180, 260], hostel: [100, 150], hotel: [220, 320] },
-  southeast: { airbnb: [170, 250], guesthouse: [190, 270], hostel: [110, 150], hotel: [240, 330] },
-  eastfjords: { airbnb: [150, 220], guesthouse: [170, 240], hostel: [100, 140], hotel: [210, 300] },
-  north_myvatn: { airbnb: [150, 220], guesthouse: [170, 250], hostel: [100, 140], hotel: [220, 310] },
-  akureyri: { airbnb: [150, 220], guesthouse: [170, 250], hostel: [100, 140], hotel: [220, 310] },
-  north_west: { airbnb: [160, 230], guesthouse: [180, 250], hostel: [100, 140], hotel: [220, 310] },
-  snaefellsnes: { airbnb: [160, 230], guesthouse: [180, 250], hostel: [100, 140], hotel: [220, 310] },
-  westfjords: { airbnb: [150, 220], guesthouse: [170, 240], hostel: [90, 130], hotel: [200, 290] },
-  highlands: { hostel: [100, 160], guesthouse: [180, 260] },
+  reykjavik: { airbnb: [270, 400], guesthouse: [300, 440], hostel: [190, 260], hotel: [420, 600] },
+  reykjanes: { airbnb: [250, 370], guesthouse: [280, 410], hostel: [180, 240], hotel: [380, 540] },
+  golden_circle: { airbnb: [240, 360], guesthouse: [280, 410], hostel: [170, 240], hotel: [380, 540] },
+  south: { airbnb: [250, 380], guesthouse: [290, 430], hostel: [180, 250], hotel: [400, 570] },
+  southeast: { airbnb: [270, 400], guesthouse: [310, 460], hostel: [190, 260], hotel: [430, 620] },
+  eastfjords: { airbnb: [220, 330], guesthouse: [260, 380], hostel: [160, 220], hotel: [340, 490] },
+  north_myvatn: { airbnb: [250, 370], guesthouse: [290, 420], hostel: [170, 240], hotel: [390, 560] },
+  akureyri: { airbnb: [230, 340], guesthouse: [270, 390], hostel: [160, 230], hotel: [360, 510] },
+  north_west: { airbnb: [220, 330], guesthouse: [260, 380], hostel: [160, 220], hotel: [340, 490] },
+  snaefellsnes: { airbnb: [240, 350], guesthouse: [280, 400], hostel: [160, 230], hotel: [370, 520] },
+  westfjords: { airbnb: [220, 320], guesthouse: [250, 370], hostel: [150, 210], hotel: [330, 470] },
+  highlands: { hostel: [240, 320], guesthouse: [300, 440] },
+};
+
+/**
+ * Sezónny faktor ceny izieb podľa mesiaca (1 = september; docs/07 rad „Ceny ubytovania“: júl–august vrchol,
+ * november–február najlacnejšie, okolo Vianoc a Silvestra opäť drahšie).
+ */
+export const LODGING_SEASON_FACTOR: Record<number, number> = {
+  1: 0.75,
+  2: 0.75,
+  3: 0.85,
+  4: 0.85,
+  5: 0.95,
+  6: 1.15,
+  7: 1.3,
+  8: 1.3,
+  9: 1,
+  10: 0.85,
+  11: 0.75,
+  12: 0.85,
+};
+export const lodgingSeasonFactor = (date: string | null | undefined): number => {
+  const m = date ? Number(date.slice(5, 7)) : 9;
+  return LODGING_SEASON_FACTOR[m] ?? 1;
 };
 
 /** Kemp seed: ISK/os./noc + elektrina (docs/07). */
 export const CAMPSITE_SEED: Record<string, { perPerson: number; electricity: number; campingCard: boolean }> =
   {
-    reykjavik: { perPerson: 3200, electricity: 1300, campingCard: false },
-    reykjanes: { perPerson: 2500, electricity: 1200, campingCard: false },
-    golden_circle: { perPerson: 2000, electricity: 0, campingCard: false },
-    south: { perPerson: 2500, electricity: 1200, campingCard: false },
-    southeast: { perPerson: 2300, electricity: 1300, campingCard: true },
-    eastfjords: { perPerson: 2200, electricity: 1000, campingCard: true },
-    north_myvatn: { perPerson: 2500, electricity: 1200, campingCard: false },
-    akureyri: { perPerson: 2200, electricity: 1200, campingCard: true },
-    north_west: { perPerson: 2000, electricity: 1000, campingCard: true },
-    snaefellsnes: { perPerson: 2000, electricity: 1000, campingCard: true },
-    westfjords: { perPerson: 2000, electricity: 1000, campingCard: true },
-    highlands: { perPerson: 2500, electricity: 0, campingCard: false },
+    reykjavik: { perPerson: 3600, electricity: 1500, campingCard: false },
+    reykjanes: { perPerson: 2800, electricity: 1300, campingCard: false },
+    golden_circle: { perPerson: 2400, electricity: 1100, campingCard: false },
+    south: { perPerson: 2800, electricity: 1300, campingCard: false },
+    southeast: { perPerson: 2600, electricity: 1400, campingCard: true },
+    eastfjords: { perPerson: 2500, electricity: 1200, campingCard: true },
+    north_myvatn: { perPerson: 2800, electricity: 1300, campingCard: false },
+    akureyri: { perPerson: 2500, electricity: 1300, campingCard: true },
+    north_west: { perPerson: 2300, electricity: 1100, campingCard: true },
+    snaefellsnes: { perPerson: 2400, electricity: 1100, campingCard: true },
+    westfjords: { perPerson: 2300, electricity: 1100, campingCard: true },
+    highlands: { perPerson: 2800, electricity: 0, campingCard: false },
   };
 export const CAMPING_TAX_ISK = 333;
 export const CAMPING_CARD_EUR = 199;

@@ -21,7 +21,8 @@ import {
 import { fmtEur } from '@/lib/format';
 import type { ActionState } from '../actions';
 import type { CatalogPoi, DayLite, StopLite } from '../itinerary-data';
-import { addStopAction, removeStopAction } from '../step05-actions';
+import { addStopAction, removeStopAction, swapStopAction } from '../step05-actions';
+import { AttractionBudgetPanel, type AttractionBudgetState } from './attraction-budget';
 import { DRONE, PoiSheet, PoiThumb } from './poi-sheet';
 
 const starStr = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
@@ -50,6 +51,7 @@ export function Step06Client({
   catalog,
   pax,
   totals,
+  budget,
   canEdit,
 }: {
   tripId: string;
@@ -57,6 +59,7 @@ export function Step06Client({
   catalog: CatalogPoi[];
   pax: number;
   totals: { entryGroup: number; stops: number };
+  budget: AttractionBudgetState;
   canEdit: boolean;
 }) {
   const [kind, setKind] = useState<string | null>(null);
@@ -66,10 +69,17 @@ export function Step06Client({
   const [dayFor, setDayFor] = useState<Record<string, string>>({});
   const [addState, addAct, adding] = useActionState<ActionState, FormData>(addStopAction, null);
   const [, removeAct, removing] = useActionState<ActionState, FormData>(removeStopAction, null);
+  const [swapState, swapAct, swapping] = useActionState<ActionState, FormData>(swapStopAction, null);
   const inPlan = useMemo(
     () => days.flatMap((d) => d.stops.filter((s) => !s.skip).map((s) => ({ s, d }))),
     [days],
   );
+  // krok 06 = peniaze: len platené miesta (vstupné na osobu); parkovné a zadarmo zastávky sú zhrnuté jedným riadkom
+  const paid = useMemo(() => inPlan.filter(({ s }) => s.entryPpEur > 0), [inPlan]);
+  const parkingOnly = useMemo(() => inPlan.filter(({ s }) => s.entryPpEur <= 0 && s.parkingEur > 0), [inPlan]);
+  const free = inPlan.length - paid.length - parkingOnly.length;
+  const parkingSum = parkingOnly.reduce((a, { s }) => a + s.parkingEur, 0);
+  const inPlanSlugs = useMemo(() => new Set(inPlan.map(({ s }) => s.slug)), [inPlan]);
   const rest = useMemo(
     () =>
       catalog.filter(
@@ -91,15 +101,30 @@ export function Step06Client({
       <StepHead
         step={6}
         name="Atrakcie"
-        question="Čo je v pláne a čo ešte pridať?"
-        lead="Vstupné je spočítané pre každého podľa veku v deň návštevy (z profilov). Katalóg sú miesta zo seedu, ktoré ešte nie sú v trase – pridaj ich do dňa a krok 04 prepočíta km a časy."
+        question="Koľko dáme na vstupné a za čo?"
+        lead="Celý zoznam zastávok s časmi je v kroku 04 – tu sú len platené miesta: vstupné pre každého podľa veku v deň návštevy, hodnota za peniaze a lacnejšia alternatíva na výmenu. Katalóg sú miesta zo seedu, ktoré ešte nie sú v trase."
         aside={<StepAmount amount={totals.entryGroup} source="seed" />}
       />
 
-      <StepSection title={`V pláne · ${inPlan.length}`} hint={`${pax} os. · ${bookings} s rezerváciou`}>
+      <StepSection title="Koľko míňať" hint="limit na osobu za celú cestu · platí pri Generovať v 04">
+        <AttractionBudgetPanel
+          tripId={tripId}
+          budget={budget}
+          days={days.length}
+          pax={pax}
+          spentGroup={totals.entryGroup}
+          canEdit={canEdit}
+          hint="Nad limitom? Vymeň drahé miesto za lacnejšiu alternatívu, vyraď ho, alebo v kroku 04 pregeneruj s novým limitom."
+        />
+      </StepSection>
+
+      <StepSection
+        title={`Platené v pláne · ${paid.length}`}
+        hint={`${pax} os. · ${bookings} s rezerváciou · ${free} zadarmo${parkingOnly.length ? ` · ${parkingOnly.length} len parkovné` : ''}`}
+      >
         <ListCard>
-          {inPlan.map(({ s, d }) => {
-            const dr = DRONE[s.droneStatus] ?? DRONE.unknown;
+          {paid.map(({ s, d }) => {
+            const swapTo = s.cheaper && !inPlanSlugs.has(s.cheaper.slug) ? s.cheaper : null;
             return (
               <ListRow
                 key={s.stopId}
@@ -107,10 +132,10 @@ export function Step06Client({
                 title={`${s.name}${s.hiddenGem ? ' 💎' : ''}`}
                 meta={[
                   starStr(s.stars),
-                  `${s.stayMin} min`,
-                  s.entryPpEur ? `${fmtEur(s.entryPpEur)}/os` : 'zadarmo',
+                  `${fmtEur(s.entryPpEur)}/os`,
                   `deň ${String(d.dayIndex).padStart(2, '0')}`,
                   s.regionName,
+                  s.parkingEur ? `park. ${fmtEur(s.parkingEur)}` : null,
                 ]
                   .filter(Boolean)
                   .join(' · ')}
@@ -119,12 +144,16 @@ export function Step06Client({
                     {valueTag(s.valuePer10Eur) && (
                       <Tag tone={valueTag(s.valuePer10Eur)!.tone}>{valueTag(s.valuePer10Eur)!.label}</Tag>
                     )}
-                    <Tag tone={dr.tone}>{dr.label}</Tag>
                     {s.bookingRequired && <Tag tone="vio">rezervácia</Tag>}
+                    {swapTo && (
+                      <Tag tone="mut">
+                        lacnejšie: {swapTo.name} ({swapTo.entryPpEur ? `${fmtEur(swapTo.entryPpEur)}/os` : 'zadarmo'})
+                      </Tag>
+                    )}
                   </>
                 }
-                amount={s.entryGroup ? fmtEur(s.entryGroup) : '0 €'}
-                amountSub={s.entryGroup ? `${fmtEur(s.entryGroup / pax)}/os` : 'zadarmo'}
+                amount={fmtEur(s.entryGroup)}
+                amountSub={`${fmtEur(s.entryGroup / pax)}/os`}
                 action={
                   <span className="flex items-center gap-1">
                     <Button
@@ -134,6 +163,16 @@ export function Step06Client({
                     >
                       Detail
                     </Button>
+                    {canEdit && swapTo && (
+                      <form action={swapAct}>
+                        <input type="hidden" name="tripId" value={tripId} />
+                        <input type="hidden" name="stopId" value={s.stopId} />
+                        <input type="hidden" name="poiSlug" value={swapTo.slug} />
+                        <Button type="submit" size="sm" variant="secondary" disabled={swapping}>
+                          Vymeniť
+                        </Button>
+                      </form>
+                    )}
                     {canEdit && (
                       <form action={removeAct}>
                         <input type="hidden" name="tripId" value={tripId} />
@@ -149,12 +188,33 @@ export function Step06Client({
               />
             );
           })}
+          {parkingOnly.length > 0 && (
+            <ListRow
+              title={`Parkovné · ${parkingOnly.length} miest`}
+              meta={parkingOnly.map(({ s }) => s.name).join(' · ')}
+              amount={fmtEur(Math.round(parkingSum))}
+              amountSub="za auto"
+            />
+          )}
+          {free > 0 && (
+            <ListRow
+              title={`Zadarmo · ${free} zastávok`}
+              meta="vodopády, pláže, vyhliadky – zoznam a časy v kroku 04"
+              amount="0 €"
+              action={
+                <ButtonLink href={`/cesta/${tripId}?krok=4`} size="sm" variant="ghost">
+                  Krok 04
+                </ButtonLink>
+              }
+            />
+          )}
           {inPlan.length === 0 && (
             <div className="text-ink-3 px-4 py-6 text-center text-sm">
               Zatiaľ nič – vygeneruj trasu v kroku 04 alebo pridaj z katalógu.
             </div>
           )}
         </ListCard>
+        {swapState && !swapState.ok && <Notice tone="bad">{swapState.error}</Notice>}
       </StepSection>
 
       <StepSection title="Katalóg · odporúčané" hint={`${rest.length} miest mimo plánu`}>
@@ -246,7 +306,7 @@ export function Step06Client({
             { label: `Vstupné · ${pax} os.`, value: fmtEur(totals.entryGroup) },
             { label: 'Na osobu', value: fmtEur(totals.entryGroup / pax) },
             { label: 'Rezervovať vopred', value: String(bookings) },
-            { label: 'Zastávok', value: String(inPlan.length) },
+            { label: 'Platených miest', value: `${paid.length} z ${inPlan.length}` },
           ]}
         />
       </StepSection>

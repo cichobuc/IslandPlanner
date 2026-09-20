@@ -165,7 +165,8 @@ async function regenerateStops(trip: TripRow, gemShare: number): Promise<ActionS
     overnightRegionId: i === days.length - 1 ? null : d.overnightRegionId,
     locked: d.locked,
     // prvý deň: odchod = prílet + 60 min (pasy, auto); posledný: do KEF najneskôr 3 h pred odletom
-    startMin: i === 0 && derived ? derived.arrivalMinutesOfDay + 60 : DEFAULT_START_MIN,
+    // ostatné dni bez pevného štartu (08:30) – posledný deň si generátor posunie odchod skôr kvôli odletu
+    startMin: i === 0 && derived ? derived.arrivalMinutesOfDay + 60 : undefined,
     endMin: i === days.length - 1 && derived ? derived.departureMinutesOfDay - 3 * 60 : undefined,
   }));
   const allow4x4 = vehicle[0]?.cls === '4x4' || vehicle[0]?.cls === 'camper4x4';
@@ -180,6 +181,8 @@ async function regenerateStops(trip: TripRow, gemShare: number): Promise<ActionS
     gemShare,
     keep,
     attractionBudget: (trip.attractionBudget as AttractionBudgetLevel) ?? 'balanced',
+    attractionPoolPpEur: trip.attractionBudgetPpEur != null ? Number(trip.attractionBudgetPpEur) : null,
+    attractionSplurge: trip.attractionSplurge,
     pax: Math.max(
       1,
       (
@@ -365,6 +368,66 @@ export async function removeStopAction(_prev: ActionState, formData: FormData): 
   return { ok: true };
 }
 
+const swapSchema = z.object({ tripId: z.uuid(), stopId: z.uuid(), poiSlug: z.string().min(1) });
+
+/** Vymeniť zastávku za lacnejšiu alternatívu (krok 06): to isté miesto v dni nahradí iné POI, ručné – generátor ho zachová. */
+export async function swapStopAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const parsed = swapSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { ok: false, error: 'Neplatný vstup.' };
+  const { tripId, stopId, poiSlug } = parsed.data;
+  if (!(await editable(tripId))) return { ok: false, error: NO_EDIT };
+  const db = getDb();
+  const [stop] = await db
+    .select()
+    .from(schema.itineraryStops)
+    .where(eq(schema.itineraryStops.id, stopId))
+    .limit(1);
+  const [poi] = await db
+    .select({ id: schema.pois.id, visitMin: schema.pois.visitMin, regionId: schema.pois.regionId })
+    .from(schema.pois)
+    .where(eq(schema.pois.slug, poiSlug))
+    .limit(1);
+  if (!stop || !poi) return { ok: false, error: 'Zastávka alebo miesto neexistuje.' };
+  const days = await db
+    .select({ id: schema.itineraryDays.id, dayIndex: schema.itineraryDays.dayIndex, region: schema.itineraryDays.overnightRegionId })
+    .from(schema.itineraryDays)
+    .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive')))
+    .orderBy(asc(schema.itineraryDays.dayIndex));
+  const day = days.find((d) => d.id === stop.dayId);
+  if (!day) return { ok: false, error: 'Deň neexistuje.' };
+  // alternatíva v inom regióne (Mývatn Baths → Hofsós): ide do dňa, ktorý tam nocuje alebo odtiaľ vyráža
+  const idx = days.findIndex((d) => d.id === day.id);
+  const startRegion = idx > 0 ? days[idx - 1].region : null;
+  let targetDay = day;
+  if (poi.regionId && poi.regionId !== day.region && poi.regionId !== startRegion) {
+    const byNight = days.find((d) => d.region === poi.regionId);
+    const byStart = days.find((d, i) => i > 0 && days[i - 1].region === poi.regionId);
+    targetDay = byNight ?? byStart ?? day;
+  }
+  const others = await db
+    .select()
+    .from(schema.itineraryStops)
+    .where(eq(schema.itineraryStops.dayId, targetDay.id));
+  if (others.some((s) => s.id !== stop.id && s.poiId === poi.id))
+    return { ok: false, error: `Alternatíva už je v dni ${targetDay.dayIndex} – pôvodnú zastávku stačí vyradiť.` };
+  await db
+    .update(schema.itineraryStops)
+    .set({
+      dayId: targetDay.id,
+      order: targetDay.id === day.id ? stop.order : others.length,
+      poiId: poi.id,
+      stayMin: poi.visitMin ?? stop.stayMin,
+      isManual: true,
+      entryOverride: null,
+      variant: null,
+    })
+    .where(eq(schema.itineraryStops.id, stop.id));
+  await recomputeDay(tripId, day.id);
+  if (targetDay.id !== day.id) await recomputeDay(tripId, targetDay.id);
+  revalidate(tripId);
+  return { ok: true };
+}
+
 const lockSchema = z.object({ tripId: z.uuid(), dayId: z.uuid(), locked: z.enum(['1', '0']) });
 
 /** Zamknúť deň – generátor aj kaskáda ho nechajú tak. */
@@ -472,22 +535,37 @@ async function recomputeDay(tripId: string, dayId: string) {
 
 const budgetSchema = z.object({
   tripId: z.uuid(),
-  level: z.enum(['free', 'budget', 'balanced', 'unlimited']),
+  /** predvoľba (chip) – zruší vlastný limit */
+  level: z.enum(['free', 'budget', 'balanced', 'unlimited']).optional(),
+  /** vlastný limit: € na osobu za celú cestu ('' = zrušiť) */
+  ppEur: z.preprocess(
+    (v) => (v === '' || v == null ? undefined : Number(String(v).replace(',', '.'))),
+    z.number().min(0).max(5000).optional(),
+  ),
+  splurge: z.enum(['on', 'off']).optional(),
 });
 
-/** Koľko míňať na atrakcie (ADR-015) – uloží sa na cestu; generátor ju použije pri ďalšom Generovať. */
+/**
+ * Koľko míňať na atrakcie (ADR-015/016): chip = úroveň (zruší vlastný limit), pole = vlastný mešec € na osobu za
+ * cestu, prepínač = jeden 5★ zážitok nad limit. Uloží sa na cestu; generátor to použije pri ďalšom Generovať.
+ */
 export async function setAttractionBudgetAction(
   _prev: ActionState,
   formData: FormData,
 ): Promise<ActionState> {
   const parsed = budgetSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: 'Neplatná úroveň.' };
-  const { tripId, level } = parsed.data;
+  if (!parsed.success) return { ok: false, error: 'Neplatný limit – zadaj číslo 0–5000 €.' };
+  const { tripId, level, ppEur, splurge } = parsed.data;
   if (!(await editable(tripId))) return { ok: false, error: NO_EDIT };
-  await getDb()
-    .update(schema.trips)
-    .set({ attractionBudget: level, updatedAt: new Date() })
-    .where(eq(schema.trips.id, tripId));
+  const patch: Partial<typeof schema.trips.$inferInsert> = { updatedAt: new Date() };
+  if (level) {
+    patch.attractionBudget = level;
+    patch.attractionBudgetPpEur = null;
+  } else if (formData.has('ppEur')) {
+    patch.attractionBudgetPpEur = ppEur != null ? String(Math.round(ppEur)) : null;
+  }
+  if (splurge) patch.attractionSplurge = splurge === 'on';
+  await getDb().update(schema.trips).set(patch).where(eq(schema.trips.id, tripId));
   revalidate(tripId);
   return { ok: true };
 }

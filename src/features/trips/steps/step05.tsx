@@ -31,7 +31,11 @@ export async function Step05({ access }: { access: TripAccess }) {
       autoKey={autoKey}
       ratings={rated.ratings}
       recommended={rated.recommended}
-      attractionBudget={(trip.attractionBudget as 'free' | 'budget' | 'balanced' | 'unlimited') ?? 'balanced'}
+      attractionBudget={{
+        level: (trip.attractionBudget as 'free' | 'budget' | 'balanced' | 'unlimited') ?? 'balanced',
+        ppEur: trip.attractionBudgetPpEur != null ? Number(trip.attractionBudgetPpEur) : null,
+        splurge: trip.attractionSplurge,
+      }}
       canEdit={canEdit(role)}
     />
   );

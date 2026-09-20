@@ -4,6 +4,7 @@ import {
   generateItinerary,
   orderStops,
   regionsBetween,
+  lambdaForPpPerDay,
   scorePoi,
   stars,
   sunTimes,
@@ -98,9 +99,11 @@ describe('generateItinerary – globálne priradenie', () => {
     const all = out.flatMap((d) => d.stops.map((s) => s.slug));
     expect(new Set(all).size).toBe(all.length);
     expect(out[2].endKey).toBe('kef');
-    // odlet skoro ráno: žiadne zastávky a varovanie, že presun z juhu na KEF sa do limitu nezmestí
+    // odlet skoro ráno: žiadne zastávky, odchod posunutý skôr (nie „prísť po limite“) a jasná správa
     expect(out[2].stops).toHaveLength(0);
-    expect(out[2].warnings.join(' ')).toMatch(/po limite/);
+    expect(out[2].startMin).toBeLessThan(8 * 60 + 30);
+    expect(out[2].warnings.join(' ')).toMatch(/Odchod už o/);
+    expect(out[2].warnings.join(' ')).toMatch(/Len presun na letisko/);
   });
   it('F-cesty len s 4×4', () => {
     expect(
@@ -199,6 +202,15 @@ describe('pomocné', () => {
       'reykjavik',
     ]);
     expect(regionsBetween('south', 'south')).toEqual(['south']);
+    // návrat z juhovýchodu na KEF (okruh tam a späť) ide kratším smerom cez juh, nie okolo ostrova
+    expect(regionsBetween('southeast', 'reykjanes')).toEqual([
+      'southeast',
+      'south',
+      'golden_circle',
+      'reykjavik',
+      'reykjanes',
+    ]);
+    expect(regionsBetween('southeast', 'south')).toEqual(['southeast', 'south']);
   });
   it('skóre: klenot dostane bonus, záujem zdvojnásobí váhu', () => {
     const b = scorePoi(poi('a', 'south', 0, 0), []);
@@ -264,6 +276,44 @@ describe('rozpočet na atrakcie (ADR-015)', () => {
   it('bez limitu: všetko, čo sa zmestí do dňa', () => {
     const s = slugs(run('unlimited'));
     expect(s).toEqual(expect.arrayContaining(['blue-lagoon-x', 'glacier-hike']));
+  });
+  it('vlastný mešec: 40 €/os na cestu → platené len do 40 €/os (Secret Lagoon), 86 € Blue Lagoon nie; bez 5★ výnimky ani túra', () => {
+    const custom = (pool: number, splurge: boolean) =>
+      slugs(
+        generateItinerary({
+          days: days.slice(0, 2),
+          pois: paid,
+          matrix: m,
+          anchorPoints: ANCHORS,
+          interests: ['glacier'],
+          pace: 'intense',
+          attractionBudget: 'unlimited',
+          attractionPoolPpEur: pool,
+          attractionSplurge: splurge,
+          pax: 4,
+        }),
+      );
+    const s = custom(40, false);
+    expect(s).toContain('free-gem');
+    const spent = s.reduce((a, slug) => a + (paid.find((p) => p.slug === slug)?.entryPpEur ?? 0), 0);
+    expect(spent).toBeGreaterThan(0);
+    expect(spent).toBeLessThanOrEqual(40);
+    expect(s).not.toContain('blue-lagoon-x');
+    expect(s).not.toContain('glacier-hike');
+    // s povoleným 5★ zážitkom sa túra (záujem ľadovce) zmestí nad mešec
+    expect(custom(40, true)).toContain('glacier-hike');
+    // 0 € = len zadarmo
+    expect(custom(0, true)).toEqual(['free-gem']);
+    // 500 €/os = prakticky bez limitu
+    expect(custom(500, false)).toEqual(expect.arrayContaining(['blue-lagoon-x', 'glacier-hike']));
+  });
+  it('penalizácia ceny pre vlastný mešec je medzi úrovňami', () => {
+    expect(lambdaForPpPerDay(5)).toBe(0.06);
+    expect(lambdaForPpPerDay(35)).toBe(0.025);
+    expect(lambdaForPpPerDay(200)).toBe(0.005);
+    const mid = lambdaForPpPerDay(23.5);
+    expect(mid).toBeGreaterThan(0.025);
+    expect(mid).toBeLessThan(0.06);
   });
   it('hviezdičky a hodnota za peniaze', () => {
     expect(stars(paid[0])).toBe(5);

@@ -170,6 +170,7 @@ export async function Step03({ access }: { access: TripAccess }) {
       pace: trip.pace,
       interests: trip.interests,
       routePreset: trip.routePreset,
+      startDate: trip.startDate ?? `${trip.targetMonth.slice(0, 7)}-15`,
       fx,
       fuelIskPerL: fuelIsk,
       food: { level: 'budget' },

@@ -17,6 +17,11 @@ export async function Step06({ access }: { access: TripAccess }) {
       catalog={data.catalog}
       pax={data.pax}
       totals={data.totals}
+      budget={{
+        level: (trip.attractionBudget as 'free' | 'budget' | 'balanced' | 'unlimited') ?? 'balanced',
+        ppEur: trip.attractionBudgetPpEur != null ? Number(trip.attractionBudgetPpEur) : null,
+        splurge: trip.attractionSplurge,
+      }}
       canEdit={canEdit(role)}
     />
   );

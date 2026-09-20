@@ -14,10 +14,16 @@ const stay = (o: Partial<LodgingStayInput>): LodgingStayInput => ({
 });
 
 describe('lodging', () => {
-  it('odhad z rozpätia seedu per región × typ, škálovaný na pax', () => {
-    expect(lodgingEstimate('south', 'guesthouse', 4)).toEqual({ min: 180, max: 260 });
-    expect(lodgingEstimate('south', 'guesthouse', 2)).toEqual({ min: 90, max: 130 });
-    expect(lodgingEstimate('neznamy', 'hostel', 4)).toEqual({ min: 100, max: 150 });
+  it('odhad z rozpätia seedu per región × typ, škálovaný na pax a mesiac (september = 1×, júl 1,3×, január 0,75×)', () => {
+    expect(lodgingEstimate('south', 'guesthouse', 4)).toEqual({ min: 290, max: 430 });
+    expect(lodgingEstimate('south', 'guesthouse', 2)).toEqual({ min: 145, max: 215 });
+    expect(lodgingEstimate('neznamy', 'hostel', 4)).toEqual({ min: 180, max: 250 });
+    expect(lodgingEstimate('south', 'guesthouse', 4, '2027-07-10')).toEqual({ min: 377, max: 559 });
+    expect(lodgingEstimate('south', 'guesthouse', 4, '2027-01-10')).toEqual({ min: 217.5, max: 322.5 });
+    // odhadovaná noc bez ponuky berie mesiac z dátumu noci
+    const july = stayCost(stay({ regionId: 'south', nightDate: '2027-07-10' }), 4, 5, FX);
+    expect(july.min).toBe(377);
+    expect(july.confidence).toBe('estimate');
   });
   it('vybraná ponuka: noc + upratovanie/noci + service fee + city tax × pax', () => {
     const c = stayCost(
@@ -41,9 +47,9 @@ describe('lodging', () => {
     const s = stay({ regionId: 'akureyri', kind: 'camper_site', scenarioKey: 'camper' });
     const without = campsiteCost(s, 4, FX, { campingCard: false }).amount;
     const withCard = campsiteCost(s, 4, FX, { campingCard: true });
-    expect(without).toBeCloseTo((2200 * 4 + 1200 + 333 * 4) / 147, 1);
+    expect(without).toBeCloseTo((2500 * 4 + 1300 + 333 * 4) / 147, 1);
     expect(withCard.campingCardApplied).toBe(true);
-    expect(withCard.amount).toBeCloseTo((1200 + 333 * 4) / 147, 1);
+    expect(withCard.amount).toBeCloseTo((1300 + 333 * 4) / 147, 1);
     expect(stayCost(s, 4, 9, FX).hasKitchen).toBe(true);
   });
   it('Camping Card sa pri 4 dospelých (2 karty, 398 €) oplatí až od ~ 10 nocí v sieti', () => {

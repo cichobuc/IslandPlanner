@@ -200,6 +200,30 @@ export async function updateStayAction(_prev: ActionState, formData: FormData): 
   return { ok: true };
 }
 
+const kindSchema = z.object({ tripId: z.uuid(), kind: z.enum(['hostel', 'guesthouse', 'airbnb', 'hotel']) });
+
+/** Štandard izieb pre všetky odhadované noci vetvy Auto (bez ponuky) – rozpätie zo seedu podľa typu. */
+export async function setEstimateKindAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const parsed = kindSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { ok: false, error: 'Neplatný typ.' };
+  const { tripId, kind } = parsed.data;
+  const access = await getTripAccess(tripId);
+  if (!access || !canEdit(access.role)) return { ok: false, error: NO_EDIT };
+  const db = getDb();
+  const stays = await db
+    .select({ id: schema.lodgingStays.id, lodgingOptionId: schema.lodgingStays.lodgingOptionId, notes: schema.lodgingStays.notes })
+    .from(schema.lodgingStays)
+    .where(and(eq(schema.lodgingStays.tripId, tripId), eq(schema.lodgingStays.scenarioKey, 'car')));
+  const ids = stays.filter((s) => !s.lodgingOptionId && s.notes !== 'bez ubytovania').map((s) => s.id);
+  for (const id of ids)
+    await db
+      .update(schema.lodgingStays)
+      .set({ kindOverride: kind, updatedAt: new Date() })
+      .where(eq(schema.lodgingStays.id, id));
+  revalidate(tripId);
+  return { ok: true };
+}
+
 const cardSchema = z.object({ tripId: z.uuid(), on: z.enum(['1', '0']) });
 
 /** Camping Card (2 dospelí/karta, 199 €, platí do 15. 9.) – uložená pri vozidle vetvy Karavan. */

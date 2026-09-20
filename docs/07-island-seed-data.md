@@ -118,18 +118,29 @@ Okruh sa volí v kroku 04 (`trip.route_preset` = `auto` | kľúč); **hodnotenie
 | Seyðisfjörður (modrý kostol, dúhová ulica) | 0 | 1 h |
 
 
-## Izby / Airbnb – rozpätia per región × typ (seed pre `lodging-estimate`, 4 osoby, september)
-Predvolený výsledok kroku 04 vo vetve Auto; presná ponuka je voliteľné spresnenie. Overovať 2× ročne podľa Booking/Airbnb.
+## Izby / Airbnb – rozpätia per región × typ (seed pre `lodging-estimate`, 4 dospelí, september 2026)
+Predvolený výsledok kroku 05 vo vetve Auto; presná ponuka je voliteľné spresnenie. Overovať 2× ročne podľa Booking/Airbnb.
+Penzión = 2 dvojlôžkové izby (často spoločná kúpeľňa), Airbnb = celý byt/chata pre 4, hostel = 4 lôžka (dorm alebo 4-lôžková izba), hotel = 2 izby.
+**Prepísané 20. 9. 2026** – pôvodné rozpätia (160–260 €) boli ~40 % pod realitou Bookingu.
 | Región | Airbnb/apartmán 4 os. | Penzión 2 izby | Hostel 4 lôžka | Hotel 2 izby |
 |---|---|---|---|---|
-| Reykjavík / Reykjanes | 180–260 € | 200–280 | 120–160 | 240–340 |
-| Golden Circle / Juh | 160–240 | 180–260 | 100–150 | 220–320 |
-| Juhovýchod (Höfn) | 170–250 | 190–270 | 110–150 | 240–330 |
-| Východné fjordy | 150–220 | 170–240 | 100–140 | 210–300 |
-| Sever (Mývatn, Akureyri) | 150–220 | 170–250 | 100–140 | 220–310 |
-| Severozápad / Snæfellsnes | 160–230 | 180–250 | 100–140 | 220–310 |
-| Westfjords | 150–220 | 170–240 | 90–130 | 200–290 |
+| Reykjavík | 270–400 € | 300–440 | 190–260 | 420–600 |
+| Reykjanes (KEF) | 250–370 | 280–410 | 180–240 | 380–540 |
+| Golden Circle | 240–360 | 280–410 | 170–240 | 380–540 |
+| Juh (Selfoss–Vík) | 250–380 | 290–430 | 180–250 | 400–570 |
+| Juhovýchod (Höfn) | 270–400 | 310–460 | 190–260 | 430–620 |
+| Východné fjordy | 220–330 | 260–380 | 160–220 | 340–490 |
+| Mývatn | 250–370 | 290–420 | 170–240 | 390–560 |
+| Akureyri | 230–340 | 270–390 | 160–230 | 360–510 |
+| Severozápad | 220–330 | 260–380 | 160–220 | 340–490 |
+| Snæfellsnes | 240–350 | 280–400 | 160–230 | 370–520 |
+| Westfjords | 220–320 | 250–370 | 150–210 | 330–470 |
+| Vysočina (chaty) | – | 300–440 | 240–320 | – |
+
+**Sezónny faktor** (`LODGING_SEASON_FACTOR`, násobí rozpätie podľa mesiaca noci): jan–feb 0,75 · mar–apr 0,85 · máj 0,95 · jún 1,15 · júl–aug 1,3 · **sep 1,0** · okt 0,85 · nov 0,75 · dec 0,85.
+Škálovanie na osoby: 4 os. = 1×, +1 izba na každé 2 osoby (3 os. = 1×, 2 os. = 0,5×).
 Sleeping-bag izby (svefnpokapláss) ≈ −30 %; Airbnb + service fee ~ 14 % a upratovanie 30–60 € sú v rozpätí započítané.
+V kroku 05 sa dá jedným klikom nastaviť štandard pre všetky odhadované noci (hostel / penzión / Airbnb / hotel); presná ponuka prepíše odhad.
 
 ## Kempy (vetva karavan) – seed je len záloha, živé dáta dáva `tjalda` konektor (docs/04)
 | Kemp | Región | Cena/os./noc | Elektrina | Camping Card |

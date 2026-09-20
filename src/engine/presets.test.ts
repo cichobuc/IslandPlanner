@@ -42,9 +42,16 @@ describe('presets', () => {
       expect(p.minDays).toBeLessThanOrEqual(p.maxDays);
     }
   });
-  it('4 noci na south_only: juh aj juhovýchod po 2', () => {
+  it('4 noci na south_only: juh → juhovýchod ×2 → späť juh (posledný deň nie je 6 h z Höfnu)', () => {
     const r = allocateNights(PRESETS.south_only, 4);
-    expect(r).toEqual(['south', 'south', 'southeast', 'southeast']);
+    expect(r).toEqual(['south', 'southeast', 'southeast', 'south']);
+  });
+  it('okruhy „tam a späť“ nekončia poslednou nocou na juhovýchode', () => {
+    for (const k of ['south_only', 'south_east'] as const) {
+      const p = PRESETS[k];
+      const r = allocateNights(p, p.minDays - 1);
+      expect(r[r.length - 1]).not.toBe('southeast');
+    }
   });
   it('hodnotenie na 5 dní: krátke okruhy sedia, ring je „málo dní“, odporúčaný má najvyššie skóre', () => {
     const pois = [
