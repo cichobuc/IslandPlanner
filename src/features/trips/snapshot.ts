@@ -2,21 +2,37 @@ import 'server-only';
 import { and, asc, eq } from 'drizzle-orm';
 import { getDb, schema } from '@/db';
 import type { CascadeResult } from '@/engine/cascade';
-import type { FlightSelectionInput, LodgingStayInput, Money, ScenarioKey, TravelerInput, TripSnapshot } from '@/engine/types';
+import type {
+  FlightSelectionInput,
+  LodgingStayInput,
+  Money,
+  ScenarioKey,
+  TravelerInput,
+  TripSnapshot,
+} from '@/engine/types';
 
 /** Predvolené kurzy/palivo, kým ich nedodá frankfurter/gasvaktin snapshot (blok 2.5). */
 export const DEFAULT_FX = { ISK_EUR: 0.0067, date: '2026-09-20' };
 export const DEFAULT_FUEL = { petrol: 320, diesel: 318 };
 
-const asMoney = (m: unknown): Money | null => (m && typeof m === 'object' && 'amount' in (m as object) ? (m as Money) : null);
+const asMoney = (m: unknown): Money | null =>
+  m && typeof m === 'object' && 'amount' in (m as object) ? (m as Money) : null;
 
 /** Vybraný let ako vstup enginu (z flight_options alebo ručný záznam). */
 export async function loadFlightInput(tripId: string): Promise<FlightSelectionInput | null> {
   const db = getDb();
-  const [sel] = await db.select().from(schema.flightSelection).where(eq(schema.flightSelection.tripId, tripId)).limit(1);
+  const [sel] = await db
+    .select()
+    .from(schema.flightSelection)
+    .where(eq(schema.flightSelection.tripId, tripId))
+    .limit(1);
   if (!sel) return null;
   if (sel.flightOptionId) {
-    const [o] = await db.select().from(schema.flightOptions).where(eq(schema.flightOptions.id, sel.flightOptionId)).limit(1);
+    const [o] = await db
+      .select()
+      .from(schema.flightOptions)
+      .where(eq(schema.flightOptions.id, sel.flightOptionId))
+      .limit(1);
     if (o) return optionToInput(o);
   }
   if (sel.manual) {
@@ -56,13 +72,21 @@ export async function loadSnapshot(tripId: string): Promise<TripSnapshot> {
   const [trip] = await db.select().from(schema.trips).where(eq(schema.trips.id, tripId)).limit(1);
   if (!trip) throw new Error('Cesta neexistuje');
   const [travelers, days, stays, flight] = await Promise.all([
-    db.select().from(schema.travelers).where(eq(schema.travelers.tripId, tripId)).orderBy(asc(schema.travelers.sortOrder)),
+    db
+      .select()
+      .from(schema.travelers)
+      .where(eq(schema.travelers.tripId, tripId))
+      .orderBy(asc(schema.travelers.sortOrder)),
     db
       .select()
       .from(schema.itineraryDays)
       .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive')))
       .orderBy(asc(schema.itineraryDays.dayIndex)),
-    db.select().from(schema.lodgingStays).where(eq(schema.lodgingStays.tripId, tripId)).orderBy(asc(schema.lodgingStays.nightIndex)),
+    db
+      .select()
+      .from(schema.lodgingStays)
+      .where(eq(schema.lodgingStays.tripId, tripId))
+      .orderBy(asc(schema.lodgingStays.nightIndex)),
     loadFlightInput(tripId),
   ]);
   const lodgingStays: TripSnapshot['lodgingStays'] = {};
@@ -148,14 +172,28 @@ export async function persistFlightCascade(tripId: string, result: CascadeResult
     // dni: zamknuté ostávajú (engine ich vrátil s pôvodným id), ostatné nanovo
     await tx
       .delete(schema.itineraryDays)
-      .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive'), eq(schema.itineraryDays.locked, false)));
+      .where(
+        and(
+          eq(schema.itineraryDays.tripId, tripId),
+          eq(schema.itineraryDays.scenarioKey, 'drive'),
+          eq(schema.itineraryDays.locked, false),
+        ),
+      );
     const lockedIds = new Set(
-      (await tx.select({ id: schema.itineraryDays.id }).from(schema.itineraryDays).where(eq(schema.itineraryDays.tripId, tripId))).map((r) => r.id),
+      (
+        await tx
+          .select({ id: schema.itineraryDays.id })
+          .from(schema.itineraryDays)
+          .where(eq(schema.itineraryDays.tripId, tripId))
+      ).map((r) => r.id),
     );
     const dayIdByIndex = new Map<number, string>();
     for (const d of snapshot.itinerary) {
       if (lockedIds.has(d.id)) {
-        await tx.update(schema.itineraryDays).set({ date: d.date, dayIndex: d.dayIndex }).where(eq(schema.itineraryDays.id, d.id));
+        await tx
+          .update(schema.itineraryDays)
+          .set({ date: d.date, dayIndex: d.dayIndex })
+          .where(eq(schema.itineraryDays.id, d.id));
         dayIdByIndex.set(d.dayIndex, d.id);
         continue;
       }
@@ -178,13 +216,33 @@ export async function persistFlightCascade(tripId: string, result: CascadeResult
     // noci per scenár: ručné update dátumu, ostatné nanovo
     for (const key of ['car', 'camper'] as ScenarioKey[]) {
       const stays: LodgingStayInput[] = snapshot.lodgingStays[key] ?? [];
-      await tx.delete(schema.lodgingStays).where(and(eq(schema.lodgingStays.tripId, tripId), eq(schema.lodgingStays.scenarioKey, key), eq(schema.lodgingStays.isManual, false)));
+      await tx
+        .delete(schema.lodgingStays)
+        .where(
+          and(
+            eq(schema.lodgingStays.tripId, tripId),
+            eq(schema.lodgingStays.scenarioKey, key),
+            eq(schema.lodgingStays.isManual, false),
+          ),
+        );
       const manualIds = new Set(
-        (await tx.select({ id: schema.lodgingStays.id }).from(schema.lodgingStays).where(and(eq(schema.lodgingStays.tripId, tripId), eq(schema.lodgingStays.scenarioKey, key)))).map((r) => r.id),
+        (
+          await tx
+            .select({ id: schema.lodgingStays.id })
+            .from(schema.lodgingStays)
+            .where(and(eq(schema.lodgingStays.tripId, tripId), eq(schema.lodgingStays.scenarioKey, key)))
+        ).map((r) => r.id),
       );
       for (const s of stays) {
         if (manualIds.has(s.id)) {
-          await tx.update(schema.lodgingStays).set({ nightDate: s.nightDate, nightIndex: s.nightIndex, dayId: dayIdByIndex.get(s.nightIndex) ?? null }).where(eq(schema.lodgingStays.id, s.id));
+          await tx
+            .update(schema.lodgingStays)
+            .set({
+              nightDate: s.nightDate,
+              nightIndex: s.nightIndex,
+              dayId: dayIdByIndex.get(s.nightIndex) ?? null,
+            })
+            .where(eq(schema.lodgingStays.id, s.id));
           continue;
         }
         await tx.insert(schema.lodgingStays).values({

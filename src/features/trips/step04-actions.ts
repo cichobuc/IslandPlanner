@@ -9,12 +9,17 @@ import type { ActionState } from './actions';
 
 const NO_EDIT = 'Nemáš právo upravovať túto cestu.';
 const revalidate = (tripId: string) => revalidatePath(`/[locale]/cesta/${tripId}`, 'layout');
-const opt = <T extends z.ZodTypeAny>(t: T) => z.preprocess((v) => (v === '' || v == null ? undefined : v), t.optional());
+const opt = <T extends z.ZodTypeAny>(t: T) =>
+  z.preprocess((v) => (v === '' || v == null ? undefined : v), t.optional());
 
 async function editableStay(tripId: string, stayId: string) {
   const access = await getTripAccess(tripId);
   if (!access || !canEdit(access.role)) return null;
-  const [stay] = await getDb().select().from(schema.lodgingStays).where(and(eq(schema.lodgingStays.id, stayId), eq(schema.lodgingStays.tripId, tripId))).limit(1);
+  const [stay] = await getDb()
+    .select()
+    .from(schema.lodgingStays)
+    .where(and(eq(schema.lodgingStays.id, stayId), eq(schema.lodgingStays.tripId, tripId)))
+    .limit(1);
   return stay ? { access, stay } : null;
 }
 
@@ -27,13 +32,18 @@ const offerSchema = z.object({
   pricePerNight: z.coerce.number().min(0).max(10000),
   cleaningFee: opt(z.coerce.number().min(0).max(1000)),
   hasKitchen: z.enum(['yes', 'no']).default('yes'),
-  checkInUntil: z.string().regex(/^\d{2}:\d{2}$/).optional().or(z.literal('')),
+  checkInUntil: z
+    .string()
+    .regex(/^\d{2}:\d{2}$/)
+    .optional()
+    .or(z.literal('')),
 });
 
 /** „Vložiť ponuku": ubytovanie z Booking/Airbnb (URL + cena) → lodging_options (per cesta) + priradenie k noci. Až tým je noc presná. */
 export async function assignOfferAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = offerSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
+  if (!parsed.success)
+    return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
   const v = parsed.data;
   const ctx = await editableStay(v.tripId, v.stayId);
   if (!ctx) return { ok: false, error: NO_EDIT };
@@ -48,7 +58,8 @@ export async function assignOfferAction(_prev: ActionState, formData: FormData):
       url: v.url || null,
       connectorId: 'lodging-manual',
       pricePerNight: { amount: v.pricePerNight, currency: 'EUR', source: 'manual' },
-      cleaningFee: v.cleaningFee != null ? { amount: v.cleaningFee, currency: 'EUR', source: 'manual' } : null,
+      cleaningFee:
+        v.cleaningFee != null ? { amount: v.cleaningFee, currency: 'EUR', source: 'manual' } : null,
       hasKitchen: v.hasKitchen === 'yes',
       checkInUntil: v.checkInUntil || null,
       verifiedAt: new Date(),
@@ -56,7 +67,14 @@ export async function assignOfferAction(_prev: ActionState, formData: FormData):
     .returning({ id: schema.lodgingOptions.id });
   await db
     .update(schema.lodgingStays)
-    .set({ lodgingOptionId: option.id, kindOverride: v.kind, priceOverride: null, hasKitchen: v.hasKitchen === 'yes', isManual: true, updatedAt: new Date() })
+    .set({
+      lodgingOptionId: option.id,
+      kindOverride: v.kind,
+      priceOverride: null,
+      hasKitchen: v.hasKitchen === 'yes',
+      isManual: true,
+      updatedAt: new Date(),
+    })
     .where(eq(schema.lodgingStays.id, v.stayId));
   revalidate(v.tripId);
   return { ok: true };
@@ -72,7 +90,11 @@ const campSchema = z.object({
   lng: z.coerce.number(),
   perPersonIsk: z.coerce.number().min(0).max(20000),
   electricityIsk: opt(z.coerce.number().min(0).max(10000)),
-  openUntil: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().or(z.literal('')),
+  openUntil: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional()
+    .or(z.literal('')),
   campingCard: z.enum(['1', '0']).default('0'),
   url: z.string().trim().url().optional().or(z.literal('')),
   hasKitchen: z.enum(['1', '0']).default('0'),
@@ -81,7 +103,8 @@ const campSchema = z.object({
 /** Priradiť kemp (tjalda živé / seed) k noci vetvy Karavan – ponuka sa uloží per cesta (konektor + ref), cena v ISK. */
 export async function assignCampsiteAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = campSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: `Neplatný kemp (${parsed.error.issues[0]?.path.join('.')}).` };
+  if (!parsed.success)
+    return { ok: false, error: `Neplatný kemp (${parsed.error.issues[0]?.path.join('.')}).` };
   const v = parsed.data;
   const ctx = await editableStay(v.tripId, v.stayId);
   if (!ctx) return { ok: false, error: NO_EDIT };
@@ -90,7 +113,9 @@ export async function assignCampsiteAction(_prev: ActionState, formData: FormDat
   const [existing] = await db
     .select({ id: schema.lodgingOptions.id })
     .from(schema.lodgingOptions)
-    .where(and(eq(schema.lodgingOptions.tripId, v.tripId), eq(schema.lodgingOptions.connectorId, connectorId)))
+    .where(
+      and(eq(schema.lodgingOptions.tripId, v.tripId), eq(schema.lodgingOptions.connectorId, connectorId)),
+    )
     .limit(1);
   const values = {
     tripId: v.tripId,
@@ -101,15 +126,23 @@ export async function assignCampsiteAction(_prev: ActionState, formData: FormDat
     connectorId,
     lat: String(v.lat),
     lng: String(v.lng),
-    pricePerPerson: { amount: v.perPersonIsk, currency: 'ISK', source: v.source === 'tjalda' ? ('api' as const) : ('seed' as const) },
+    pricePerPerson: {
+      amount: v.perPersonIsk,
+      currency: 'ISK',
+      source: v.source === 'tjalda' ? ('api' as const) : ('seed' as const),
+    },
     electricity: (v.electricityIsk ?? 0) > 0,
     openUntil: v.openUntil || null,
     hasKitchen: v.hasKitchen === '1',
     fetchedAt: new Date(),
   };
   let optionId = existing?.id;
-  if (optionId) await db.update(schema.lodgingOptions).set(values).where(eq(schema.lodgingOptions.id, optionId));
-  else optionId = (await db.insert(schema.lodgingOptions).values(values).returning({ id: schema.lodgingOptions.id }))[0].id;
+  if (optionId)
+    await db.update(schema.lodgingOptions).set(values).where(eq(schema.lodgingOptions.id, optionId));
+  else
+    optionId = (
+      await db.insert(schema.lodgingOptions).values(values).returning({ id: schema.lodgingOptions.id })
+    )[0].id;
   await db
     .update(schema.lodgingStays)
     .set({
@@ -141,11 +174,28 @@ export async function updateStayAction(_prev: ActionState, formData: FormData): 
   if (!ctx) return { ok: false, error: NO_EDIT };
   const set =
     op === 'clear'
-      ? { lodgingOptionId: null, kindOverride: null, priceOverride: null, hasKitchen: null, isManual: false, notes: null }
+      ? {
+          lodgingOptionId: null,
+          kindOverride: null,
+          priceOverride: null,
+          hasKitchen: null,
+          isManual: false,
+          notes: null,
+        }
       : op === 'no_lodging'
-        ? { lodgingOptionId: null, kindOverride: null, priceOverride: { amount: 0, currency: 'EUR', source: 'manual' as const }, hasKitchen: false, isManual: true, notes: 'bez ubytovania' }
+        ? {
+            lodgingOptionId: null,
+            kindOverride: null,
+            priceOverride: { amount: 0, currency: 'EUR', source: 'manual' as const },
+            hasKitchen: false,
+            isManual: true,
+            notes: 'bez ubytovania',
+          }
         : { hasKitchen: op === 'kitchen_on', isManual: true };
-  await getDb().update(schema.lodgingStays).set({ ...set, updatedAt: new Date() }).where(eq(schema.lodgingStays.id, stayId));
+  await getDb()
+    .update(schema.lodgingStays)
+    .set({ ...set, updatedAt: new Date() })
+    .where(eq(schema.lodgingStays.id, stayId));
   revalidate(tripId);
   return { ok: true };
 }

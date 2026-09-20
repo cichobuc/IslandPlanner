@@ -2,7 +2,12 @@
 
 import { useActionState } from 'react';
 import { Button, Select } from '@/components/ui';
-import { addMemberAction, removeMemberAction, updateMemberRoleAction, type ActionState } from '@/features/trips/actions';
+import {
+  addMemberAction,
+  removeMemberAction,
+  updateMemberRoleAction,
+  type ActionState,
+} from '@/features/trips/actions';
 
 export function AddMemberForm({
   tripId,
@@ -15,7 +20,10 @@ export function AddMemberForm({
 }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(addMemberAction, null);
   return (
-    <form action={action} className="rounded-card border-card-line bg-card flex flex-col gap-3 border p-4 sm:flex-row sm:items-center">
+    <form
+      action={action}
+      className="rounded-card border-card-line bg-card flex flex-col gap-3 border p-4 sm:flex-row sm:items-center"
+    >
       <input type="hidden" name="tripId" value={tripId} />
       <Select name="userId" required defaultValue="" className="sm:flex-1">
         <option value="" disabled>
@@ -58,7 +66,12 @@ export function MemberActions({
       <form action={roleAction}>
         <input type="hidden" name="tripId" value={tripId} />
         <input type="hidden" name="userId" value={userId} />
-        <Select name="role" defaultValue={role} onChange={(e) => e.currentTarget.form?.requestSubmit()} className="h-[34px] w-[110px] text-[13px]">
+        <Select
+          name="role"
+          defaultValue={role}
+          onChange={(e) => e.currentTarget.form?.requestSubmit()}
+          className="h-[34px] w-[110px] text-[13px]"
+        >
           <option value="editor">{labels.editor}</option>
           <option value="viewer">{labels.viewer}</option>
         </Select>
@@ -66,7 +79,13 @@ export function MemberActions({
       <form action={removeAct}>
         <input type="hidden" name="tripId" value={tripId} />
         <input type="hidden" name="userId" value={userId} />
-        <Button type="submit" variant="ghost" size="sm" disabled={removing} title={removeState && !removeState.ok ? removeState.error : undefined}>
+        <Button
+          type="submit"
+          variant="ghost"
+          size="sm"
+          disabled={removing}
+          title={removeState && !removeState.ok ? removeState.error : undefined}
+        >
           {labels.remove}
         </Button>
       </form>

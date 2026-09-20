@@ -9,13 +9,27 @@ import { loadFlightInput } from '../snapshot';
 import { Step02Client } from './step02-client';
 import type { OptionLite, SearchMeta, SelectedFlight } from './step02-types';
 
-const fmtTime = (d: Date | null, tz: string) => (d ? new Intl.DateTimeFormat('sk-SK', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz }).format(d) : '–');
+const fmtTime = (d: Date | null, tz: string) =>
+  d
+    ? new Intl.DateTimeFormat('sk-SK', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: tz,
+      }).format(d)
+    : '–';
 const fmtDateIso = (d: Date, tz: string) => {
-  const p = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+  const p = new Intl.DateTimeFormat('en-CA', {
+    timeZone: tz,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(d);
   return p; // YYYY-MM-DD
 };
 const dm = (iso: string) => `${Number(iso.slice(8, 10))}. ${Number(iso.slice(5, 7))}.`;
-const amt = (m: unknown) => (m && typeof m === 'object' && 'amount' in (m as object) ? Number((m as Money).amount) : null);
+const amt = (m: unknown) =>
+  m && typeof m === 'object' && 'amount' in (m as object) ? Number((m as Money).amount) : null;
 
 const STALE_MS = 24 * 3600 * 1000;
 
@@ -23,12 +37,26 @@ const STALE_MS = 24 * 3600 * 1000;
 export async function Step02({ access }: { access: TripAccess }) {
   const { trip, role } = access;
   const db = getDb();
-  const [search] = await db.select().from(schema.flightSearches).where(eq(schema.flightSearches.tripId, trip.id)).orderBy(desc(schema.flightSearches.createdAt)).limit(1);
+  const [search] = await db
+    .select()
+    .from(schema.flightSearches)
+    .where(eq(schema.flightSearches.tripId, trip.id))
+    .orderBy(desc(schema.flightSearches.createdAt))
+    .limit(1);
   const [options, travelers, selection] = await Promise.all([
     search
-      ? db.select().from(schema.flightOptions).where(and(eq(schema.flightOptions.searchId, search.id))).orderBy(asc(schema.flightOptions.totalGroupAmount)).limit(600)
+      ? db
+          .select()
+          .from(schema.flightOptions)
+          .where(and(eq(schema.flightOptions.searchId, search.id)))
+          .orderBy(asc(schema.flightOptions.totalGroupAmount))
+          .limit(600)
       : Promise.resolve([]),
-    db.select().from(schema.travelers).where(eq(schema.travelers.tripId, trip.id)).orderBy(asc(schema.travelers.sortOrder)),
+    db
+      .select()
+      .from(schema.travelers)
+      .where(eq(schema.travelers.tripId, trip.id))
+      .orderBy(asc(schema.travelers.sortOrder)),
     db.select().from(schema.flightSelection).where(eq(schema.flightSelection.tripId, trip.id)).limit(1),
   ]);
   const pax = travelers.length || 1;

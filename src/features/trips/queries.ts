@@ -1,5 +1,5 @@
 import 'server-only';
-import { asc, desc, eq, inArray, or, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, or, sql } from 'drizzle-orm';
 import { getDb, schema } from '@/db';
 import { tripProgress } from './progress';
 
@@ -111,7 +111,11 @@ export async function listAddableProfiles(tripId: string) {
     .from(schema.tripMembers)
     .where(eq(schema.tripMembers.tripId, tripId));
   return db
-    .select({ userId: schema.profiles.userId, displayName: schema.profiles.displayName, email: schema.profiles.email })
+    .select({
+      userId: schema.profiles.userId,
+      displayName: schema.profiles.displayName,
+      email: schema.profiles.email,
+    })
     .from(schema.profiles)
     .where(sql`${schema.profiles.userId} not in ${memberIds}`)
     .orderBy(asc(schema.profiles.displayName));
@@ -124,4 +128,22 @@ export async function countTravelers(tripId: string): Promise<number> {
     .from(schema.travelers)
     .where(eq(schema.travelers.tripId, tripId));
   return r?.n ?? 0;
+}
+
+/** Počty pre stav krokov 04/05: noci aktívnej vetvy a dni so zastávkami. */
+export async function countProgressInputs(tripId: string, mode: 'car' | 'camper' | 'no_car' | null) {
+  const db = getDb();
+  const scenario = mode === 'camper' ? 'camper' : 'car';
+  const [[l], [d]] = await Promise.all([
+    db
+      .select({ n: sql<number>`count(*)::int` })
+      .from(schema.lodgingStays)
+      .where(and(eq(schema.lodgingStays.tripId, tripId), eq(schema.lodgingStays.scenarioKey, scenario))),
+    db
+      .select({ n: sql<number>`count(distinct ${schema.itineraryStops.dayId})::int` })
+      .from(schema.itineraryStops)
+      .innerJoin(schema.itineraryDays, eq(schema.itineraryDays.id, schema.itineraryStops.dayId))
+      .where(eq(schema.itineraryDays.tripId, tripId)),
+  ]);
+  return { lodgingCount: mode ? (l?.n ?? 0) : 0, dayCount: d?.n ?? 0 };
 }

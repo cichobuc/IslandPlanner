@@ -15,7 +15,15 @@ export function RenameTrip({ tripId, name }: { tripId: string; name: string }) {
   }, null);
   return (
     <>
-      <Button variant="ghost" size="sm" icon aria-label="Premenovať" title="Premenovať" onClick={() => setOpen(true)} className="text-ink-2">
+      <Button
+        variant="ghost"
+        size="sm"
+        icon
+        aria-label="Premenovať"
+        title="Premenovať"
+        onClick={() => setOpen(true)}
+        className="text-ink-2"
+      >
         <Pencil size={16} strokeWidth={1.8} />
       </Button>
       <Sheet open={open} onClose={() => setOpen(false)} title="Názov cesty">

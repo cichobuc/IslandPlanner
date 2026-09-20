@@ -2,14 +2,29 @@ import { ChevronRight, Map as MapIcon, Users, Zap } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Button, ButtonLink, Card, Label, Notice, PhoneHeader, RingMap, Stepper, StickyBar, TopBar, TripLayout, type StepItem } from '@/components/ui';
+import {
+  Button,
+  ButtonLink,
+  Card,
+  Label,
+  Notice,
+  PhoneHeader,
+  RingMap,
+  Stepper,
+  StickyBar,
+  TopBar,
+  TripLayout,
+  type StepItem,
+} from '@/components/ui';
 import { getTripAccess } from '@/features/trips/access';
 import { dateRangeLabel, stepNames, tripProgress } from '@/features/trips/progress';
-import { countTravelers, listTripMembers } from '@/features/trips/queries';
+import { countProgressInputs, countTravelers, listTripMembers } from '@/features/trips/queries';
 import { Step01, step01Summary } from '@/features/trips/steps/step01';
 import { Step02 } from '@/features/trips/steps/step02';
 import { Step03 } from '@/features/trips/steps/step03';
 import { Step04 } from '@/features/trips/steps/step04';
+import { Step05 } from '@/features/trips/steps/step05';
+import { Step06 } from '@/features/trips/steps/step06';
 import { stepNo } from '@/lib/format';
 import { RenameTrip } from './rename-trip';
 
@@ -32,12 +47,17 @@ export default async function TripPage({
   if (!access) notFound();
   const t = await getTranslations('trip');
   const { trip, role } = access;
-  const [members, travelersCount] = await Promise.all([listTripMembers(id), countTravelers(id)]);
+  const [members, travelersCount, counts] = await Promise.all([
+    listTripMembers(id),
+    countTravelers(id),
+    countProgressInputs(id, trip.transportMode),
+  ]);
   const progress = tripProgress({
     travelersCount,
     originAirports: trip.originAirports,
     startDate: trip.startDate,
     transportMode: trip.transportMode,
+    ...counts,
   });
   const requested = Number((await searchParams).krok);
   const current = requested >= 1 && requested <= 8 ? requested : progress.active;
@@ -108,12 +128,18 @@ export default async function TripPage({
           <Step03 access={access} />
         ) : current === 4 ? (
           <Step04 access={access} />
+        ) : current === 5 ? (
+          <Step05 access={access} />
+        ) : current === 6 ? (
+          <Step06 access={access} />
         ) : (
           <section className="flex flex-col gap-3">
             <Label className="text-accent">
               Krok {stepNo(current)} · {names[current - 1]}
             </Label>
-            <h1 className="font-display text-[22px] leading-[1.15] font-semibold sm:text-[26px]">{names[current - 1]}</h1>
+            <h1 className="font-display text-[22px] leading-[1.15] font-semibold sm:text-[26px]">
+              {names[current - 1]}
+            </h1>
             <Notice tone="info">Krok sa stavia (bloky 2.4–2.8).</Notice>
           </section>
         )}

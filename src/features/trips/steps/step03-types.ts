@@ -26,7 +26,16 @@ export type VehicleLite = {
   notes: string | null;
   verifiedAt: string | null;
   /** vypočítané pre dni prenájmu a zvolené poistenia/extras (pre nezvolené = predvolené) */
-  cost: { rental: number; insurance: number; extras: number; fuel: number; tolls: number; total: number; liters: number; deposit: number };
+  cost: {
+    rental: number;
+    insurance: number;
+    extras: number;
+    fuel: number;
+    tolls: number;
+    total: number;
+    liters: number;
+    deposit: number;
+  };
   checks: VehicleCheck[];
 };
 

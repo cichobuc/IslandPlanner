@@ -15,22 +15,36 @@ import { loadFlightInput } from '../snapshot';
 import { Step03Client } from './step03-client';
 import type { BranchCard, Step03Data, VehicleLite, VehicleSel } from './step03-types';
 
-const fmtTime = (iso: string, tz: string) => new Intl.DateTimeFormat('sk-SK', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz }).format(new Date(iso));
-const amt = (m: unknown) => (m && typeof m === 'object' && 'amount' in (m as object) ? Number((m as Money).amount) : 0);
+const fmtTime = (iso: string, tz: string) =>
+  new Intl.DateTimeFormat('sk-SK', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: tz,
+  }).format(new Date(iso));
+const amt = (m: unknown) =>
+  m && typeof m === 'object' && 'amount' in (m as object) ? Number((m as Money).amount) : 0;
 
 /** Krok 03 · Doprava – rozhodnutie Auto/Karavan (Bez auta v1.1), vozidlá zo seedu + ručné, poistenia, požiadavky, palivo. */
 export async function Step03({ access }: { access: TripAccess }) {
   const { trip, role } = access;
   const db = getDb();
   const [travelers, options, selections, days, flight, rates] = await Promise.all([
-    db.select().from(schema.travelers).where(eq(schema.travelers.tripId, trip.id)).orderBy(asc(schema.travelers.sortOrder)),
+    db
+      .select()
+      .from(schema.travelers)
+      .where(eq(schema.travelers.tripId, trip.id))
+      .orderBy(asc(schema.travelers.sortOrder)),
     db
       .select()
       .from(schema.vehicleOptions)
       .where(or(isNull(schema.vehicleOptions.tripId), eq(schema.vehicleOptions.tripId, trip.id)))
       .orderBy(asc(schema.vehicleOptions.kind), asc(schema.vehicleOptions.class)),
     db.select().from(schema.vehicleSelection).where(eq(schema.vehicleSelection.tripId, trip.id)),
-    db.select().from(schema.itineraryDays).where(and(eq(schema.itineraryDays.tripId, trip.id), eq(schema.itineraryDays.scenarioKey, 'drive'))),
+    db
+      .select()
+      .from(schema.itineraryDays)
+      .where(and(eq(schema.itineraryDays.tripId, trip.id), eq(schema.itineraryDays.scenarioKey, 'drive'))),
     loadFlightInput(trip.id),
     getRates(),
   ]);
@@ -39,7 +53,10 @@ export async function Step03({ access }: { access: TripAccess }) {
   const rentalDays = derived?.vehicleDays ?? trip.minDays;
   const tripDays = derived?.days ?? trip.minDays;
   const preset = presetForDays(tripDays, { interests: trip.interests, pace: trip.pace });
-  const presetKey = (trip.routePreset as PresetKey | null) && PRESETS[trip.routePreset as PresetKey] ? (trip.routePreset as PresetKey) : preset.key;
+  const presetKey =
+    (trip.routePreset as PresetKey | null) && PRESETS[trip.routePreset as PresetKey]
+      ? (trip.routePreset as PresetKey)
+      : preset.key;
   const kmItin = days.reduce((a, d) => a + Number(d.driveKm ?? 0), 0);
   const km = kmItin > 0 ? Math.round(kmItin) : PRESETS[presetKey].totalKm;
   const viaVadlaheidi = presetKey.startsWith('ring');
@@ -49,7 +66,9 @@ export async function Step03({ access }: { access: TripAccess }) {
     .map((t) => ({
       name: t.name,
       age: ageOn(t, tripDate),
-      years: t.driverSince ? Math.max(0, Number(tripDate.slice(0, 4)) - Number(t.driverSince.slice(0, 4))) : 1,
+      years: t.driverSince
+        ? Math.max(0, Number(tripDate.slice(0, 4)) - Number(t.driverSince.slice(0, 4)))
+        : 1,
       hasCreditCard: t.hasCreditCard,
     }));
   const checkedBags = travelers.reduce((a, t) => a + t.bags.checked20 + t.bags.checked32, 0);
@@ -72,8 +91,11 @@ export async function Step03({ access }: { access: TripAccess }) {
   const vehicles: VehicleLite[] = options.map((o) => {
     const sel = selection[o.kind]?.vehicleOptionId === o.id ? selection[o.kind] : null;
     const insurance = o.insurance ?? {};
-    const insuranceChosen = sel?.insuranceChosen ?? Object.keys(insurance).filter((k) => !insurance[k].included && (k === 'scdw' || k === 'gp'));
-    const extrasChosen = sel?.extrasChosen ?? (drivers.length > 1 && o.extras?.second_driver ? { second_driver: 1 } : {});
+    const insuranceChosen =
+      sel?.insuranceChosen ??
+      Object.keys(insurance).filter((k) => !insurance[k].included && (k === 'scdw' || k === 'gp'));
+    const extrasChosen =
+      sel?.extrasChosen ?? (drivers.length > 1 && o.extras?.second_driver ? { second_driver: 1 } : {});
     const v: VehicleInput = {
       scenarioKey: o.kind,
       kind: o.kind,
@@ -119,14 +141,42 @@ export async function Step03({ access }: { access: TripAccess }) {
       url: o.url,
       notes: o.notes,
       verifiedAt: o.verifiedAt,
-      cost: { rental: cost.rental, insurance: cost.insurance, extras: cost.extras, fuel: cost.fuel, tolls: cost.tolls, total: cost.total, liters: cost.liters, deposit: cost.deposit },
-      checks: vehicleChecks(v, { pax, checkedBags, drivers, driverMinAge: o.driverMinAge, driverMinYears: o.driverMinYears }),
+      cost: {
+        rental: cost.rental,
+        insurance: cost.insurance,
+        extras: cost.extras,
+        fuel: cost.fuel,
+        tolls: cost.tolls,
+        total: cost.total,
+        liters: cost.liters,
+        deposit: cost.deposit,
+      },
+      checks: vehicleChecks(v, {
+        pax,
+        checkedBags,
+        drivers,
+        driverMinAge: o.driverMinAge,
+        driverMinYears: o.driverMinYears,
+      }),
     };
   });
 
-  const flightTotal = flight ? amt(flight.farePp) * pax + amt(flight.bagsTotal) + amt(flight.parkingTotal) + amt(flight.airportAccessTotal) : 0;
+  const flightTotal = flight
+    ? amt(flight.farePp) * pax +
+      amt(flight.bagsTotal) +
+      amt(flight.parkingTotal) +
+      amt(flight.airportAccessTotal)
+    : 0;
   const branches: BranchCard[] = (['car', 'camper', 'no_car'] as TransportMode[]).map((mode) => {
-    const e = estimateBranch(mode, { days: tripDays, pax, pace: trip.pace, interests: trip.interests, fx, fuelIskPerL: fuelIsk, food: { level: 'budget' } });
+    const e = estimateBranch(mode, {
+      days: tripDays,
+      pax,
+      pace: trip.pace,
+      interests: trip.interests,
+      fx,
+      fuelIskPerL: fuelIsk,
+      food: { level: 'budget' },
+    });
     return {
       mode,
       total: Math.round(e.total.mid + flightTotal),
@@ -151,13 +201,21 @@ export async function Step03({ access }: { access: TripAccess }) {
     presetKey,
     flightTotal,
     pickup: flight ? fmtTime(flight.outArrAt, TZ_KEF) : null,
-    ret: flight ? fmtTime(new Date(Date.parse(flight.retDepAt) - 3 * 3600 * 1000).toISOString(), TZ_KEF) : null,
+    ret: flight
+      ? fmtTime(new Date(Date.parse(flight.retDepAt) - 3 * 3600 * 1000).toISOString(), TZ_KEF)
+      : null,
     dates: trip.startDate && trip.endDate ? dateRangeLabel(trip.startDate, trip.endDate) : null,
     drivers,
     branches,
     vehicles,
     selection,
-    rates: { fx: rates.fx.ISK_EUR, fxSource: rates.fx.source, petrol: rates.fuel.petrol, diesel: rates.fuel.diesel, fuelSource: rates.fuel.source },
+    rates: {
+      fx: rates.fx.ISK_EUR,
+      fxSource: rates.fx.source,
+      petrol: rates.fuel.petrol,
+      diesel: rates.fuel.diesel,
+      fuelSource: rates.fuel.source,
+    },
     viaVadlaheidi,
     canEdit: canEdit(role),
   };

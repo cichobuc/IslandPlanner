@@ -9,10 +9,22 @@
     "consumption_l_100km": 5.5,
     "price_per_day": 52,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "scdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 0, "included": true },
-      "saap": { "perDay": 0, "included": true }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "scdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 0,
+        "included": true
+      },
+      "saap": {
+        "perDay": 0,
+        "included": true
+      }
     },
     "deposit": 0,
     "driver_min_age": 20,
@@ -32,10 +44,22 @@
     "consumption_l_100km": 6.5,
     "price_per_day": 74,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "scdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 0, "included": true },
-      "saap": { "perDay": 0, "included": true }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "scdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 0,
+        "included": true
+      },
+      "saap": {
+        "perDay": 0,
+        "included": true
+      }
     },
     "deposit": 0,
     "driver_min_age": 20,
@@ -54,10 +78,19 @@
     "consumption_l_100km": 5.2,
     "price_per_day": 68,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 8 },
-      "saap": { "perDay": 9 },
-      "scdw": { "perDay": 12 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 8
+      },
+      "saap": {
+        "perDay": 9
+      },
+      "scdw": {
+        "perDay": 12
+      }
     },
     "deposit": 2500,
     "driver_min_age": 20,
@@ -76,10 +109,19 @@
     "consumption_l_100km": 7.0,
     "price_per_day": 80,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 9 },
-      "saap": { "perDay": 9 },
-      "scdw": { "perDay": 14 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 9
+      },
+      "saap": {
+        "perDay": 9
+      },
+      "scdw": {
+        "perDay": 14
+      }
     },
     "deposit": 2000,
     "driver_min_age": 20,
@@ -98,10 +140,22 @@
     "consumption_l_100km": 6.8,
     "price_per_day": 105,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "scdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 0, "included": true },
-      "saap": { "perDay": 0, "included": true }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "scdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 0,
+        "included": true
+      },
+      "saap": {
+        "perDay": 0,
+        "included": true
+      }
     },
     "deposit": 0,
     "driver_min_age": 20,
@@ -121,10 +175,19 @@
     "consumption_l_100km": 7.5,
     "price_per_day": 125,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 8 },
-      "saap": { "perDay": 9 },
-      "scdw": { "perDay": 15 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 8
+      },
+      "saap": {
+        "perDay": 9
+      },
+      "scdw": {
+        "perDay": 15
+      }
     },
     "deposit": 2500,
     "driver_min_age": 23,
@@ -145,11 +208,28 @@
     "consumption_l_100km": 7.0,
     "price_per_day": 140,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 12 },
-      "saap": { "perDay": 12 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 12
+      },
+      "saap": {
+        "perDay": 12
+      }
     },
-    "extras": { "bedding": { "flat": 25 }, "kitchenKit": { "flat": 0 }, "heater": { "perDay": 0 } },
+    "extras": {
+      "bedding": {
+        "flat": 25
+      },
+      "kitchenKit": {
+        "flat": 0
+      },
+      "heater": {
+        "perDay": 0
+      }
+    },
     "deposit": 2500,
     "driver_min_age": 20,
     "driver_min_years": 1,
@@ -169,16 +249,33 @@
     "consumption_l_100km": 9.0,
     "price_per_day": 215,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 14 },
-      "saap": { "perDay": 14 },
-      "scdw": { "perDay": 20 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 14
+      },
+      "saap": {
+        "perDay": 14
+      },
+      "scdw": {
+        "perDay": 20
+      }
     },
     "extras": {
-      "bedding": { "flat": 0 },
-      "kitchenKit": { "flat": 0 },
-      "heater": { "perDay": 0 },
-      "chairsTable": { "flat": 20 }
+      "bedding": {
+        "flat": 0
+      },
+      "kitchenKit": {
+        "flat": 0
+      },
+      "heater": {
+        "perDay": 0
+      },
+      "chairsTable": {
+        "flat": 20
+      }
     },
     "deposit": 2500,
     "driver_min_age": 20,
@@ -200,11 +297,28 @@
     "consumption_l_100km": 8.5,
     "price_per_day": 205,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 12 },
-      "saap": { "perDay": 12 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 12
+      },
+      "saap": {
+        "perDay": 12
+      }
     },
-    "extras": { "bedding": { "flat": 0 }, "kitchenKit": { "flat": 0 }, "heater": { "perDay": 0 } },
+    "extras": {
+      "bedding": {
+        "flat": 0
+      },
+      "kitchenKit": {
+        "flat": 0
+      },
+      "heater": {
+        "perDay": 0
+      }
+    },
     "deposit": 2500,
     "driver_min_age": 20,
     "driver_min_years": 1,
@@ -224,11 +338,25 @@
     "consumption_l_100km": 10.0,
     "price_per_day": 265,
     "insurance": {
-      "cdw": { "perDay": 0, "included": true },
-      "gp": { "perDay": 14 },
-      "saap": { "perDay": 14 }
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 14
+      },
+      "saap": {
+        "perDay": 14
+      }
     },
-    "extras": { "bedding": { "flat": 25 }, "kitchenKit": { "flat": 0 } },
+    "extras": {
+      "bedding": {
+        "flat": 25
+      },
+      "kitchenKit": {
+        "flat": 0
+      }
+    },
     "deposit": 3000,
     "driver_min_age": 23,
     "driver_min_years": 2,
@@ -237,5 +365,152 @@
     "pickup_mode": "shuttle",
     "f_roads_allowed": true,
     "url": "https://kukucampers.is"
+  },
+  {
+    "kind": "camper",
+    "class": "camper4",
+    "provider": "Happy Campers",
+    "name": "Happy 4 – motorhome s WC a sprchou (4 os.)",
+    "seats": 4,
+    "sleeps": 4,
+    "fuel": "diesel",
+    "consumption_l_100km": 11.0,
+    "price_per_day": 330,
+    "insurance": {
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 15
+      },
+      "saap": {
+        "perDay": 15
+      },
+      "scdw": {
+        "perDay": 25
+      }
+    },
+    "extras": {
+      "bedding": {
+        "flat": 0
+      },
+      "kitchenKit": {
+        "flat": 0
+      },
+      "heater": {
+        "perDay": 0
+      },
+      "chairsTable": {
+        "flat": 25
+      }
+    },
+    "deposit": 2500,
+    "driver_min_age": 23,
+    "driver_min_years": 2,
+    "luggage_capacity": 6,
+    "heater": true,
+    "pickup_mode": "shuttle",
+    "url": "https://happycampers.is",
+    "verified_at": "2026-09-20",
+    "notes": "Veľké obytné auto: WC, sprcha, kúrenie, kuchyňa s chladničkou; 2 dvojlôžka. Orientačná cena 09/2026 – overiť pred rezerváciou."
+  },
+  {
+    "kind": "camper",
+    "class": "camper4",
+    "provider": "McRent / Camper Iceland",
+    "name": "Sunlight T69 – polointegrál (4–5 os.)",
+    "seats": 5,
+    "sleeps": 5,
+    "fuel": "diesel",
+    "consumption_l_100km": 11.5,
+    "price_per_day": 345,
+    "insurance": {
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 15
+      },
+      "saap": {
+        "perDay": 15
+      },
+      "scdw": {
+        "perDay": 25
+      }
+    },
+    "extras": {
+      "bedding": {
+        "flat": 45
+      },
+      "kitchenKit": {
+        "flat": 0
+      },
+      "heater": {
+        "perDay": 0
+      },
+      "chairsTable": {
+        "flat": 30
+      }
+    },
+    "deposit": 2500,
+    "driver_min_age": 23,
+    "driver_min_years": 2,
+    "luggage_capacity": 6,
+    "heater": true,
+    "pickup_mode": "shuttle",
+    "url": "https://www.camper-iceland.is",
+    "verified_at": "2026-09-20",
+    "notes": "Fiat Ducato základ, 7 m; WC, sprcha, kúrenie, 5 sedadiel s pásmi. Vyššia spotreba a citlivé na vietor. Orientačná cena 09/2026."
+  },
+  {
+    "kind": "camper",
+    "class": "camper4",
+    "provider": "Kuku Campers",
+    "name": "Kuku Casper – Mercedes Sprinter (5 os.)",
+    "seats": 5,
+    "sleeps": 5,
+    "fuel": "diesel",
+    "consumption_l_100km": 10.5,
+    "price_per_day": 295,
+    "insurance": {
+      "cdw": {
+        "perDay": 0,
+        "included": true
+      },
+      "gp": {
+        "perDay": 15
+      },
+      "saap": {
+        "perDay": 15
+      },
+      "scdw": {
+        "perDay": 25
+      }
+    },
+    "extras": {
+      "bedding": {
+        "flat": 0
+      },
+      "kitchenKit": {
+        "flat": 0
+      },
+      "heater": {
+        "perDay": 0
+      },
+      "chairsTable": {
+        "flat": 20
+      }
+    },
+    "deposit": 3000,
+    "driver_min_age": 20,
+    "driver_min_years": 1,
+    "luggage_capacity": 5,
+    "heater": true,
+    "pickup_mode": "shuttle",
+    "url": "https://kukucampers.is",
+    "verified_at": "2026-09-20",
+    "notes": "Vysoký van pre 5 (bez WC), kúrenie Webasto, kuchynka. Kompromis medzi cenou a priestorom pre 4 dospelých. Orientačná cena 09/2026."
   }
 ]

@@ -26,7 +26,14 @@ export type NightLite = {
   regionName: string;
   place: string;
   kind: LodgingKind;
-  assigned: { name: string; url: string | null; kind: LodgingKind; source: string; checkInUntil: string | null; openUntil: string | null } | null;
+  assigned: {
+    name: string;
+    url: string | null;
+    kind: LodgingKind;
+    source: string;
+    checkInUntil: string | null;
+    openUntil: string | null;
+  } | null;
   noLodging: boolean;
   hasKitchen: boolean;
   amount: number;
@@ -54,7 +61,14 @@ export type Step04Data = {
   dates: string | null;
   vehicleLabel: string | null;
   presetKey: string | null;
-  campingCard: { on: boolean; cards: number; cost: number; saving: number; worthIt: boolean; expired: boolean } | null;
+  campingCard: {
+    on: boolean;
+    cards: number;
+    cost: number;
+    saving: number;
+    worthIt: boolean;
+    expired: boolean;
+  } | null;
   tjaldaOk: boolean;
   canEdit: boolean;
 };

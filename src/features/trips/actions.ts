@@ -38,7 +38,9 @@ export async function createTripAction(): Promise<void> {
       })
       .returning({ id: schema.trips.id });
     // vlastníka ako člena (owner) pridá DB trigger trips_add_owner_member (src/db/sql/functions.sql)
-    await tx.insert(schema.travelers).values({ ...travelerFromProfile(me.profile!), tripId: trip.id, sortOrder: 0 });
+    await tx
+      .insert(schema.travelers)
+      .values({ ...travelerFromProfile(me.profile!), tripId: trip.id, sortOrder: 0 });
     return trip.id;
   });
   revalidatePath('/', 'layout');
@@ -60,7 +62,11 @@ export async function addMemberAction(_prev: ActionState, formData: FormData): P
   if (!access || access.role !== 'owner') return { ok: false, error: 'Členov spravuje vlastník cesty.' };
 
   const db = getDb();
-  const [profile] = await db.select().from(schema.profiles).where(eq(schema.profiles.userId, userId)).limit(1);
+  const [profile] = await db
+    .select()
+    .from(schema.profiles)
+    .where(eq(schema.profiles.userId, userId))
+    .limit(1);
   if (!profile) return { ok: false, error: 'Používateľ neexistuje.' };
   const [existing] = await db
     .select({ userId: schema.tripMembers.userId })
@@ -118,8 +124,12 @@ export async function removeMemberAction(_prev: ActionState, formData: FormData)
   if (userId === access.trip.ownerId) return { ok: false, error: 'Vlastníka nejde odobrať.' };
   const db = getDb();
   await db.transaction(async (tx) => {
-    await tx.delete(schema.tripMembers).where(and(eq(schema.tripMembers.tripId, tripId), eq(schema.tripMembers.userId, userId)));
-    await tx.delete(schema.travelers).where(and(eq(schema.travelers.tripId, tripId), eq(schema.travelers.userId, userId)));
+    await tx
+      .delete(schema.tripMembers)
+      .where(and(eq(schema.tripMembers.tripId, tripId), eq(schema.tripMembers.userId, userId)));
+    await tx
+      .delete(schema.travelers)
+      .where(and(eq(schema.travelers.tripId, tripId), eq(schema.travelers.userId, userId)));
   });
   revalidatePath(`/[locale]/cesta/${tripId}`, 'layout');
   return { ok: true };
@@ -131,7 +141,8 @@ export async function renameTripAction(_prev: ActionState, formData: FormData): 
   const parsed = renameSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { ok: false, error: 'Názov musí mať 2–80 znakov.' };
   const access = await getTripAccess(parsed.data.tripId);
-  if (!access || (access.role !== 'owner' && access.role !== 'editor')) return { ok: false, error: 'Nemáš právo upravovať.' };
+  if (!access || (access.role !== 'owner' && access.role !== 'editor'))
+    return { ok: false, error: 'Nemáš právo upravovať.' };
   await getDb()
     .update(schema.trips)
     .set({ name: parsed.data.name, updatedAt: new Date() })

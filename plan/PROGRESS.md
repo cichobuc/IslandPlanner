@@ -56,9 +56,16 @@
 - **Blok 2.6 hotový** – **krok 04 Kde spať**: `step04-actions.ts` (vložiť ponuku Booking/Airbnb → `lodging_options` per cesta + priradenie; priradiť kemp tjalda/seed; noc späť na odhad / bez ubytovania / kuchynka; Camping Card na vozidle vetvy Karavan),
   `steps/step04*.tsx`: noci vetvy s regiónom z trasy, rozpätie zo seedu (`stayCost`), predvyplnené Booking/Airbnb linky (miesto per región, dátumy, hostia), kempy z **tjalda (živé, 154 kempov)** + seed POI mapované na región podľa najbližšieho centroidu, otvorenie k dátumu noci, `campingCardDecision`, `lodgingWarnings` (prílet po 20:00, odlet pred 10:00, zatvorené), súčet + podiel odhadov + kuchynka → 07.
   e2e `tests/e2e/step04-flow.mjs` (Auto: ponuka + noc bez ubytovania; Karavan: kemp tjalda priradený, Camping Card zapnutá).
+- **Blok 2.7 hotový** – `route_matrix` z verejného **OSRM table** (49 bodov: 36 POI/kempy + 12 centroidov regiónov + KEF, 2 352 dvojíc, `seed/route_matrix.json`, `pnpm matrix:build`; ORS kľúč nie je), engine `src/engine/itinerary.ts` (čistý generátor: deň = prenocovanie → prenocovanie, kandidáti v regiónoch po ceste, skóre popularita + záujmy + sezóna + klenoty, kapacita tempa, jazda × 1,25 + 10 min/zastávku, zamknuté/ručné zastávky ostávajú; 7 testov),
+  `step05-actions.ts` (Generovať, + zastávka, odstrániť, zamknúť deň, prepočet km → palivo v 03), `itinerary-data.ts` (dni/zastávky so vstupným podľa veku, noci, katalóg, geometria z OSRM `route` cez nový konektor `osrm` s cache 30 d),
+  **krok 05** (dni → vnorené zastávky s jazdou, noc, varovania, katalóg na pridanie, sheet zastávky podľa artboardu), **krok 06** (v pláne + katalóg s „+ Deň N“, filtre typ/klenoty),
+  **Mapa** `/cesta/[id]/mapa` – MapLibre GL 5 + OpenFreeMap Liberty: trasy dní po cestách (aktívny deň modrý), číslované zastávky, zelené noci, katalóg (vrstva), **tooltip pri hoveri, klik → spodný riadok + Detail sheet**, ‹ › dni, `?den=&poi=`; `/dev/mapa` ukážka bez prihlásenia.
+  Poučenia: MapLibre 6 (module worker) v Next dev nefunguje → v5; React strict mode dvojité mount rozbije zdieľaný worker pool → mapu vytvárať odložene (setTimeout 0 + zrušenie); maplibre prepíše `position` kontajnera (vnútorný div h-full). Seed: +3 veľké obytné autá (Happy 4, Sunlight T69, Kuku Casper) na žiadosť používateľa.
+  Stub: sever/východ bez POI v seede (dni 6–8 prázdne), dron zóny, počasie, presun zastávok drag & drop (v1.1).
+- **Otvorené rozhodnutie (používateľ, 20. 9.):** vymeniť poradie krokov 04 a 05 (03 Doprava → 04 Trasa → 05 Kde spať) – odporúčam áno; čaká na odpoveď.
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový, bloky 2.1–2.6 hotové.** Pokračovať **blokom 2.7** (krok 05 + reálna OSM mapa, route_matrix, krok 06) podľa `plan/SPRINT-2-DNI.md`. Pred tým: navigácia späť na telefóne (Postup ako sheet + šípka späť) – požiadavka používateľa 20. 9.
+- **Deň 1 hotový, bloky 2.1–2.7 hotové.** Pokračovať **blokom 2.8** (krok 07 Strava + krok 08 Rozpočet + „Odhad cesty“ v hlavičke) podľa `plan/SPRINT-2-DNI.md`.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.

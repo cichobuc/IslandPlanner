@@ -39,4 +39,10 @@ export type SelectedFlight = {
   airline: string | null;
 };
 
-export type SearchMeta = { id: string; createdAt: string; stale: boolean; count: number; connectorStats: Record<string, { ok: boolean; count: number; reason?: string }> | null };
+export type SearchMeta = {
+  id: string;
+  createdAt: string;
+  stale: boolean;
+  count: number;
+  connectorStats: Record<string, { ok: boolean; count: number; reason?: string }> | null;
+};

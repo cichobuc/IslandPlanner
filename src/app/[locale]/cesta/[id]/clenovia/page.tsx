@@ -24,7 +24,12 @@ export default async function MembersPage({ params }: { params: Promise<{ locale
 
   return (
     <div className="bg-bg min-h-dvh">
-      <TopBar backHref={`/cesta/${id}`} backLabel={access.trip.name} title={t('members')} actions={<span />} />
+      <TopBar
+        backHref={`/cesta/${id}`}
+        backLabel={access.trip.name}
+        title={t('members')}
+        actions={<span />}
+      />
       <main className="mx-auto flex w-full max-w-[760px] flex-col gap-[18px] px-4 py-5 sm:px-6">
         <p className="text-ink-2 text-sm">{t('membersLead')}</p>
         <StepSection title={`${t('members')} · ${members.length}`}>
@@ -38,13 +43,22 @@ export default async function MembersPage({ params }: { params: Promise<{ locale
                 badges={
                   <>
                     <Tag tone={m.role === 'owner' ? 'info' : 'mut'}>{roleLabel[m.role]}</Tag>
-                    {m.profileCompleted ? <Tag tone="ok">{t('profileDone')}</Tag> : <Tag tone="warn">{t('profileMissing')}</Tag>}
+                    {m.profileCompleted ? (
+                      <Tag tone="ok">{t('profileDone')}</Tag>
+                    ) : (
+                      <Tag tone="warn">{t('profileMissing')}</Tag>
+                    )}
                     {m.mustChangePassword && <Tag tone="warn">{t('tempPassword')}</Tag>}
                   </>
                 }
                 action={
                   isOwner && m.role !== 'owner' ? (
-                    <MemberActions tripId={id} userId={m.userId} role={m.role} labels={{ editor: t('roleEditor'), viewer: t('roleViewer'), remove: t('remove') }} />
+                    <MemberActions
+                      tripId={id}
+                      userId={m.userId}
+                      role={m.role}
+                      labels={{ editor: t('roleEditor'), viewer: t('roleViewer'), remove: t('remove') }}
+                    />
                   ) : undefined
                 }
               />
@@ -57,7 +71,14 @@ export default async function MembersPage({ params }: { params: Promise<{ locale
               <AddMemberForm
                 tripId={id}
                 options={addable.map((p) => ({ value: p.userId, label: `${p.displayName} · ${p.email}` }))}
-                labels={{ pick: t('pick'), role: t('role'), editor: t('roleEditor'), viewer: t('roleViewer'), add: t('add'), adding: t('adding') }}
+                labels={{
+                  pick: t('pick'),
+                  role: t('role'),
+                  editor: t('roleEditor'),
+                  viewer: t('roleViewer'),
+                  add: t('add'),
+                  adding: t('adding'),
+                }}
               />
             ) : (
               <Notice tone="mut">{t('noAddable')}</Notice>

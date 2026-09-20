@@ -31,13 +31,16 @@ const PLACE: Record<string, string> = {
   westfjords: 'Ísafjörður',
   highlands: 'Landmannalaugar',
 };
-const asMoney = (m: unknown): Money | null => (m && typeof m === 'object' && 'amount' in (m as object) ? (m as Money) : null);
+const asMoney = (m: unknown): Money | null =>
+  m && typeof m === 'object' && 'amount' in (m as object) ? (m as Money) : null;
 const addDay = (iso: string) => new Date(Date.parse(iso) + 86_400_000).toISOString().slice(0, 10);
 const distKm = (a: { lat: number; lng: number }, b: { lat: number; lng: number }) => {
   const R = 6371;
   const dLat = ((b.lat - a.lat) * Math.PI) / 180;
   const dLng = ((b.lng - a.lng) * Math.PI) / 180;
-  const x = Math.sin(dLat / 2) ** 2 + Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  const x =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(x));
 };
 
@@ -45,28 +48,52 @@ const distKm = (a: { lat: number; lng: number }, b: { lat: number; lng: number }
 export async function Step04({ access }: { access: TripAccess }) {
   const { trip, role } = access;
   if (!trip.transportMode || trip.transportMode === 'no_car') {
-    return <Notice tone="info">Najprv rozhodni v kroku 03 (Auto alebo Karavan) – podľa toho sú noci izby alebo kempy.</Notice>;
+    return (
+      <Notice tone="info">
+        Najprv rozhodni v kroku 03 (Auto alebo Karavan) – podľa toho sú noci izby alebo kempy.
+      </Notice>
+    );
   }
   const mode = trip.transportMode;
   const db = getDb();
   const [stays, regions, travelers, flight, rates, vehicleSel] = await Promise.all([
-    db.select().from(schema.lodgingStays).where(and(eq(schema.lodgingStays.tripId, trip.id), eq(schema.lodgingStays.scenarioKey, mode))).orderBy(asc(schema.lodgingStays.nightIndex)),
+    db
+      .select()
+      .from(schema.lodgingStays)
+      .where(and(eq(schema.lodgingStays.tripId, trip.id), eq(schema.lodgingStays.scenarioKey, mode)))
+      .orderBy(asc(schema.lodgingStays.nightIndex)),
     db.select().from(schema.regions),
     db.select().from(schema.travelers).where(eq(schema.travelers.tripId, trip.id)),
     loadFlightInput(trip.id),
     getRates(),
-    db.select().from(schema.vehicleSelection).where(and(eq(schema.vehicleSelection.tripId, trip.id), eq(schema.vehicleSelection.scenarioKey, mode))).limit(1),
+    db
+      .select()
+      .from(schema.vehicleSelection)
+      .where(and(eq(schema.vehicleSelection.tripId, trip.id), eq(schema.vehicleSelection.scenarioKey, mode)))
+      .limit(1),
   ]);
-  if (stays.length === 0) return <Notice tone="info">Noci vzniknú po výbere letu v kroku 02 (dátumy → počet nocí a regióny z návrhu trasy).</Notice>;
+  if (stays.length === 0)
+    return (
+      <Notice tone="info">
+        Noci vzniknú po výbere letu v kroku 02 (dátumy → počet nocí a regióny z návrhu trasy).
+      </Notice>
+    );
 
   const pax = travelers.length || 1;
   const fx = { ISK_EUR: rates.fx.ISK_EUR };
   const optionIds = stays.map((s) => s.lodgingOptionId).filter((x): x is string => Boolean(x));
-  const options = optionIds.length ? await db.select().from(schema.lodgingOptions).where(inArray(schema.lodgingOptions.id, optionIds)) : [];
+  const options = optionIds.length
+    ? await db.select().from(schema.lodgingOptions).where(inArray(schema.lodgingOptions.id, optionIds))
+    : [];
   const regionById = new Map(regions.map((r) => [r.id, r]));
   const derived = flight ? deriveFromFlight(flight) : null;
   const campingCardOn = Boolean(vehicleSel[0]?.campingCard);
-  const defaultKind: LodgingKind = mode === 'camper' ? 'camper_site' : (access.me.profile?.comfort === 'camp' ? 'guesthouse' : (access.me.profile?.comfort ?? 'guesthouse'));
+  const defaultKind: LodgingKind =
+    mode === 'camper'
+      ? 'camper_site'
+      : access.me.profile?.comfort === 'camp'
+        ? 'guesthouse'
+        : (access.me.profile?.comfort ?? 'guesthouse');
 
   // kempy: tjalda (živé, cache 7 d) + seed POI kind=campsite, priradené k regiónu podľa najbližšieho centroidu
   let tjaldaOk = false;
@@ -141,7 +168,9 @@ export async function Step04({ access }: { access: TripAccess }) {
 
   const inputs: LodgingStayInput[] = stays.map((s) => {
     const o = options.find((x) => x.id === s.lodgingOptionId);
-    const notes = s.notes?.startsWith('{') ? (JSON.parse(s.notes) as { electricityIsk?: number; campingCard?: boolean }) : null;
+    const notes = s.notes?.startsWith('{')
+      ? (JSON.parse(s.notes) as { electricityIsk?: number; campingCard?: boolean })
+      : null;
     return {
       id: s.id,
       scenarioKey: s.scenarioKey,
@@ -157,7 +186,9 @@ export async function Step04({ access }: { access: TripAccess }) {
       serviceFeePct: o?.serviceFeePct ? Number(o.serviceFeePct) : null,
       cityTaxPp: asMoney(o?.cityTaxPp),
       perPersonNight: asMoney(o?.pricePerPerson),
-      electricity: notes?.electricityIsk ? { amount: notes.electricityIsk, currency: 'ISK', source: 'api' } : null,
+      electricity: notes?.electricityIsk
+        ? { amount: notes.electricityIsk, currency: 'ISK', source: 'api' }
+        : null,
       inCampingCardNetwork: notes?.campingCard ?? null,
       hasKitchen: s.hasKitchen,
       isManual: s.isManual,
@@ -165,7 +196,10 @@ export async function Step04({ access }: { access: TripAccess }) {
       checkInUntil: o?.checkInUntil ? String(o.checkInUntil).slice(0, 5) : null,
     };
   });
-  const warnings = lodgingWarnings(inputs, { arrivalMinutesOfDay: derived?.arrivalMinutesOfDay, departureMinutesOfDay: derived?.departureMinutesOfDay });
+  const warnings = lodgingWarnings(inputs, {
+    arrivalMinutesOfDay: derived?.arrivalMinutesOfDay,
+    departureMinutesOfDay: derived?.departureMinutesOfDay,
+  });
   const card = mode === 'camper' ? campingCardDecision(inputs, pax, fx) : null;
 
   let total = 0;
@@ -200,7 +234,14 @@ export async function Step04({ access }: { access: TripAccess }) {
       place,
       kind: inp.kind,
       assigned: o
-        ? { name: o.name, url: o.url, kind: o.kind, source: o.connectorId, checkInUntil: o.checkInUntil ? String(o.checkInUntil).slice(0, 5) : null, openUntil: o.openUntil }
+        ? {
+            name: o.name,
+            url: o.url,
+            kind: o.kind,
+            source: o.connectorId,
+            checkInUntil: o.checkInUntil ? String(o.checkInUntil).slice(0, 5) : null,
+            openUntil: o.openUntil,
+          }
         : null,
       noLodging: s.notes === 'bez ubytovania',
       hasKitchen: c.hasKitchen,
@@ -218,7 +259,13 @@ export async function Step04({ access }: { access: TripAccess }) {
   });
 
   const vehicle = vehicleSel[0]?.vehicleOptionId
-    ? (await db.select({ name: schema.vehicleOptions.name }).from(schema.vehicleOptions).where(eq(schema.vehicleOptions.id, vehicleSel[0].vehicleOptionId)).limit(1))[0]?.name
+    ? (
+        await db
+          .select({ name: schema.vehicleOptions.name })
+          .from(schema.vehicleOptions)
+          .where(eq(schema.vehicleOptions.id, vehicleSel[0].vehicleOptionId))
+          .limit(1)
+      )[0]?.name
     : null;
 
   const data: Step04Data = {
@@ -234,7 +281,13 @@ export async function Step04({ access }: { access: TripAccess }) {
     dates: trip.startDate && trip.endDate ? dateRangeLabel(trip.startDate, trip.endDate) : null,
     vehicleLabel: vehicle ?? null,
     presetKey: trip.routePreset,
-    campingCard: card ? { on: campingCardOn, ...card, expired: (trip.startDate ?? '') > `${(trip.startDate ?? trip.targetMonth).slice(0, 4)}-09-15` } : null,
+    campingCard: card
+      ? {
+          on: campingCardOn,
+          ...card,
+          expired: (trip.startDate ?? '') > `${(trip.startDate ?? trip.targetMonth).slice(0, 4)}-09-15`,
+        }
+      : null,
     tjaldaOk,
     canEdit: canEdit(role),
   };

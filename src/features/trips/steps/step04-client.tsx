@@ -26,10 +26,22 @@ import {
 } from '@/components/ui';
 import { fmtEur, fmtInt, fmtRange } from '@/lib/format';
 import type { ActionState } from '../actions';
-import { assignCampsiteAction, assignOfferAction, setCampingCardAction, updateStayAction } from '../step04-actions';
+import {
+  assignCampsiteAction,
+  assignOfferAction,
+  setCampingCardAction,
+  updateStayAction,
+} from '../step04-actions';
 import type { NightLite, Step04Data } from './step04-types';
 
-const KIND_LABEL: Record<string, string> = { airbnb: 'Airbnb', hotel: 'hotel', guesthouse: 'penzión', hostel: 'hostel', campsite: 'kemp', camper_site: 'kemp' };
+const KIND_LABEL: Record<string, string> = {
+  airbnb: 'Airbnb',
+  hotel: 'hotel',
+  guesthouse: 'penzión',
+  hostel: 'hostel',
+  campsite: 'kemp',
+  camper_site: 'kemp',
+};
 const dm = (iso: string) => `${Number(iso.slice(8, 10))}. ${Number(iso.slice(5, 7))}.`;
 
 export function Step04Client({ data }: { data: Step04Data }) {
@@ -52,7 +64,13 @@ export function Step04Client({ data }: { data: Step04Data }) {
             ? 'Noc = kemp v regióne z návrhu trasy. Ceny sú živé z tjalda (os./noc + elektrina + daň); divoké kempovanie je zakázané. Camping Card sa oplatí len pri dostatku nocí v sieti a platí do 15. 9.'
             : 'Každá noc má región z návrhu trasy a cenové rozpätie pre skupinu – to na rozhodnutie stačí. Keď nájdeš konkrétnu ponuku (Booking/Airbnb), vlož ju a noc bude presná. Kuchynka ovplyvní stravu v kroku 07.'
         }
-        aside={<StepAmount amount={data.total} source={data.estimateShare > 0 ? 'estimate' : 'manual'} approx={data.estimateShare > 0} />}
+        aside={
+          <StepAmount
+            amount={data.total}
+            source={data.estimateShare > 0 ? 'estimate' : 'manual'}
+            approx={data.estimateShare > 0}
+          />
+        }
       />
 
       <StepSection title="Z predchádzajúcich krokov">
@@ -67,7 +85,9 @@ export function Step04Client({ data }: { data: Step04Data }) {
           <Chip icon={Waypoints} iconClassName="text-ink-3">
             regióny z trasy {data.presetKey ?? ''}
           </Chip>
-          <Chip>{pax} os. → {isCamper ? '1 jednotka' : `${Math.max(1, Math.ceil(pax / 2))} izby / apartmán`}</Chip>
+          <Chip>
+            {pax} os. → {isCamper ? '1 jednotka' : `${Math.max(1, Math.ceil(pax / 2))} izby / apartmán`}
+          </Chip>
         </ChipRow>
       </StepSection>
 
@@ -77,15 +97,35 @@ export function Step04Client({ data }: { data: Step04Data }) {
             <ListRow
               leading={<Tile icon={Tent} tone={data.campingCard.on ? 'ok' : 'mut'} />}
               title={`${data.campingCard.cards} ${data.campingCard.cards === 1 ? 'karta' : 'karty'} × 199 € = ${fmtEur(data.campingCard.cost)} vs. úspora ${fmtEur(data.campingCard.saving)} v sieti`}
-              meta={data.campingCard.expired ? 'termín po 15. 9. – karta už neplatí' : data.campingCard.worthIt ? 'oplatí sa – zapni a kempy v sieti budú za osoby zadarmo (daň ostáva)' : 'neoplatí sa pri týchto kempoch – nechaj vypnuté'}
-              badges={<Tag tone={data.campingCard.expired ? 'bad' : data.campingCard.worthIt ? 'ok' : 'mut'}>{data.campingCard.expired ? 'neplatí' : data.campingCard.worthIt ? 'oplatí sa' : 'neoplatí sa'}</Tag>}
+              meta={
+                data.campingCard.expired
+                  ? 'termín po 15. 9. – karta už neplatí'
+                  : data.campingCard.worthIt
+                    ? 'oplatí sa – zapni a kempy v sieti budú za osoby zadarmo (daň ostáva)'
+                    : 'neoplatí sa pri týchto kempoch – nechaj vypnuté'
+              }
+              badges={
+                <Tag tone={data.campingCard.expired ? 'bad' : data.campingCard.worthIt ? 'ok' : 'mut'}>
+                  {data.campingCard.expired
+                    ? 'neplatí'
+                    : data.campingCard.worthIt
+                      ? 'oplatí sa'
+                      : 'neoplatí sa'}
+                </Tag>
+              }
               amount={data.campingCard.on ? fmtEur(data.campingCard.cost) : '—'}
               action={
                 canEdit ? (
                   <form action={cardAct}>
                     <input type="hidden" name="tripId" value={tripId} />
                     <input type="hidden" name="on" value={data.campingCard.on ? '0' : '1'} />
-                    <Button type="submit" size="sm" variant="secondary" disabled={cardPending || data.campingCard.expired} className={data.campingCard.on ? 'border-accent-line bg-accent-soft text-accent' : ''}>
+                    <Button
+                      type="submit"
+                      size="sm"
+                      variant="secondary"
+                      disabled={cardPending || data.campingCard.expired}
+                      className={data.campingCard.on ? 'border-accent-line bg-accent-soft text-accent' : ''}
+                    >
                       {data.campingCard.on ? '✓ Zapnutá' : 'Vypnutá'}
                     </Button>
                   </form>
@@ -97,25 +137,50 @@ export function Step04Client({ data }: { data: Step04Data }) {
         </StepSection>
       )}
 
-      <StepSection title={`Noci · ${nights.length}`} hint={`${assigned} presných · ${nights.length - assigned} odhadov${isCamper && !data.tjaldaOk ? ' · tjalda nedostupná, kempy zo seedu' : ''}`}>
+      <StepSection
+        title={`Noci · ${nights.length}`}
+        hint={`${assigned} presných · ${nights.length - assigned} odhadov${isCamper && !data.tjaldaOk ? ' · tjalda nedostupná, kempy zo seedu' : ''}`}
+      >
         <ListCard>
           {nights.map((n) => (
             <ListRow
               key={n.stayId}
-              leading={<span className={`font-display grid size-9 place-items-center rounded-[9px] text-[12px] font-semibold ${n.assigned ? 'bg-ok-bg text-ok-fg' : 'bg-mut-bg text-ink-2'}`}>{String(n.nightIndex).padStart(2, '0')}</span>}
+              leading={
+                <span
+                  className={`font-display grid size-9 place-items-center rounded-[9px] text-[12px] font-semibold ${n.assigned ? 'bg-ok-bg text-ok-fg' : 'bg-mut-bg text-ink-2'}`}
+                >
+                  {String(n.nightIndex).padStart(2, '0')}
+                </span>
+              }
               title={`Noc ${n.nightIndex} · ${n.dow} ${dm(n.date)} · ${n.regionName}`}
               meta={
                 n.noLodging
                   ? 'bez ubytovania (nočný let / v aute)'
                   : n.assigned
-                    ? [n.assigned.name, KIND_LABEL[n.assigned.kind] ?? n.assigned.kind, n.hasKitchen ? 'kuchynka ✓' : 'bez kuchynky', n.assigned.checkInUntil ? `check-in do ${n.assigned.checkInUntil}` : null, n.assigned.openUntil ? `otvorené do ${dm(n.assigned.openUntil)}` : null].filter(Boolean).join(' · ')
+                    ? [
+                        n.assigned.name,
+                        KIND_LABEL[n.assigned.kind] ?? n.assigned.kind,
+                        n.hasKitchen ? 'kuchynka ✓' : 'bez kuchynky',
+                        n.assigned.checkInUntil ? `check-in do ${n.assigned.checkInUntil}` : null,
+                        n.assigned.openUntil ? `otvorené do ${dm(n.assigned.openUntil)}` : null,
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')
                     : isCamper
                       ? `kemp v regióne · ${pax} os. + elektrina + daň · odhad zo seedu`
                       : `${KIND_LABEL[n.kind] ?? 'izba'}/Airbnb pre ${pax} · rozpätie z regiónu${n.hasKitchen ? ' · kuchynka ✓' : ''}`
               }
               badges={
                 <>
-                  {n.noLodging ? <Tag tone="mut">0 €</Tag> : n.isEstimate ? <Tag tone="warn">odhad</Tag> : <Tag tone={n.source === 'api' ? 'info' : 'ok'}>{n.source === 'api' ? 'tjalda' : n.source === 'seed' ? 'seed' : 'ručne'}</Tag>}
+                  {n.noLodging ? (
+                    <Tag tone="mut">0 €</Tag>
+                  ) : n.isEstimate ? (
+                    <Tag tone="warn">odhad</Tag>
+                  ) : (
+                    <Tag tone={n.source === 'api' ? 'info' : 'ok'}>
+                      {n.source === 'api' ? 'tjalda' : n.source === 'seed' ? 'seed' : 'ručne'}
+                    </Tag>
+                  )}
                   {n.campingCardApplied && <Tag tone="ok">Camping Card</Tag>}
                   {n.warnings.map((w, i) => (
                     <Tag key={i} tone="warn">
@@ -124,7 +189,13 @@ export function Step04Client({ data }: { data: Step04Data }) {
                   ))}
                 </>
               }
-              amount={n.noLodging ? '0 €' : n.isEstimate && n.min !== n.max ? fmtRange(n.min, n.max) : fmtEur(n.amount)}
+              amount={
+                n.noLodging
+                  ? '0 €'
+                  : n.isEstimate && n.min !== n.max
+                    ? fmtRange(n.min, n.max)
+                    : fmtEur(n.amount)
+              }
               amountSub={n.noLodging ? undefined : `${fmtEur(n.amount / pax)}/os`}
               selected={Boolean(n.assigned)}
               action={
@@ -143,7 +214,10 @@ export function Step04Client({ data }: { data: Step04Data }) {
       <StepSection title="Čo z toho vyplýva" hint="prepočíta sa samo">
         <ResultsCard
           cells={[
-            { label: `${nights.length} nocí`, value: data.estimateShare > 0 ? fmtRange(data.totalMin, data.totalMax) : fmtEur(data.total) },
+            {
+              label: `${nights.length} nocí`,
+              value: data.estimateShare > 0 ? fmtRange(data.totalMin, data.totalMax) : fmtEur(data.total),
+            },
             { label: 'Na osobu', value: fmtEur(data.total / pax) },
             { label: 'Z toho odhady', value: fmtEur(data.estimateShare) },
             { label: 'Kuchynka → 07', value: `${data.kitchenNights} z ${nights.length} nocí` },
@@ -165,7 +239,15 @@ export function Step04Client({ data }: { data: Step04Data }) {
   );
 }
 
-function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step04Data; onClose: () => void }) {
+function NightSheet({
+  night: n,
+  data,
+  onClose,
+}: {
+  night: NightLite;
+  data: Step04Data;
+  onClose: () => void;
+}) {
   const { tripId, pax, mode, canEdit } = data;
   const isCamper = mode === 'camper';
   const [offerState, offerAct, offerPending] = useActionState<ActionState, FormData>(async (p, fd) => {
@@ -203,7 +285,10 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
       title={`Noc ${n.nightIndex} · ${n.dow} ${dm(n.date)}`}
       subtitle={
         <>
-          {n.regionName} · {pax} os. <Tag tone={n.isEstimate ? 'warn' : 'ok'}>{n.isEstimate ? `odhad ${fmtRange(n.min, n.max)}` : fmtEur(n.amount)}</Tag>
+          {n.regionName} · {pax} os.{' '}
+          <Tag tone={n.isEstimate ? 'warn' : 'ok'}>
+            {n.isEstimate ? `odhad ${fmtRange(n.min, n.max)}` : fmtEur(n.amount)}
+          </Tag>
         </>
       }
       footer={
@@ -211,7 +296,12 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
           <>
             {(n.assigned || n.noLodging) && stayOp('clear', 'Späť na odhad')}
             {!n.noLodging && stayOp('no_lodging', 'Noc bez ubytovania')}
-            {!isCamper && !n.assigned && stayOp(n.hasKitchen ? 'kitchen_off' : 'kitchen_on', n.hasKitchen ? 'Bez kuchynky' : 'S kuchynkou')}
+            {!isCamper &&
+              !n.assigned &&
+              stayOp(
+                n.hasKitchen ? 'kitchen_off' : 'kitchen_on',
+                n.hasKitchen ? 'Bez kuchynky' : 'S kuchynkou',
+              )}
             <div className="grow" />
             {!isCamper && (
               <Button type="submit" form="offer-form" disabled={offerPending}>
@@ -225,7 +315,9 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
       {isCamper ? (
         <div className="flex flex-col py-2">
           <SheetRow label="Kempy v regióne">
-            {n.camps.length ? `${n.camps.length} · zoradené: otvorené · cena/os.` : 'žiadny kemp v seede ani tjalda pre tento región – vlož ručne'}
+            {n.camps.length
+              ? `${n.camps.length} · zoradené: otvorené · cena/os.`
+              : 'žiadny kemp v seede ani tjalda pre tento región – vlož ručne'}
           </SheetRow>
           <div className="divide-line -mx-5 divide-y">
             {n.camps.map((c) => {
@@ -235,16 +327,27 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
                   <div className="flex min-w-0 grow flex-col gap-0.5">
                     <span className="truncate text-sm font-semibold">{c.name}</span>
                     <span className="text-ink-2 flex flex-wrap items-center gap-1.5 text-[12px]">
-                      {fmtInt(c.perPersonIsk)} ISK/os · el. {fmtInt(c.electricityIsk)} · {c.distanceKm} km od stredu regiónu
+                      {fmtInt(c.perPersonIsk)} ISK/os · el. {fmtInt(c.electricityIsk)} · {c.distanceKm} km od
+                      stredu regiónu
                       {c.hasKitchen && <Tag tone="ok">kuchynka</Tag>}
                       {c.campingCard && <Tag tone="info">Camping Card</Tag>}
-                      {!c.openForNight && <Tag tone="bad">zatvorené od {c.openUntil ? dm(c.openUntil) : '?'}</Tag>}
+                      {!c.openForNight && (
+                        <Tag tone="bad">zatvorené od {c.openUntil ? dm(c.openUntil) : '?'}</Tag>
+                      )}
                       <Tag tone={c.source === 'tjalda' ? 'info' : 'mut'}>{c.source}</Tag>
                     </span>
                   </div>
-                  <span className="font-display text-sm font-semibold tabular-nums">≈ {fmtInt(nightIsk)} ISK</span>
+                  <span className="font-display text-sm font-semibold tabular-nums">
+                    ≈ {fmtInt(nightIsk)} ISK
+                  </span>
                   {c.url && (
-                    <a href={c.url} target="_blank" rel="noreferrer" className="text-ink-3 hover:text-accent flex" aria-label="Otvoriť">
+                    <a
+                      href={c.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-ink-3 hover:text-accent flex"
+                      aria-label="Otvoriť"
+                    >
                       <ExternalLink size={14} />
                     </a>
                   )}
@@ -263,7 +366,12 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
                       <input type="hidden" name="campingCard" value={c.campingCard ? '1' : '0'} />
                       <input type="hidden" name="hasKitchen" value={c.hasKitchen ? '1' : '0'} />
                       <input type="hidden" name="url" value={c.url ?? ''} />
-                      <Button type="submit" size="sm" variant={n.assigned?.name === c.name ? 'primary' : 'secondary'} disabled={campPending}>
+                      <Button
+                        type="submit"
+                        size="sm"
+                        variant={n.assigned?.name === c.name ? 'primary' : 'secondary'}
+                        disabled={campPending}
+                      >
                         {n.assigned?.name === c.name ? 'Priradený' : 'Priradiť'}
                       </Button>
                     </form>
@@ -272,20 +380,35 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
               );
             })}
           </div>
-          {campState && !campState.ok && <span className="text-bad-fg py-2 text-[12px]">{campState.error}</span>}
-          {stayState && !stayState.ok && <span className="text-bad-fg py-2 text-[12px]">{stayState.error}</span>}
+          {campState && !campState.ok && (
+            <span className="text-bad-fg py-2 text-[12px]">{campState.error}</span>
+          )}
+          {stayState && !stayState.ok && (
+            <span className="text-bad-fg py-2 text-[12px]">{stayState.error}</span>
+          )}
         </div>
       ) : (
         <div className="flex flex-col py-2">
           <SheetRow label="Rozpätie">
-            <b>{fmtRange(n.min, n.max)}</b> · {KIND_LABEL[n.kind] ?? 'izba'} pre {pax} v regióne {n.regionName} · rozpočet počíta so stredom {fmtEur(n.amount)}
+            <b>{fmtRange(n.min, n.max)}</b> · {KIND_LABEL[n.kind] ?? 'izba'} pre {pax} v regióne{' '}
+            {n.regionName} · rozpočet počíta so stredom {fmtEur(n.amount)}
           </SheetRow>
           <SheetRow label="Hľadať">
             <span className="flex flex-wrap gap-2">
-              <a href={n.bookingUrl} target="_blank" rel="noreferrer" className="text-accent inline-flex items-center gap-1 font-semibold">
+              <a
+                href={n.bookingUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent inline-flex items-center gap-1 font-semibold"
+              >
                 <ExternalLink size={13} /> Booking: {n.place} {dm(n.date)}, {pax} hostia
               </a>
-              <a href={n.airbnbUrl} target="_blank" rel="noreferrer" className="text-accent inline-flex items-center gap-1 font-semibold">
+              <a
+                href={n.airbnbUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent inline-flex items-center gap-1 font-semibold"
+              >
                 <ExternalLink size={13} /> Airbnb: {n.place}
               </a>
             </span>
@@ -311,17 +434,37 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
                 <Input name="url" type="url" placeholder="https://www.booking.com/…" />
               </FieldRow>
               <FieldRow label="Typ">
-                <Select name="kind" defaultValue={n.kind === 'camper_site' || n.kind === 'campsite' ? 'guesthouse' : n.kind}>
+                <Select
+                  name="kind"
+                  defaultValue={n.kind === 'camper_site' || n.kind === 'campsite' ? 'guesthouse' : n.kind}
+                >
                   <option value="guesthouse">penzión</option>
                   <option value="airbnb">Airbnb / apartmán</option>
                   <option value="hostel">hostel</option>
                   <option value="hotel">hotel</option>
                 </Select>
               </FieldRow>
-              <FieldRow label="Cena / noc (€)" hint="za celú skupinu; Airbnb service fee je už v cene na webe">
+              <FieldRow
+                label="Cena / noc (€)"
+                hint="za celú skupinu; Airbnb service fee je už v cene na webe"
+              >
                 <div className="flex gap-2">
-                  <Input name="pricePerNight" type="number" min={0} step={1} required className="max-w-[130px]" />
-                  <Input name="cleaningFee" type="number" min={0} step={1} placeholder="upratovanie" className="max-w-[150px]" />
+                  <Input
+                    name="pricePerNight"
+                    type="number"
+                    min={0}
+                    step={1}
+                    required
+                    className="max-w-[130px]"
+                  />
+                  <Input
+                    name="cleaningFee"
+                    type="number"
+                    min={0}
+                    step={1}
+                    placeholder="upratovanie"
+                    className="max-w-[150px]"
+                  />
                 </div>
               </FieldRow>
               <FieldRow label="Kuchynka">
@@ -338,12 +481,15 @@ function NightSheet({ night: n, data, onClose }: { night: NightLite; data: Step0
                 <Input name="checkInUntil" type="time" className="max-w-[130px]" />
               </FieldRow>
             </fieldset>
-            {offerState && !offerState.ok && <span className="text-bad-fg py-2 text-[12px]">{offerState.error}</span>}
-            {stayState && !stayState.ok && <span className="text-bad-fg py-2 text-[12px]">{stayState.error}</span>}
+            {offerState && !offerState.ok && (
+              <span className="text-bad-fg py-2 text-[12px]">{offerState.error}</span>
+            )}
+            {stayState && !stayState.ok && (
+              <span className="text-bad-fg py-2 text-[12px]">{stayState.error}</span>
+            )}
           </form>
         </div>
       )}
     </Sheet>
   );
 }
-

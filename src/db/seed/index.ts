@@ -313,10 +313,12 @@ async function main() {
   }
   console.log('✓ fx_rates, fuel_prices');
 
-  // route_matrix: zatiaľ Haversine × 1,25 medzi všetkými seed POI a KEF (blok 2.7 nahradí ORS maticou)
-  const points = [...poiIds.map((p) => ({ slug: p.slug })), { slug: 'kef' }];
+  // route_matrix: OSRM matica zo seed/route_matrix.json (pnpm matrix:build), pre chýbajúce dvojice Haversine × 1,25
+  const regionsSeed = read<Array<{ id: string; centroid_lat: number; centroid_lng: number }>>('regions.json');
+  const points = [...poiIds.map((p) => ({ slug: p.slug })), ...regionsSeed.map((r) => ({ slug: `region:${r.id}` })), { slug: 'kef' }];
   const coords = new Map<string, [number, number]>();
   for (const p of allPois) coords.set(p.slug, [Number(p.lat), Number(p.lng)]);
+  for (const r of regionsSeed) coords.set(`region:${r.id}`, [r.centroid_lat, r.centroid_lng]);
   coords.set('kef', [63.985, -22.6056]);
   const hav = (a: [number, number], b: [number, number]) => {
     const R = 6371;
@@ -327,29 +329,37 @@ async function main() {
       Math.cos((a[0] * Math.PI) / 180) * Math.cos((b[0] * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
     return 2 * R * Math.asin(Math.sqrt(x));
   };
+  let osrm: { rows: { from: string; to: string; km: number; min: number }[] } | null = null;
+  try {
+    osrm = read('route_matrix.json');
+  } catch {
+    console.log('  route_matrix.json chýba – spusti pnpm matrix:build (zatiaľ len Haversine)');
+  }
+  const osrmMap = new Map((osrm?.rows ?? []).map((r) => [`${r.from}>${r.to}`, r]));
   const matrixRows: (typeof schema.routeMatrix.$inferInsert)[] = [];
+  let fromOsrm = 0;
   for (const a of points)
     for (const b of points) {
       if (a.slug === b.slug) continue;
+      const o = osrmMap.get(`${a.slug}>${b.slug}`);
+      if (o) {
+        fromOsrm++;
+        matrixRows.push({ fromSlug: a.slug, toSlug: b.slug, km: String(o.km), min: String(o.min), surface: 'paved' });
+        continue;
+      }
       const ca = coords.get(a.slug);
       const cb = coords.get(b.slug);
       if (!ca || !cb) continue;
       const km = Math.round(hav(ca, cb) * 1.25 * 10) / 10;
-      matrixRows.push({
-        fromSlug: a.slug,
-        toSlug: b.slug,
-        km: String(km),
-        min: String(Math.round((km / 70) * 60)),
-        surface: 'estimate',
-      });
+      matrixRows.push({ fromSlug: a.slug, toSlug: b.slug, km: String(km), min: String(Math.round((km / 70) * 60)), surface: 'estimate' });
     }
-  await db.execute(sql`delete from route_matrix where surface = 'estimate'`);
+  await db.execute(sql`delete from route_matrix`);
   for (let i = 0; i < matrixRows.length; i += 500)
     await db
       .insert(schema.routeMatrix)
       .values(matrixRows.slice(i, i + 500))
       .onConflictDoNothing();
-  console.log(`✓ route_matrix (Haversine ×1,25) ${matrixRows.length} dvojíc`);
+  console.log(`✓ route_matrix ${matrixRows.length} dvojíc (OSRM ${fromOsrm}, Haversine ${matrixRows.length - fromOsrm})`);
 
   console.log(`Hotovo za ${((Date.now() - t0) / 1000).toFixed(1)} s`);
   process.exit(0);

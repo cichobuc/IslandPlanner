@@ -33,12 +33,19 @@ export async function setTransportModeAction(_prev: ActionState, formData: FormD
   const { tripId, mode } = parsed.data;
   if (mode === 'no_car') return { ok: false, error: 'Vetva „Bez auta“ príde vo verzii 1.1.' };
   if (!(await editable(tripId))) return { ok: false, error: NO_EDIT };
-  await getDb().update(schema.trips).set({ transportMode: mode, updatedAt: new Date() }).where(eq(schema.trips.id, tripId));
+  await getDb()
+    .update(schema.trips)
+    .set({ transportMode: mode, updatedAt: new Date() })
+    .where(eq(schema.trips.id, tripId));
   revalidate(tripId);
   return { ok: true };
 }
 
-const selectSchema = z.object({ tripId: z.uuid(), scenario: z.enum(['car', 'camper']), vehicleOptionId: z.uuid() });
+const selectSchema = z.object({
+  tripId: z.uuid(),
+  scenario: z.enum(['car', 'camper']),
+  vehicleOptionId: z.uuid(),
+});
 
 /** Zvoliť vozidlo pre vetvu: predvolené poistenia = nezahrnuté SCDW + GP, 2. vodič ak sú vodiči ≥ 2. */
 export async function selectVehicleAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -51,18 +58,41 @@ export async function selectVehicleAction(_prev: ActionState, formData: FormData
   const [opt] = await db
     .select()
     .from(schema.vehicleOptions)
-    .where(and(eq(schema.vehicleOptions.id, vehicleOptionId), or(isNull(schema.vehicleOptions.tripId), eq(schema.vehicleOptions.tripId, tripId))))
+    .where(
+      and(
+        eq(schema.vehicleOptions.id, vehicleOptionId),
+        or(isNull(schema.vehicleOptions.tripId), eq(schema.vehicleOptions.tripId, tripId)),
+      ),
+    )
     .limit(1);
   if (!opt) return { ok: false, error: 'Vozidlo neexistuje.' };
-  const drivers = await db.select({ n: schema.travelers.id }).from(schema.travelers).where(and(eq(schema.travelers.tripId, tripId), eq(schema.travelers.isDriver, true)));
+  const drivers = await db
+    .select({ n: schema.travelers.id })
+    .from(schema.travelers)
+    .where(and(eq(schema.travelers.tripId, tripId), eq(schema.travelers.isDriver, true)));
   const insuranceChosen = Object.entries(opt.insurance ?? {})
     .filter(([k, v]) => !v.included && (k === 'scdw' || k === 'gp'))
     .map(([k]) => k);
-  const extrasChosen: Record<string, number> = drivers.length > 1 && opt.extras?.second_driver ? { second_driver: 1 } : {};
+  const extrasChosen: Record<string, number> =
+    drivers.length > 1 && opt.extras?.second_driver ? { second_driver: 1 } : {};
   const days = await rentalDays(tripId, access.trip.minDays);
   await db.transaction(async (tx) => {
-    await tx.delete(schema.vehicleSelection).where(and(eq(schema.vehicleSelection.tripId, tripId), eq(schema.vehicleSelection.scenarioKey, scenario)));
-    await tx.insert(schema.vehicleSelection).values({ tripId, scenarioKey: scenario, vehicleOptionId, days, insuranceChosen, extrasChosen, isManual: false });
+    await tx
+      .delete(schema.vehicleSelection)
+      .where(
+        and(eq(schema.vehicleSelection.tripId, tripId), eq(schema.vehicleSelection.scenarioKey, scenario)),
+      );
+    await tx
+      .insert(schema.vehicleSelection)
+      .values({
+        tripId,
+        scenarioKey: scenario,
+        vehicleOptionId,
+        days,
+        insuranceChosen,
+        extrasChosen,
+        isManual: false,
+      });
   });
   revalidate(tripId);
   return { ok: true };
@@ -71,17 +101,29 @@ export async function selectVehicleAction(_prev: ActionState, formData: FormData
 const optionsSchema = z.object({
   tripId: z.uuid(),
   scenario: z.enum(['car', 'camper']),
-  consumptionOverride: z.preprocess((v) => (v === '' || v == null ? undefined : v), z.coerce.number().min(2).max(25).optional()),
-  fuelPriceOverride: z.preprocess((v) => (v === '' || v == null ? undefined : v), z.coerce.number().min(100).max(1000).optional()),
+  consumptionOverride: z.preprocess(
+    (v) => (v === '' || v == null ? undefined : v),
+    z.coerce.number().min(2).max(25).optional(),
+  ),
+  fuelPriceOverride: z.preprocess(
+    (v) => (v === '' || v == null ? undefined : v),
+    z.coerce.number().min(100).max(1000).optional(),
+  ),
 });
 
 /** Poistenia (checkboxy `insurance`), extras (`extra.<key>` = počet), spotreba a cena paliva prepísateľné. */
-export async function updateVehicleOptionsAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
+export async function updateVehicleOptionsAction(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
   const parsed = optionsSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { ok: false, error: 'Skontroluj polia.' };
   const { tripId, scenario } = parsed.data;
   if (!(await editable(tripId))) return { ok: false, error: NO_EDIT };
-  const insuranceChosen = formData.getAll('insurance').map(String).filter((k) => /^[a-z_]+$/.test(k));
+  const insuranceChosen = formData
+    .getAll('insurance')
+    .map(String)
+    .filter((k) => /^[a-z_]+$/.test(k));
   const extrasChosen: Record<string, number> = {};
   for (const [k, v] of formData.entries()) {
     if (!k.startsWith('extra.')) continue;
@@ -93,12 +135,18 @@ export async function updateVehicleOptionsAction(_prev: ActionState, formData: F
     .set({
       insuranceChosen,
       extrasChosen,
-      consumptionOverride: parsed.data.consumptionOverride != null ? String(parsed.data.consumptionOverride) : null,
+      consumptionOverride:
+        parsed.data.consumptionOverride != null ? String(parsed.data.consumptionOverride) : null,
       fuelPriceOverride: parsed.data.fuelPriceOverride != null ? String(parsed.data.fuelPriceOverride) : null,
       isManual: true,
       updatedAt: new Date(),
     })
-    .where(and(eq(schema.vehicleSelection.tripId, tripId), eq(schema.vehicleSelection.scenarioKey, scenario as ScenarioKey)));
+    .where(
+      and(
+        eq(schema.vehicleSelection.tripId, tripId),
+        eq(schema.vehicleSelection.scenarioKey, scenario as ScenarioKey),
+      ),
+    );
   revalidate(tripId);
   return { ok: true };
 }
@@ -119,7 +167,8 @@ const manualSchema = z.object({
 /** „+ Vozidlo ručne": vlastná ponuka (per cesta) a hneď sa zvolí. */
 export async function addManualVehicleAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = manualSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
+  if (!parsed.success)
+    return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
   const v = parsed.data;
   const access = await editable(v.tripId);
   if (!access) return { ok: false, error: NO_EDIT };
@@ -145,8 +194,25 @@ export async function addManualVehicleAction(_prev: ActionState, formData: FormD
     .returning({ id: schema.vehicleOptions.id });
   const days = await rentalDays(v.tripId, access.trip.minDays);
   await db.transaction(async (tx) => {
-    await tx.delete(schema.vehicleSelection).where(and(eq(schema.vehicleSelection.tripId, v.tripId), eq(schema.vehicleSelection.scenarioKey, v.scenario)));
-    await tx.insert(schema.vehicleSelection).values({ tripId: v.tripId, scenarioKey: v.scenario, vehicleOptionId: row.id, days, insuranceChosen: [], extrasChosen: {}, isManual: true });
+    await tx
+      .delete(schema.vehicleSelection)
+      .where(
+        and(
+          eq(schema.vehicleSelection.tripId, v.tripId),
+          eq(schema.vehicleSelection.scenarioKey, v.scenario),
+        ),
+      );
+    await tx
+      .insert(schema.vehicleSelection)
+      .values({
+        tripId: v.tripId,
+        scenarioKey: v.scenario,
+        vehicleOptionId: row.id,
+        days,
+        insuranceChosen: [],
+        extrasChosen: {},
+        isManual: true,
+      });
   });
   revalidate(v.tripId);
   return { ok: true };

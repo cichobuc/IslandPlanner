@@ -19,13 +19,15 @@
     "db:sql": "tsx src/db/apply-sql.ts",
     "seed": "tsx -r ./scripts/server-only-shim.cjs src/db/seed/index.ts",
     "admin:bootstrap": "tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts",
-    "spike:coverage": "tsx scripts/spike-coverage.ts"
+    "spike:coverage": "tsx scripts/spike-coverage.ts",
+    "matrix:build": "tsx scripts/build-route-matrix.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.58.0",
     "drizzle-orm": "^0.44.0",
     "lucide-react": "^1.47.0",
+    "maplibre-gl": "^5.24.0",
     "next": "15.5.25",
     "next-intl": "^4.14.5",
     "pg": "^8.23.0",
@@ -39,6 +41,7 @@
     "@eslint/eslintrc": "^3",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^24",
     "@types/pg": "^8.23.1",
     "@types/react": "^19",

@@ -1,6 +1,16 @@
 import { and, asc, eq, inArray } from 'drizzle-orm';
 import { ChevronRight, Home } from 'lucide-react';
-import { ButtonLink, ListCard, ListRow, ResultsCard, StepFooter, StepHead, StepSection, Tag, Tile } from '@/components/ui';
+import {
+  ButtonLink,
+  ListCard,
+  ListRow,
+  ResultsCard,
+  StepFooter,
+  StepHead,
+  StepSection,
+  Tag,
+  Tile,
+} from '@/components/ui';
 import { getDb, schema } from '@/db';
 import { ageOn } from '@/engine/ageRules';
 import type { PriceRuleTier } from '@/engine/types';
@@ -9,10 +19,21 @@ import type { TripAccess } from '../access';
 import { canEdit } from '../access';
 import { airportFacts } from '../airport-access';
 import { monthLabel } from '../progress';
-import { AddTravelerButton, AirportToggle, SettingsForm, TravelerRowItem, type TravelerRow } from './step01-client';
+import {
+  AddTravelerButton,
+  AirportToggle,
+  SettingsForm,
+  TravelerRowItem,
+  type TravelerRow,
+} from './step01-client';
 
 const bagsLabel = (b: TravelerRow['bags']) =>
-  [b.cabinSmall && `${b.cabinSmall}× malá`, b.cabin10 && `${b.cabin10}× 10 kg`, b.checked20 && `${b.checked20}× 20 kg`, b.checked32 && `${b.checked32}× 32 kg`]
+  [
+    b.cabinSmall && `${b.cabinSmall}× malá`,
+    b.cabin10 && `${b.cabin10}× 10 kg`,
+    b.checked20 && `${b.checked20}× 20 kg`,
+    b.checked32 && `${b.checked32}× 32 kg`,
+  ]
     .filter(Boolean)
     .join(' · ');
 
@@ -22,9 +43,20 @@ export async function Step01({ access }: { access: TripAccess }) {
   const editable = canEdit(role);
   const db = getDb();
   const [travelers, airports, parking] = await Promise.all([
-    db.select().from(schema.travelers).where(eq(schema.travelers.tripId, trip.id)).orderBy(asc(schema.travelers.sortOrder), asc(schema.travelers.updatedAt)),
-    db.select().from(schema.airports).where(and(eq(schema.airports.isOrigin, true))).orderBy(asc(schema.airports.driveKmFromHome)),
-    db.select().from(schema.parkingOptions).where(inArray(schema.parkingOptions.iata, ['BTS', 'VIE', 'BUD', 'PRG', 'KTW'])),
+    db
+      .select()
+      .from(schema.travelers)
+      .where(eq(schema.travelers.tripId, trip.id))
+      .orderBy(asc(schema.travelers.sortOrder), asc(schema.travelers.updatedAt)),
+    db
+      .select()
+      .from(schema.airports)
+      .where(and(eq(schema.airports.isOrigin, true)))
+      .orderBy(asc(schema.airports.driveKmFromHome)),
+    db
+      .select()
+      .from(schema.parkingOptions)
+      .where(inArray(schema.parkingOptions.iata, ['BTS', 'VIE', 'BUD', 'PRG', 'KTW'])),
   ]);
   const rows: TravelerRow[] = travelers.map((t) => ({
     id: t.id,
@@ -67,7 +99,10 @@ export async function Step01({ access }: { access: TripAccess }) {
         lead="Cestujúci sa berú z profilov členov (vek, vodičák, kreditka, batožina). Zapnuté letiská určujú, kde sa v kroku 02 hľadajú letenky – cesta na letisko je 1 autom pre 4 zo skupinovej kasy."
       />
 
-      <StepSection title={`Cestujúci · ${pax}`} hint={missingBirth ? `${missingBirth}× chýba dátum narodenia` : 'vek k dátumu cesty'}>
+      <StepSection
+        title={`Cestujúci · ${pax}`}
+        hint={missingBirth ? `${missingBirth}× chýba dátum narodenia` : 'vek k dátumu cesty'}
+      >
         <ListCard>
           {rows.map((t, i) => {
             const age = ageOn(t, tripDate);
@@ -94,7 +129,11 @@ export async function Step01({ access }: { access: TripAccess }) {
               />
             );
           })}
-          {pax === 0 && <div className="text-ink-3 px-4 py-6 text-center text-sm">Žiadny cestujúci – pridaj člena alebo cestujúceho ručne.</div>}
+          {pax === 0 && (
+            <div className="text-ink-3 px-4 py-6 text-center text-sm">
+              Žiadny cestujúci – pridaj člena alebo cestujúceho ručne.
+            </div>
+          )}
         </ListCard>
         {editable && (
           <div className="flex gap-2">
@@ -108,14 +147,22 @@ export async function Step01({ access }: { access: TripAccess }) {
 
       <StepSection title="Domov a letiská" hint="zapnuté = hľadajú sa letenky">
         <ListCard>
-          <ListRow leading={<Tile icon={Home} tone="mut" />} title={trip.homeLabel} meta="vlastné auto · 6,5 l/100 km · 1,60 €/l · 1 auto pre ≤ 4 os. a ≤ 4 kufre" />
+          <ListRow
+            leading={<Tile icon={Home} tone="mut" />}
+            title={trip.homeLabel}
+            meta="vlastné auto · 6,5 l/100 km · 1,60 €/l · 1 auto pre ≤ 4 os. a ≤ 4 kufre"
+          />
           {facts.map((f) => {
             const a = airports.find((x) => x.iata === f.iata)!;
             const on = enabled.has(f.iata);
             const meta = [
               `${fmtKm(f.km)} · ${Math.floor(f.min / 60)} h ${String(f.min % 60).padStart(2, '0')}`,
               f.mode === 'bus' ? 'bus' : `${f.vehicles} auto`,
-              f.parking != null ? `park. od ${fmtEur(f.parking)}/${f.parkingDays} d` : f.mode === 'car' ? 'bez parkovania' : null,
+              f.parking != null
+                ? `park. od ${fmtEur(f.parking)}/${f.parkingDays} d`
+                : f.mode === 'car'
+                  ? 'bez parkovania'
+                  : null,
               f.vignette ? `známka ${f.vignette}` : null,
             ]
               .filter(Boolean)
@@ -124,7 +171,9 @@ export async function Step01({ access }: { access: TripAccess }) {
               <ListRow
                 key={f.iata}
                 leading={
-                  <span className={`font-display grid size-9 place-items-center rounded-[9px] text-[12px] font-semibold ${on ? 'bg-accent-soft text-accent' : 'bg-mut-bg text-ink-2'}`}>
+                  <span
+                    className={`font-display grid size-9 place-items-center rounded-[9px] text-[12px] font-semibold ${on ? 'bg-accent-soft text-accent' : 'bg-mut-bg text-ink-2'}`}
+                  >
                     {f.iata}
                   </span>
                 }
@@ -178,4 +227,5 @@ export async function Step01({ access }: { access: TripAccess }) {
   );
 }
 
-export const step01Summary = (pax: number, airports: string[], targetMonth: string) => `${pax} os. · ${airports.join(' ')} · ${monthLabel(targetMonth)}`;
+export const step01Summary = (pax: number, airports: string[], targetMonth: string) =>
+  `${pax} os. · ${airports.join(' ')} · ${monthLabel(targetMonth)}`;

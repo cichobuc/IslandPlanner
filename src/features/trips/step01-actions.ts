@@ -20,14 +20,23 @@ async function editable(tripId: string) {
 const int = (min: number, max: number) => z.coerce.number().int().min(min).max(max);
 const optStr = z.string().trim().max(200).optional().or(z.literal(''));
 /** Prázdny text z formulára = nevyplnené (z.coerce.number by z '' spravil 0). */
-const optInt = (min: number, max: number) => z.preprocess((v) => (v === '' || v == null ? undefined : v), int(min, max).optional());
-const optNum = (min: number, max: number) => z.preprocess((v) => (v === '' || v == null ? undefined : v), z.coerce.number().min(min).max(max).optional());
+const optInt = (min: number, max: number) =>
+  z.preprocess((v) => (v === '' || v == null ? undefined : v), int(min, max).optional());
+const optNum = (min: number, max: number) =>
+  z.preprocess(
+    (v) => (v === '' || v == null ? undefined : v),
+    z.coerce.number().min(min).max(max).optional(),
+  );
 
 const travelerSchema = z.object({
   tripId: z.uuid(),
   travelerId: z.uuid().optional().or(z.literal('')),
   name: z.string().trim().min(1).max(60),
-  birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().or(z.literal('')),
+  birthDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional()
+    .or(z.literal('')),
   ageFallback: optInt(0, 110),
   isDriver: z.enum(['yes', 'no']).default('no'),
   driverSinceYear: optInt(1950, 2030),
@@ -43,7 +52,8 @@ const travelerSchema = z.object({
 /** Sheet Cestujúci: založí alebo upraví riadok (meno, vek/dátum, vodič, kreditka, batožina, dvojica na kufor). */
 export async function upsertTravelerAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = travelerSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
+  if (!parsed.success)
+    return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
   const v = parsed.data;
   if (!(await editable(v.tripId))) return { ok: false, error: NO_EDIT };
   const db = getDb();
@@ -91,16 +101,29 @@ export async function removeTravelerAction(_prev: ActionState, formData: FormDat
   const { tripId, travelerId } = parsed.data;
   if (!(await editable(tripId))) return { ok: false, error: NO_EDIT };
   const db = getDb();
-  const [t] = await db.select({ userId: schema.travelers.userId }).from(schema.travelers).where(eq(schema.travelers.id, travelerId)).limit(1);
+  const [t] = await db
+    .select({ userId: schema.travelers.userId })
+    .from(schema.travelers)
+    .where(eq(schema.travelers.id, travelerId))
+    .limit(1);
   if (!t) return { ok: false, error: 'Cestujúci neexistuje.' };
   if (t.userId) return { ok: false, error: 'Je člen cesty – odober ho v Členoch.' };
-  await db.update(schema.travelers).set({ sharesBagsWith: null }).where(eq(schema.travelers.sharesBagsWith, travelerId));
-  await db.delete(schema.travelers).where(and(eq(schema.travelers.id, travelerId), eq(schema.travelers.tripId, tripId)));
+  await db
+    .update(schema.travelers)
+    .set({ sharesBagsWith: null })
+    .where(eq(schema.travelers.sharesBagsWith, travelerId));
+  await db
+    .delete(schema.travelers)
+    .where(and(eq(schema.travelers.id, travelerId), eq(schema.travelers.tripId, tripId)));
   revalidate(tripId);
   return { ok: true };
 }
 
-const airportSchema = z.object({ tripId: z.uuid(), iata: z.string().regex(/^[A-Z]{3}$/), on: z.enum(['1', '0']) });
+const airportSchema = z.object({
+  tripId: z.uuid(),
+  iata: z.string().regex(/^[A-Z]{3}$/),
+  on: z.enum(['1', '0']),
+});
 
 /** Prepínač letiska zapnuté/vypnuté → `trips.origin_airports` (rozhoduje, kde sa hľadajú letenky). */
 export async function toggleAirportAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -114,8 +137,11 @@ export async function toggleAirportAction(_prev: ActionState, formData: FormData
   else set.delete(iata);
   if (set.size === 0) return { ok: false, error: 'Aspoň jedno letisko musí ostať zapnuté.' };
   const order = ['BTS', 'VIE', 'BUD', 'PRG', 'KTW'];
-  const next = [...set].sort((a, b) => (order.indexOf(a) + 99) % 99 - ((order.indexOf(b) + 99) % 99));
-  await getDb().update(schema.trips).set({ originAirports: next, updatedAt: new Date() }).where(eq(schema.trips.id, tripId));
+  const next = [...set].sort((a, b) => ((order.indexOf(a) + 99) % 99) - ((order.indexOf(b) + 99) % 99));
+  await getDb()
+    .update(schema.trips)
+    .set({ originAirports: next, updatedAt: new Date() })
+    .where(eq(schema.trips.id, tripId));
   revalidate(tripId);
   return { ok: true };
 }
@@ -133,15 +159,22 @@ const settingsSchema = z.object({
 /** Sekcia „Kedy a ako": mesiac, dĺžka pobytu, prestupy, tempo, záujmy, cieľový rozpočet. */
 export async function updateTripSettingsAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = settingsSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
+  if (!parsed.success)
+    return { ok: false, error: `Skontroluj polia (${parsed.error.issues[0]?.path.join('.')}).` };
   const v = parsed.data;
   if (v.minDays > v.maxDays) return { ok: false, error: 'Minimum dní nemôže byť väčšie než maximum.' };
   const access = await editable(v.tripId);
   if (!access) return { ok: false, error: NO_EDIT };
   const newMonth = `${v.targetMonth}-01`;
   // predvolený názov „Island · <mesiac>" drží krok s mesiacom; vlastný názov sa nemení
-  const rename = access.trip.name === `Island · ${monthLabel(access.trip.targetMonth)}` ? { name: `Island · ${monthLabel(newMonth)}` } : {};
-  const interests = formData.getAll('interests').map(String).filter((k) => (INTEREST_KEYS as readonly string[]).includes(k));
+  const rename =
+    access.trip.name === `Island · ${monthLabel(access.trip.targetMonth)}`
+      ? { name: `Island · ${monthLabel(newMonth)}` }
+      : {};
+  const interests = formData
+    .getAll('interests')
+    .map(String)
+    .filter((k) => (INTEREST_KEYS as readonly string[]).includes(k));
   await getDb()
     .update(schema.trips)
     .set({

@@ -23,7 +23,12 @@ export async function getRates(): Promise<Rates> {
       : { ...DEFAULT_FX, source: 'seed' as const };
   const fuel =
     fuelR?.ok && fuelR.data.petrol > 0
-      ? { petrol: fuelR.data.petrol, diesel: fuelR.data.diesel, source: 'api' as const, stationCount: fuelR.data.stationCount }
+      ? {
+          petrol: fuelR.data.petrol,
+          diesel: fuelR.data.diesel,
+          source: 'api' as const,
+          stationCount: fuelR.data.stationCount,
+        }
       : { ...FUEL_SEED_ISK, source: 'seed' as const };
   return { fx, fuel };
 }
