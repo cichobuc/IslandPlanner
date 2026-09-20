@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { useActionState, useMemo, useState } from 'react';
 import {
   Button,
@@ -17,13 +17,12 @@ import {
   StepHead,
   StepSection,
   Tag,
-  Tile,
 } from '@/components/ui';
 import { fmtEur } from '@/lib/format';
 import type { ActionState } from '../actions';
 import type { CatalogPoi, DayLite, StopLite } from '../itinerary-data';
 import { addStopAction, removeStopAction } from '../step05-actions';
-import { DRONE, PoiSheet } from './poi-sheet';
+import { DRONE, PoiSheet, PoiThumb } from './poi-sheet';
 
 const starStr = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
 const PRICE_TIER = (eur: number) =>
@@ -104,7 +103,7 @@ export function Step06Client({
             return (
               <ListRow
                 key={s.stopId}
-                leading={<Tile icon={Sparkles} tone="info" />}
+                leading={<PoiThumb src={s.photoUrl} alt={s.name} tone="info" />}
                 title={`${s.name}${s.hiddenGem ? ' 💎' : ''}`}
                 meta={[
                   starStr(s.stars),
@@ -185,7 +184,7 @@ export function Step06Client({
             return (
               <ListRow
                 key={p.slug}
-                leading={<Tile icon={Sparkles} tone={p.hiddenGem ? 'vio' : 'mut'} />}
+                leading={<PoiThumb src={p.photoUrl} alt={p.name} tone={p.hiddenGem ? 'vio' : 'mut'} />}
                 title={`${p.name}${p.hiddenGem ? ' 💎' : ''}`}
                 meta={[
                   starStr(p.stars),

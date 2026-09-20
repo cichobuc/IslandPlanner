@@ -42,6 +42,11 @@ export type StopLite = {
   difficulty: string | null;
   entryNote: string | null;
   stars: number;
+  photoUrl: string | null;
+  photoCredit: string | null;
+  websiteUrl: string | null;
+  wikiUrl: string | null;
+  mapsUrl: string | null;
   entryPpEur: number;
   valuePer10Eur: number | null;
   cheaper: { slug: string; name: string; entryPpEur: number } | null;
@@ -85,6 +90,11 @@ export type CatalogPoi = {
   description: string | null;
   inPlanDay: number | null;
   stars: number;
+  photoUrl: string | null;
+  photoCredit: string | null;
+  websiteUrl: string | null;
+  wikiUrl: string | null;
+  mapsUrl: string | null;
   entryPpEur: number;
   valuePer10Eur: number | null;
   cheaper: { slug: string; name: string; entryPpEur: number } | null;
@@ -185,6 +195,11 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
     const alt = poi.cheaperAlternativePoiId ? pois.find((x) => x.id === poi.cheaperAlternativePoiId) : null;
     return {
       stars: stars({ popularity: poi.popularity ?? 3 }),
+      photoUrl: poi.photoUrl,
+      photoCredit: poi.photoCredit,
+      websiteUrl: poi.websiteUrl,
+      wikiUrl: poi.wikiUrl,
+      mapsUrl: poi.mapsUrl,
       entryPpEur: eur,
       valuePer10Eur: valueForMoney({ popularity: poi.popularity ?? 3, entryPpEur: eur }),
       cheaper: alt ? { slug: alt.slug, name: alt.nameSk ?? alt.name, entryPpEur: adultEur(alt) } : null,

@@ -87,6 +87,14 @@ console.log('dni:', stats.map((r) => `${r.day_index}:${r.stops}z/${r.km}km`).joi
 // krok 05 – noci podľa nového okruhu
 await p.goto(`${tripUrl}?krok=5`);
 await shot('04-kde-spat-po-zmene');
+// detail atrakcie: fotka + odkazy (krok 06)
+await p.goto(`${tripUrl}?krok=6`);
+await p.locator('main button:has-text("Seljalandsfoss"), main button:has-text("Skógafoss"), main button:has-text("Reynisfjara")').first().click();
+await p.waitForSelector('[role=dialog] img', { timeout: 20000 });
+await p.waitForTimeout(1500);
+await shot('04b-atrakcia-foto');
+console.log('odkazy v sheete:', await p.locator('[role=dialog] a[target=_blank]').allTextContents());
+await p.keyboard.press('Escape');
 // späť na Auto
 await p.goto(`${tripUrl}?krok=4`);
 await p.click('button:has-text("Auto ·")');

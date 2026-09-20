@@ -1,7 +1,7 @@
 'use client';
 
-import { ExternalLink, Map as MapIcon, Sparkles } from 'lucide-react';
-import { ButtonLink, Sheet, SheetRow, Tag } from '@/components/ui';
+import { BookOpen, ExternalLink, Globe, Map as MapIcon, MapPin, Sparkles } from 'lucide-react';
+import { ButtonLink, Sheet, SheetRow, Tag, Tile } from '@/components/ui';
 import { fmtEur } from '@/lib/format';
 import type { StopLite } from '../itinerary-data';
 
@@ -14,6 +14,37 @@ export const DRONE: Record<string, { tone: 'ok' | 'warn' | 'bad' | 'mut'; label:
 };
 export const stars = (n: number | null) =>
   n == null ? '' : '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+
+/** Miniatúra POI do riadku zoznamu (36 px) – fotka z Commons, inak dlaždica s ikonou. */
+export function PoiThumb({
+  src,
+  alt,
+  tone = 'mut',
+}: {
+  src: string | null;
+  alt: string;
+  tone?: 'info' | 'vio' | 'mut' | 'ok';
+}) {
+  if (!src) return <Tile icon={Sparkles} tone={tone} />;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- Wikimedia Commons
+    <img src={src} alt="" loading="lazy" title={alt} className="rounded-btn h-9 w-9 shrink-0 object-cover" />
+  );
+}
+
+/** Odkaz von (web POI, Wikipédia, mapy) – chip so šípkou. */
+function PoiLink({ href, icon: Icon, children }: { href: string; icon: typeof Globe; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="border-line text-accent rounded-tag inline-flex h-[30px] items-center gap-1.5 border px-2.5 text-[12px] font-semibold"
+    >
+      <Icon size={13} aria-hidden /> {children} <ExternalLink size={11} className="text-ink-3" aria-hidden />
+    </a>
+  );
+}
 
 /** Sheet zastávky/atrakcie (artboard Sheet-Atrakcia): popis, trvanie, vstupné per osoba, sezóna, dron, tipy. */
 export function PoiSheet({
@@ -69,7 +100,40 @@ export function PoiSheet({
       }
     >
       <div className="flex flex-col py-2">
+        {stop.photoUrl && (
+          <figure className="my-2">
+            {/* eslint-disable-next-line @next/next/no-img-element -- Wikimedia Commons, bez optimalizácie (Vercel Hobby) */}
+            <img
+              src={stop.photoUrl}
+              alt={stop.name}
+              loading="lazy"
+              className="rounded-option bg-mut-bg aspect-[16/10] w-full object-cover"
+            />
+            {stop.photoCredit && (
+              <figcaption className="text-ink-3 mt-1 text-[11px]">Foto: {stop.photoCredit}</figcaption>
+            )}
+          </figure>
+        )}
         {stop.description && <p className="text-ink-2 my-2 text-sm leading-[1.55]">{stop.description}</p>}
+        {(stop.websiteUrl || stop.wikiUrl || stop.mapsUrl) && (
+          <div className="mb-2 flex flex-wrap gap-2">
+            {stop.websiteUrl && (
+              <PoiLink href={stop.websiteUrl} icon={Globe}>
+                Oficiálny web
+              </PoiLink>
+            )}
+            {stop.wikiUrl && (
+              <PoiLink href={stop.wikiUrl} icon={BookOpen}>
+                Wikipédia
+              </PoiLink>
+            )}
+            {stop.mapsUrl && (
+              <PoiLink href={stop.mapsUrl} icon={MapPin}>
+                Google Maps
+              </PoiLink>
+            )}
+          </div>
+        )}
         <SheetRow label="Trvanie">
           <b>{stop.stayMin} min</b>
           {stop.visitRange ? ` · rozsah ${stop.visitRange}` : ''}

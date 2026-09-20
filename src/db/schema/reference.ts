@@ -164,9 +164,10 @@ export const pois = pgTable(
     entryNoteSk: text('entry_note_sk'),
     entryNoteCs: text('entry_note_cs'),
     parkingFee: money('parking_fee'),
-    photoUrl: text('photo_url'),
-    photoCredit: text('photo_credit'),
+    photoUrl: text('photo_url'), // Wikimedia Commons náhľad 800 px (scripts/fetch-poi-photos.ts)
+    photoCredit: text('photo_credit'), // autor · licencia · Wikimedia Commons
     websiteUrl: text('website_url'),
+    wikiUrl: text('wiki_url'), // článok na en.wikipedia.org
     mapsUrl: text('maps_url'),
     facilities: text('facilities')
       .array()

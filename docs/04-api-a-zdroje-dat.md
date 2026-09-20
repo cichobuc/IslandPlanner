@@ -44,6 +44,7 @@ a s limitom ≤ 1 req/s; (3) `manual` konektor existuje pre každý typ dát; (4
 | **tjalda-geo** – `tjalda.is/api/{hot_springs,waterfalls,grocery_stores}` (GeoJSON z OSM) | 05, 06, 07 | 127 horúcich prameňov, 761 vodopádov, 254 obchodov/čerpačiek s tagmi a otváracími hodinami | zadarmo | duplikuje Overpass, ale bez limitov a už prefiltrované pre Island | ★★★★ | overpass | 30 d |
 | ~~Hotellook~~ | – | **zrušený 10/2025** (odkazy presmerované na Booking) | | | ✗ | | |
 | ~~Booking Demand API~~ | (v2) | len pre schválených affiliate partnerov (Awin/CJ, treba živý web s obsahom) – skúsiť neskôr | affiliate | | ★ | | |
+| **wikimedia** – Wikipedia REST summary + Commons imageinfo | 04, 06 | fotka POI (Commons náhľad 960 px, autor + licencia), odkaz na článok; jednorazovo do seedu (`scripts/fetch-poi-photos.ts`), nie za behu | zadarmo, CC | UA s kontaktom, ≤ 1 req/s; povolené šírky náhľadov len 250/330/500/960/1280 (inak 400) | ★★★★ | seed | – |
 | **overpass** – Overpass API (`tourism=camp_site|hostel|guest_house|hotel`, `amenity=fuel`, `shop=supermarket`) | 04, 05 | kempy, ubytovanie (bez cien), čerpačky, Bónus/Krónan, WC v okolí trasy | zadarmo, open data | ≤ 1 req/s, fair use; dotazy po regiónoch, nie po bodoch | ★★★★ | seed | 30 d |
 | **nominatim** | 01, 06 | geokódovanie domova a vlastných miest | zadarmo | 1 req/s, User-Agent | ★★★★ | – | ∞ |
 | **osrm** – `router.project-osrm.org` demo | 01, 05 | km/čas medzi bodmi | zadarmo, **≤ 1 req/s, nekomerčné, bez SLA** | | ★★★ | ors | ∞ (`route_cache`) |

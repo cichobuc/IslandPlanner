@@ -2,7 +2,10 @@
   {
     "slug": "blue-lagoon",
     "kind": "thermal",
-    "category_tags": ["thermal", "spa"],
+    "category_tags": [
+      "thermal",
+      "spa"
+    ],
     "region": "reykjanes",
     "name": "Blue Lagoon",
     "lat": 63.8804,
@@ -49,26 +52,52 @@
     "booking_url": "https://www.bluelagoon.com",
     "book_ahead_days": 14,
     "cancel_policy_sk": "Zmena termínu zdarma do 24 h vopred.",
-    "facilities": ["toilets", "cafe", "shop", "restaurant"],
-    "bring": ["swimwear"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop",
+      "restaurant"
+    ],
+    "bring": [
+      "swimwear"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": true,
-    "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "drone_status": "banned",
     "drone_note_sk": "Zákaz lietania v areáli kúpeľov; blízko CTR Keflavík.",
     "interest_weight": {
-      "thermal": 1.0,
+      "thermal": 1,
       "photo": 0.5
     },
     "website_url": "https://www.bluelagoon.com",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "secret-lagoon"
+    "cheaper_alternative_slug": "secret-lagoon",
+    "wiki_url": "https://en.wikipedia.org/wiki/Blue_Lagoon_(geothermal_spa)",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Blue_Lagoon_Geothermal_pool_11.jpg/960px-Blue_Lagoon_Geothermal_pool_11.jpg",
+    "photo_credit": "Netha Hussain · CC0 · Wikimedia Commons"
   },
   {
     "slug": "sky-lagoon",
     "kind": "thermal",
-    "category_tags": ["thermal", "spa"],
+    "category_tags": [
+      "thermal",
+      "spa"
+    ],
     "region": "reykjavik",
     "name": "Sky Lagoon",
     "lat": 64.1291,
@@ -104,8 +133,14 @@
     "booking_required": true,
     "booking_url": "https://www.skylagoon.com",
     "book_ahead_days": 7,
-    "facilities": ["toilets", "cafe", "restaurant"],
-    "bring": ["swimwear"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "restaurant"
+    ],
+    "bring": [
+      "swimwear"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -118,12 +153,19 @@
     },
     "website_url": "https://www.skylagoon.com",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "laugardalslaug"
+    "cheaper_alternative_slug": "laugardalslaug",
+    "wiki_url": "https://en.wikipedia.org/wiki/Sky_Lagoon",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Sky_Lagoon_Exterior.jpg/960px-Sky_Lagoon_Exterior.jpg",
+    "photo_credit": "Laurenmcl · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "perlan",
     "kind": "museum",
-    "category_tags": ["museum", "glacier", "culture"],
+    "category_tags": [
+      "museum",
+      "glacier",
+      "culture"
+    ],
     "region": "reykjavik",
     "name": "Perlan – Wonders of Iceland",
     "lat": 64.1292,
@@ -159,7 +201,11 @@
         "per": "person"
       }
     ],
-    "facilities": ["toilets", "cafe", "shop"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop"
+    ],
     "popularity": 3,
     "rainy_day_ok": true,
     "drone_status": "banned",
@@ -170,12 +216,18 @@
       "aurora": 0.3
     },
     "website_url": "https://perlan.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Perlan",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/20190623_Perlan_8841_%2848469867211%29.jpg/960px-20190623_Perlan_8841_%2848469867211%29.jpg",
+    "photo_credit": "Ray Swi-hymn from Sijhih-Taipei, Taiwan · CC BY-SA 2.0 · Wikimedia Commons"
   },
   {
     "slug": "hallgrimskirkja",
     "kind": "attraction",
-    "category_tags": ["culture", "viewpoint"],
+    "category_tags": [
+      "culture",
+      "viewpoint"
+    ],
     "region": "reykjavik",
     "name": "Hallgrímskirkja",
     "lat": 64.1417,
@@ -211,7 +263,9 @@
         "per": "person"
       }
     ],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 4,
     "rainy_day_ok": true,
     "drone_status": "banned",
@@ -221,12 +275,19 @@
       "photo": 0.7
     },
     "website_url": "https://www.hallgrimskirkja.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hallgr%C3%ADmskirkja",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Hallgrimskirkja_mai_2026.jpg/960px-Hallgrimskirkja_mai_2026.jpg",
+    "photo_credit": "Steinninn · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "reykjavik-whale-watching",
     "kind": "tour",
-    "category_tags": ["whale", "wildlife", "boat"],
+    "category_tags": [
+      "whale",
+      "wildlife",
+      "boat"
+    ],
     "region": "reykjavik",
     "name": "Reykjavík – pozorovanie veľrýb",
     "lat": 64.1507,
@@ -266,25 +327,48 @@
     "booking_url": "https://www.elding.is",
     "book_ahead_days": 3,
     "cancel_policy_sk": "Zrušenie pre počasie = vrátenie peňazí; vlastné storno do 24 h.",
-    "facilities": ["toilets", "cafe"],
-    "bring": ["windproof", "seasickness_pills"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
+    "bring": [
+      "windproof",
+      "seasickness_pills"
+    ],
     "popularity": 4,
     "rainy_day_ok": false,
-    "best_months": [4, 5, 6, 7, 8, 9, 10],
+    "best_months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "season_note_sk": "Celoročne; najlepšie máj–september.",
     "drone_status": "banned",
     "interest_weight": {
-      "whale": 1.0,
+      "whale": 1,
       "photo": 0.6
     },
     "website_url": "https://www.elding.is",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "husavik-whale-watching"
+    "cheaper_alternative_slug": "husavik-whale-watching",
+    "wiki_url": "https://en.wikipedia.org/wiki/Reykjav%C3%ADk",
+    "commons_query": "Whale watching Reykjavík",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Reykjav%C3%ADk%2C_view_from_Hallgr%C3%ADmskirkja_%282%29.jpg/960px-Reykjav%C3%ADk%2C_view_from_Hallgr%C3%ADmskirkja_%282%29.jpg",
+    "photo_credit": "Olga Ernst · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "thingvellir",
     "kind": "attraction",
-    "category_tags": ["nature", "hike", "culture", "unesco"],
+    "category_tags": [
+      "nature",
+      "hike",
+      "culture",
+      "unesco"
+    ],
     "region": "golden_circle",
     "name": "Þingvellir",
     "lat": 64.2559,
@@ -302,23 +386,33 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné 1 000 ISK/auto/deň (automat alebo Parka).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "shop"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop"
+    ],
     "popularity": 5,
     "rainy_day_ok": false,
     "drone_status": "banned",
     "drone_note_sk": "Národný park – zákaz bez povolenia správy parku.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "hike": 0.6,
       "culture": 0.8
     },
     "website_url": "https://www.thingvellir.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/%C3%9Eingvellir",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/%C3%9Eingvellir_from_the_information_centre.JPG/960px-%C3%9Eingvellir_from_the_information_centre.JPG",
+    "photo_credit": "Ivan Sabljak · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "geysir",
     "kind": "attraction",
-    "category_tags": ["nature", "geothermal"],
+    "category_tags": [
+      "nature",
+      "geothermal"
+    ],
     "region": "golden_circle",
     "name": "Geysir / Strokkur",
     "lat": 64.3104,
@@ -332,7 +426,12 @@
     "difficulty": "easy",
     "entry_note_sk": "Zadarmo, parkovanie zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "shop", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop",
+      "fuel"
+    ],
     "popularity": 5,
     "rainy_day_ok": true,
     "drone_status": "restricted",
@@ -342,12 +441,18 @@
       "lava": 0.5,
       "photo": 0.7
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Geysir",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Erupting_geysir.jpg/960px-Erupting_geysir.jpg",
+    "photo_credit": "Dieter Schweizer (Obersulm, Germany) · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "gullfoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "nature"],
+    "category_tags": [
+      "waterfall",
+      "nature"
+    ],
     "region": "golden_circle",
     "name": "Gullfoss",
     "lat": 64.3271,
@@ -361,21 +466,32 @@
     "difficulty": "easy",
     "entry_note_sk": "Zadarmo, parkovanie zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "shop"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop"
+    ],
     "popularity": 5,
     "rainy_day_ok": true,
     "drone_status": "banned",
     "drone_note_sk": "Chránené územie – zákaz lietania.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "photo": 0.8
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Gullfoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Gullfoss_from_the_Air_%28cropped%29.jpg/960px-Gullfoss_from_the_Air_%28cropped%29.jpg",
+    "photo_credit": "Nickspix · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "kerid",
     "kind": "attraction",
-    "category_tags": ["nature", "lava", "viewpoint"],
+    "category_tags": [
+      "nature",
+      "lava",
+      "viewpoint"
+    ],
     "region": "golden_circle",
     "name": "Kerið",
     "lat": 64.0413,
@@ -404,7 +520,9 @@
         "per": "person"
       }
     ],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 3,
     "rainy_day_ok": false,
     "drone_status": "restricted",
@@ -414,12 +532,17 @@
       "lava": 0.8,
       "photo": 0.7
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Keri%C3%B0",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/A_girl_standing_on_top_of_Keri%C3%B0.jpg/960px-A_girl_standing_on_top_of_Keri%C3%B0.jpg",
+    "photo_credit": "Scoundrelgeo · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "secret-lagoon",
     "kind": "thermal",
-    "category_tags": ["thermal"],
+    "category_tags": [
+      "thermal"
+    ],
     "region": "golden_circle",
     "name": "Secret Lagoon (Gamla laugin)",
     "lat": 64.1378,
@@ -458,8 +581,14 @@
     "booking_required": false,
     "booking_url": "https://secretlagoon.is",
     "book_ahead_days": 2,
-    "facilities": ["toilets", "cafe"],
-    "bring": ["swimwear", "towel"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
+    "bring": [
+      "swimwear",
+      "towel"
+    ],
     "popularity": 3,
     "rainy_day_ok": true,
     "drone_status": "restricted",
@@ -467,12 +596,15 @@
       "thermal": 0.9
     },
     "website_url": "https://secretlagoon.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Gamla laugin Flúðir"
   },
   {
     "slug": "laugarvatn-fontana",
     "kind": "thermal",
-    "category_tags": ["thermal"],
+    "category_tags": [
+      "thermal"
+    ],
     "region": "golden_circle",
     "name": "Laugarvatn Fontana",
     "lat": 64.2149,
@@ -516,8 +648,14 @@
         "per": "person"
       }
     ],
-    "facilities": ["toilets", "cafe"],
-    "bring": ["swimwear", "towel"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
+    "bring": [
+      "swimwear",
+      "towel"
+    ],
     "popularity": 2,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -528,12 +666,18 @@
     },
     "website_url": "https://www.fontana.is",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "secret-lagoon"
+    "cheaper_alternative_slug": "secret-lagoon",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Die_Lava_B%C3%A4ckerei_in_Laugarvatn_Fontana._01.jpg/960px-Die_Lava_B%C3%A4ckerei_in_Laugarvatn_Fontana._01.jpg",
+    "photo_credit": "Holger Uwe Schmitt · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "reykjadalur",
     "kind": "attraction",
-    "category_tags": ["thermal", "hike", "nature"],
+    "category_tags": [
+      "thermal",
+      "hike",
+      "nature"
+    ],
     "region": "golden_circle",
     "name": "Reykjadalur – horúca rieka",
     "lat": 64.0225,
@@ -551,8 +695,15 @@
     },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK (Parka).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
-    "bring": ["swimwear", "towel", "boots"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
+    "bring": [
+      "swimwear",
+      "towel",
+      "boots"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -561,15 +712,20 @@
     "drone_note_sk": "Ľudia v rieke – súkromie; lietať mimo kúpacej zóny.",
     "interest_weight": {
       "thermal": 0.8,
-      "hike": 1.0,
+      "hike": 1,
       "nature": 0.8
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Hot_spring%2C_Reykjadalur_Valley%2C_Iceland%2C_20230502_1415_4243.jpg/960px-Hot_spring%2C_Reykjadalur_Valley%2C_Iceland%2C_20230502_1415_4243.jpg",
+    "photo_credit": "Jakub Hałun · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "seljalandsfoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "nature"],
+    "category_tags": [
+      "waterfall",
+      "nature"
+    ],
     "region": "south",
     "name": "Seljalandsfoss + Gljúfrabúi",
     "lat": 63.6156,
@@ -587,23 +743,36 @@
     },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto (automat/Parka).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
-    "bring": ["raincoat", "boots"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
+    "bring": [
+      "raincoat",
+      "boots"
+    ],
     "popularity": 5,
     "rainy_day_ok": true,
     "best_light": "evening",
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo davov, nie nad ľuďmi; vodná triešť.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "photo": 0.9
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Seljalandsfoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Idyllic_landscape_with_a_waterfall_%28Unsplash%29.jpg/960px-Idyllic_landscape_with_a_waterfall_%28Unsplash%29.jpg",
+    "photo_credit": "Robert Lukeman robertlukeman · CC0 · Wikimedia Commons"
   },
   {
     "slug": "skogafoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "nature", "hike"],
+    "category_tags": [
+      "waterfall",
+      "nature",
+      "hike"
+    ],
     "region": "south",
     "name": "Skógafoss",
     "lat": 63.5321,
@@ -621,24 +790,34 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné 1 000 ISK/auto cez automat alebo app Parka.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "campsite"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "campsite"
+    ],
     "popularity": 5,
     "rainy_day_ok": true,
     "best_light": "morning",
     "drone_status": "restricted",
     "drone_note_sk": "Povolené s odstupom od ľudí; kemp pod vodopádom.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "hike": 0.6,
       "photo": 0.9
     },
     "website_url": "https://www.south.is/",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Sk%C3%B3gafoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/2008-05-24_35_Sk%C3%B3gafoss.jpg/960px-2008-05-24_35_Sk%C3%B3gafoss.jpg",
+    "photo_credit": "Hansueli Krapf · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "skogar-museum",
     "kind": "museum",
-    "category_tags": ["museum", "culture"],
+    "category_tags": [
+      "museum",
+      "culture"
+    ],
     "region": "south",
     "name": "Skógar Museum",
     "lat": 63.5261,
@@ -682,21 +861,32 @@
         "per": "person"
       }
     ],
-    "facilities": ["toilets", "cafe", "shop"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop"
+    ],
     "popularity": 2,
     "hidden_gem": true,
     "rainy_day_ok": true,
     "drone_status": "unknown",
     "interest_weight": {
-      "culture": 1.0
+      "culture": 1
     },
     "website_url": "https://www.skogasafn.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Skógasafn Skógar",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Heimatmuseum_Sk%C3%B3gar%2C_Volksschule_7072.JPG/960px-Heimatmuseum_Sk%C3%B3gar%2C_Volksschule_7072.JPG",
+    "photo_credit": "Hedwig Storch · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "solheimajokull-glacier-walk",
     "kind": "tour",
-    "category_tags": ["glacier", "hike", "tour"],
+    "category_tags": [
+      "glacier",
+      "hike",
+      "tour"
+    ],
     "region": "south",
     "name": "Sólheimajökull – ľadovcová túra",
     "lat": 63.5303,
@@ -726,25 +916,53 @@
     "booking_url": "https://adventures.is",
     "book_ahead_days": 5,
     "cancel_policy_sk": "Storno zdarma do 24 h; zrušenie pre počasie = vrátenie.",
-    "facilities": ["toilets", "cafe"],
-    "bring": ["boots", "gloves", "warm_layers", "crampons_included"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
+    "bring": [
+      "boots",
+      "gloves",
+      "warm_layers",
+      "crampons_included"
+    ],
     "popularity": 4,
     "rainy_day_ok": false,
-    "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "drone_status": "restricted",
     "drone_note_sk": "Nie nad skupinami; ľadovec = chránená krajina, drž odstup.",
     "interest_weight": {
-      "glacier": 1.0,
+      "glacier": 1,
       "hike": 0.7,
       "photo": 0.6
     },
     "website_url": "https://adventures.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/S%C3%B3lheimaj%C3%B6kull",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Geleira_S%C3%B3lheimaj%C3%B6kull.jpg/960px-Geleira_S%C3%B3lheimaj%C3%B6kull.jpg",
+    "photo_credit": "Yuri Ikeda · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "seljavallalaug",
     "kind": "thermal",
-    "category_tags": ["thermal", "hike", "hidden"],
+    "category_tags": [
+      "thermal",
+      "hike",
+      "hidden"
+    ],
     "region": "south",
     "name": "Seljavallalaug",
     "lat": 63.5658,
@@ -759,7 +977,10 @@
     "entry_note_sk": "Zadarmo (dobrovoľný príspevok).",
     "price_rules": [],
     "facilities": [],
-    "bring": ["swimwear", "towel"],
+    "bring": [
+      "swimwear",
+      "towel"
+    ],
     "popularity": 2,
     "hidden_gem": true,
     "rainy_day_ok": false,
@@ -770,12 +991,20 @@
       "hike": 0.5,
       "photo": 0.6
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Seljavallalaug",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Isl_Seljavallalaug_framan.JPG/960px-Isl_Seljavallalaug_framan.JPG",
+    "photo_credit": "Jabbi · Public domain · Wikimedia Commons"
   },
   {
     "slug": "dyrholaey",
     "kind": "attraction",
-    "category_tags": ["nature", "viewpoint", "puffin", "beach"],
+    "category_tags": [
+      "nature",
+      "viewpoint",
+      "puffin",
+      "beach"
+    ],
     "region": "south",
     "name": "Dyrhólaey",
     "lat": 63.4013,
@@ -789,10 +1018,17 @@
     "difficulty": "easy",
     "entry_note_sk": "Zadarmo, parkovanie zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 4,
     "rainy_day_ok": false,
-    "best_months": [5, 6, 7, 8],
+    "best_months": [
+      5,
+      6,
+      7,
+      8
+    ],
     "season_note_sk": "Puffiny máj–august; v septembri už odleteli.",
     "drone_status": "banned",
     "drone_note_sk": "Prírodná rezervácia a vtáčia kolónia – zákaz.",
@@ -801,12 +1037,19 @@
       "puffin": 0.9,
       "photo": 0.9
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Dyrh%C3%B3laey",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Dyrh%C3%B3laey%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-17%2C_DD_140.jpg/960px-Dyrh%C3%B3laey%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-17%2C_DD_140.jpg",
+    "photo_credit": "Diego Delso · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "reynisfjara",
     "kind": "attraction",
-    "category_tags": ["beach", "nature", "lava"],
+    "category_tags": [
+      "beach",
+      "nature",
+      "lava"
+    ],
     "region": "south",
     "name": "Reynisfjara",
     "lat": 63.4041,
@@ -824,23 +1067,33 @@
     },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto.",
     "price_rules": [],
-    "facilities": ["toilets", "restaurant"],
+    "facilities": [
+      "toilets",
+      "restaurant"
+    ],
     "popularity": 5,
     "rainy_day_ok": true,
     "best_light": "morning",
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo davov; vtáky na Reynisfjalle v sezóne.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "lava": 0.6,
-      "photo": 1.0
+      "photo": 1
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Reynisfjara",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Reynisfjara_Beach_Looking_West_Towards_Dyrh%C3%B3laey.jpg/960px-Reynisfjara_Beach_Looking_West_Towards_Dyrh%C3%B3laey.jpg",
+    "photo_credit": "Strwiki2017 · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "katla-ice-cave",
     "kind": "tour",
-    "category_tags": ["glacier", "tour", "ice_cave"],
+    "category_tags": [
+      "glacier",
+      "tour",
+      "ice_cave"
+    ],
     "region": "south",
     "name": "Katla ice cave (super jeep z Víku)",
     "lat": 63.4187,
@@ -866,26 +1119,37 @@
     "booking_url": "https://www.katlatrack.is",
     "book_ahead_days": 7,
     "cancel_policy_sk": "Storno zdarma do 24 h.",
-    "facilities": ["toilets"],
-    "bring": ["warm_layers", "boots", "gloves"],
+    "facilities": [
+      "toilets"
+    ],
+    "bring": [
+      "warm_layers",
+      "boots",
+      "gloves"
+    ],
     "popularity": 3,
     "rainy_day_ok": true,
     "season_note_sk": "Celoročne; modré ľadové jaskyne (Vatnajökull) len november–marec.",
     "drone_status": "banned",
     "drone_note_sk": "Katla geopark – zákaz bez povolenia; poskytovateľ zakazuje.",
     "interest_weight": {
-      "glacier": 1.0,
+      "glacier": 1,
       "lava": 0.5,
       "photo": 0.7
     },
     "website_url": "https://www.katlatrack.is",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "solheimajokull-glacier-walk"
+    "cheaper_alternative_slug": "solheimajokull-glacier-walk",
+    "commons_query": "Kötlujökull ice cave"
   },
   {
     "slug": "lava-show-vik",
     "kind": "attraction",
-    "category_tags": ["lava", "culture", "show"],
+    "category_tags": [
+      "lava",
+      "culture",
+      "show"
+    ],
     "region": "south",
     "name": "Lava Show Vík",
     "lat": 63.4194,
@@ -917,12 +1181,16 @@
     "booking_required": true,
     "booking_url": "https://www.icelandiclavashow.com",
     "book_ahead_days": 3,
-    "facilities": ["toilets", "cafe", "shop"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "shop"
+    ],
     "popularity": 3,
     "rainy_day_ok": true,
     "drone_status": "unknown",
     "interest_weight": {
-      "lava": 1.0,
+      "lava": 1,
       "culture": 0.6
     },
     "website_url": "https://www.icelandiclavashow.com",
@@ -931,7 +1199,11 @@
   {
     "slug": "fjadrargljufur",
     "kind": "attraction",
-    "category_tags": ["canyon", "nature", "hike"],
+    "category_tags": [
+      "canyon",
+      "nature",
+      "hike"
+    ],
     "region": "southeast",
     "name": "Fjaðrárgljúfur",
     "lat": 63.7713,
@@ -949,7 +1221,9 @@
     },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 4,
     "rainy_day_ok": false,
     "drone_status": "banned",
@@ -959,12 +1233,20 @@
       "hike": 0.5,
       "photo": 0.9
     },
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Fja%C3%B0r%C3%A1rglj%C3%BAfur",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Iceland_2008-05-27_%282684049831%29.jpg/960px-Iceland_2008-05-27_%282684049831%29.jpg",
+    "photo_credit": "Guillaume Baviere from Uppsala, Sweden · CC BY 2.0 · Wikimedia Commons"
   },
   {
     "slug": "skaftafell-svartifoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "hike", "nature", "glacier"],
+    "category_tags": [
+      "waterfall",
+      "hike",
+      "nature",
+      "glacier"
+    ],
     "region": "southeast",
     "name": "Skaftafell – Svartifoss",
     "lat": 64.0166,
@@ -982,25 +1264,40 @@
     },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto/deň.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "campsite", "shop"],
-    "bring": ["boots"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "campsite",
+      "shop"
+    ],
+    "bring": [
+      "boots"
+    ],
     "popularity": 4,
     "rainy_day_ok": false,
     "drone_status": "banned",
     "drone_note_sk": "Národný park Vatnajökull – zákaz bez povolenia Umhverfisstofnun.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "hike": 0.9,
       "glacier": 0.6,
       "photo": 0.8
     },
     "website_url": "https://www.vatnajokulsthjodgardur.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Skaftafell",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Skaftafell_Aerial_2023.jpg/960px-Skaftafell_Aerial_2023.jpg",
+    "photo_credit": "Eysteinn Guðni Guðnason · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "jokulsarlon",
     "kind": "attraction",
-    "category_tags": ["glacier", "nature", "beach", "boat"],
+    "category_tags": [
+      "glacier",
+      "nature",
+      "beach",
+      "boat"
+    ],
     "region": "southeast",
     "name": "Jökulsárlón + Diamond Beach",
     "lat": 64.0484,
@@ -1050,26 +1347,49 @@
     "booking_required": false,
     "booking_url": "https://icelagoon.is",
     "book_ahead_days": 3,
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 5,
     "rainy_day_ok": true,
     "best_light": "morning",
-    "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note_sk": "Plavby amfíbiou do konca septembra; zodiac do polovice októbra.",
     "drone_status": "banned",
     "drone_note_sk": "Národný park Vatnajökull – zákaz bez povolenia.",
     "interest_weight": {
-      "glacier": 1.0,
+      "glacier": 1,
       "nature": 0.9,
-      "photo": 1.0
+      "photo": 1
     },
     "website_url": "https://icelagoon.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/J%C3%B6kuls%C3%A1rl%C3%B3n",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/J%C3%B6kuls%C3%A1rl%C3%B3n_lagoon_in_southeastern_Iceland.jpg/960px-J%C3%B6kuls%C3%A1rl%C3%B3n_lagoon_in_southeastern_Iceland.jpg",
+    "photo_credit": "Molechaser · CC BY-SA 2.0 · Wikimedia Commons"
   },
   {
     "slug": "fagradalsfjall",
     "kind": "attraction",
-    "category_tags": ["lava", "hike", "nature"],
+    "category_tags": [
+      "lava",
+      "hike",
+      "nature"
+    ],
     "region": "reykjanes",
     "name": "Fagradalsfjall – lávové polia",
     "lat": 63.8961,
@@ -1087,24 +1407,37 @@
     },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK (Parka).",
     "price_rules": [],
-    "facilities": ["toilets"],
-    "bring": ["boots", "headlamp", "windproof"],
+    "facilities": [
+      "toilets"
+    ],
+    "bring": [
+      "boots",
+      "headlamp",
+      "windproof"
+    ],
     "popularity": 3,
     "rainy_day_ok": false,
     "drone_status": "restricted",
     "drone_note_sk": "Pri aktívnej erupcii zákaz (NOTAM); inak povolené s odstupom od ľudí.",
     "interest_weight": {
-      "lava": 1.0,
+      "lava": 1,
       "hike": 0.8,
       "photo": 0.8
     },
     "website_url": "https://www.visitreykjanes.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Fagradalsfjall",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Fagradalsfjall_194309.jpg/960px-Fagradalsfjall_194309.jpg",
+    "photo_credit": "Steinninn · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "fjallsarlon",
     "kind": "attraction",
-    "category_tags": ["glacier", "lagoon", "nature"],
+    "category_tags": [
+      "glacier",
+      "lagoon",
+      "nature"
+    ],
     "region": "southeast",
     "name": "Fjallsárlón",
     "lat": 64.0134,
@@ -1114,12 +1447,15 @@
     "visit_min": 45,
     "visit_min_min": 30,
     "visit_min_max": 90,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Vstup aj parkovanie zadarmo; kaviareň.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -1127,17 +1463,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Vatnajökull NP – povolené len mimo návštevníckych zón, nie nad ľuďmi; pri lagúne často zákaz kvôli vtákom.",
     "interest_weight": {
-      "glacier": 1.0,
+      "glacier": 1,
       "nature": 0.8,
       "photo": 0.9
     },
     "website_url": "https://fjallsarlon.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Fjalls%C3%A1rl%C3%B3n",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Fjalls%C3%A1rl%C3%B3n_Iceland_2016_06.jpg/960px-Fjalls%C3%A1rl%C3%B3n_Iceland_2016_06.jpg",
+    "photo_credit": "Unukorno · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "stokksnes-vestrahorn",
     "kind": "viewpoint",
-    "category_tags": ["mountain", "beach", "photo"],
+    "category_tags": [
+      "mountain",
+      "beach",
+      "photo"
+    ],
     "region": "southeast",
     "name": "Stokksnes – Vestrahorn",
     "lat": 64.243,
@@ -1147,7 +1490,7 @@
     "visit_min": 75,
     "visit_min_min": 45,
     "visit_min_max": 120,
-    "walk_km": 2.0,
+    "walk_km": 2,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Vstup 1 000 ISK/os. (Viking Café), deti zdarma; orientačne 2026.",
@@ -1171,7 +1514,10 @@
         "is_default": true
       }
     ],
-    "facilities": ["cafe", "toilets"],
+    "facilities": [
+      "cafe",
+      "toilets"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -1179,16 +1525,22 @@
     "drone_status": "allowed",
     "drone_note_sk": "Mimo NP; pýtaj sa v kaviarni, vietor.",
     "interest_weight": {
-      "photo": 1.0,
+      "photo": 1,
       "nature": 0.8
     },
     "website_url": "https://www.vikingcafe.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Stokksnes",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Vestrahorn_and_Stokksnes_beach_in_Iceland.jpg/960px-Vestrahorn_and_Stokksnes_beach_in_Iceland.jpg",
+    "photo_credit": "Daniel Oberhaus · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hoffell-hot-tubs",
     "kind": "thermal",
-    "category_tags": ["thermal", "hot_tub"],
+    "category_tags": [
+      "thermal",
+      "hot_tub"
+    ],
     "region": "southeast",
     "name": "Hoffell – horúce kade",
     "lat": 64.402,
@@ -1222,7 +1574,9 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 3,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -1230,18 +1584,27 @@
     "drone_status": "allowed",
     "drone_note_sk": "Súkromná farma – opýtaj sa; nie nad kaďami.",
     "interest_weight": {
-      "thermal": 1.0,
+      "thermal": 1,
       "aurora": 0.5,
       "glacier": 0.4
     },
-    "bring": ["swimwear", "towel"],
+    "bring": [
+      "swimwear",
+      "towel"
+    ],
     "website_url": "https://www.visitvatnajokull.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hoffell",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Hoffell_100247.jpg/960px-Hoffell_100247.jpg",
+    "photo_credit": "Steinninn · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hofn-langoustine",
     "kind": "attraction",
-    "category_tags": ["food", "town"],
+    "category_tags": [
+      "food",
+      "town"
+    ],
     "region": "southeast",
     "name": "Höfn – prístav a langusty",
     "lat": 64.2539,
@@ -1256,7 +1619,12 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo; jedlo podľa výberu (nie je v rozpočte atrakcií).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "grocery",
+      "fuel"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1268,12 +1636,20 @@
       "photo": 0.4
     },
     "website_url": "https://www.visitvatnajokull.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Höfn Hornafjörður",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Hofn_and_Hornafj%C3%B6r%C3%B0ur.jpg/960px-Hofn_and_Hornafj%C3%B6r%C3%B0ur.jpg",
+    "photo_credit": "Alexander Grebenkov · CC BY 3.0 · Wikimedia Commons"
   },
   {
     "slug": "studlagil-canyon",
     "kind": "attraction",
-    "category_tags": ["canyon", "basalt", "hike", "photo"],
+    "category_tags": [
+      "canyon",
+      "basalt",
+      "hike",
+      "photo"
+    ],
     "region": "eastfjords",
     "name": "Stuðlagil kaňon",
     "lat": 65.165,
@@ -1283,7 +1659,7 @@
     "visit_min": 120,
     "visit_min_min": 60,
     "visit_min_max": 180,
-    "walk_km": 5.0,
+    "walk_km": 5,
     "difficulty": "moderate",
     "parking_fee": {
       "amount": 1000,
@@ -1291,7 +1667,9 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (Parka) na východnom brehu; orientačne.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 4,
     "hidden_gem": true,
     "rainy_day_ok": false,
@@ -1299,18 +1677,24 @@
     "drone_status": "allowed",
     "drone_note_sk": "Súkromné pozemky fariem – rešpektuj značky; obľúbené dronové miesto.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "hike": 0.7,
-      "photo": 1.0,
+      "photo": 1,
       "lava": 0.5
     },
     "website_url": "https://www.east.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Stuðlagil",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Stu%C3%B0lagil_1.png/960px-Stu%C3%B0lagil_1.png",
+    "photo_credit": "ArniGael · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hengifoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "hike"],
+    "category_tags": [
+      "waterfall",
+      "hike"
+    ],
     "region": "eastfjords",
     "name": "Hengifoss + Litlanesfoss",
     "lat": 65.079,
@@ -1320,12 +1704,14 @@
     "visit_min": 120,
     "visit_min_min": 90,
     "visit_min_max": 150,
-    "walk_km": 5.0,
+    "walk_km": 5,
     "difficulty": "moderate",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo; parkovisko s WC.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -1334,16 +1720,22 @@
     "drone_note_sk": "Povolené, nie nad ľuďmi na chodníku.",
     "interest_weight": {
       "nature": 0.9,
-      "hike": 1.0,
+      "hike": 1,
       "photo": 0.7
     },
     "website_url": "https://www.east.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hengifoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Hengifoss_2009_close_gg.jpg/960px-Hengifoss_2009_close_gg.jpg",
+    "photo_credit": "Gunnar Gunnarsson · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "vok-baths",
     "kind": "thermal",
-    "category_tags": ["thermal", "spa"],
+    "category_tags": [
+      "thermal",
+      "spa"
+    ],
     "region": "eastfjords",
     "name": "Vök Baths",
     "lat": 65.314,
@@ -1390,7 +1782,11 @@
     "booking_required": true,
     "booking_url": "https://vokbaths.is",
     "book_ahead_days": 3,
-    "facilities": ["toilets", "cafe", "showers"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "showers"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1398,17 +1794,24 @@
     "drone_status": "banned",
     "drone_note_sk": "Zákaz nad kúpeľmi.",
     "interest_weight": {
-      "thermal": 1.0,
+      "thermal": 1,
       "aurora": 0.4
     },
-    "bring": ["swimwear"],
+    "bring": [
+      "swimwear"
+    ],
     "website_url": "https://vokbaths.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Vök Baths"
   },
   {
     "slug": "seydisfjordur",
     "kind": "attraction",
-    "category_tags": ["town", "culture", "photo"],
+    "category_tags": [
+      "town",
+      "culture",
+      "photo"
+    ],
     "region": "eastfjords",
     "name": "Seyðisfjörður",
     "lat": 65.261,
@@ -1418,12 +1821,17 @@
     "visit_min": 90,
     "visit_min_min": 60,
     "visit_min_max": 150,
-    "walk_km": 2.0,
+    "walk_km": 2,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "grocery",
+      "fuel"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1431,16 +1839,22 @@
     "drone_status": "restricted",
     "drone_note_sk": "Nad mestom a ľuďmi nie; fjord ok.",
     "interest_weight": {
-      "culture": 1.0,
+      "culture": 1,
       "photo": 0.9
     },
     "website_url": "https://www.visitseydisfjordur.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Sey%C3%B0isfj%C3%B6r%C3%B0ur",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_2.jpg/960px-Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_2.jpg",
+    "photo_credit": "Kasa Fue · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "petra-stone-collection",
     "kind": "museum",
-    "category_tags": ["museum", "culture"],
+    "category_tags": [
+      "museum",
+      "culture"
+    ],
     "region": "eastfjords",
     "name": "Petrina zbierka kameňov (Stöðvarfjörður)",
     "lat": 64.833,
@@ -1474,7 +1888,10 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 3,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -1482,15 +1899,22 @@
     "drone_status": "banned",
     "drone_note_sk": "Súkromná záhrada v obci.",
     "interest_weight": {
-      "culture": 1.0
+      "culture": 1
     },
     "website_url": "https://www.steinapetra.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/St%C3%B6%C3%B0varfj%C3%B6r%C3%B0ur",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/St%C3%B6%C3%B0varfj%C3%B6r%C3%B0ur_2023_A.jpg/960px-St%C3%B6%C3%B0varfj%C3%B6r%C3%B0ur_2023_A.jpg",
+    "photo_credit": "Eysteinn Guðni Guðnason · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "djupivogur-eggs",
     "kind": "viewpoint",
-    "category_tags": ["art", "town", "photo"],
+    "category_tags": [
+      "art",
+      "town",
+      "photo"
+    ],
     "region": "eastfjords",
     "name": "Djúpivogur – Eggin í Gleðivík",
     "lat": 64.656,
@@ -1505,7 +1929,10 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 2,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -1517,12 +1944,19 @@
       "photo": 0.6
     },
     "website_url": "https://www.djupivogur.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Dj%C3%BApivogur",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/1_aerial_pano_Dj%C3%BApivogur_2017.jpg/960px-1_aerial_pano_Dj%C3%BApivogur_2017.jpg",
+    "photo_credit": "Chensiyuan · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "dettifoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "nature", "photo"],
+    "category_tags": [
+      "waterfall",
+      "nature",
+      "photo"
+    ],
     "region": "north_myvatn",
     "name": "Dettifoss + Selfoss",
     "lat": 65.8148,
@@ -1537,7 +1971,9 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo (Vatnajökull NP).",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1545,16 +1981,23 @@
     "drone_status": "permit",
     "drone_note_sk": "Národný park Vatnajökull – bez povolenia zákaz.",
     "interest_weight": {
-      "nature": 1.0,
-      "photo": 1.0
+      "nature": 1,
+      "photo": 1
     },
     "website_url": "https://www.vatnajokulsthjodgardur.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Dettifoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Dettifoss_TimBekaert.JPG/960px-Dettifoss_TimBekaert.JPG",
+    "photo_credit": "Tbc · Public domain · Wikimedia Commons"
   },
   {
     "slug": "asbyrgi",
     "kind": "attraction",
-    "category_tags": ["canyon", "hike", "nature"],
+    "category_tags": [
+      "canyon",
+      "hike",
+      "nature"
+    ],
     "region": "north_myvatn",
     "name": "Ásbyrgi",
     "lat": 66.01,
@@ -1564,12 +2007,15 @@
     "visit_min": 90,
     "visit_min_min": 60,
     "visit_min_max": 150,
-    "walk_km": 3.0,
+    "walk_km": 3,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo (Vatnajökull NP).",
     "price_rules": [],
-    "facilities": ["toilets", "campsite"],
+    "facilities": [
+      "toilets",
+      "campsite"
+    ],
     "popularity": 3,
     "hidden_gem": true,
     "rainy_day_ok": false,
@@ -1581,12 +2027,19 @@
       "hike": 0.8
     },
     "website_url": "https://www.vatnajokulsthjodgardur.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/%C3%81sbyrgi",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Asbyrgi-Eyjan-June2022.jpg/960px-Asbyrgi-Eyjan-June2022.jpg",
+    "photo_credit": "Gummao · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hverir-namaskard",
     "kind": "attraction",
-    "category_tags": ["geothermal", "lava", "photo"],
+    "category_tags": [
+      "geothermal",
+      "lava",
+      "photo"
+    ],
     "region": "north_myvatn",
     "name": "Hverir (Námaskarð)",
     "lat": 65.641,
@@ -1596,7 +2049,7 @@
     "visit_min": 45,
     "visit_min_min": 30,
     "visit_min_max": 75,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": {
       "amount": 1000,
@@ -1604,7 +2057,9 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (Parka); orientačne 2026.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1612,17 +2067,22 @@
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo ľudí; v sezóne často plno.",
     "interest_weight": {
-      "lava": 1.0,
-      "photo": 1.0,
+      "lava": 1,
+      "photo": 1,
       "nature": 0.7
     },
     "website_url": "https://www.visitmyvatn.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Hverir_%E2%80%93_N%C3%A1mafjall.jpg/960px-Hverir_%E2%80%93_N%C3%A1mafjall.jpg",
+    "photo_credit": "JavierOlivares · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "myvatn-nature-baths",
     "kind": "thermal",
-    "category_tags": ["thermal", "spa"],
+    "category_tags": [
+      "thermal",
+      "spa"
+    ],
     "region": "north_myvatn",
     "name": "Mývatn Nature Baths",
     "lat": 65.631,
@@ -1669,7 +2129,11 @@
     "booking_required": true,
     "booking_url": "https://myvatnnaturebaths.is",
     "book_ahead_days": 3,
-    "facilities": ["toilets", "cafe", "showers"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "showers"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1677,18 +2141,27 @@
     "drone_status": "banned",
     "drone_note_sk": "Zákaz nad kúpeľmi.",
     "interest_weight": {
-      "thermal": 1.0,
+      "thermal": 1,
       "aurora": 0.5
     },
-    "bring": ["swimwear"],
+    "bring": [
+      "swimwear"
+    ],
     "website_url": "https://myvatnnaturebaths.is",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "hofsos-pool"
+    "cheaper_alternative_slug": "hofsos-pool",
+    "commons_query": "Jarðböðin Mývatn",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Island_M%C3%BDvatn-Bad_04.JPG/960px-Island_M%C3%BDvatn-Bad_04.JPG",
+    "photo_credit": "Zairon · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "dimmuborgir",
     "kind": "attraction",
-    "category_tags": ["lava", "hike", "culture"],
+    "category_tags": [
+      "lava",
+      "hike",
+      "culture"
+    ],
     "region": "north_myvatn",
     "name": "Dimmuborgir",
     "lat": 65.591,
@@ -1703,7 +2176,10 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo; kaviareň a WC pri vstupe.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -1711,17 +2187,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Chránené územie – len mimo ľudí a nízko nie.",
     "interest_weight": {
-      "lava": 1.0,
+      "lava": 1,
       "hike": 0.6,
       "culture": 0.5
     },
     "website_url": "https://www.visitmyvatn.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Dimmuborgir",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Dimmuborgir-st%C3%ADgur.jpg/960px-Dimmuborgir-st%C3%ADgur.jpg",
+    "photo_credit": "No machine-readable author provided. Gesturpa~commonswiki assumed (based on copyright claims). · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "hverfjall",
     "kind": "attraction",
-    "category_tags": ["volcano", "hike", "viewpoint"],
+    "category_tags": [
+      "volcano",
+      "hike",
+      "viewpoint"
+    ],
     "region": "north_myvatn",
     "name": "Hverfjall (Hverfell)",
     "lat": 65.605,
@@ -1731,7 +2214,7 @@
     "visit_min": 75,
     "visit_min_min": 60,
     "visit_min_max": 120,
-    "walk_km": 4.0,
+    "walk_km": 4,
     "difficulty": "moderate",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
@@ -1744,17 +2227,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Chránené územie; nie nad ľuďmi na hrane.",
     "interest_weight": {
-      "hike": 1.0,
+      "hike": 1,
       "lava": 0.8,
       "photo": 0.8
     },
     "website_url": "https://www.visitmyvatn.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hverfjall",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/HverfellInnerCrater.jpg/960px-HverfellInnerCrater.jpg",
+    "photo_credit": "Andreas Tille · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "grjotagja",
     "kind": "attraction",
-    "category_tags": ["lava", "cave", "photo"],
+    "category_tags": [
+      "lava",
+      "cave",
+      "photo"
+    ],
     "region": "north_myvatn",
     "name": "Grjótagjá",
     "lat": 65.626,
@@ -1782,12 +2272,19 @@
       "culture": 0.4
     },
     "website_url": "https://www.visitmyvatn.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Grj%C3%B3tagj%C3%A1",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Grj%C3%B3tagj%C3%A1_caves_in_summer_2009_%282%29.jpg/960px-Grj%C3%B3tagj%C3%A1_caves_in_summer_2009_%282%29.jpg",
+    "photo_credit": "Chmee2 · CC BY 3.0 · Wikimedia Commons"
   },
   {
     "slug": "krafla-viti",
     "kind": "attraction",
-    "category_tags": ["volcano", "lava", "geothermal"],
+    "category_tags": [
+      "volcano",
+      "lava",
+      "geothermal"
+    ],
     "region": "north_myvatn",
     "name": "Krafla – kráter Víti a Leirhnjúkur",
     "lat": 65.717,
@@ -1802,7 +2299,9 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -1810,17 +2309,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Nie pri elektrárni; inak mimo ľudí ok.",
     "interest_weight": {
-      "lava": 1.0,
+      "lava": 1,
       "hike": 0.7,
       "nature": 0.8
     },
     "website_url": "https://www.visitmyvatn.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Krafla",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Aerial_View_of_Krafla_and_Leirhnj%C3%BAkur_21.05.2008_16-08-27.JPG/960px-Aerial_View_of_Krafla_and_Leirhnj%C3%BAkur_21.05.2008_16-08-27.JPG",
+    "photo_credit": "Hansueli Krapf · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "godafoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "culture", "photo"],
+    "category_tags": [
+      "waterfall",
+      "culture",
+      "photo"
+    ],
     "region": "akureyri",
     "name": "Goðafoss",
     "lat": 65.6828,
@@ -1835,7 +2341,11 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "fuel"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1843,17 +2353,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo ľudí; často plno.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "photo": 0.9,
       "culture": 0.5
     },
     "website_url": "https://www.northiceland.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Go%C3%B0afoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/1_Go%C3%B0afoss_aerial_pano_2017.jpg/960px-1_Go%C3%B0afoss_aerial_pano_2017.jpg",
+    "photo_credit": "Chensiyuan · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "husavik-whale-watching",
     "kind": "tour",
-    "category_tags": ["whale", "boat", "wildlife"],
+    "category_tags": [
+      "whale",
+      "boat",
+      "wildlife"
+    ],
     "region": "akureyri",
     "name": "Húsavík – pozorovanie veľrýb",
     "lat": 66.045,
@@ -1901,7 +2418,10 @@
     "booking_url": "https://www.northsailing.is",
     "book_ahead_days": 7,
     "cancel_policy_sk": "Pri zrušení kvôli počasiu vrátia peniaze alebo presunú.",
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1909,17 +2429,27 @@
     "drone_status": "banned",
     "drone_note_sk": "Z lode zakázané.",
     "interest_weight": {
-      "whale": 1.0,
+      "whale": 1,
       "photo": 0.7
     },
-    "bring": ["warm_layers", "seasickness_pills"],
+    "bring": [
+      "warm_layers",
+      "seasickness_pills"
+    ],
     "website_url": "https://www.northsailing.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/H%C3%BAsav%C3%ADk",
+    "commons_query": "Húsavík whale watching",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Nordurthing_map.png/960px-Nordurthing_map.png",
+    "photo_credit": "No machine-readable author provided. Bjarki S assumed (based on copyright claims). · Public domain · Wikimedia Commons"
   },
   {
     "slug": "forest-lagoon",
     "kind": "thermal",
-    "category_tags": ["thermal", "spa"],
+    "category_tags": [
+      "thermal",
+      "spa"
+    ],
     "region": "akureyri",
     "name": "Forest Lagoon (Akureyri)",
     "lat": 65.689,
@@ -1966,7 +2496,11 @@
     "booking_required": true,
     "booking_url": "https://www.forestlagoon.is",
     "book_ahead_days": 3,
-    "facilities": ["toilets", "cafe", "showers"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "showers"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -1974,17 +2508,27 @@
     "drone_status": "banned",
     "drone_note_sk": "Zákaz nad kúpeľmi a v blízkosti letiska Akureyri.",
     "interest_weight": {
-      "thermal": 1.0
+      "thermal": 1
     },
-    "bring": ["swimwear"],
+    "bring": [
+      "swimwear"
+    ],
     "website_url": "https://www.forestlagoon.is",
     "verified_at": "2026-09-20",
-    "cheaper_alternative_slug": "akureyri-town"
+    "cheaper_alternative_slug": "akureyri-town",
+    "wiki_url": "https://en.wikipedia.org/wiki/Akureyri",
+    "commons_query": "Forest Lagoon Akureyri",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Akureyri_-_Skapti_Hallgr%C3%ADmsson.jpg/960px-Akureyri_-_Skapti_Hallgr%C3%ADmsson.jpg",
+    "photo_credit": "Kaldbakstindur · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "akureyri-town",
     "kind": "attraction",
-    "category_tags": ["town", "culture", "food"],
+    "category_tags": [
+      "town",
+      "culture",
+      "food"
+    ],
     "region": "akureyri",
     "name": "Akureyri – centrum a botanická záhrada",
     "lat": 65.6835,
@@ -1994,12 +2538,17 @@
     "visit_min": 120,
     "visit_min_min": 60,
     "visit_min_max": 240,
-    "walk_km": 3.0,
+    "walk_km": 3,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo (bazén 1 500 ISK voliteľne).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "grocery",
+      "fuel"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2011,12 +2560,20 @@
       "photo": 0.5
     },
     "website_url": "https://www.visitakureyri.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Akureyri",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Akureyri_-_Skapti_Hallgr%C3%ADmsson.jpg/960px-Akureyri_-_Skapti_Hallgr%C3%ADmsson.jpg",
+    "photo_credit": "Kaldbakstindur · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hvitserkur",
     "kind": "viewpoint",
-    "category_tags": ["rock", "beach", "photo", "wildlife"],
+    "category_tags": [
+      "rock",
+      "beach",
+      "photo",
+      "wildlife"
+    ],
     "region": "north_west",
     "name": "Hvítserkur",
     "lat": 65.606,
@@ -2026,12 +2583,14 @@
     "visit_min": 45,
     "visit_min_min": 30,
     "visit_min_max": 75,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 3,
     "hidden_gem": true,
     "rainy_day_ok": false,
@@ -2039,17 +2598,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Hniezdiská – nie pri útesoch a tuleňoch.",
     "interest_weight": {
-      "photo": 1.0,
+      "photo": 1,
       "nature": 0.7,
       "puffin": 0.3
     },
     "website_url": "https://www.northwest.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hv%C3%ADtserkur",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Hv%C3%ADtserkur.JPG/960px-Hv%C3%ADtserkur.JPG",
+    "photo_credit": "Árni Gunnarsson · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "kolugljufur",
     "kind": "attraction",
-    "category_tags": ["canyon", "waterfall", "photo"],
+    "category_tags": [
+      "canyon",
+      "waterfall",
+      "photo"
+    ],
     "region": "north_west",
     "name": "Kolugljúfur",
     "lat": 65.335,
@@ -2076,12 +2642,18 @@
       "photo": 0.9
     },
     "website_url": "https://www.northwest.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Kola_canyon%2C_Koluglj%C3%BAfur_-_panoramio.jpg/960px-Kola_canyon%2C_Koluglj%C3%BAfur_-_panoramio.jpg",
+    "photo_credit": "Anna Jonna Ármannsdó… · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "glaumbaer",
     "kind": "museum",
-    "category_tags": ["museum", "culture", "history"],
+    "category_tags": [
+      "museum",
+      "culture",
+      "history"
+    ],
     "region": "north_west",
     "name": "Glaumbær – drnový statok",
     "lat": 65.61,
@@ -2119,7 +2691,10 @@
       "from": "05-20",
       "to": "09-20"
     },
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2127,16 +2702,22 @@
     "drone_status": "restricted",
     "drone_note_sk": "Nad múzeom a ľuďmi nie.",
     "interest_weight": {
-      "culture": 1.0,
+      "culture": 1,
       "photo": 0.5
     },
     "website_url": "https://www.glaumbaer.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Glaumb%C3%A6r_open-air_museum%2C_Iceland%2C_20240715_1418_0889.jpg/960px-Glaumb%C3%A6r_open-air_museum%2C_Iceland%2C_20240715_1418_0889.jpg",
+    "photo_credit": "Jakub Hałun · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "grabrok-crater",
     "kind": "attraction",
-    "category_tags": ["volcano", "viewpoint", "hike"],
+    "category_tags": [
+      "volcano",
+      "viewpoint",
+      "hike"
+    ],
     "region": "north_west",
     "name": "Grábrók – kráter pri Ring Road",
     "lat": 64.771,
@@ -2151,7 +2732,10 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -2164,12 +2748,18 @@
       "photo": 0.6
     },
     "website_url": "https://www.west.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Cr%C3%A1ter_Litli_Gr%C3%A1br%C3%B3k%2C_Vesturland%2C_Islandia%2C_2014-08-15%2C_DD_087_PAN.JPG/960px-Cr%C3%A1ter_Litli_Gr%C3%A1br%C3%B3k%2C_Vesturland%2C_Islandia%2C_2014-08-15%2C_DD_087_PAN.JPG",
+    "photo_credit": "Diego Delso · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hraunfossar-barnafoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "lava", "photo"],
+    "category_tags": [
+      "waterfall",
+      "lava",
+      "photo"
+    ],
     "region": "north_west",
     "name": "Hraunfossar + Barnafoss",
     "lat": 64.703,
@@ -2179,7 +2769,7 @@
     "visit_min": 45,
     "visit_min_min": 30,
     "visit_min_max": 60,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": {
       "amount": 1000,
@@ -2187,7 +2777,10 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (orientačne).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2195,17 +2788,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Mimo ľudí; často plno.",
     "interest_weight": {
-      "nature": 1.0,
-      "photo": 1.0,
+      "nature": 1,
+      "photo": 1,
       "lava": 0.6
     },
     "website_url": "https://www.west.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hraunfossar",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Hraunfossar_2004.jpg/960px-Hraunfossar_2004.jpg",
+    "photo_credit": "Reykholt · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "kirkjufell",
     "kind": "viewpoint",
-    "category_tags": ["mountain", "waterfall", "photo"],
+    "category_tags": [
+      "mountain",
+      "waterfall",
+      "photo"
+    ],
     "region": "snaefellsnes",
     "name": "Kirkjufell + Kirkjufellsfoss",
     "lat": 64.941,
@@ -2223,7 +2823,9 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (Parka); orientačne.",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 5,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -2231,17 +2833,25 @@
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo ľudí; hniezdiská na jar.",
     "interest_weight": {
-      "photo": 1.0,
+      "photo": 1,
       "nature": 0.8,
       "aurora": 0.6
     },
     "website_url": "https://www.west.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Kirkjufell",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Kirkjufell_in_Iceland.jpg/960px-Kirkjufell_in_Iceland.jpg",
+    "photo_credit": "Anjali Kiggal · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "arnarstapi-hellnar",
     "kind": "attraction",
-    "category_tags": ["coast", "hike", "photo", "wildlife"],
+    "category_tags": [
+      "coast",
+      "hike",
+      "photo",
+      "wildlife"
+    ],
     "region": "snaefellsnes",
     "name": "Arnarstapi – Hellnar pobrežná túra",
     "lat": 64.769,
@@ -2251,12 +2861,15 @@
     "visit_min": 90,
     "visit_min_min": 60,
     "visit_min_max": 150,
-    "walk_km": 5.0,
+    "walk_km": 5,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo (NP Snæfellsjökull).",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": false,
@@ -2264,18 +2877,25 @@
     "drone_status": "permit",
     "drone_note_sk": "Národný park – bez povolenia zákaz.",
     "interest_weight": {
-      "nature": 1.0,
+      "nature": 1,
       "hike": 0.9,
       "photo": 0.9,
       "puffin": 0.4
     },
     "website_url": "https://www.snaefellsjokull.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Arnarstapi",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Arnarstapi_2024_%280754%29.jpg/960px-Arnarstapi_2024_%280754%29.jpg",
+    "photo_credit": "Steinninn · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "djupalonssandur",
     "kind": "attraction",
-    "category_tags": ["beach", "lava", "hike"],
+    "category_tags": [
+      "beach",
+      "lava",
+      "hike"
+    ],
     "region": "snaefellsnes",
     "name": "Djúpalónssandur",
     "lat": 64.752,
@@ -2290,7 +2910,9 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo (NP).",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2303,12 +2925,18 @@
       "photo": 0.8
     },
     "website_url": "https://www.snaefellsjokull.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Dj%C3%BApal%C3%B3nssandur_%2814453228065%29.jpg/960px-Dj%C3%BApal%C3%B3nssandur_%2814453228065%29.jpg",
+    "photo_credit": "Rob Oo from NL · CC BY 2.0 · Wikimedia Commons"
   },
   {
     "slug": "budakirkja",
     "kind": "viewpoint",
-    "category_tags": ["church", "photo", "lava"],
+    "category_tags": [
+      "church",
+      "photo",
+      "lava"
+    ],
     "region": "snaefellsnes",
     "name": "Búðakirkja – čierny kostol",
     "lat": 64.822,
@@ -2331,16 +2959,21 @@
     "drone_status": "allowed",
     "drone_note_sk": "Mimo ľudí a hotela ok.",
     "interest_weight": {
-      "photo": 1.0,
+      "photo": 1,
       "culture": 0.5
     },
     "website_url": "https://www.west.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Black_B%C3%BA%C3%B0ir_Church%2C_%28B%C3%BA%C3%B0akirkja%29.jpg/960px-Black_B%C3%BA%C3%B0ir_Church%2C_%28B%C3%BA%C3%B0akirkja%29.jpg",
+    "photo_credit": "JavierOlivares · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "ytri-tunga-seals",
     "kind": "attraction",
-    "category_tags": ["wildlife", "beach"],
+    "category_tags": [
+      "wildlife",
+      "beach"
+    ],
     "region": "snaefellsnes",
     "name": "Ytri Tunga – tulene",
     "lat": 64.803,
@@ -2350,7 +2983,7 @@
     "visit_min": 40,
     "visit_min_min": 30,
     "visit_min_max": 60,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": {
       "amount": 1000,
@@ -2358,7 +2991,9 @@
     },
     "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (orientačne).",
     "price_rules": [],
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 3,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -2371,12 +3006,18 @@
       "photo": 0.6
     },
     "website_url": "https://www.west.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Harbor_seals%2C_Ytri_Tunga_Beach%2C_Iceland%2C_20240714_1217_0991.jpg/960px-Harbor_seals%2C_Ytri_Tunga_Beach%2C_Iceland%2C_20240714_1217_0991.jpg",
+    "photo_credit": "Jakub Hałun · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "vatnshellir-cave",
     "kind": "tour",
-    "category_tags": ["lava", "cave", "tour"],
+    "category_tags": [
+      "lava",
+      "cave",
+      "tour"
+    ],
     "region": "snaefellsnes",
     "name": "Vatnshellir – lávová jaskyňa",
     "lat": 64.748,
@@ -2428,7 +3069,9 @@
       "from": "10:00",
       "until": "18:00"
     },
-    "facilities": ["toilets"],
+    "facilities": [
+      "toilets"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2436,17 +3079,24 @@
     "drone_status": "permit",
     "drone_note_sk": "NP Snæfellsjökull – bez povolenia zákaz.",
     "interest_weight": {
-      "lava": 1.0,
+      "lava": 1,
       "culture": 0.4
     },
-    "bring": ["warm_layers"],
+    "bring": [
+      "warm_layers"
+    ],
     "website_url": "https://www.summitguides.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Vatnshellir_Cave_%2845777444622%29.jpg/960px-Vatnshellir_Cave_%2845777444622%29.jpg",
+    "photo_credit": "David Jones from Isle of Wight, United Kingdom · CC BY 2.0 · Wikimedia Commons"
   },
   {
     "slug": "laugardalslaug",
     "kind": "thermal",
-    "category_tags": ["thermal", "pool"],
+    "category_tags": [
+      "thermal",
+      "pool"
+    ],
     "region": "reykjavik",
     "name": "Laugardalslaug – mestský bazén",
     "lat": 64.144,
@@ -2480,7 +3130,11 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets", "showers", "cafe"],
+    "facilities": [
+      "toilets",
+      "showers",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -2492,12 +3146,19 @@
       "culture": 0.5
     },
     "website_url": "https://reykjavik.is/sundlaugar",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Laugardalslaug",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Laugardalslaug.JPG/960px-Laugardalslaug.JPG",
+    "photo_credit": "(WT-en) Meltwaterfalls at English Wikivoyage · CC BY-SA 1.0 · Wikimedia Commons"
   },
   {
     "slug": "harpa-sun-voyager",
     "kind": "viewpoint",
-    "category_tags": ["architecture", "photo", "culture"],
+    "category_tags": [
+      "architecture",
+      "photo",
+      "culture"
+    ],
     "region": "reykjavik",
     "name": "Harpa + Slnečný pútnik",
     "lat": 64.15,
@@ -2524,12 +3185,19 @@
       "photo": 0.9
     },
     "website_url": "https://www.harpa.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Harpa concert hall Reykjavík",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Concert_at_the_Harpa_in_Reykjavik.jpg/960px-Concert_at_the_Harpa_in_Reykjavik.jpg",
+    "photo_credit": "James Poulson · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "grotta-lighthouse",
     "kind": "viewpoint",
-    "category_tags": ["lighthouse", "aurora", "wildlife"],
+    "category_tags": [
+      "lighthouse",
+      "aurora",
+      "wildlife"
+    ],
     "region": "reykjavik",
     "name": "Grótta – maják a polárna žiara",
     "lat": 64.165,
@@ -2552,17 +3220,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Hniezdiská – mimo sezóny ok, nie nad vtákmi.",
     "interest_weight": {
-      "aurora": 1.0,
+      "aurora": 1,
       "photo": 0.7,
       "nature": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Gr%C3%B3tta",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Gr%C3%B3tta2.JPG/960px-Gr%C3%B3tta2.JPG",
+    "photo_credit": "Jóhann Heiðar Árnason · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "whales-of-iceland",
     "kind": "museum",
-    "category_tags": ["museum", "whale", "culture"],
+    "category_tags": [
+      "museum",
+      "whale",
+      "culture"
+    ],
     "region": "reykjavik",
     "name": "Whales of Iceland",
     "lat": 64.156,
@@ -2596,7 +3271,10 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2608,12 +3286,19 @@
       "culture": 0.6
     },
     "website_url": "https://www.whalesoficeland.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Whales_of_Iceland",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Whales_of_Iceland_Interior.jpg/960px-Whales_of_Iceland_Interior.jpg",
+    "photo_credit": "Protochrome · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "seltun-krysuvik",
     "kind": "attraction",
-    "category_tags": ["geothermal", "lava", "photo"],
+    "category_tags": [
+      "geothermal",
+      "lava",
+      "photo"
+    ],
     "region": "reykjanes",
     "name": "Seltún (Krýsuvík)",
     "lat": 63.896,
@@ -2641,12 +3326,19 @@
       "nature": 0.6
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Kr%C3%BDsuv%C3%ADk_(volcanic_system)",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Kr%C3%BDsuv%C3%ADk-Selt%C3%BAn_geothermal_field_on_2019-07-08_photo_9.jpg/960px-Kr%C3%BDsuv%C3%ADk-Selt%C3%BAn_geothermal_field_on_2019-07-08_photo_9.jpg",
+    "photo_credit": "Alexander Grebenkov · CC BY 3.0 · Wikimedia Commons"
   },
   {
     "slug": "reykjanesviti-gunnuhver",
     "kind": "attraction",
-    "category_tags": ["geothermal", "lighthouse", "coast"],
+    "category_tags": [
+      "geothermal",
+      "lighthouse",
+      "coast"
+    ],
     "region": "reykjanes",
     "name": "Reykjanesviti + Gunnuhver",
     "lat": 63.818,
@@ -2674,12 +3366,18 @@
       "nature": 0.7
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Reykjanesviti",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Leuchtturm_Island1.jpg/960px-Leuchtturm_Island1.jpg",
+    "photo_credit": "Reykholt · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "bridge-between-continents",
     "kind": "viewpoint",
-    "category_tags": ["geology", "photo"],
+    "category_tags": [
+      "geology",
+      "photo"
+    ],
     "region": "reykjanes",
     "name": "Most medzi kontinentmi",
     "lat": 63.868,
@@ -2706,12 +3404,19 @@
       "photo": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Bridge between continents Reykjanes",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Bridge_across_continents_iceland.jpg/960px-Bridge_across_continents_iceland.jpg",
+    "photo_credit": "Chris 73 · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "bruarfoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "hike", "photo"],
+    "category_tags": [
+      "waterfall",
+      "hike",
+      "photo"
+    ],
     "region": "golden_circle",
     "name": "Brúarfoss",
     "lat": 64.265,
@@ -2721,7 +3426,7 @@
     "visit_min": 120,
     "visit_min_min": 84,
     "visit_min_max": 180,
-    "walk_km": 7.0,
+    "walk_km": 7,
     "difficulty": "moderate",
     "parking_fee": {
       "amount": 1000,
@@ -2737,17 +3442,23 @@
     "drone_status": "restricted",
     "drone_note_sk": "Súkromný pozemok – mimo ľudí.",
     "interest_weight": {
-      "nature": 1.0,
-      "photo": 1.0,
+      "nature": 1,
+      "photo": 1,
       "hike": 0.8
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Br%C3%BAarfoss_%2815657306391%29.jpg/960px-Br%C3%BAarfoss_%2815657306391%29.jpg",
+    "photo_credit": "Milan Nykodym from Kutna Hora, Czech Republic · CC BY-SA 2.0 · Wikimedia Commons"
   },
   {
     "slug": "fridheimar",
     "kind": "attraction",
-    "category_tags": ["food", "culture", "farm"],
+    "category_tags": [
+      "food",
+      "culture",
+      "farm"
+    ],
     "region": "golden_circle",
     "name": "Friðheimar – rajčinová farma",
     "lat": 64.162,
@@ -2762,7 +3473,10 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2776,12 +3490,18 @@
     "verified_at": "2026-09-20",
     "booking_required": true,
     "booking_url": "https://www.fridheimar.is",
-    "book_ahead_days": 2
+    "book_ahead_days": 2,
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Fridheimar_Greenhouse_Rows.jpg/960px-Fridheimar_Greenhouse_Rows.jpg",
+    "photo_credit": "Eric Kilby · CC BY-SA 2.0 · Wikimedia Commons"
   },
   {
     "slug": "haifoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "canyon", "photo"],
+    "category_tags": [
+      "waterfall",
+      "canyon",
+      "photo"
+    ],
     "region": "golden_circle",
     "name": "Háifoss + Granni",
     "lat": 64.209,
@@ -2791,7 +3511,7 @@
     "visit_min": 60,
     "visit_min_min": 42,
     "visit_min_max": 90,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
@@ -2804,16 +3524,23 @@
     "drone_status": "allowed",
     "drone_note_sk": "Otvorený terén, vietor.",
     "interest_weight": {
-      "nature": 1.0,
-      "photo": 1.0
+      "nature": 1,
+      "photo": 1
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/H%C3%A1ifoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Haifoss_fall_in_Iceland_2005.JPG/960px-Haifoss_fall_in_Iceland_2005.JPG",
+    "photo_credit": "Chris 73 · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "gjain-stong",
     "kind": "attraction",
-    "category_tags": ["oasis", "hike", "culture"],
+    "category_tags": [
+      "oasis",
+      "hike",
+      "culture"
+    ],
     "region": "golden_circle",
     "name": "Gjáin + Stöng",
     "lat": 64.153,
@@ -2823,7 +3550,7 @@
     "visit_min": 75,
     "visit_min_min": 52,
     "visit_min_max": 112,
-    "walk_km": 2.0,
+    "walk_km": 2,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
@@ -2842,12 +3569,19 @@
       "hike": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Gj%C3%A1in",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Gj%C3%A1in_Iceland_%28190035499%29.jpeg/960px-Gj%C3%A1in_Iceland_%28190035499%29.jpeg",
+    "photo_credit": "Ilya Grigorik · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "solheimasandur-plane-wreck",
     "kind": "attraction",
-    "category_tags": ["photo", "hike", "beach"],
+    "category_tags": [
+      "photo",
+      "hike",
+      "beach"
+    ],
     "region": "south",
     "name": "Sólheimasandur – vrak lietadla",
     "lat": 63.459,
@@ -2857,7 +3591,7 @@
     "visit_min": 120,
     "visit_min_min": 84,
     "visit_min_max": 180,
-    "walk_km": 8.0,
+    "walk_km": 8,
     "difficulty": "moderate",
     "parking_fee": {
       "amount": 750,
@@ -2873,16 +3607,23 @@
     "drone_status": "allowed",
     "drone_note_sk": "Otvorený terén; obľúbené na dron.",
     "interest_weight": {
-      "photo": 1.0,
+      "photo": 1,
       "hike": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/1973_S%C3%B3lheimasandur_Douglas_C-117D_crash",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/A_broken_plane_on_the_floor_%28Unsplash%29.jpg/960px-A_broken_plane_on_the_floor_%28Unsplash%29.jpg",
+    "photo_credit": "Blair Fraser mrblairfraser · CC0 · Wikimedia Commons"
   },
   {
     "slug": "vik-church-reynisdrangar",
     "kind": "viewpoint",
-    "category_tags": ["town", "photo", "beach"],
+    "category_tags": [
+      "town",
+      "photo",
+      "beach"
+    ],
     "region": "south",
     "name": "Vík – kostol a Reynisdrangar",
     "lat": 63.419,
@@ -2892,12 +3633,17 @@
     "visit_min": 30,
     "visit_min_min": 21,
     "visit_min_max": 45,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "grocery",
+      "fuel"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -2909,12 +3655,19 @@
       "culture": 0.4
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/V%C3%ADk_%C3%AD_M%C3%BDrdal",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/V%C3%ADk_%C3%AD_M%C3%BDrdal%2C_Iceland.jpg/960px-V%C3%ADk_%C3%AD_M%C3%BDrdal%2C_Iceland.jpg",
+    "photo_credit": "Andrea Schaffer · CC BY 2.0 · Wikimedia Commons"
   },
   {
     "slug": "systrafoss-klaustur",
     "kind": "attraction",
-    "category_tags": ["waterfall", "hike", "culture"],
+    "category_tags": [
+      "waterfall",
+      "hike",
+      "culture"
+    ],
     "region": "south",
     "name": "Systrafoss + Kirkjugólf (Kirkjubæjarklaustur)",
     "lat": 63.787,
@@ -2929,7 +3682,11 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "fuel"
+    ],
     "popularity": 3,
     "hidden_gem": true,
     "rainy_day_ok": false,
@@ -2942,12 +3699,19 @@
       "photo": 0.6
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Systrafoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Systrafoss.JPG/960px-Systrafoss.JPG",
+    "photo_credit": "Bromr at Dutch Wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "mulagljufur",
     "kind": "attraction",
-    "category_tags": ["canyon", "hike", "photo"],
+    "category_tags": [
+      "canyon",
+      "hike",
+      "photo"
+    ],
     "region": "southeast",
     "name": "Múlagljúfur kaňon",
     "lat": 64.021,
@@ -2970,18 +3734,24 @@
     "drone_status": "restricted",
     "drone_note_sk": "Vatnajökull NP – povolené len mimo návštevníckych zón.",
     "interest_weight": {
-      "hike": 1.0,
-      "nature": 1.0,
-      "photo": 1.0,
+      "hike": 1,
+      "nature": 1,
+      "photo": 1,
       "glacier": 0.4
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Múlagljúfur",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/M%C3%BAlaglj%C3%BAfur_02.jpg/960px-M%C3%BAlaglj%C3%BAfur_02.jpg",
+    "photo_credit": "Syrio · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "svinafellsjokull",
     "kind": "viewpoint",
-    "category_tags": ["glacier", "photo"],
+    "category_tags": [
+      "glacier",
+      "photo"
+    ],
     "region": "southeast",
     "name": "Svínafellsjökull – vyhliadka na ľadovec",
     "lat": 64.009,
@@ -3004,16 +3774,22 @@
     "drone_status": "permit",
     "drone_note_sk": "NP – bez povolenia zákaz.",
     "interest_weight": {
-      "glacier": 1.0,
+      "glacier": 1,
       "photo": 0.9
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Lago_alla_base_di_Sv%C3%ADnafellsj%C3%B6kull_01.jpg/960px-Lago_alla_base_di_Sv%C3%ADnafellsj%C3%B6kull_01.jpg",
+    "photo_credit": "Syrio · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "aldeyjarfoss",
     "kind": "attraction",
-    "category_tags": ["waterfall", "basalt", "photo"],
+    "category_tags": [
+      "waterfall",
+      "basalt",
+      "photo"
+    ],
     "region": "akureyri",
     "name": "Aldeyjarfoss",
     "lat": 65.367,
@@ -3023,7 +3799,7 @@
     "visit_min": 60,
     "visit_min_min": 42,
     "visit_min_max": 90,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
@@ -3036,17 +3812,24 @@
     "drone_status": "allowed",
     "drone_note_sk": "Otvorený terén.",
     "interest_weight": {
-      "nature": 1.0,
-      "photo": 1.0,
+      "nature": 1,
+      "photo": 1,
       "lava": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Aldeyjarfoss",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Waterfall_Aldeyjarfoss_and_Black_Basalt_Columns_-_2013.08_-_panoramio.jpg/960px-Waterfall_Aldeyjarfoss_and_Black_Basalt_Columns_-_2013.08_-_panoramio.jpg",
+    "photo_credit": "rheins · CC BY 3.0 · Wikimedia Commons"
   },
   {
     "slug": "siglufjordur-herring",
     "kind": "museum",
-    "category_tags": ["museum", "culture", "town"],
+    "category_tags": [
+      "museum",
+      "culture",
+      "town"
+    ],
     "region": "akureyri",
     "name": "Siglufjörður – Múzeum sleďov",
     "lat": 66.15,
@@ -3080,7 +3863,10 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets", "cafe"],
+    "facilities": [
+      "toilets",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -3088,15 +3874,22 @@
     "drone_status": "restricted",
     "drone_note_sk": "Nad mestom nie.",
     "interest_weight": {
-      "culture": 1.0
+      "culture": 1
     },
     "website_url": "https://www.sild.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Siglufj%C3%B6r%C3%B0ur",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Siglufj%C3%B6r%C3%B0ur_%280859%29.jpg/960px-Siglufj%C3%B6r%C3%B0ur_%280859%29.jpg",
+    "photo_credit": "Steinninn · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "hofsos-pool",
     "kind": "thermal",
-    "category_tags": ["thermal", "pool", "photo"],
+    "category_tags": [
+      "thermal",
+      "pool",
+      "photo"
+    ],
     "region": "north_west",
     "name": "Hofsós – infinity bazén",
     "lat": 65.899,
@@ -3130,7 +3923,10 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets", "showers"],
+    "facilities": [
+      "toilets",
+      "showers"
+    ],
     "popularity": 4,
     "hidden_gem": true,
     "rainy_day_ok": true,
@@ -3142,12 +3938,19 @@
       "photo": 0.9
     },
     "website_url": "https://www.skagafjordur.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Hofs%C3%B3s",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Hofs%C3%B3s_%280874%29.jpg/960px-Hofs%C3%B3s_%280874%29.jpg",
+    "photo_credit": "Steinninn · CC BY 4.0 · Wikimedia Commons"
   },
   {
     "slug": "kalfshamarsvik",
     "kind": "attraction",
-    "category_tags": ["basalt", "coast", "photo"],
+    "category_tags": [
+      "basalt",
+      "coast",
+      "photo"
+    ],
     "region": "north_west",
     "name": "Kálfshamarsvík",
     "lat": 66.019,
@@ -3175,12 +3978,18 @@
       "lava": 0.6
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Kalfhamarsvik%2C_Iceland_-_panoramio.jpg/960px-Kalfhamarsvik%2C_Iceland_-_panoramio.jpg",
+    "photo_credit": "Zoran Kurelić Rabko · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "borgarvirki",
     "kind": "viewpoint",
-    "category_tags": ["history", "viewpoint", "lava"],
+    "category_tags": [
+      "history",
+      "viewpoint",
+      "lava"
+    ],
     "region": "north_west",
     "name": "Borgarvirki",
     "lat": 65.437,
@@ -3207,12 +4016,18 @@
       "photo": 0.7
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Borgarvirki",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Borgarvirki_2.jpg/960px-Borgarvirki_2.jpg",
+    "photo_credit": "Marko Norkroos · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "krauma",
     "kind": "thermal",
-    "category_tags": ["thermal", "spa"],
+    "category_tags": [
+      "thermal",
+      "spa"
+    ],
     "region": "north_west",
     "name": "Krauma (Deildartunguhver)",
     "lat": 64.664,
@@ -3246,7 +4061,11 @@
         "is_default": true
       }
     ],
-    "facilities": ["toilets", "showers", "cafe"],
+    "facilities": [
+      "toilets",
+      "showers",
+      "cafe"
+    ],
     "popularity": 4,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -3254,19 +4073,25 @@
     "drone_status": "banned",
     "drone_note_sk": "Kúpele.",
     "interest_weight": {
-      "thermal": 1.0
+      "thermal": 1
     },
     "website_url": "https://krauma.is",
     "verified_at": "2026-09-20",
     "booking_required": true,
     "booking_url": "https://krauma.is",
     "book_ahead_days": 2,
-    "cheaper_alternative_slug": "hofsos-pool"
+    "cheaper_alternative_slug": "hofsos-pool",
+    "wiki_url": "https://en.wikipedia.org/wiki/Deildartunguhver",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Islande_source_Deildartunguhver.jpg/960px-Islande_source_Deildartunguhver.jpg",
+    "photo_credit": "Nojhan · CC BY-SA 3.0 · Wikimedia Commons"
   },
   {
     "slug": "reykholt-snorrastofa",
     "kind": "museum",
-    "category_tags": ["culture", "history"],
+    "category_tags": [
+      "culture",
+      "history"
+    ],
     "region": "north_west",
     "name": "Reykholt – Snorrastofa",
     "lat": 64.665,
@@ -3308,15 +4133,21 @@
     "drone_status": "restricted",
     "drone_note_sk": "Nad areálom nie.",
     "interest_weight": {
-      "culture": 1.0
+      "culture": 1
     },
     "website_url": "https://www.snorrastofa.is",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Snorrastofa",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Reykholt_01.jpg/960px-Reykholt_01.jpg",
+    "photo_credit": "Christian Bickel · CC BY-SA 2.0 de · Wikimedia Commons"
   },
   {
     "slug": "glanni-paradisarlaut",
     "kind": "attraction",
-    "category_tags": ["waterfall", "hike"],
+    "category_tags": [
+      "waterfall",
+      "hike"
+    ],
     "region": "north_west",
     "name": "Glanni + Paradísarlaut",
     "lat": 64.757,
@@ -3326,7 +4157,7 @@
     "visit_min": 30,
     "visit_min_min": 21,
     "visit_min_max": 45,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "easy",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
@@ -3343,12 +4174,18 @@
       "photo": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Glanni_waterfall%2C_July_2019.jpg/960px-Glanni_waterfall%2C_July_2019.jpg",
+    "photo_credit": "Alexander Grebenkov · CC BY 3.0 · Wikimedia Commons"
   },
   {
     "slug": "stykkisholmur",
     "kind": "attraction",
-    "category_tags": ["town", "culture", "photo"],
+    "category_tags": [
+      "town",
+      "culture",
+      "photo"
+    ],
     "region": "snaefellsnes",
     "name": "Stykkishólmur + Súgandisey",
     "lat": 65.074,
@@ -3363,7 +4200,12 @@
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
     "price_rules": [],
-    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "facilities": [
+      "toilets",
+      "cafe",
+      "grocery",
+      "fuel"
+    ],
     "popularity": 3,
     "hidden_gem": false,
     "rainy_day_ok": true,
@@ -3375,12 +4217,18 @@
       "photo": 0.8
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Stykkish%C3%B3lmur",
+    "photo_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/1_aerial_pano_stykkish%C3%B3lmur_2017.jpg/960px-1_aerial_pano_stykkish%C3%B3lmur_2017.jpg",
+    "photo_credit": "Chensiyuan · CC BY-SA 4.0 · Wikimedia Commons"
   },
   {
     "slug": "gerduberg",
     "kind": "viewpoint",
-    "category_tags": ["basalt", "photo"],
+    "category_tags": [
+      "basalt",
+      "photo"
+    ],
     "region": "snaefellsnes",
     "name": "Gerðuberg – čadičové stĺpy",
     "lat": 64.801,
@@ -3407,12 +4255,18 @@
       "photo": 0.7
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Ger%C3%B0uberg",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/GerdubergSnaefellsnesIce.JPG/960px-GerdubergSnaefellsnesIce.JPG",
+    "photo_credit": "TommyBee · Public domain · Wikimedia Commons"
   },
   {
     "slug": "raudfeldsgja",
     "kind": "attraction",
-    "category_tags": ["canyon", "hike"],
+    "category_tags": [
+      "canyon",
+      "hike"
+    ],
     "region": "snaefellsnes",
     "name": "Rauðfeldsgjá",
     "lat": 64.783,
@@ -3422,7 +4276,7 @@
     "visit_min": 40,
     "visit_min_min": 28,
     "visit_min_max": 60,
-    "walk_km": 1.0,
+    "walk_km": 1,
     "difficulty": "moderate",
     "parking_fee": null,
     "entry_note_sk": "Zadarmo.",
@@ -3440,12 +4294,17 @@
       "photo": 0.7
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "wiki_url": "https://en.wikipedia.org/wiki/Rau%C3%B0feldsgj%C3%A1",
+    "commons_query": "Rauðfeldsgjá gorge"
   },
   {
     "slug": "landbrotalaug",
     "kind": "thermal",
-    "category_tags": ["thermal", "hot_pot"],
+    "category_tags": [
+      "thermal",
+      "hot_pot"
+    ],
     "region": "snaefellsnes",
     "name": "Landbrotalaug – horúca kaďa pre dvoch",
     "lat": 64.829,
@@ -3472,6 +4331,7 @@
       "photo": 0.5
     },
     "website_url": "https://www.visiticeland.com",
-    "verified_at": "2026-09-20"
+    "verified_at": "2026-09-20",
+    "commons_query": "Landbrotalaug hot spring"
   }
 ]
