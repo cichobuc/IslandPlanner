@@ -419,12 +419,13 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
     if (c.reserve) warnings.push('Rezervný deň – pri zlom počasí sem presuň zastávky');
     if (driveMinReal > c.cap.maxDriveMin)
       warnings.push(`${fmtH(driveMinReal)} jazdy – nad limitom tempa (${fmtH(c.cap.maxDriveMin)})`);
-    if (r.arriveEnd > c.sunset)
-      warnings.push(`Príchod ${fmtClock(r.arriveEnd)} po západe slnka (${fmtClock(c.sunset)})`);
-    else if (c.day.endMin != null && r.arriveEnd > c.day.endMin)
+    // na nocľah stačí doraziť do 30 min po západe; skorší limit (odlet) má prednosť
+    if (c.day.endMin != null && r.arriveEnd > c.day.endMin)
       warnings.push(
         `Príchod ${fmtClock(r.arriveEnd)} po limite ${fmtClock(c.day.endMin)} – vyraz skôr alebo presuň noc bližšie`,
       );
+    else if (r.arriveEnd > c.sunset + 30)
+      warnings.push(`Príchod ${fmtClock(r.arriveEnd)} po západe slnka (${fmtClock(c.sunset)})`);
     if (stops.length === 0 && !c.reserve)
       warnings.push(c.regions.length ? 'Voľný deň – v regióne nie je POI v seede' : 'Voľný deň');
     return {
