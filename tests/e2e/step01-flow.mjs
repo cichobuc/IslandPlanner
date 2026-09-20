@@ -62,7 +62,7 @@ await p.click('button:has-text("Pridať")');
 await p.waitForSelector('main .rounded-card >> text=peter.test@example.com');
 await p.goto(`${tripUrl}?krok=1`);
 // ručný cestujúci
-await p.click('button:has-text("Cestujúci")');
+await p.locator('main button:has-text("Cestujúci")').first().click();
 await p.waitForSelector('[role=dialog]');
 await p.fill('[role=dialog] input[name=name]', 'Jana Ručná');
 await p.fill('[role=dialog] input[name=ageFallback]', '29');
@@ -83,6 +83,7 @@ await p.locator('form:has(input[name=iata][value=VIE]) button').click();
 await p.waitForTimeout(1200);
 // nastavenia: mesiac +1, dni 9–11, tempo pokojné
 await p.click('button[aria-label="Ďalší mesiac"]');
+await p.click('button:has-text("Upraviť tempo")');
 await p.fill('input[name=minDays]', '9');
 await p.fill('input[name=maxDays]', '11');
 await p.click('label:has(input[name=pace][value=relaxed])');

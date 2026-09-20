@@ -345,6 +345,7 @@ export function SettingsForm({
   canEdit: boolean;
 }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(updateTripSettingsAction, null);
+  const [more, setMore] = useState(false);
   const [ym, setYm] = useState(targetMonth);
   const [y, m] = ym.split('-').map(Number);
   const shift = (d: number) => {
@@ -408,48 +409,66 @@ export function SettingsForm({
             <span className="text-ink-3 text-[12px]">dní</span>
           </div>
         </FieldRow>
-        <FieldRow
-          label="Prestupy"
-          hint="self-transfer cez hub (STN, LTN, BER, DUB) s vlastnou zodpovednosťou"
-        >
-          <Segmented
-            name="allowSelfTransfer"
-            defaultValue={allowSelfTransfer ? 'yes' : 'no'}
-            options={[
-              { value: 'yes', label: 'Priame aj s prestupom' },
-              { value: 'no', label: 'Len priame' },
-            ]}
-          />
-        </FieldRow>
-        <FieldRow label="Tempo" hint="koľko km a zastávok za deň">
-          <Segmented
-            name="pace"
-            defaultValue={pace}
-            options={[
-              { value: 'relaxed', label: 'Pokojné' },
-              { value: 'normal', label: 'Normálne' },
-              { value: 'intense', label: 'Intenzívne' },
-            ]}
-          />
-        </FieldRow>
-        <FieldRow label="Záujmy" hint="váhy pri výbere zastávok">
-          <ChipGroup
-            name="interests"
-            defaultValues={interests as InterestKey[]}
-            options={INTEREST_KEYS.map((k) => ({ value: k, label: INTEREST_LABELS[k] }))}
-          />
-        </FieldRow>
-        <FieldRow label="Cieľový rozpočet / os." hint="voliteľné; krok 08 ukáže odchýlku">
-          <Input
-            name="budgetTargetPp"
-            type="number"
-            min={0}
-            step={10}
-            placeholder="1 200"
-            defaultValue={budgetTargetPp ?? ''}
-            className="max-w-[140px]"
-          />
-        </FieldRow>
+        <div className="flex flex-wrap items-center gap-2 py-3">
+          <span className="text-ink-3 text-[11px] font-semibold tracking-[.08em] uppercase">Viac</span>
+          {!more && (
+            <span className="text-ink-2 text-[12px]">
+              tempo {pace === 'relaxed' ? 'pokojné' : pace === 'intense' ? 'intenzívne' : 'normálne'} ·{' '}
+              {allowSelfTransfer ? 'aj s prestupom' : 'len priame'} ·{' '}
+              {interests.length ? `${interests.length} záujmy` : 'záujmy z profilov'} ·{' '}
+              {budgetTargetPp ? `cieľ ${budgetTargetPp} €/os` : 'bez cieľa'}
+            </span>
+          )}
+          <div className="grow" />
+          <Button type="button" variant="ghost" size="sm" onClick={() => setMore((v) => !v)}>
+            {more ? 'Skryť' : 'Upraviť tempo, záujmy, prestupy, cieľ'}
+          </Button>
+        </div>
+        {/* pokročilé polia ostávajú vo formulári aj skryté (odosielajú sa spolu) */}
+        <div className={more ? 'divide-line divide-y' : 'hidden'}>
+          <FieldRow
+            label="Prestupy"
+            hint="self-transfer cez hub (STN, LTN, BER, DUB) s vlastnou zodpovednosťou"
+          >
+            <Segmented
+              name="allowSelfTransfer"
+              defaultValue={allowSelfTransfer ? 'yes' : 'no'}
+              options={[
+                { value: 'yes', label: 'Priame aj s prestupom' },
+                { value: 'no', label: 'Len priame' },
+              ]}
+            />
+          </FieldRow>
+          <FieldRow label="Tempo" hint="koľko km a zastávok za deň">
+            <Segmented
+              name="pace"
+              defaultValue={pace}
+              options={[
+                { value: 'relaxed', label: 'Pokojné' },
+                { value: 'normal', label: 'Normálne' },
+                { value: 'intense', label: 'Intenzívne' },
+              ]}
+            />
+          </FieldRow>
+          <FieldRow label="Záujmy" hint="váhy pri výbere zastávok">
+            <ChipGroup
+              name="interests"
+              defaultValues={interests as InterestKey[]}
+              options={INTEREST_KEYS.map((k) => ({ value: k, label: INTEREST_LABELS[k] }))}
+            />
+          </FieldRow>
+          <FieldRow label="Cieľový rozpočet / os." hint="voliteľné; krok 08 ukáže odchýlku">
+            <Input
+              name="budgetTargetPp"
+              type="number"
+              min={0}
+              step={10}
+              placeholder="1 200"
+              defaultValue={budgetTargetPp ?? ''}
+              className="max-w-[140px]"
+            />
+          </FieldRow>
+        </div>
       </fieldset>
       {canEdit && (
         <div className="flex items-center gap-3 py-3">
