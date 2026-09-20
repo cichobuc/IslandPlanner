@@ -4,13 +4,9 @@
     "tagline": "Lacná cesta na Island pre 3–4 ľudí z Bratislavy – letenky, auto alebo karavan, noci, trasa, vstupné a rozpočet na osobu."
   },
   "home": {
-    "status": "Aplikácia sa stavia. Šprint deň 1 · blok 1.4 – profil.",
     "cta": "Prihlásiť sa",
     "howItWorks": "Ako to funguje",
-    "signedInAs": "Prihlásený ako {name}",
-    "signOut": "Odhlásiť sa",
-    "toProfile": "Profil",
-    "toUsers": "Používatelia (správca)"
+    "landingLead": "Konto ti založil správca skupiny. Prihlás sa a najprv vyplň profil – podľa neho app počíta vek, vodičov a preferencie."
   },
   "nav": {
     "trips": "Cesty",
@@ -159,5 +155,109 @@
     "ehicHint": "EHIC – Island ho uznáva.",
     "insurance": "Cestovné poistenie s túrami",
     "insuranceHint": "Ľadovce, ice cave a túry bývajú vylúčené zo základného."
+  },
+  "trips": {
+    "title": "Cesty",
+    "lead": "Tvoje plány a šablóny od ostatných.",
+    "newTrip": "Nová cesta",
+    "fromTemplate": "Z šablóny",
+    "mine": "Moje cesty",
+    "empty": "Zatiaľ žiadna cesta. Založ prvú – krok 01 sa otvorí hneď.",
+    "open": "Otvoriť",
+    "steps": "{done} / 8 krokov",
+    "persons": "{n, plural, one {# os.} other {# os.}}",
+    "days": "{n, plural, one {# deň} few {# dni} other {# dní}}",
+    "noFlight": "bez letu",
+    "draft": "rozpracované",
+    "owner": "moja",
+    "member": "člen",
+    "templates": "Šablóny",
+    "templatesLead": "trasu alebo konfiguráciu si ktokoľvek skopíruje a upraví",
+    "templatesSoon": "Šablóny (trasa, konfigurácia, celá cesta) prídu vo verzii 1.1 – uložíš ich z menu cesty.",
+    "filterMine": "Moje",
+    "filterShared": "Zdieľané so mnou",
+    "filterPublic": "Verejné",
+    "profile": "Profil",
+    "users": "Používatelia",
+    "signOut": "Odhlásiť sa",
+    "menu": "Menu"
+  },
+  "how": {
+    "title": "Ako to funguje",
+    "kicker": "Island Planner",
+    "headline": "Od „kedy môžeme“ po „koľko to stojí na osobu“ – v ôsmich krokoch, ktoré na seba nadväzujú.",
+    "lead": "Každý krok si vezme, čo vzniklo v predchádzajúcich, ty urobíš jednu voľbu a app prepočíta zvyšok. Odhady sa spresňujú, ako postupuješ. Kedykoľvek sa dá vrátiť – nič sa nestratí.",
+    "ctaLead": "Najprv vyplň profil (2 minúty), potom sa začne krok 01.",
+    "ctaProfile": "Začať – Profil",
+    "ctaSignIn": "Prihlásiť sa",
+    "ctaTrips": "Moje cesty",
+    "steps": [
+      {
+        "name": "Cestujúci & kedy",
+        "text": "Profily členov (vek, vodičák, záujmy, kedy môžu) + letiská. App navrhne najlepší mesiac a vysvetlí prečo.",
+        "gives": "mesiac · dni · letiská · 1 auto z BA"
+      },
+      {
+        "name": "Letenky",
+        "text": "Celý mesiac naraz: každý deň má celkovú cenu na osobu vrátane batožiny a parkovania. Vyberieš – app overí cenu pre 4.",
+        "gives": "dátumy · noci · návrh trasy"
+      },
+      {
+        "name": "Doprava",
+        "text": "Auto, karavan alebo bez auta – s odhadom celej cesty pri každej voľbe. Voľba mení, čo príde ďalej.",
+        "gives": "vozidlo · palivo · typ kroku 04 a 05"
+      },
+      {
+        "name": "Kde spať",
+        "text": "Noci s regiónmi z trasy. Izby ako cenové rozpätie (stačí), kempy so živými cenami. Kuchynka ovplyvní stravu.",
+        "gives": "noci · kuchynka · miesta"
+      },
+      {
+        "name": "Itinerár",
+        "text": "Dni → zastávky: reálne časy jazdy, svetlo, vstupné podľa veku, dron zóny, klenoty. Mapa cez celú obrazovku.",
+        "gives": "km → palivo · zastávky → atrakcie"
+      },
+      {
+        "name": "Atrakcie",
+        "text": "Čo je v pláne a čo ešte môžeš pridať: popis, trvanie, sezóna, rezervácia (živé ceny túr), čo si vziať.",
+        "gives": "vstupné · rezervácie · balenie"
+      },
+      {
+        "name": "Strava",
+        "text": "Úsporná, stredná alebo komfortná – podľa kuchynky a dní v aute. Duty free, prvý nákup, veci z domu.",
+        "gives": "strava · nákupné zastávky"
+      },
+      {
+        "name": "Rozpočet",
+        "text": "Celkom a na osobu, skupinové vs. osobné položky, kedy čo zaplatiť, čo vziať z Bratislavy, export.",
+        "gives": "PDF · kalendár platieb · vyrovnanie"
+      }
+    ]
+  },
+  "trip": {
+    "back": "Cesty",
+    "members": "Členovia",
+    "membersLead": "Člen vidí cestu a (ako editor) ju upravuje. Nové konto zakladá správca v Používateľoch; tu ho pridáš do cesty. Každý člen je zároveň cestujúci v kroku 01.",
+    "addMember": "Pridať člena",
+    "pick": "Vyber používateľa…",
+    "role": "Rola",
+    "roleOwner": "vlastník",
+    "roleEditor": "editor",
+    "roleViewer": "len číta",
+    "add": "Pridať",
+    "adding": "Pridávam…",
+    "remove": "Odobrať",
+    "profileDone": "profil hotový",
+    "profileMissing": "profil nevyplnený",
+    "tempPassword": "dočasné heslo",
+    "noAddable": "Všetky existujúce kontá už sú členmi.",
+    "createAccount": "Založiť nové konto (správca)",
+    "onlyOwner": "Členov spravuje vlastník cesty.",
+    "step1Soon": "Krok 01 – Cestujúci & kedy",
+    "step1SoonLead": "Obrazovka kroku sa stavia (blok 2.3). Cestujúci sa berú z profilov členov – najprv doplň členov.",
+    "rename": "Premenovať",
+    "name": "Názov cesty",
+    "save": "Uložiť",
+    "estimateSoon": "Odhad cesty sa objaví po kroku 02."
   }
 }

@@ -6,6 +6,7 @@ import { cn } from '@/lib/cn';
  * ListRow – jediný riadok pre všetko (docs/obrazovky/00-vzor):
  * [leading] názov + meta (+ štítky) · suma + podtext · [akcia] · ›
  * 58 px, vybraný = svetlomodrý podklad + 3 px ľavý pruh, vnorený = odsadený, svetlosivý podklad.
+ * Na telefóne (< sm) ide akcia do druhého riadku pod meta (grid areas – jedna inštancia, nie kópia).
  */
 export function ListRow({
   leading,
@@ -40,16 +41,17 @@ export function ListRow({
   return (
     <div
       className={cn(
-        'border-line grid min-h-[58px] items-center gap-2.5 border-t px-3 py-2 first:border-t-0 sm:gap-3.5 sm:px-4',
-        'grid-cols-[36px_minmax(0,1fr)_auto_18px] sm:grid-cols-[36px_minmax(0,1fr)_auto_auto_18px]',
+        'border-line grid min-h-[58px] items-center gap-x-2.5 gap-y-0 border-t px-3 py-2 first:border-t-0 sm:gap-x-3.5 sm:px-4',
+        "[grid-template-areas:'lead_body_amt_chev'_'._act_act_chev'] sm:[grid-template-areas:'lead_body_amt_act_chev']",
+        nested
+          ? 'min-h-[46px] grid-cols-[24px_minmax(0,1fr)_auto_18px] bg-[#FAFBFC] pl-[52px] sm:grid-cols-[24px_minmax(0,1fr)_auto_auto_18px] sm:pl-[66px]'
+          : 'grid-cols-[36px_minmax(0,1fr)_auto_18px] sm:grid-cols-[36px_minmax(0,1fr)_auto_auto_18px]',
         selected && 'bg-[#F5F9FE] shadow-[inset_3px_0_0_#0F4C81]',
-        nested &&
-          'min-h-[46px] grid-cols-[24px_minmax(0,1fr)_auto_18px] bg-[#FAFBFC] pl-[52px] sm:grid-cols-[24px_minmax(0,1fr)_auto_auto_18px] sm:pl-[66px]',
         className,
       )}
     >
-      <span className="flex items-center justify-center">{leading}</span>
-      <div className="flex min-w-0 flex-col gap-[3px]">
+      <span className="flex items-center justify-center [grid-area:lead]">{leading}</span>
+      <div className="flex min-w-0 flex-col gap-[3px] [grid-area:body]">
         {href ? (
           <a href={href} className={titleCls}>
             {title}
@@ -67,14 +69,13 @@ export function ListRow({
             {badges}
           </span>
         )}
-        {action && <span className="mt-1.5 flex sm:hidden">{action}</span>}
       </div>
-      <div className="flex min-w-0 flex-col items-end sm:min-w-[64px]">
+      <div className="flex min-w-0 flex-col items-end [grid-area:amt] sm:min-w-[64px]">
         {amount && <span className="font-display text-[15px] font-semibold tabular-nums">{amount}</span>}
         {amountSub && <span className="text-ink-3 text-[11px] tabular-nums">{amountSub}</span>}
       </div>
-      <span className="hidden justify-end sm:flex">{action}</span>
-      <span className="flex text-[#B8C0CB]">
+      {action && <span className="mt-1.5 flex [grid-area:act] sm:mt-0 sm:justify-end">{action}</span>}
+      <span className="flex text-[#B8C0CB] [grid-area:chev]">
         {hasDetail && (
           <button type="button" onClick={onOpen} aria-label="Detail" className="flex cursor-pointer">
             <ChevronRight size={16} strokeWidth={1.75} />

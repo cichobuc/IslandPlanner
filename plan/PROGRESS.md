@@ -32,9 +32,14 @@
   TripLayout/PhoneHeader/StickyBar, IslandMark/RingMap (obrys z artboardu), Avatar; `Button` má `icon` a `ButtonLink`; ikony `lucide-react`.
   `/dev/ui` = krok 03 podľa artboardu Main + katalóg; verejné len mimo produkcie. Skontrolované Playwrightom (`tests/e2e/ui-kit.mjs`) na iPad 820 / iPhone 390 / Mac 1280 + sheet.
   Poučenia: Tailwind 4 neprepisuje triedy podľa poradia v `className` (px-0 vs px-[18px], bg-white vs bg-ok-fg) → podmienené triedy, nie prepisovanie; žiadny `<button>` v `<button>` (hydration).
+- **Blok 2.2 hotový** – `src/features/trips/` (progress + testy, access cez `trip_members` v kóde, queries, server actions: createTrip bez wizardu, add/role/remove člena, rename).
+  `/` = Cesty (prihlásený: AppBar, riadky ciest s avatarmi a n/8, „Z šablóny“ stub v1.1; neprihlásený: landing), `/ako-to-funguje` (8 dlaždíc, CTA podľa stavu),
+  `/cesta/[id]` kostra v6 (TopBar s členmi, Postup z `tripProgress`, premenovanie v sheete), `/cesta/[id]/clenovia` (pridať existujúce konto = člen + cestujúci z profilu; rola; odobrať; len vlastník).
+  e2e `tests/e2e/trips-flow.mjs`: 4 členovia, 4 cestujúci v DB, člen nespravuje členov, editor premenuje. Poučenia: `trips_add_owner_member` trigger už pridáva vlastníka; `trips.owner_id` bez kaskády → test cleanup maže najprv cesty; ListRow nikdy nerenderovať `action` dvakrát (grid areas).
+- Požiadavka používateľa (20. 9.): v bloku 2.7 **reálna OSM mapa** (MapLibre) s bodmi trasy – tooltip pri hoveri, klik otvorí sheet/rozbalí riadok. Zapísané v SPRINT-2-DNI 2.7.
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový (1.1–1.9), blok 2.1 hotový.** Pokračovať **blokom 2.2** (obrazovka Cesty + „Ako to funguje“ + založenie cesty a členovia) podľa `plan/SPRINT-2-DNI.md`.
+- **Deň 1 hotový, bloky 2.1–2.2 hotové.** Pokračovať **blokom 2.3** (obrazovka Cesta + krok 01) podľa `plan/SPRINT-2-DNI.md`.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.

@@ -79,7 +79,7 @@ await step('07-user-created');
 const peterPw = (await p.textContent('code')).trim();
 await p.goto(`${BASE}/sk/`);
 await step('08-home-signed-in');
-await p.click('text=Odhlásiť sa');
+await p.click('button[aria-label="Odhlásiť sa"]');
 await p.waitForURL('**/prihlasenie');
 await step('09-signed-out');
 
@@ -108,7 +108,7 @@ const api = await q.request.post(`${BASE}/api/admin/users`, {
 console.log('peter POST /api/admin/users:', api.status());
 // re-login peter with new pw
 await q.goto(`${BASE}/sk/`);
-await q.click('text=Odhlásiť sa');
+await q.click('button[aria-label="Odhlásiť sa"]');
 await q.waitForURL('**/prihlasenie');
 await q.goto(`${BASE}/sk/prihlasenie`);
 await q.fill('input[name=email]', 'peter.test@example.com');
