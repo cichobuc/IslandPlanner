@@ -4,28 +4,15 @@ import { and, eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { getDb, schema } from '@/db';
-import { applyFlightSelection } from '@/engine/cascade';
-import { presetForDays } from '@/engine/presets';
 import type { FlightSelectionInput } from '@/engine/types';
 import { canEdit, getTripAccess } from './access';
-import { loadSnapshot, optionToInput, persistFlightCascade } from './snapshot';
+import { loadSnapshot, optionToInput, runFlightCascade } from './snapshot';
 
 export type SelectState =
   { ok: true; changes: string[]; suggestions: string[] } | { ok: false; error: string } | null;
 
 const NO_EDIT = 'Nemáš právo upravovať túto cestu.';
 const revalidate = (tripId: string) => revalidatePath(`/[locale]/cesta/${tripId}`, 'layout');
-
-async function runCascade(tripId: string, flight: FlightSelectionInput) {
-  const snapshot = await loadSnapshot(tripId);
-  const result = applyFlightSelection(snapshot, flight);
-  const preset = presetForDays(result.derived.days, {
-    interests: snapshot.trip.interests,
-    pace: snapshot.trip.pace,
-  });
-  await persistFlightCascade(tripId, result, preset.key);
-  return result;
-}
 
 const selectSchema = z.object({ tripId: z.uuid(), optionId: z.uuid() });
 
@@ -64,7 +51,7 @@ export async function selectFlightAction(_prev: SelectState, formData: FormData)
         updatedAt: new Date(),
       },
     });
-  const result = await runCascade(tripId, optionToInput(option));
+  const result = await runFlightCascade(tripId, optionToInput(option));
   revalidate(tripId);
   return {
     ok: true,
@@ -142,7 +129,7 @@ export async function selectManualFlightAction(_prev: SelectState, formData: For
     retArrAt: manual.retArrAt,
     farePp: { amount: farePpAmount, currency: 'EUR', source: 'manual' },
   };
-  const result = await runCascade(v.tripId, flight);
+  const result = await runFlightCascade(v.tripId, flight);
   revalidate(v.tripId);
   return {
     ok: true,

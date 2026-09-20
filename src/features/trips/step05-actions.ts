@@ -14,10 +14,12 @@ import {
   type MatrixLookup,
   type PoiCandidate,
 } from '@/engine/itinerary';
+import { PRESET_AUTO, isPresetKey } from '@/engine/presets';
 import { getRates } from './rates';
 import { canEdit, getTripAccess } from './access';
 import type { ActionState } from './actions';
-import { loadFlightInput } from './snapshot';
+import { effectiveInterests } from './interests';
+import { loadFlightInput, runFlightCascade } from './snapshot';
 
 const NO_EDIT = 'Nemáš právo upravovať túto cestu.';
 const revalidate = (tripId: string) => revalidatePath(`/[locale]/cesta/${tripId}`, 'layout');
@@ -103,9 +105,18 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
   const { tripId } = parsed.data;
   const access = await editable(tripId);
   if (!access) return { ok: false, error: NO_EDIT };
-  const { trip } = access;
+  const result = await regenerateStops(access.trip, parsed.data.gemShare ?? 0.3);
+  revalidate(tripId);
+  return result;
+}
+
+type TripRow = NonNullable<Awaited<ReturnType<typeof editable>>>['trip'];
+
+/** Generátor nad DB: kostra dní (scenár `drive`) → zastávky; nezamknuté dni sa prepíšu, ručné zastávky ostanú. */
+async function regenerateStops(trip: TripRow, gemShare: number): Promise<ActionState> {
+  const tripId = trip.id;
   const db = getDb();
-  const [days, flight, matrix, pois, vehicle, anchorPoints] = await Promise.all([
+  const [days, flight, matrix, pois, vehicle, anchorPoints, interests] = await Promise.all([
     db
       .select()
       .from(schema.itineraryDays)
@@ -126,6 +137,7 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
       )
       .limit(1),
     loadAnchorPoints(),
+    effectiveInterests(tripId, trip.interests),
   ]);
   if (days.length === 0) return { ok: false, error: 'Najprv vyber let v kroku 02 – dni vzniknú z dátumov.' };
   const derived = flight ? deriveFromFlight(flight) : null;
@@ -163,9 +175,9 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
     matrix,
     anchorPoints,
     pace: trip.pace,
-    interests: trip.interests,
+    interests,
     allow4x4,
-    gemShare: parsed.data.gemShare ?? 0.3,
+    gemShare,
     keep,
     attractionBudget: (trip.attractionBudget as AttractionBudgetLevel) ?? 'balanced',
     pax: Math.max(
@@ -230,8 +242,77 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
         .where(eq(schema.itineraryDays.id, day.id));
     }
   });
-  revalidate(tripId);
   return { ok: true };
+}
+
+const presetSchema = z.object({
+  tripId: z.uuid(),
+  preset: z.string().refine((v) => v === PRESET_AUTO || isPresetKey(v), 'Neznámy okruh.'),
+});
+
+/**
+ * Výber okruhu (Auto / kľúč presetu): uloží `trip.routePreset`, prerozdelí noci nezamknutých dní kaskádou
+ * (neručné noci v 05 nanovo), ručné zastávky presunie na rovnaký index dňa a pregeneruje zastávky.
+ */
+export async function setRoutePresetAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const parsed = presetSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? 'Neplatný vstup.' };
+  const { tripId, preset } = parsed.data;
+  const access = await editable(tripId);
+  if (!access) return { ok: false, error: NO_EDIT };
+  const db = getDb();
+  await db
+    .update(schema.trips)
+    .set({ routePreset: preset, updatedAt: new Date() })
+    .where(eq(schema.trips.id, tripId));
+
+  const flight = await loadFlightInput(tripId);
+  if (!flight) {
+    revalidate(tripId);
+    return { ok: true };
+  }
+  // ručné zastávky na nezamknutých dňoch: kaskáda dni nahradí (stops idú s nimi), preto ich vrátime podľa indexu dňa
+  const manual = await db
+    .select({
+      dayIndex: schema.itineraryDays.dayIndex,
+      poiId: schema.itineraryStops.poiId,
+      customLabel: schema.itineraryStops.customLabel,
+      stayMin: schema.itineraryStops.stayMin,
+      must: schema.itineraryStops.must,
+    })
+    .from(schema.itineraryStops)
+    .innerJoin(schema.itineraryDays, eq(schema.itineraryDays.id, schema.itineraryStops.dayId))
+    .where(
+      and(
+        eq(schema.itineraryDays.tripId, tripId),
+        eq(schema.itineraryDays.scenarioKey, 'drive'),
+        eq(schema.itineraryDays.locked, false),
+        eq(schema.itineraryStops.isManual, true),
+      ),
+    );
+  await runFlightCascade(tripId, flight);
+  if (manual.length) {
+    const days = await db
+      .select({ id: schema.itineraryDays.id, dayIndex: schema.itineraryDays.dayIndex })
+      .from(schema.itineraryDays)
+      .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive')));
+    const byIndex = new Map(days.map((d) => [d.dayIndex, d.id]));
+    const rows = manual
+      .filter((m) => byIndex.has(m.dayIndex))
+      .map((m, i) => ({
+        dayId: byIndex.get(m.dayIndex)!,
+        order: i,
+        poiId: m.poiId,
+        customLabel: m.customLabel,
+        stayMin: m.stayMin,
+        must: m.must,
+        isManual: true,
+      }));
+    if (rows.length) await db.insert(schema.itineraryStops).values(rows);
+  }
+  const result = await regenerateStops((await editable(tripId))!.trip, 0.3);
+  revalidate(tripId);
+  return result;
 }
 
 const stopSchema = z.object({ tripId: z.uuid(), dayId: z.uuid(), poiSlug: z.string().min(1) });

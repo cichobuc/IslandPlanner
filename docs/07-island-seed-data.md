@@ -23,12 +23,17 @@ Popisy (SK/CS) sa dopíšu pri implementácii seedu – tu je štruktúra a kľ�
 ## Presety okruhov
 | key | dni | regióny |
 |---|---|---|
-| `golden_south` | 4–5 | reykjanes → reykjavik → golden_circle → south → (southeast po Jökulsárlón pri 5) → reykjanes |
+| `golden_only` | 3–4 | reykjanes → reykjavik (2) → golden_circle → reykjanes; ~400 km |
+| `golden_south` | 3–5 | reykjanes → reykjavik → golden_circle → south → (southeast po Jökulsárlón pri 5) → reykjanes |
+| `golden_west` | 3–5 | reykjanes → reykjavik → golden_circle → snaefellsnes (2) → reykjanes; ~650 km |
+| `south_only` | 4–6 | reykjanes → south (2) → southeast po Jökulsárlón (2) → späť; bez Golden Circle, ~900 km |
+| `south_west` | 5–7 | reykjanes → south (2) → golden_circle → snaefellsnes (2) → reykjavik → reykjanes; ~1 050 km |
 | `south_east` | 6–7 | + southeast po Stokksnes, späť tou istou cestou |
 | `ring` | 8–12 | reykjanes → golden_circle → south → southeast → eastfjords → north_myvatn → akureyri → north_west → reykjavik → reykjanes |
 | `ring_snaefellsnes` | 10–13 | ring + snaefellsnes pred Reykjavíkom |
 | `ring_westfjords` | 13+ | ring_snaefellsnes + westfjords |
 Ring Road ≈ 1 330 km; so zachádzkami typicky **1 900–2 400 km** za 10 dní.
+Okruh sa volí v kroku 04 (`trip.route_preset` = `auto` | kľúč); **hodnotenie okruhu** pre cestu (`ratePreset`): dni 40 b. (v rozsahu; −20/deň pri krátkej ceste, −10/deň navyše), jazda vs. tempo 30 b. (km/deň ≤ 0,8× tempa 30, ≤ 1× 25, ≤ 1,25× 15), záujmy 30 b. (podiel záujmov cesty, ktoré majú POI s váhou ≥ 3 alebo ≥ 35 % váhy v regiónoch okruhu). Hviezdičky = skóre / 20; „odporúčané“ = najvyššie skóre, pri zhode Auto podľa dní.
 
 ## Atrakcie – výber (vstupné = dospelý, ISK ak nie je uvedené inak)
 

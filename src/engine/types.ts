@@ -47,6 +47,18 @@ export const INTEREST_KEYS = [
   'drone',
 ] as const;
 export type InterestKey = (typeof INTEREST_KEYS)[number];
+export const INTEREST_LABELS_SK: Record<InterestKey, string> = {
+  thermal: 'Termály',
+  glacier: 'Ľadovce',
+  puffin: 'Puffiny',
+  whale: 'Veľryby',
+  aurora: 'Polárna žiara',
+  hike: 'Túry',
+  lava: 'Láva',
+  culture: 'Kultúra',
+  photo: 'Foto',
+  drone: 'Dron',
+};
 /** 0 = nie, 1 = rád, 2 = chcem, 3 = kvôli tomu idem */
 export type InterestScore = 0 | 1 | 2 | 3;
 export type InterestScores = Partial<Record<InterestKey, InterestScore>>;

@@ -1,7 +1,8 @@
 import 'server-only';
 import { and, asc, eq, inArray } from 'drizzle-orm';
 import { getDb, schema } from '@/db';
-import type { CascadeResult } from '@/engine/cascade';
+import { applyFlightSelection, type CascadeResult } from '@/engine/cascade';
+import { PRESET_AUTO } from '@/engine/presets';
 import type {
   FlightSelectionInput,
   LodgingStayInput,
@@ -299,11 +300,19 @@ export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {
   };
 }
 
+/** Kaskáda z aktuálneho snapshotu (výber letu, zmena okruhu): okruh = `trip.routePreset` (Auto podľa dní alebo ručný). */
+export async function runFlightCascade(tripId: string, flight: FlightSelectionInput) {
+  const snapshot = await loadSnapshot(tripId);
+  const result = applyFlightSelection(snapshot, flight);
+  await persistFlightCascade(tripId, result);
+  return result;
+}
+
 /**
- * Zápis výsledku kaskády po výbere letu: dátumy cesty, preset, kostra dní (scenár `drive`, nezamknuté sa prepíšu)
- * a noci per scenár (ručné ostávajú – engine ich už zachoval v snapshote).
+ * Zápis výsledku kaskády po výbere letu: dátumy cesty, kostra dní (scenár `drive`, nezamknuté sa prepíšu)
+ * a noci per scenár (ručné ostávajú – engine ich už zachoval v snapshote). `routePreset` ostáva (Auto / ručný).
  */
-export async function persistFlightCascade(tripId: string, result: CascadeResult, routePreset: string) {
+export async function persistFlightCascade(tripId: string, result: CascadeResult) {
   const db = getDb();
   const { snapshot, derived } = result;
   await db.transaction(async (tx) => {
@@ -312,7 +321,7 @@ export async function persistFlightCascade(tripId: string, result: CascadeResult
       .set({
         startDate: derived.startDate,
         endDate: derived.endDate,
-        routePreset,
+        routePreset: snapshot.trip.routePreset ?? PRESET_AUTO,
         updatedAt: new Date(),
       })
       .where(eq(schema.trips.id, tripId));

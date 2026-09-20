@@ -9,8 +9,10 @@ import {
   LockOpen,
   Map as MapIcon,
   Plus,
+  Route,
   Settings2,
   Sparkles,
+  Star,
   Tent,
   Waypoints,
   X,
@@ -34,6 +36,8 @@ import {
   Tile,
 } from '@/components/ui';
 import { fmtH } from '@/engine/itinerary';
+import { PRESETS, PRESET_AUTO, type PresetKey, type PresetRating } from '@/engine/presets';
+import { cn } from '@/lib/cn';
 import { fmtEur, fmtKm } from '@/lib/format';
 import type { ActionState } from '../actions';
 import type { CatalogPoi, DayLite, StopLite } from '../itinerary-data';
@@ -43,6 +47,7 @@ import {
   lockDayAction,
   removeStopAction,
   setAttractionBudgetAction,
+  setRoutePresetAction,
 } from '../step05-actions';
 import { ATTRACTION_BUDGET, type AttractionBudgetLevel } from '@/engine/itinerary';
 import { DRONE, PoiSheet } from './poi-sheet';
@@ -64,7 +69,10 @@ export function Step05Client({
   pax,
   dates,
   pace,
-  presetKey,
+  presetChoice,
+  autoKey,
+  ratings,
+  recommended,
   attractionBudget,
   canEdit,
 }: {
@@ -75,7 +83,12 @@ export function Step05Client({
   pax: number;
   dates: string | null;
   pace: string;
-  presetKey: string | null;
+  /** 'auto' alebo ručne zvolený okruh (trip.routePreset) */
+  presetChoice: string;
+  /** okruh, ktorý by zvolilo Auto podľa dní */
+  autoKey: PresetKey;
+  ratings: PresetRating[];
+  recommended: PresetKey;
   attractionBudget: AttractionBudgetLevel;
   canEdit: boolean;
 }) {
@@ -85,6 +98,9 @@ export function Step05Client({
   const [gem, setGem] = useState(0.3);
   const [genState, genAct, genPending] = useActionState<ActionState, FormData>(generateItineraryAction, null);
   const [, budgetAct, budgetPending] = useActionState<ActionState, FormData>(setAttractionBudgetAction, null);
+  const [presetState, presetAct, presetPending] = useActionState<ActionState, FormData>(setRoutePresetAction, null);
+  const [allPresets, setAllPresets] = useState(false);
+  const activeKey: PresetKey = presetChoice === PRESET_AUTO ? autoKey : (presetChoice as PresetKey);
   const [, removeAct, removing] = useActionState<ActionState, FormData>(removeStopAction, null);
   const [, lockAct] = useActionState<ActionState, FormData>(lockDayAction, null);
   const [addState, addAct, adding] = useActionState<ActionState, FormData>(async (p, fd) => {
@@ -140,9 +156,97 @@ export function Step05Client({
               .join(' → ')}
           </Chip>
           <Chip icon={Waypoints} iconClassName="text-ink-3">
-            preset {presetKey ?? '—'}
+            okruh {PRESETS[activeKey].nameSk}
+            {presetChoice === PRESET_AUTO ? ' (auto)' : ''}
           </Chip>
         </ChipRow>
+      </StepSection>
+
+      <StepSection
+        title="Okruh"
+        hint={`${ratings.filter((r) => r.fit === 'ok').length} sedí na ${days.length} dní · ★ = dni, jazda vs. tempo, záujmy`}
+      >
+        <div className="flex flex-wrap items-center gap-2">
+          <form action={presetAct} className="contents">
+            <input type="hidden" name="tripId" value={tripId} />
+            <input type="hidden" name="preset" value={PRESET_AUTO} />
+            <Chip
+              icon={Sparkles}
+              on={presetChoice === PRESET_AUTO}
+              type="submit"
+              disabled={!canEdit || presetPending}
+            >
+              Auto · {PRESETS[autoKey].nameSk}
+            </Chip>
+          </form>
+          <Chip icon={Route} on={allPresets} onClick={() => setAllPresets((v) => !v)}>
+            {allPresets ? 'len vhodné' : `všetky okruhy (${ratings.length})`}
+          </Chip>
+          <span className="text-ink-3 text-[12px]">
+            zmena okruhu prerozdelí noci (05) a pregeneruje nezamknuté dni
+          </span>
+        </div>
+        <ListCard>
+          {ratings
+            .filter((r) => allPresets || r.fit === 'ok' || r.key === activeKey)
+            .map((r) => {
+              const p = PRESETS[r.key];
+              const on = r.key === activeKey;
+              return (
+                <div
+                  key={r.key}
+                  data-preset={r.key}
+                  className={cn(
+                    'border-line grid grid-cols-[32px_minmax(0,1fr)_auto] items-start gap-x-3 border-t px-3 py-3 first:border-t-0 sm:px-4',
+                    on && 'bg-[#F5F9FE] shadow-[inset_3px_0_0_#0F4C81]',
+                  )}
+                >
+                  <Tile
+                    icon={on ? Waypoints : Route}
+                    tone={on ? 'info' : r.fit === 'ok' ? 'ok' : r.fit === 'too_long' ? 'bad' : 'warn'}
+                    size={32}
+                  />
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="text-sm font-semibold">{p.nameSk}</span>
+                      <span className="text-ink-3 text-[12px] tabular-nums">
+                        {p.minDays}–{p.maxDays} dní · {fmtKm(p.totalKm)} · ~{r.kmPerDay} km/deň
+                      </span>
+                      {r.key === recommended && <Tag tone="ok">odporúčané</Tag>}
+                      {on && presetChoice === PRESET_AUTO && <Tag tone="info">auto</Tag>}
+                      {on && presetChoice !== PRESET_AUTO && <Tag tone="info">zvolený</Tag>}
+                      {r.fit === 'too_long' && <Tag tone="bad">málo dní</Tag>}
+                      {r.fit === 'too_short' && <Tag tone="warn">dni navyše</Tag>}
+                    </div>
+                    <div className="text-ink-2 text-[12px]">{p.highlights.join(' · ')}</div>
+                    <div className="text-ink-3 text-[12px]">{r.reasonsSk.join(' · ')}</div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1.5">
+                    <span className="inline-flex items-center gap-0.5" title={`${r.score} / 100`} aria-label={`${r.stars} z 5`}>
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <Star
+                          key={i}
+                          size={13}
+                          className={i <= r.stars ? 'fill-warn-fg text-warn-fg' : 'text-[#D6DCE5]'}
+                        />
+                      ))}
+                    </span>
+                    <span className="text-ink-3 text-[11px] tabular-nums">{r.score} b.</span>
+                    {canEdit && !on && (
+                      <form action={presetAct}>
+                        <input type="hidden" name="tripId" value={tripId} />
+                        <input type="hidden" name="preset" value={r.key} />
+                        <Button type="submit" size="sm" variant="secondary" disabled={presetPending}>
+                          {presetPending ? '…' : 'Vybrať'}
+                        </Button>
+                      </form>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+        </ListCard>
+        {presetState && !presetState.ok && <Notice tone="bad">{presetState.error}</Notice>}
       </StepSection>
 
       <StepSection title="Generátor" hint="davy ↔ klenoty, potom Generovať">

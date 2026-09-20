@@ -1,6 +1,6 @@
 import { dayPartForArrival, dayPartForDeparture } from './food';
 import { round2 } from './money';
-import { allocateNights, presetForDays, type Preset } from './presets';
+import { allocateNights, resolvePreset, type Preset } from './presets';
 import { TZ_KEF, addDays, daysBetween, hoursBetween, localParts } from './time';
 import type { DayInput, FlightSelectionInput, LodgingStayInput, ScenarioKey, TripSnapshot } from './types';
 
@@ -134,7 +134,7 @@ export function applyFlightSelection(
       labelSk: `Dni ${prevDays ?? '–'} → ${derived.days}, noci ${derived.nights}`,
     });
 
-  const preset = presetForDays(derived.days, {
+  const preset = resolvePreset(snapshot.trip.routePreset, derived.days, {
     interests: snapshot.trip.interests,
     pace: snapshot.trip.pace,
   });

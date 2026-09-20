@@ -96,7 +96,7 @@ applyFlightSelection(snapshot, combo):
 `Change` = `{ path, before, after, label_sk, label_cs }` → toast + možnosť undo (uloží sa `trip_revisions`).
 
 ## 4. Generátor itinerára (`itineraryGen.ts`)
-1. **Výber presetu podľa dní a vozidla** (ak `trip.routePreset = auto`):
+1. **Výber presetu podľa dní a vozidla** (ak `trip.routePreset = auto`; ručný kľúč z kroku 04 má prednosť a kaskáda po zmene letu ho zachová – `resolvePreset`; krátke okruhy `golden_only`, `golden_west`, `south_only`, `south_west` sú len na ručný výber, hodnotenie `ratePresets` v docs/07):
    - ≤ 5 dní → `golden_south` (Reykjavík, Golden Circle, juh po Vík/Jökulsárlón podľa dní)
    - 6–7 → `south_east` (po Höfn/Stokksnes a späť)
    - 8–12 → `ring` (Ring Road, smer proti smeru hodín pri zlom počasí na juhu – default v smere hodín: juh → východ → sever → západ)

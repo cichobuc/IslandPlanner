@@ -5,6 +5,7 @@ import { initConnectors } from '@/connectors/server';
 import { getDb, schema } from '@/db';
 import { ageOn, entryTotal } from '@/engine/ageRules';
 import { fmtClock, fmtH, stars, sunTimes, valueForMoney } from '@/engine/itinerary';
+import type { PresetPoiWeight } from '@/engine/presets';
 import type { Money, PriceRule } from '@/engine/types';
 import { getRates } from './rates';
 
@@ -328,5 +329,10 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
     entryGroup: dayLites.reduce((a, d) => a + d.entryGroup, 0),
     warnings: dayLites.reduce((a, d) => a + d.warnings.length, 0),
   };
-  return { trip, days: dayLites, catalog, totals, pax: travelers.length || 1, fmtH };
+  // váhy záujmov per POI – hodnotenie okruhov (ratePresets)
+  const poiWeights: PresetPoiWeight[] = pois.map((p) => ({
+    regionId: p.regionId,
+    interestWeight: (p.interestWeight as Record<string, number> | null) ?? {},
+  }));
+  return { trip, days: dayLites, catalog, totals, pax: travelers.length || 1, fmtH, poiWeights };
 }

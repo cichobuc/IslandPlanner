@@ -1,7 +1,7 @@
 import { foodTotal, type FoodDayInput } from './food';
 import { lodgingEstimate } from './lodging';
 import { round2 } from './money';
-import { CAMPSITE_SEED, CAMPING_TAX_ISK, VEHICLE_DEFAULTS, presetForDays, allocateNights } from './presets';
+import { CAMPSITE_SEED, CAMPING_TAX_ISK, VEHICLE_DEFAULTS, resolvePreset, allocateNights } from './presets';
 import type { FoodInput, LodgingKind, Pace, TransportMode, VehicleClass } from './types';
 
 export type BranchEstimate = {
@@ -26,6 +26,8 @@ export type BranchEstimateInput = {
   pax: number;
   pace: Pace;
   interests: string[];
+  /** ručne zvolený okruh z kroku 04 (inak Auto podľa dní) */
+  routePreset?: string | null;
   fx: { ISK_EUR: number };
   fuelIskPerL: { petrol: number; diesel: number };
   food: FoodInput;
@@ -49,7 +51,7 @@ export const stepKinds = (mode: TransportMode) =>
 export function estimateBranch(mode: TransportMode, input: BranchEstimateInput): BranchEstimate {
   const days = Math.max(1, input.days);
   const nights = Math.max(0, days - 1);
-  const preset = presetForDays(days, { interests: input.interests, pace: input.pace });
+  const preset = resolvePreset(input.routePreset, days, { interests: input.interests, pace: input.pace });
   const regions = allocateNights(preset, nights);
   const kinds = stepKinds(mode);
 

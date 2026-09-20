@@ -18,7 +18,7 @@ Vetva **Bez auta** – riadky = dni s výletmi z Reykjavíku (`Golden Circle tou
 ## Konfigurácie (chipy + sheet „viac") generátora (⚙ „Generovať")
 | Parameter | Typ | Default | Efekt |
 |---|---|---|---|
-| Preset | Auto (podľa dní a ceny) / Golden+juh / Juh+východ / Ring / Ring+Snæfellsnes / Ring+Westfjords / Vlastný | Auto | kostra |
+| Preset (sekcia „Okruh“) | Auto (podľa dní) / RVK+Golden / Golden+juh / Golden+Snæfellsnes / Juh po Jökulsárlón / Juh+Golden+Snæfellsnes / Juh+východ / Ring / Ring+Snæfellsnes / Ring+Westfjords; každý s ★ 1–5 (dni, jazda vs. tempo, záujmy), kotvami a dôvodmi; „len vhodné“ / „všetky okruhy“; Vybrať = prerozdelí noci (05) + pregeneruje nezamknuté dni | Auto | kostra |
 | Smer | v smere / proti smeru hodín | v smere (juh najskôr) | |
 | Tempo | pokojné / normálne / intenzívne | z cesty | kapacita dňa |
 | Max jazda / deň | stepper h | podľa tempa | validácia |

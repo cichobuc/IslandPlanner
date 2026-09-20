@@ -15,7 +15,7 @@ import {
   Tag,
 } from '@/components/ui';
 import type { Bags, InterestKey } from '@/engine/types';
-import { INTEREST_KEYS } from '@/engine/types';
+import { INTEREST_KEYS, INTEREST_LABELS_SK } from '@/engine/types';
 import type { ActionState } from '../actions';
 import {
   removeTravelerAction,
@@ -294,18 +294,7 @@ export function AirportToggle({
   );
 }
 
-const INTEREST_LABELS: Record<InterestKey, string> = {
-  thermal: 'Termály',
-  glacier: 'Ľadovce',
-  puffin: 'Puffiny',
-  whale: 'Veľryby',
-  aurora: 'Polárna žiara',
-  hike: 'Túry',
-  lava: 'Láva',
-  culture: 'Kultúra',
-  photo: 'Foto',
-  drone: 'Dron',
-};
+const INTEREST_LABELS = INTEREST_LABELS_SK;
 
 const MONTHS = [
   'január',

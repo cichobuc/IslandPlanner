@@ -3,7 +3,7 @@ import { getDb, schema } from '@/db';
 import { ageOn } from '@/engine/ageRules';
 import { deriveFromFlight } from '@/engine/cascade';
 import { TZ_KEF } from '@/engine/time';
-import { PRESETS, presetForDays, type PresetKey } from '@/engine/presets';
+import { PRESETS, resolvePreset } from '@/engine/presets';
 import { transportCost, vehicleChecks } from '@/engine/transport';
 import { estimateBranch } from '@/engine/transportMode';
 import type { Money, TransportMode, VehicleInput } from '@/engine/types';
@@ -52,11 +52,7 @@ export async function Step03({ access }: { access: TripAccess }) {
   const derived = flight ? deriveFromFlight(flight) : null;
   const rentalDays = derived?.vehicleDays ?? trip.minDays;
   const tripDays = derived?.days ?? trip.minDays;
-  const preset = presetForDays(tripDays, { interests: trip.interests, pace: trip.pace });
-  const presetKey =
-    (trip.routePreset as PresetKey | null) && PRESETS[trip.routePreset as PresetKey]
-      ? (trip.routePreset as PresetKey)
-      : preset.key;
+  const presetKey = resolvePreset(trip.routePreset, tripDays, { interests: trip.interests, pace: trip.pace }).key;
   const kmItin = days.reduce((a, d) => a + Number(d.driveKm ?? 0), 0);
   const km = kmItin > 0 ? Math.round(kmItin) : PRESETS[presetKey].totalKm;
   const viaVadlaheidi = presetKey.startsWith('ring');
@@ -173,6 +169,7 @@ export async function Step03({ access }: { access: TripAccess }) {
       pax,
       pace: trip.pace,
       interests: trip.interests,
+      routePreset: trip.routePreset,
       fx,
       fuelIskPerL: fuelIsk,
       food: { level: 'budget' },

@@ -1,4 +1,4 @@
-import type { LodgingKind, Pace, VehicleClass } from './types';
+import { INTEREST_LABELS_SK, type InterestKey, type LodgingKind, type Pace, type VehicleClass } from './types';
 
 /** Regióny a presety okruhov (docs/07). Kilometre = orientačný odhad úseku medzi regiónmi. */
 export type RegionId =
@@ -15,10 +15,27 @@ export type RegionId =
   | 'westfjords'
   | 'highlands';
 
-export type PresetKey = 'golden_south' | 'south_east' | 'ring' | 'ring_snaefellsnes' | 'ring_westfjords';
+export type PresetKey =
+  | 'golden_only'
+  | 'golden_south'
+  | 'south_only'
+  | 'golden_west'
+  | 'south_west'
+  | 'south_east'
+  | 'ring'
+  | 'ring_snaefellsnes'
+  | 'ring_westfjords';
+
+/** `trip.routePreset`: 'auto' (podľa dní) alebo kľúč presetu zvolený v kroku 04. */
+export const PRESET_AUTO = 'auto';
 
 export type Preset = {
   key: PresetKey;
+  nameSk: string;
+  /** Jedna veta pre výber okruhu. */
+  noteSk: string;
+  /** Hlavné kotvy okruhu (na zobrazenie). */
+  highlights: string[];
   minDays: number;
   maxDays: number;
   /** Regióny v poradí; noci = typické noci v regióne (váha pri rozdeľovaní) */
@@ -28,8 +45,25 @@ export type Preset = {
 
 // km = jazda do regiónu z predchádzajúceho (vrátane zachádzok), posledný úsek späť na KEF
 export const PRESETS: Record<PresetKey, Preset> = {
+  golden_only: {
+    key: 'golden_only',
+    nameSk: 'Reykjavík + Golden Circle',
+    noteSk: 'Základňa v Reykjavíku, jeden deň Golden Circle, Blue Lagoon pred odletom – najmenej jazdy.',
+    highlights: ['Þingvellir', 'Geysir', 'Gullfoss', 'Secret Lagoon', 'Reykjavík', 'Blue Lagoon'],
+    minDays: 3,
+    maxDays: 4,
+    legs: [
+      { region: 'reykjavik', nights: 2, km: 50 },
+      { region: 'golden_circle', nights: 1, km: 120 },
+      { region: 'reykjanes', nights: 0, km: 160 },
+    ],
+    totalKm: 400,
+  },
   golden_south: {
     key: 'golden_south',
+    nameSk: 'Golden Circle + juh',
+    noteSk: 'Klasika na krátku cestu: Þingvellir, Geysir, Gullfoss a južné pobrežie po Vík.',
+    highlights: ['Þingvellir', 'Gullfoss', 'Seljalandsfoss', 'Skógafoss', 'Reynisfjara', 'Vík'],
     minDays: 3,
     maxDays: 5,
     legs: [
@@ -40,8 +74,56 @@ export const PRESETS: Record<PresetKey, Preset> = {
     ],
     totalKm: 700,
   },
+  south_only: {
+    key: 'south_only',
+    nameSk: 'Juh po Jökulsárlón',
+    noteSk: 'Bez Golden Circle: vodopády, Reynisfjara, Skaftafell a ľadovcová lagúna, späť tou istou cestou.',
+    highlights: ['Seljalandsfoss', 'Skógafoss', 'Reynisfjara', 'Skaftafell', 'Jökulsárlón', 'Diamond Beach'],
+    minDays: 4,
+    maxDays: 6,
+    legs: [
+      { region: 'south', nights: 2, km: 230 },
+      { region: 'southeast', nights: 2, km: 200 },
+      { region: 'reykjanes', nights: 0, km: 470 },
+    ],
+    totalKm: 900,
+  },
+  golden_west: {
+    key: 'golden_west',
+    nameSk: 'Golden Circle + Snæfellsnes',
+    noteSk: 'Západ: Golden Circle a polostrov Snæfellsnes (Kirkjufell, Arnarstapi) – menej davov než juh.',
+    highlights: ['Þingvellir', 'Gullfoss', 'Kirkjufell', 'Arnarstapi', 'Djúpalónssandur', 'Reykjavík'],
+    minDays: 3,
+    maxDays: 5,
+    legs: [
+      { region: 'reykjavik', nights: 1, km: 50 },
+      { region: 'golden_circle', nights: 1, km: 120 },
+      { region: 'snaefellsnes', nights: 2, km: 220 },
+      { region: 'reykjanes', nights: 0, km: 260 },
+    ],
+    totalKm: 650,
+  },
+  south_west: {
+    key: 'south_west',
+    nameSk: 'Juh + Golden Circle + Snæfellsnes',
+    noteSk: 'Južné pobrežie po Vík, Golden Circle a Snæfellsnes – to najznámejšie bez celého okruhu, veľa jazdy.',
+    highlights: ['Seljalandsfoss', 'Reynisfjara', 'Gullfoss', 'Þingvellir', 'Kirkjufell', 'Reykjavík'],
+    minDays: 5,
+    maxDays: 7,
+    legs: [
+      { region: 'south', nights: 2, km: 230 },
+      { region: 'golden_circle', nights: 1, km: 150 },
+      { region: 'snaefellsnes', nights: 2, km: 250 },
+      { region: 'reykjavik', nights: 1, km: 180 },
+      { region: 'reykjanes', nights: 0, km: 50 },
+    ],
+    totalKm: 1050,
+  },
   south_east: {
     key: 'south_east',
+    nameSk: 'Juh + juhovýchod (Stokksnes)',
+    noteSk: 'Golden Circle, celý juh po Jökulsárlón a Stokksnes, späť tou istou cestou.',
+    highlights: ['Gullfoss', 'Skógafoss', 'Reynisfjara', 'Jökulsárlón', 'Stokksnes', 'Höfn'],
     minDays: 6,
     maxDays: 7,
     legs: [
@@ -55,6 +137,9 @@ export const PRESETS: Record<PresetKey, Preset> = {
   },
   ring: {
     key: 'ring',
+    nameSk: 'Ring Road',
+    noteSk: 'Celý okruh v smere hodín: juh → východ → Mývatn → Akureyri → západ; 1 330 km + zachádzky.',
+    highlights: ['Jökulsárlón', 'Stuðlagil', 'Dettifoss', 'Mývatn', 'Goðafoss', 'Akureyri'],
     minDays: 8,
     maxDays: 12,
     legs: [
@@ -72,6 +157,9 @@ export const PRESETS: Record<PresetKey, Preset> = {
   },
   ring_snaefellsnes: {
     key: 'ring_snaefellsnes',
+    nameSk: 'Ring + Snæfellsnes',
+    noteSk: 'Ring Road a navyše polostrov Snæfellsnes pred návratom do Reykjavíku.',
+    highlights: ['Jökulsárlón', 'Dettifoss', 'Mývatn', 'Akureyri', 'Kirkjufell', 'Arnarstapi'],
     minDays: 10,
     maxDays: 13,
     legs: [
@@ -90,6 +178,9 @@ export const PRESETS: Record<PresetKey, Preset> = {
   },
   ring_westfjords: {
     key: 'ring_westfjords',
+    nameSk: 'Ring + Westfjords',
+    noteSk: 'Celý ostrov vrátane Západných fjordov (Dynjandi, Látrabjarg) – len pri ≥ 13 dňoch.',
+    highlights: ['Jökulsárlón', 'Mývatn', 'Dynjandi', 'Látrabjarg', 'Kirkjufell', 'Reykjavík'],
     minDays: 13,
     maxDays: 21,
     legs: [
@@ -109,7 +200,20 @@ export const PRESETS: Record<PresetKey, Preset> = {
   },
 };
 
-/** Preset podľa počtu dní (docs/05 §4.1). */
+/** Poradie na výber (od najkratšieho). */
+export const PRESET_ORDER: PresetKey[] = [
+  'golden_only',
+  'golden_south',
+  'golden_west',
+  'south_only',
+  'south_west',
+  'south_east',
+  'ring',
+  'ring_snaefellsnes',
+  'ring_westfjords',
+];
+
+/** Preset podľa počtu dní (docs/05 §4.1) – voľba „Auto“. */
 export function presetForDays(
   days: number,
   opts: { interests?: string[]; is4x4?: boolean; pace?: Pace } = {},
@@ -119,6 +223,132 @@ export function presetForDays(
   if (days >= 13) return PRESETS.ring_westfjords;
   if (days >= 10 && opts.interests?.includes('nature')) return PRESETS.ring_snaefellsnes;
   return PRESETS.ring;
+}
+
+export const isPresetKey = (k: string | null | undefined): k is PresetKey => !!k && k in PRESETS;
+
+/** Preset z `trip.routePreset`: ručne zvolený kľúč, inak Auto podľa dní. */
+export function resolvePreset(
+  routePreset: string | null | undefined,
+  days: number,
+  opts: { interests?: string[]; is4x4?: boolean; pace?: Pace } = {},
+): Preset {
+  return isPresetKey(routePreset) ? PRESETS[routePreset] : presetForDays(days, opts);
+}
+
+export type PresetRating = {
+  key: PresetKey;
+  /** 0–100 */
+  score: number;
+  /** 1–5 */
+  stars: number;
+  fit: 'ok' | 'too_long' | 'too_short';
+  kmPerDay: number;
+  /** Záujmy cesty, ktoré okruh pokrýva / nepokrýva (podľa POI v regiónoch okruhu). */
+  interestsCovered: InterestKey[];
+  interestsMissing: InterestKey[];
+  reasonsSk: string[];
+};
+
+export type PresetPoiWeight = { regionId: string | null; interestWeight: Partial<Record<string, number>> };
+
+/**
+ * Ohodnotí okruh pre konkrétnu cestu (docs/obrazovky/krok-5 „Preset“): dni (40 b.), jazda vs. tempo (30 b.),
+ * pokrytie záujmov POI v regiónoch okruhu (30 b.). Dôvody po slovensky – zobrazujú sa pod názvom okruhu.
+ */
+export function ratePreset(
+  preset: Preset,
+  ctx: { days: number; pace: Pace; interests: string[]; pois?: PresetPoiWeight[] },
+): PresetRating {
+  const reasons: string[] = [];
+  const days = Math.max(1, ctx.days);
+  let score = 0;
+  let fit: PresetRating['fit'] = 'ok';
+  if (days < preset.minDays) {
+    const d = preset.minDays - days;
+    fit = 'too_long';
+    score += Math.max(0, 40 - 20 * d);
+    reasons.push(`na ${days} dní príliš dlhý (min. ${preset.minDays})`);
+  } else if (days > preset.maxDays) {
+    const d = days - preset.maxDays;
+    fit = 'too_short';
+    score += Math.max(0, 40 - 10 * d);
+    reasons.push(`na ${days} dní krátky – ${d} ${d === 1 ? 'deň' : d < 5 ? 'dni' : 'dní'} navyše (voľné dni / dlhšie pobyty)`);
+  } else {
+    score += 40;
+    reasons.push(`sedí na ${days} dní`);
+  }
+
+  const kmPerDay = Math.round(preset.totalKm / days);
+  const target = PACE_KM_PER_DAY[ctx.pace];
+  const ratio = kmPerDay / target;
+  if (ratio <= 0.8) {
+    score += 30;
+    reasons.push(`pohodová jazda ~${kmPerDay} km/deň`);
+  } else if (ratio <= 1) {
+    score += 25;
+    reasons.push(`~${kmPerDay} km/deň, sedí na tempo`);
+  } else if (ratio <= 1.25) {
+    score += 15;
+    reasons.push(`~${kmPerDay} km/deň – viac než tempo (${target})`);
+  } else {
+    reasons.push(`príliš veľa jazdy: ~${kmPerDay} km/deň pri tempe ${target}`);
+  }
+
+  const regions = new Set<string>(preset.legs.map((l) => l.region));
+  const interests = ctx.interests.filter((i): i is InterestKey => i in INTEREST_LABELS_SK);
+  const covered: InterestKey[] = [];
+  const missing: InterestKey[] = [];
+  if (interests.length && ctx.pois?.length) {
+    for (const i of interests) {
+      let inRoute = 0;
+      let all = 0;
+      let strong = false;
+      for (const p of ctx.pois) {
+        const w = p.interestWeight[i] ?? 0;
+        if (!w) continue;
+        all += w;
+        if (p.regionId && regions.has(p.regionId)) {
+          inRoute += w;
+          if (w >= 3) strong = true;
+        }
+      }
+      if (all === 0 || strong || inRoute / all >= 0.35) covered.push(i);
+      else missing.push(i);
+    }
+    score += Math.round((30 * covered.length) / interests.length);
+    if (missing.length) reasons.push(`mimo trasy: ${missing.map((m) => INTEREST_LABELS_SK[m].toLowerCase()).join(', ')}`);
+    else reasons.push('pokrýva všetky záujmy');
+  } else {
+    score += 20;
+  }
+
+  return {
+    key: preset.key,
+    score: Math.min(100, score),
+    stars: Math.max(1, Math.min(5, Math.round(score / 20))),
+    fit,
+    kmPerDay,
+    interestsCovered: covered,
+    interestsMissing: missing,
+    reasonsSk: reasons,
+  };
+}
+
+/**
+ * Všetky okruhy ohodnotené pre cestu, v poradí PRESET_ORDER; `recommended` = najvyššie skóre
+ * (pri zhode preset, ktorý by zvolilo Auto podľa dní, potom menej km).
+ */
+export function ratePresets(ctx: Parameters<typeof ratePreset>[1]): { ratings: PresetRating[]; recommended: PresetKey } {
+  const ratings = PRESET_ORDER.map((k) => ratePreset(PRESETS[k], ctx));
+  const auto = presetForDays(ctx.days, { interests: ctx.interests, pace: ctx.pace }).key;
+  const best = [...ratings].sort(
+    (a, b) =>
+      b.score - a.score ||
+      Number(b.key === auto) - Number(a.key === auto) ||
+      PRESETS[a.key].totalKm - PRESETS[b.key].totalKm,
+  )[0];
+  return { ratings, recommended: best.key };
 }
 
 /**
