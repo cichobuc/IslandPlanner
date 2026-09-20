@@ -6,7 +6,7 @@ import {
   CAMPSITE_SEED,
   LODGING_RANGE,
 } from './presets';
-import type { Confidence, LodgingKind, LodgingStayInput, Money, MoneySource } from './types';
+import type { Confidence, LodgingKind, LodgingStayInput, MoneySource } from './types';
 
 export type StayCost = {
   stayId: string;

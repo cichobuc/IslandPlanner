@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getDb, schema } from '@/db';
-import type { InterestScore, InterestScores } from '@/engine/types';
+import type { InterestScores } from '@/engine/types';
 import { formDataToObject, profileFormSchema } from '@/features/profile/schema';
 import { getCurrentUser } from '@/lib/auth/session';
 import { createSupabaseAdmin } from '@/lib/supabase/admin';

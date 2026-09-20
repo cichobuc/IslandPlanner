@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { ChipGroup, FieldRow, Section, Segmented } from '@/components/ui/choice';
 import { Input } from '@/components/ui/field';
 import { Notice } from '@/components/ui/notice';
-import { Select } from '@/components/ui/select';
 import { INTEREST_KEYS, ORIGIN_AIRPORTS, type InterestKey } from '@/engine/types';
 import type { schema } from '@/db';
 import { saveProfileAction, type ProfileState } from './actions';
