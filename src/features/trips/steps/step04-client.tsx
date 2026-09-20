@@ -25,11 +25,13 @@ import {
   Tile,
 } from '@/components/ui';
 import { fmtEur, fmtInt, fmtRange } from '@/lib/format';
+import { RingMap, projectLatLng } from '@/components/ui';
 import type { ActionState } from '../actions';
 import {
   assignCampsiteAction,
   assignOfferAction,
   setCampingCardAction,
+  setNightRegionAction,
   updateStayAction,
 } from '../step04-actions';
 import type { NightLite, Step04Data } from './step04-types';
@@ -136,6 +138,34 @@ export function Step04Client({ data }: { data: Step04Data }) {
           {cardState && !cardState.ok && <Notice tone="bad">{cardState.error}</Notice>}
         </StepSection>
       )}
+
+      <StepSection
+        title="Kde končia dni"
+        hint="z trasy (krok 04) – región noci sa dá prepísať v detaile noci"
+      >
+        <div className="rounded-card border-card-line bg-card flex flex-col items-center gap-2 border p-3 sm:flex-row sm:items-start sm:gap-5">
+          <RingMap
+            points={[
+              { ...projectLatLng(63.985, -22.6056), label: 'KEF' },
+              ...nights.map((n) => ({
+                ...projectLatLng(n.lat, n.lng),
+                night: true,
+                label: String(n.nightIndex),
+              })),
+            ]}
+            width={280}
+            height={200}
+          />
+          <ol className="text-ink-2 grid grow grid-cols-2 gap-x-4 gap-y-1 text-[12px] sm:grid-cols-3">
+            {nights.map((n) => (
+              <li key={n.stayId} className="truncate">
+                <span className="text-ink font-semibold">{n.nightIndex}</span> {n.regionName.split(' (')[0]}
+                {n.assigned ? ' ✓' : ''}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </StepSection>
 
       <StepSection
         title={`Noci · ${nights.length}`}
@@ -265,6 +295,11 @@ function NightSheet({
     if (r?.ok) onClose();
     return r;
   }, null);
+  const [regionState, regionAct, regionPending] = useActionState<ActionState, FormData>(async (p, fd) => {
+    const r = await setNightRegionAction(p, fd);
+    if (r?.ok) onClose();
+    return r;
+  }, null);
   const stayOp = (op: string, label: string, variant: 'ghost' | 'secondary' = 'ghost') => (
     <form action={stayAct}>
       <input type="hidden" name="tripId" value={tripId} />
@@ -312,6 +347,37 @@ function NightSheet({
         ) : undefined
       }
     >
+      {canEdit && (
+        <form action={regionAct} className="border-line flex flex-wrap items-center gap-2 border-b py-3">
+          <input type="hidden" name="tripId" value={tripId} />
+          <input type="hidden" name="stayId" value={n.stayId} />
+          <span className="text-[11px] font-semibold tracking-[.08em] text-[#6B7684] uppercase">
+            Región noci
+          </span>
+          <Select
+            name="regionId"
+            defaultValue={n.regionId ?? ''}
+            className="h-[34px] max-w-[220px] px-2 text-[13px]"
+          >
+            {data.regions.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.name}
+              </option>
+            ))}
+          </Select>
+          <Button type="submit" size="sm" variant="secondary" disabled={regionPending}>
+            Prepísať
+          </Button>
+          <span className="text-ink-3 text-[12px]">
+            {n.dayStops
+              ? `deň ${n.nightIndex} má ${n.dayStops} zast. – po prepise pregeneruj v kroku 04`
+              : 'trasa dňa sa prispôsobí pri Generovať v kroku 04'}
+          </span>
+          {regionState && !regionState.ok && (
+            <span className="text-bad-fg text-[12px]">{regionState.error}</span>
+          )}
+        </form>
+      )}
       {isCamper ? (
         <div className="flex flex-col py-2">
           <SheetRow label="Kempy v regióne">

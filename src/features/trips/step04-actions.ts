@@ -218,3 +218,58 @@ export async function setCampingCardAction(_prev: ActionState, formData: FormDat
   revalidate(tripId);
   return { ok: true };
 }
+
+const regionSchema = z.object({
+  tripId: z.uuid(),
+  stayId: z.uuid(),
+  regionId: z.string().regex(/^[a-z_]+$/),
+});
+
+/**
+ * Prepísať región noci (napr. chcem spať v Höfne, nie v Skaftafelli): noc vetvy + prenocovanie dňa v itinerári (scenár drive).
+ * Priradené ubytovanie sa zruší (je v inom regióne); trasa dostane návrh pregenerovať dotknuté dni v kroku 04.
+ */
+export async function setNightRegionAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const parsed = regionSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { ok: false, error: 'Neplatný región.' };
+  const { tripId, stayId, regionId } = parsed.data;
+  const ctx = await editableStay(tripId, stayId);
+  if (!ctx) return { ok: false, error: NO_EDIT };
+  const db = getDb();
+  const [region] = await db
+    .select({ id: schema.regions.id })
+    .from(schema.regions)
+    .where(eq(schema.regions.id, regionId))
+    .limit(1);
+  if (!region) return { ok: false, error: 'Región neexistuje.' };
+  if (ctx.stay.regionId === regionId) return { ok: true };
+  await db.transaction(async (tx) => {
+    // obe vetvy majú tú istú noc – región je vlastnosť trasy, nie ubytovania
+    await tx
+      .update(schema.lodgingStays)
+      .set({
+        regionId,
+        lodgingOptionId: null,
+        kindOverride: null,
+        priceOverride: null,
+        isManual: true,
+        notes: null,
+        updatedAt: new Date(),
+      })
+      .where(
+        and(eq(schema.lodgingStays.tripId, tripId), eq(schema.lodgingStays.nightIndex, ctx.stay.nightIndex)),
+      );
+    await tx
+      .update(schema.itineraryDays)
+      .set({ overnightRegionId: regionId, updatedAt: new Date() })
+      .where(
+        and(
+          eq(schema.itineraryDays.tripId, tripId),
+          eq(schema.itineraryDays.scenarioKey, 'drive'),
+          eq(schema.itineraryDays.dayIndex, ctx.stay.nightIndex),
+        ),
+      );
+  });
+  revalidate(tripId);
+  return { ok: true };
+}

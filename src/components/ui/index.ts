@@ -5,7 +5,7 @@ export { Card, Label, SectionHead, StepSection } from './card';
 export { Chip, ChipRow } from './chip';
 export { ChipGroup, FieldRow, Section, Segmented } from './choice';
 export { Field, Input } from './field';
-export { ISLAND_PATH, IslandMark, RingMap } from './island-mark';
+export { ISLAND_PATH, IslandMark, RingMap, projectLatLng } from './island-mark';
 export { ListCard, ListRow } from './list-row';
 export { Notice } from './notice';
 export { OptionCard, OptionGrid, Radio } from './option-card';

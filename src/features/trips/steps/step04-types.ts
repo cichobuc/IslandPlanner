@@ -46,6 +46,9 @@ export type NightLite = {
   bookingUrl: string;
   airbnbUrl: string;
   camps: CampOffer[];
+  lat: number;
+  lng: number;
+  dayStops: number;
 };
 
 export type Step04Data = {
@@ -70,5 +73,6 @@ export type Step04Data = {
     expired: boolean;
   } | null;
   tjaldaOk: boolean;
+  regions: { id: string; name: string }[];
   canEdit: boolean;
 };

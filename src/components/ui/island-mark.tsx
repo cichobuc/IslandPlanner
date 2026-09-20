@@ -6,13 +6,26 @@ export const ISLAND_PATH =
 
 export function IslandMark({ size = 20, className }: { size?: number; className?: string }) {
   return (
-    <svg width={size} height={size * 0.72} viewBox="0 0 560 400" aria-hidden className={cn('shrink-0', className)}>
+    <svg
+      width={size}
+      height={size * 0.72}
+      viewBox="0 0 560 400"
+      aria-hidden
+      className={cn('shrink-0', className)}
+    >
       <path d={ISLAND_PATH} fill="currentColor" />
     </svg>
   );
 }
 
-export type RingMapPoint = { x: number; y: number; night?: boolean };
+export type RingMapPoint = { x: number; y: number; night?: boolean; label?: string };
+
+/** Zem. súradnice → viewBox obrysu (560×400): bbox Islandu lng −24,6…−13,4 / lat 63,35…66,6 na bbox cesty x −10…562 / y 5…380. */
+export function projectLatLng(lat: number, lng: number): { x: number; y: number } {
+  const x = -10 + ((lng + 24.6) / 11.2) * 572;
+  const y = 5 + ((66.6 - lat) / 3.25) * 375;
+  return { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 };
+}
 
 /**
  * Mini mapa okruhu do ľavého stĺpca: ostrov, modrá trasa, zelené kosoštvorce = noci, biele krúžky = zastávky.
@@ -31,18 +44,57 @@ export function RingMap({
 }) {
   const d = points.length ? 'M' + points.map((p) => `${p.x},${p.y}`).join(' L') : '';
   return (
-    <svg viewBox="0 0 560 400" width={width} height={height} role="img" aria-label="Mapa okruhu" className={className}>
+    <svg
+      viewBox="0 0 560 400"
+      width={width}
+      height={height}
+      role="img"
+      aria-label="Mapa okruhu"
+      className={className}
+    >
       <path d={ISLAND_PATH} fill="#EAF0F6" stroke="#C9D2DD" strokeWidth={2} />
-      {d && <path d={d} fill="none" stroke="#0F4C81" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />}
+      {d && (
+        <path
+          d={d}
+          fill="none"
+          stroke="#0F4C81"
+          strokeWidth={3}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      )}
       {points
         .filter((p) => p.night)
         .map((p, i) => (
-          <rect key={`n${i}`} x={p.x - 4} y={p.y - 4} width={8} height={8} transform={`rotate(45 ${p.x} ${p.y})`} fill="#1E6B34" />
+          <rect
+            key={`n${i}`}
+            x={p.x - 4}
+            y={p.y - 4}
+            width={8}
+            height={8}
+            transform={`rotate(45 ${p.x} ${p.y})`}
+            fill="#1E6B34"
+          />
         ))}
       {points
         .filter((p) => !p.night)
         .map((p, i) => (
           <circle key={`s${i}`} cx={p.x} cy={p.y} r={6} fill="#fff" stroke="#0F4C81" strokeWidth={2} />
+        ))}
+      {points
+        .filter((p) => p.label)
+        .map((p, i) => (
+          <text
+            key={`l${i}`}
+            x={p.x + 9}
+            y={p.y + 4}
+            fontSize={16}
+            fontWeight={600}
+            fill="#0B1220"
+            fontFamily="Sora, system-ui, sans-serif"
+          >
+            {p.label}
+          </text>
         ))}
     </svg>
   );

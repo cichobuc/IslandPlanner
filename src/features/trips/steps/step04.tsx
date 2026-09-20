@@ -166,6 +166,27 @@ export async function Step04({ access }: { access: TripAccess }) {
     }
   }
 
+  // počet zastávok dňa (na varovanie pri prepise regiónu)
+  const dayRows = await db
+    .select({ dayIndex: schema.itineraryDays.dayIndex, id: schema.itineraryDays.id })
+    .from(schema.itineraryDays)
+    .where(and(eq(schema.itineraryDays.tripId, trip.id), eq(schema.itineraryDays.scenarioKey, 'drive')));
+  const stopRows = dayRows.length
+    ? await db
+        .select({ dayId: schema.itineraryStops.dayId })
+        .from(schema.itineraryStops)
+        .where(
+          inArray(
+            schema.itineraryStops.dayId,
+            dayRows.map((d) => d.id),
+          ),
+        )
+    : [];
+  const stopCounts = new Map<number, number>();
+  for (const s of stopRows) {
+    const d = dayRows.find((x) => x.id === s.dayId);
+    if (d) stopCounts.set(d.dayIndex, (stopCounts.get(d.dayIndex) ?? 0) + 1);
+  }
   const inputs: LodgingStayInput[] = stays.map((s) => {
     const o = options.find((x) => x.id === s.lodgingOptionId);
     const notes = s.notes?.startsWith('{')
@@ -255,6 +276,9 @@ export async function Step04({ access }: { access: TripAccess }) {
       bookingUrl: `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(place + ', Iceland')}&checkin=${inp.nightDate}&checkout=${checkout}&group_adults=${pax}&no_rooms=${Math.max(1, Math.ceil(pax / 2))}&group_children=0`,
       airbnbUrl: `https://www.airbnb.com/s/${encodeURIComponent(place)}--Iceland/homes?checkin=${inp.nightDate}&checkout=${checkout}&adults=${pax}`,
       camps: nightCamps,
+      lat: o?.lat ? Number(o.lat) : region ? Number(region.centroidLat) : 63.985,
+      lng: o?.lng ? Number(o.lng) : region ? Number(region.centroidLng) : -22.6056,
+      dayStops: stopCounts.get(inp.nightIndex) ?? 0,
     };
   });
 
@@ -289,6 +313,10 @@ export async function Step04({ access }: { access: TripAccess }) {
         }
       : null,
     tjaldaOk,
+    regions: regions
+      .filter((r) => r.id !== 'highlands' && r.id !== 'westfjords')
+      .sort((a, b) => (a.orderOnRing ?? 99) - (b.orderOnRing ?? 99))
+      .map((r) => ({ id: r.id, name: r.nameSk })),
     canEdit: canEdit(role),
   };
   return <Step04Client data={data} />;

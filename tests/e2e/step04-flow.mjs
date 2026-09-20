@@ -67,6 +67,14 @@ await p.fill('[role=dialog] input[name=url]', 'https://www.booking.com/hotel/is/
 await p.fill('[role=dialog] input[name=pricePerNight]', '236');
 await p.click('[role=dialog] button:has-text("Vložiť ponuku")');
 await p.waitForSelector('text=Vík Cottages', { timeout: 20000 });
+// prepis regiónu noci 6 → juhovýchod (Spresniť č. 5 = noc 6, noc 3 má Zmeniť)
+await p.locator('button:has-text("Spresniť")').nth(4).click();
+await p.waitForSelector('[role=dialog]');
+await p.selectOption('[role=dialog] select[name=regionId]', 'southeast');
+await p.click('[role=dialog] button:has-text("Prepísať")');
+await p.waitForTimeout(1500);
+const [rg] = await sql`select s.region_id, d.overnight_region_id from lodging_stays s join itinerary_days d on d.trip_id=s.trip_id and d.day_index=s.night_index join trips t on t.id=s.trip_id where t.owner_id=(${owner()}) and s.scenario_key='car' and s.night_index=6`;
+console.log('noc 6 región:', JSON.stringify(rg));
 // noc bez ubytovania (posledná)
 await p.locator('button:has-text("Spresniť")').last().click();
 await p.waitForSelector('[role=dialog]');
