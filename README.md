@@ -5,7 +5,7 @@ Plánovač lacnej cesty na Island pre skupinu 3–4 dospelých (funguje aj pre p
 palivo, vstupné (podľa veku cestujúcich), stravu a parkovanie – a z toho urobí presný rozpočet
 na skupinu aj na osobu.
 
-> Stav: **fáza návrhu** – žiadny kód, len dokumentácia a dizajn.
+> Stav: **implementácia** – šprint deň 1 (blok 1.1 hotový: základ projektu), návrh v `docs/` a `plan/`.
 > Dizajn (Claude Design canvas): https://claude.ai/artifact/HYKyfB8V1VcKnJiuc9iNx7
 
 ## Kľúčová myšlienka
