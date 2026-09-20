@@ -44,6 +44,9 @@ await p.fill('input[name=confirm]', NEW_PW);
 await p.click('button[type=submit]');
 await p.waitForURL('**/profil');
 await step('05-profil');
+await p.click('button[value=done]');
+await p.waitForURL(`${BASE}/sk`);
+console.log('profil Hotovo → domov ✓');
 await p.goto(`${BASE}/sk/sprava/pouzivatelia`);
 await step('06-admin-users');
 await p.fill('input[name=displayName]', 'Peter Testovací');
@@ -74,6 +77,8 @@ await q.fill('input[name=confirm]', 'peter-nove-heslo-2027');
 await q.click('button[type=submit]');
 await q.waitForURL('**/profil');
 console.log('peter →', q.url());
+await q.click('button[value=done]');
+await q.waitForURL(`${BASE}/sk`);
 const r = await q.goto(`${BASE}/sk/sprava/pouzivatelia`);
 console.log('peter admin page status:', r.status());
 const api = await q.request.post(`${BASE}/api/admin/users`, {

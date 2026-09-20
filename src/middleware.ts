@@ -41,6 +41,10 @@ export default async function middleware(request: NextRequest) {
   if (mustChange && path !== '/zmena-hesla') return to('/zmena-hesla');
   if (!mustChange && path === '/zmena-hesla' && !request.nextUrl.searchParams.has('volne')) return to('/');
   if (path === '/prihlasenie') return to('/');
+  // Kým profil nie je vyplnený (app_metadata.profile_completed), všetko okrem profilu vedie na profil
+  const profileDone = user.app_metadata?.profile_completed === true;
+  if (!mustChange && !profileDone && path !== '/profil' && path !== '/zmena-hesla' && !isPublic(path))
+    return to('/profil');
 
   return response;
 }

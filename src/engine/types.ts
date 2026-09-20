@@ -20,14 +20,38 @@ export type BagType = 'cabin_small' | 'cabin_10' | 'checked_20' | 'checked_32' |
 
 export type Bags = { cabinSmall: number; cabin10: number; checked20: number; checked32: number };
 
-export type DriverLicence = { has: boolean; since?: string; categories?: string[]; willingToDrive?: boolean };
-export type DroneProfile = { has: boolean; weightG?: number; operatorId?: string; insurance?: boolean };
-export type InterestScores = Partial<
-  Record<
-    'thermal' | 'glacier' | 'puffin' | 'whale' | 'aurora' | 'hike' | 'lava' | 'culture' | 'photo' | 'drone',
-    0 | 1 | 2 | 3
-  >
->;
+export type WillingToDrive = 'yes' | 'no' | 'emergency';
+export type DriverLicence = {
+  has: boolean;
+  sinceYear?: number;
+  categories?: string[];
+  willingToDrive?: WillingToDrive;
+};
+export type DroneProfile = {
+  has: boolean;
+  model?: string;
+  weightG?: number;
+  operatorId?: string;
+  insurance?: boolean;
+};
+export const INTEREST_KEYS = [
+  'thermal',
+  'glacier',
+  'puffin',
+  'whale',
+  'aurora',
+  'hike',
+  'lava',
+  'culture',
+  'photo',
+  'drone',
+] as const;
+export type InterestKey = (typeof INTEREST_KEYS)[number];
+/** 0 = nie, 1 = rád, 2 = chcem, 3 = kvôli tomu idem */
+export type InterestScore = 0 | 1 | 2 | 3;
+export type InterestScores = Partial<Record<InterestKey, InterestScore>>;
+
+export const ORIGIN_AIRPORTS = ['BTS', 'VIE', 'BUD', 'PRG', 'KTW'] as const;
 export type Availability = { months?: number[]; blocked?: string[]; minDays?: number; maxDays?: number };
 export type TravelDocs = {
   idValidUntil?: string;
