@@ -6,7 +6,9 @@ import { z } from 'zod';
 import { getDb, schema } from '@/db';
 import { deriveFromFlight } from '@/engine/cascade';
 import {
+  DEFAULT_START_MIN,
   generateItinerary,
+  orderStops,
   type DaySkeleton,
   type MatrixLookup,
   type PoiCandidate,
@@ -27,6 +29,18 @@ export async function loadMatrix(): Promise<MatrixLookup> {
   return (a, b) => (a === b ? { km: 0, min: 0 } : (map.get(`${a}>${b}`) ?? null));
 }
 
+/** Súradnice kotiev pre zoradenie pozdĺž smeru jazdy: `region:<id>` = centroid, `kef` = letisko. */
+export async function loadAnchorPoints(): Promise<Record<string, { lat: number; lng: number }>> {
+  const regions = await getDb().select().from(schema.regions);
+  const out: Record<string, { lat: number; lng: number }> = { kef: { lat: 63.985, lng: -22.6056 } };
+  for (const r of regions) out[`region:${r.id}`] = { lat: Number(r.centroidLat), lng: Number(r.centroidLng) };
+  return out;
+}
+
+/** Príchod (min dňa KEF) → timestamp v UTC (KEF = UTC+0 celoročne). */
+const arriveAt = (date: string | null, min: number) =>
+  date ? new Date(`${date}T00:00:00Z`).getTime() + min * 60_000 : null;
+
 export async function loadPoiCandidates(month: number): Promise<PoiCandidate[]> {
   const rows = await getDb().select().from(schema.pois);
   return rows
@@ -46,6 +60,9 @@ export async function loadPoiCandidates(month: number): Promise<PoiCandidate[]> 
         (p.bestMonths?.length ? (p.bestMonths.includes(month) ? 4 : 2) : null),
       requires4x4: Boolean(p.requires4x4),
       kind: p.kind,
+      openFrom: (p.openHours as { from?: string } | null)?.from ?? null,
+      openUntil: (p.openHours as { until?: string } | null)?.until ?? null,
+      bookingRequired: Boolean(p.bookingRequired),
     }));
 }
 
@@ -71,7 +88,7 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
   if (!access) return { ok: false, error: NO_EDIT };
   const { trip } = access;
   const db = getDb();
-  const [days, flight, matrix, pois, vehicle] = await Promise.all([
+  const [days, flight, matrix, pois, vehicle, anchorPoints] = await Promise.all([
     db
       .select()
       .from(schema.itineraryDays)
@@ -91,6 +108,7 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
         ),
       )
       .limit(1),
+    loadAnchorPoints(),
   ]);
   if (days.length === 0) return { ok: false, error: 'Najprv vyber let v kroku 02 – dni vzniknú z dátumov.' };
   const derived = flight ? deriveFromFlight(flight) : null;
@@ -117,18 +135,16 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
     date: d.date ?? '',
     overnightRegionId: i === days.length - 1 ? null : d.overnightRegionId,
     locked: d.locked,
-    availableMin:
-      i === 0 && derived
-        ? Math.max(120, 19 * 60 - derived.arrivalMinutesOfDay - 60)
-        : i === days.length - 1 && derived
-          ? Math.max(60, derived.departureMinutesOfDay - 3 * 60 - 8 * 60)
-          : undefined,
+    // prvý deň: odchod = prílet + 60 min (pasy, auto); posledný: do KEF najneskôr 3 h pred odletom
+    startMin: i === 0 && derived ? derived.arrivalMinutesOfDay + 60 : DEFAULT_START_MIN,
+    endMin: i === days.length - 1 && derived ? derived.departureMinutesOfDay - 3 * 60 : undefined,
   }));
   const allow4x4 = vehicle[0]?.cls === '4x4' || vehicle[0]?.cls === 'camper4x4';
   const result = generateItinerary({
     days: skeleton,
     pois,
     matrix,
+    anchorPoints,
     pace: trip.pace,
     interests: trip.interests,
     allow4x4,
@@ -147,6 +163,7 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
       const manual = existing.filter((s) => s.dayId === day.id && s.isManual);
       for (const s of g.stops) {
         const m = manual.find((x) => x.poiId && poiById.get(x.poiId) === s.slug);
+        const at = arriveAt(day.date, s.arriveMin);
         if (m) {
           await tx
             .update(schema.itineraryStops)
@@ -154,6 +171,8 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
               order: s.order,
               driveKmFromPrev: String(s.driveKmFromPrev),
               driveMinFromPrev: Math.round(s.driveMinFromPrev),
+              arriveAt: at ? new Date(at) : null,
+              must: s.must,
             })
             .where(eq(schema.itineraryStops.id, m.id));
           continue;
@@ -165,6 +184,8 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
           stayMin: s.stayMin,
           driveKmFromPrev: String(Math.round(s.driveKmFromPrev * 10) / 10),
           driveMinFromPrev: Math.round(s.driveMinFromPrev),
+          arriveAt: at ? new Date(at) : null,
+          must: s.must,
           isManual: false,
         });
       }
@@ -175,7 +196,7 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
           driveKm: String(g.driveKm),
           driveMin: g.driveMin,
           driveMinReal: g.driveMinReal,
-          title: titleRegion ?? null,
+          title: g.reserve ? 'rezerva' : (titleRegion ?? null),
           notes: g.warnings.length ? g.warnings.join(' · ') : null,
           updatedAt: new Date(),
         })
@@ -252,7 +273,7 @@ export async function lockDayAction(_prev: ActionState, formData: FormData): Pro
   return { ok: true };
 }
 
-/** Prepočet km/min dňa z matice po ručnej zmene zastávok (poradie ostáva, ako je). */
+/** Prepočet dňa po ručnej zmene zastávok: poradie pozdĺž smeru + 2-opt, km/min a časy príchodov z matice. */
 async function recomputeDay(tripId: string, dayId: string) {
   const db = getDb();
   const days = await db
@@ -267,42 +288,69 @@ async function recomputeDay(tripId: string, dayId: string) {
   const startKey = idx === 0 ? 'kef' : prev.overnightRegionId ? `region:${prev.overnightRegionId}` : 'kef';
   const endKey =
     idx === days.length - 1 ? 'kef' : day.overnightRegionId ? `region:${day.overnightRegionId}` : 'kef';
-  const matrix = await loadMatrix();
-  const stops = await db
-    .select()
-    .from(schema.itineraryStops)
-    .where(eq(schema.itineraryStops.dayId, dayId))
-    .orderBy(asc(schema.itineraryStops.order));
-  const slugById = new Map(
-    (await db.select({ id: schema.pois.id, slug: schema.pois.slug }).from(schema.pois)).map((p) => [
-      p.id,
-      p.slug,
-    ]),
-  );
+  const [matrix, anchors, stops, poisAll, flight] = await Promise.all([
+    loadMatrix(),
+    loadAnchorPoints(),
+    db
+      .select()
+      .from(schema.itineraryStops)
+      .where(eq(schema.itineraryStops.dayId, dayId))
+      .orderBy(asc(schema.itineraryStops.order)),
+    db.select().from(schema.pois),
+    loadFlightInput(tripId),
+  ]);
+  const poiById = new Map(poisAll.map((p) => [p.id, p]));
+  const active = stops.filter((s) => !s.skip && s.poiId && poiById.has(s.poiId));
+  const candidates: PoiCandidate[] = active.map((s) => {
+    const p = poiById.get(s.poiId!)!;
+    return {
+      slug: p.slug,
+      name: p.name,
+      regionId: p.regionId,
+      lat: Number(p.lat),
+      lng: Number(p.lng),
+      visitMin: s.stayMin ?? p.visitMin ?? 60,
+      popularity: p.popularity ?? 3,
+      hiddenGem: Boolean(p.hiddenGem),
+      interestWeight: {},
+      monthRating: null,
+      requires4x4: Boolean(p.requires4x4),
+      kind: p.kind,
+    };
+  });
+  const seq = orderStops(startKey, endKey, candidates, matrix, {
+    start: anchors[startKey] ?? null,
+    end: anchors[endKey] ?? null,
+  });
+  const derived = flight ? deriveFromFlight(flight) : null;
+  let t = idx === 0 && derived ? derived.arrivalMinutesOfDay + 60 : DEFAULT_START_MIN;
   let cur = startKey;
   let km = 0;
   let min = 0;
-  let order = 0;
-  for (const s of stops) {
-    if (s.skip) continue;
-    const key = s.poiId ? (slugById.get(s.poiId) ?? cur) : cur;
-    const leg = matrix(cur, key) ?? { km: 0, min: 0 };
+  for (let i = 0; i < seq.length; i++) {
+    const p = seq[i];
+    const stop = active.find((s) => poiById.get(s.poiId!)!.slug === p.slug)!;
+    const leg = matrix(cur, p.slug) ?? { km: 0, min: 0 };
+    t += leg.min * 1.25 + 10;
+    const at = arriveAt(day.date, Math.round(t));
     await db
       .update(schema.itineraryStops)
       .set({
-        order: order++,
+        order: i,
         driveKmFromPrev: String(Math.round(leg.km * 10) / 10),
         driveMinFromPrev: Math.round(leg.min),
+        arriveAt: at ? new Date(at) : null,
       })
-      .where(eq(schema.itineraryStops.id, s.id));
+      .where(eq(schema.itineraryStops.id, stop.id));
+    t += p.visitMin;
     km += leg.km;
     min += leg.min;
-    cur = key;
+    cur = p.slug;
   }
   const last = matrix(cur, endKey) ?? { km: 0, min: 0 };
   km += last.km;
   min += last.min;
-  const real = Math.round(min * 1.25 + stops.filter((s) => !s.skip).length * 10);
+  const real = Math.round(Math.round(min) * 1.25 + seq.length * 10);
   await db
     .update(schema.itineraryDays)
     .set({

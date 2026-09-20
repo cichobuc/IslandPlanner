@@ -4,7 +4,7 @@ import { osrm } from '@/connectors';
 import { initConnectors } from '@/connectors/server';
 import { getDb, schema } from '@/db';
 import { ageOn, entryTotal } from '@/engine/ageRules';
-import { fmtH } from '@/engine/itinerary';
+import { fmtClock, fmtH, sunTimes } from '@/engine/itinerary';
 import type { Money, PriceRule } from '@/engine/types';
 import { getRates } from './rates';
 
@@ -26,6 +26,8 @@ export type StopLite = {
   hiddenGem: boolean;
   isManual: boolean;
   skip: boolean;
+  must: boolean;
+  arrive: string | null; // HH:MM (KEF)
   lat: number;
   lng: number;
   description: string | null;
@@ -53,6 +55,8 @@ export type DayLite = {
   driveMinReal: number;
   warnings: string[];
   overnight: { regionName: string; lodgingName: string | null; lat: number; lng: number } | null;
+  reserve: boolean;
+  sunset: string;
   stops: StopLite[];
   entryGroup: number;
   startLatLng: [number, number];
@@ -194,6 +198,15 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
             hiddenGem: Boolean(p.hiddenGem),
             isManual: s.isManual,
             skip: s.skip,
+            must: s.must,
+            arrive: s.arriveAt
+              ? new Intl.DateTimeFormat('sk-SK', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
+                  timeZone: 'UTC',
+                }).format(s.arriveAt)
+              : null,
             lat: Number(p.lat),
             lng: Number(p.lng),
             description: p.descriptionSk,
@@ -235,6 +248,8 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
       driveMin: d.driveMin ?? 0,
       driveMinReal: d.driveMinReal ?? Math.round((d.driveMin ?? 0) * 1.25),
       warnings: d.notes ? d.notes.split(' · ') : [],
+      reserve: d.title === 'rezerva',
+      sunset: fmtClock(sunTimes(date || '2027-09-15').sunset),
       overnight,
       stops: dayStops,
       entryGroup: dayStops.reduce((a, s) => a + (s.skip ? 0 : s.entryGroup), 0),

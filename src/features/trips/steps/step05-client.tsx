@@ -110,7 +110,7 @@ export function Step05Client({
         step={4}
         name="Itinerár"
         question="Kam ktorý deň?"
-        lead="Dni idú z prenocovania do prenocovania (regióny z návrhu trasy podľa počtu dní; miesto noci upresníš v kroku 05). Generátor vyberie zastávky po ceste podľa záujmov, tempa a sezóny; časy jazdy sú z predpočítanej matice (× 1,25 realisticky + 10 min na zastávku). Zamknutý deň sa už nemení."
+        lead="Dni idú z prenocovania do prenocovania (regióny z návrhu trasy podľa počtu dní; miesto noci upresníš v kroku 05). Generátor priradí každé miesto dňu s najmenšou obchádzkou, zoradí ich pozdĺž smeru jazdy a naplánuje časy tak, aby si skončil pred západom slnka (jazda × 1,25 + 10 min na zastávku). Pri ≥ 8 dňoch nechá jeden rezervný deň na počasie; „musí“ = najlepšie miesta dňa, „voliteľné“ sa dajú pri zlom počasí vynechať. Zamknutý deň sa už nemení."
         aside={<StepAmount amount={totals.entryGroup} source="seed" />}
       />
 
@@ -191,6 +191,7 @@ export function Step05Client({
                   meta={[
                     `${fmtKm(d.driveKm)} · ${fmtH(d.driveMinReal)}`,
                     `${d.stops.length} zast.`,
+                    `☀ do ${d.sunset}`,
                     d.overnight
                       ? `noc ${d.overnight.lodgingName ?? d.overnight.regionName}`
                       : 'návrat na KEF',
@@ -198,6 +199,7 @@ export function Step05Client({
                   badges={
                     <>
                       {d.locked && <Tag tone="info">zamknutý</Tag>}
+                      {d.reserve && <Tag tone="vio">rezerva na počasie</Tag>}
                       {d.warnings.map((w, i) => (
                         <Tag key={i} tone="warn">
                           {w}
@@ -263,7 +265,7 @@ export function Step05Client({
                             }
                             title={`${s.name}${s.hiddenGem ? ' 💎' : ''}`}
                             meta={[
-                              `${s.stayMin} min`,
+                              s.arrive ? `${s.arrive} · ${s.stayMin} min` : `${s.stayMin} min`,
                               s.parkingEur ? `park. ${fmtEur(s.parkingEur)}` : null,
                               s.bookingRequired ? 'rezervácia' : null,
                             ]
@@ -272,6 +274,7 @@ export function Step05Client({
                             badges={
                               <>
                                 <Tag tone={dr.tone}>{dr.label}</Tag>
+                                {s.must ? <Tag tone="info">musí</Tag> : <Tag tone="mut">voliteľné</Tag>}
                                 {s.isManual && <Tag tone="ok">ručne</Tag>}
                               </>
                             }

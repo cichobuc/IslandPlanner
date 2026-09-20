@@ -29,6 +29,8 @@ export default function DevMapPage() {
     hiddenGem: slug === 'kvernufoss',
     isManual: false,
     skip: false,
+    must: order === 0,
+    arrive: null,
     lat,
     lng,
     description: 'Ukážka.',
@@ -55,6 +57,8 @@ export default function DevMapPage() {
       driveMin: 190,
       driveMinReal: 260,
       warnings: [],
+      reserve: false,
+      sunset: '20:05',
       overnight: { regionName: 'Golden Circle', lodgingName: null, lat: 64.25, lng: -20.6 },
       stops: [
         stop('blue-lagoon', 'Blue Lagoon', 63.8804, -22.4495, 0),
@@ -83,6 +87,8 @@ export default function DevMapPage() {
       driveMin: 150,
       driveMinReal: 210,
       warnings: [],
+      reserve: false,
+      sunset: '20:02',
       overnight: { regionName: 'Juh (Vík)', lodgingName: 'Vík Cottages', lat: 63.42, lng: -19.0 },
       stops: [
         stop('seljalandsfoss', 'Seljalandsfoss', 63.6156, -19.9886, 0),

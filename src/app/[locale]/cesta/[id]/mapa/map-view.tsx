@@ -40,6 +40,8 @@ const catalogToStop = (p: CatalogPoi): StopLite => ({
   hiddenGem: p.hiddenGem,
   isManual: false,
   skip: false,
+  must: false,
+  arrive: null,
   lat: p.lat,
   lng: p.lng,
   description: p.description,
