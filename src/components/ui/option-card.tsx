@@ -15,6 +15,7 @@ export function OptionCard({
   selected = false,
   disabled = false,
   onSelect,
+  submit = false,
   className,
 }: {
   icon: LucideIcon;
@@ -24,11 +25,13 @@ export function OptionCard({
   selected?: boolean;
   disabled?: boolean;
   onSelect?: () => void;
+  /** true = odošle obklopujúci formulár (server action) namiesto onSelect */
+  submit?: boolean;
   className?: string;
 }) {
   return (
     <button
-      type="button"
+      type={submit ? 'submit' : 'button'}
       role="radio"
       aria-checked={selected}
       disabled={disabled}

@@ -8,6 +8,7 @@ import { dateRangeLabel, stepNames, tripProgress } from '@/features/trips/progre
 import { countTravelers, listTripMembers } from '@/features/trips/queries';
 import { Step01, step01Summary } from '@/features/trips/steps/step01';
 import { Step02 } from '@/features/trips/steps/step02';
+import { Step03 } from '@/features/trips/steps/step03';
 import { stepNo } from '@/lib/format';
 import { RenameTrip } from './rename-trip';
 
@@ -51,9 +52,11 @@ export default async function TripPage({
           ? step01Summary(travelersCount, trip.originAirports, trip.targetMonth)
           : n === 2 && trip.startDate && trip.endDate
             ? `${dateRangeLabel(trip.startDate, trip.endDate)} · ${Math.round((Date.parse(trip.endDate) - Date.parse(trip.startDate)) / 86_400_000) + 1} dní`
-            : done || n <= progress.active
-              ? ''
-              : `po ${stepNo(n - 1)}`,
+            : n === 3 && trip.transportMode
+              ? { car: 'Auto', camper: 'Karavan', no_car: 'Bez auta' }[trip.transportMode]
+              : done || n <= progress.active
+                ? ''
+                : `po ${stepNo(n - 1)}`,
       state: n === current ? 'active' : done ? 'done' : 'pending',
       href: `?krok=${n}`,
     };
@@ -100,6 +103,8 @@ export default async function TripPage({
           <Step01 access={access} />
         ) : current === 2 ? (
           <Step02 access={access} />
+        ) : current === 3 ? (
+          <Step03 access={access} />
         ) : (
           <section className="flex flex-col gap-3">
             <Label className="text-accent">
