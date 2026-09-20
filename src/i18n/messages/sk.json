@@ -1,0 +1,16 @@
+{
+  "app": {
+    "name": "Island Planner",
+    "tagline": "Lacná cesta na Island pre 3–4 ľudí z Bratislavy – letenky, auto alebo karavan, noci, trasa, vstupné a rozpočet na osobu."
+  },
+  "home": {
+    "status": "Aplikácia sa stavia. Šprint deň 1 · blok 1.1 – základ projektu.",
+    "cta": "Prihlásiť sa",
+    "howItWorks": "Ako to funguje"
+  },
+  "nav": {
+    "trips": "Cesty",
+    "profile": "Profil",
+    "signIn": "Prihlásenie"
+  }
+}

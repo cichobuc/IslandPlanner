@@ -4,10 +4,19 @@
 !.env.example
 # node
 node_modules/
+.pnpm-debug.log*
+# next.js
 .next/
 out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+# tests
 coverage/
+test-results/
+playwright-report/
 # misc
 .DS_Store
 *.log
+*.pem
 .vercel

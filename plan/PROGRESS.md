@@ -27,3 +27,7 @@
 ## Ďalší krok
 - Účty: Supabase, Vercel, Travelpayouts, ORS, Resend → blok 1.1 šprintu.
 - Prejsť dokumentáciu, opraviť/potvrdiť seed ceny, začať Fázu 0.
+
+## 2026-09-20 · Šprint deň 1
+- Rozhodnutia pred štartom: MVP **bez** vetvy „Bez auta" (stub karta), správca inštancie = l.pjecha@gmail.com, pnpm + Vercel CLI. Kľúče (Supabase, Travelpayouts, ORS, Resend) zatiaľ nie sú – blok 1.1 ide bez nich, doplnia sa pred 1.2.
+- **Blok 1.1 hotový (lokálne):** Next.js 15.5 + React 19 + TS strict + Tailwind 4 (tokeny v6 v `globals.css` cez `@theme`), next-intl 4 (`/sk`, `/cs` s fallbackom na sk), Drizzle + drizzle-kit config, Supabase SDK, Zod, Vitest, Prettier, ESLint, Playwright (Chromium), `.env.example`, fonty Sora + Instrument Sans (next/font). Layout `src/app/[locale]` (nie root `app/` – štandard Next so `src/`). `pnpm build` prešiel, úvodná stránka vykreslená Playwrightom (820×1180) a skontrolovaná. Vercel deploy čaká na `vercel login`.

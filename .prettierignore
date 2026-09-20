@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+pnpm-lock.yaml
+docs
+plan
+README.md
+CLAUDE.md

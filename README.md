@@ -94,3 +94,16 @@ na skupinu aj na osobu.
 - Ryanair a Wizz Air nemajú oficiálne verejné API – návrh počíta s konektormi (agregátor + neoficiálne endpointy + Google Flights overenie) a s tým,
   že sa môžu kedykoľvek pokaziť. Priame lety do KEF má z regiónu len Wizz z **KTW a BUD**. Detaily v `docs/04-api-a-zdroje-dat.md`.
 - Všetko musí bežať v bezplatných limitoch (Vercel Hobby: cron 1×/deň, Supabase Free: 500 MB DB, 50 000 MAU).
+
+## Vývoj (od 20. 9. 2026)
+```bash
+corepack enable && pnpm install     # Node 24, pnpm 12
+cp .env.example .env.local          # doplň Supabase, Travelpayouts, ORS, Resend
+pnpm dev                            # http://localhost:3000 → /sk
+pnpm typecheck && pnpm lint && pnpm test && pnpm build
+pnpm db:push                        # Drizzle → Supabase (blok 1.2)
+pnpm seed                           # seed dáta (blok 1.6)
+```
+Štruktúra: `src/app/[locale]` (obrazovky, sk/cs cez next-intl), `src/engine` (čisté výpočty), `src/connectors`,
+`src/db` (Drizzle schéma, migrácie, seed), `src/components/ui` (design system v6), `src/features`, `seed/` (JSON), `tests/`.
+Nasadenie: Vercel (Hobby) z `main`; env premenné podľa `.env.example`.
