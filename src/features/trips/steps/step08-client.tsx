@@ -12,6 +12,7 @@ import {
   Utensils,
   Wallet,
   X,
+  Printer,
 } from 'lucide-react';
 import { useActionState, useState } from 'react';
 import {
@@ -439,9 +440,9 @@ export function Step08Client({
             <ButtonLink href={`/api/trips/${tripId}/export?format=csv`} variant="ghost" size="sm">
               <Download size={14} /> CSV
             </ButtonLink>
-            <Button variant="ghost" size="sm" disabled title="v1.1">
-              PDF · v1.1
-            </Button>
+            <ButtonLink href={`/cesta/${tripId}/tlac`} variant="ghost" size="sm">
+              <Printer size={14} /> Tlač / PDF
+            </ButtonLink>
           </>
         }
         primary={

@@ -114,6 +114,15 @@ const car = j.budget?.scenarios?.car;
 log('rozpočet:', 'pax', j.budget?.pax, 'celkom', car?.group, '/os', car?.perPerson, 'rozsah', car?.min, '–', car?.max);
 const perPersonSum = Object.values(car?.perTraveler ?? {}).reduce((a, x) => a + x, 0);
 log('kontrola: Σ na osobu =', Math.round(perPersonSum), 'vs celkom', Math.round(car?.group ?? 0), Math.abs(perPersonSum - car.group) < 1 ? '✓' : '✗');
+// tlač
+await p.goto(`${tripUrl}/tlac`);
+await p.waitForSelector('text=Checklist pred cestou');
+await p.screenshot({ path: `${SHOTS}/08b-tlac.png`, fullPage: true });
+log('08b-tlac');
+await p.emulateMedia({ media: 'print' });
+await p.pdf({ path: `${SHOTS}/cesta.pdf`, format: 'A4', printBackground: true });
+await p.emulateMedia({ media: 'screen' });
+log('PDF uložené');
 // mapa
 await p.goto(`${tripUrl}/mapa?den=2`, { timeout: 90000 });
 await p.waitForFunction(() => window.__ipMap?.loaded(), null, { timeout: 90000 });
