@@ -1,7 +1,9 @@
-// Manuálny e2e tok auth (blok 1.3). POZOR: resetuje heslo správcu a zakladá peter.test@example.com.
+// Manuálny e2e tok auth (blok 1.3). Používa len testovacie kontá admin.test@ / peter.test@example.com (na konci zmazané).
 // Spustenie: pnpm dev -p 3111 && node tests/e2e/auth-flow.mjs <adresár na PNG>. Blok 2.9 prerobí na Playwright test.
 import { chromium } from '@playwright/test';
-import { execSync } from 'node:child_process';
+import 'dotenv/config';
+import { createClient } from '@supabase/supabase-js';
+import postgres from 'postgres';
 const SHOTS = process.argv[2];
 const BASE = 'http://localhost:3111';
 const out = execSync('pnpm exec tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts "Lukáš"', {
@@ -96,4 +98,8 @@ await q.click('button[type=submit]');
 await q.waitForURL(`${BASE}/sk`);
 console.log('peter re-login with new pw → ', q.url());
 await b.close();
-console.log('DONE');
+for (const u of (await admin.auth.admin.listUsers()).data.users)
+  if (['admin.test@example.com', 'peter.test@example.com'].includes(u.email))
+    await admin.auth.admin.deleteUser(u.id);
+await sql.end();
+console.log('DONE (testovacie kontá zmazané)');
