@@ -1,0 +1,1048 @@
+[
+  {
+    "id": 1,
+    "name": "Grenivík",
+    "slug": "grenivik",
+    "city": "Grenivík",
+    "latitude": "65.94913",
+    "longitude": "-18.173631",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir: 1.800 kr. á mann / nótt\r\nEldri borgarar og öryrkjar: 900 kr. á mann / nótt\r\nBörn 15 ára og yngri: Ókeypis\r\nRafmagn: 1.200 kr. á nótt\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\n\r\nTilboð\r\nÞriðja hver nótt er gjaldfrjáls.",
+    "prices_en": "Rates 2026\r\n\r\nAdults: ISK 1,800 per person / night\r\nSenior citizens and people with disabilities: ISK 900 per person / night\r\nChildren 15 years and younger: Free of charge\r\nElectricity: ISK 1,200 per night\r\nLodging tax: ISK 400 per unit / night\r\n\r\nSpecial Offer\r\nEvery third night is free.",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "1st of June until the ground freezes. Please note: closed on June 13th until noon on June 14th.",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.facebook.com/itrottamidstodgrenivik",
+    "phone_number": "4145420",
+    "short_description_en": "The camp site at Grenivík is located in a good location in northern Iceland. The facilities at the camp site are also good.",
+    "region": {
+      "name_en": "North Iceland",
+      "slug_en": "north-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "fritt-fyrir-born",
+        "title_en": "Free for children"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Árnes",
+    "slug": "arnes",
+    "city": "Selfoss",
+    "latitude": "64.042799",
+    "longitude": "-20.25324",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir: 2.200 kr. á mann / nótt\r\nÖryrkjar og eldri borgarar: 1.800 kr. á mann / nótt\r\nBörn (12–16 ára): 1.800 kr. á mann / nótt\r\nBörn (0–11 ára): Ókeypis\r\nRafmagn: 1.500 kr. á nótt\r\nGistináttaskattur: 400 kr. á einingu / nótt",
+    "prices_en": "Rates 2026\r\n\r\nAdults: ISK 2,200 per person / night\r\nSenior citizens and people with disabilities: ISK 1,800 per person / night\r\nChildren (12–16 years): ISK 1,800 per person / night\r\nChildren (0–11 years): Free of charge\r\nElectricity: ISK 1,500 per night\r\nLodging tax: ISK 400 per unit / night",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "Open May 30th to September 15th",
+    "season_start_month": 5,
+    "season_start_day": 30,
+    "season_end_month": 9,
+    "season_end_day": 15,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.islandi.is",
+    "phone_number": "7885350",
+    "short_description_en": "The camp site in Árnes is in a beautiful landscape close to the river Kálfá. It is a spacious flat area with good areas to the side.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Eyrarbakki",
+    "slug": "eyrarbakki",
+    "city": "Eyrarbakki",
+    "latitude": "63.866721",
+    "longitude": "-21.163973",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir (15 ára og eldri): 1.500 kr. á mann / nótt\r\nBörn 14 ára og yngri: Ókeypis\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\nRafmagn: 1.000 kr. á nótt\r\nSturtur eru innifaldar í verði.",
+    "prices_en": "Rates 2026\r\n\r\nAdults (15 years and older): ISK 1,500 per person / night\r\nChildren 14 years and younger: Free of charge\r\nAccommodation tax: ISK 400 per unit / night\r\nElectricity: ISK 1,000 per night\r\nShowers are included in the camping fee.",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "Open until 1. October",
+    "season_start_month": 6,
+    "season_start_day": 1,
+    "season_end_month": 10,
+    "season_end_day": 1,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.eyrarbakki.is",
+    "phone_number": "4831400",
+    "short_description_en": "The camp site is to the west of the village, to the west of the bridge Hafnarbrú. It is close to a bird sanctuary and to the sea.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "eldunarastaa-1",
+        "title_en": "Cooking facilities"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      },
+      {
+        "slug": "fritt-fyrir-born",
+        "title_en": "Free for children"
+      },
+      {
+        "slug": "bordinnan",
+        "title_en": "Indoor dining facility"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Flúðir",
+    "slug": "fludir",
+    "city": "Flúðir",
+    "latitude": "64.136587",
+    "longitude": "-20.32622",
+    "prices": "Verðskrá 2026\r\n\r\nStakir dagar\r\nFullorðnir: 2.200 kr. á mann / nótt\r\nBörn (11-17 ára): 1.500 kr. á mann / nótt\r\nBörn 10 ára og yngri: Ókeypis\r\nEllilífeyrisþegar: 1.750 kr. á mann / nótt\r\nÖryrkjar: 1.750 kr. á mann / nótt\r\n\r\nÞriggja nátta dvöl eða lengur\r\nFullorðnir: 1.800 kr. á mann / nótt\r\nBörn (11-17 ára): 1.200 kr. á mann / nótt\r\nBörn 10 ára og yngri: Ókeypis\r\nEllilífeyrisþegar: 1.500 kr. á mann / nótt\r\nÖryrkjar: 1.500 kr. á mann / nótt\r\n\r\nÖnnur þjónusta\r\nRafmagn: 1.500 kr. á nótt\r\nWiFi: Ókeypis í þjónustuhúsi\r\nÞvottavél: 600 kr. fyrir hverja notkun\r\nÞurrkari: 600 kr. fyrir hverja notkun\r\n\r\nVikutilboð\r\nTveir fullorðnir og börn með rafmagni (ein eining): 25.000 kr.\r\n\r\nVerslunarmannahelgi\r\nYfir Verslunarmannahelgina eru aðeins seldir vikupassar sem gilda í allt að sjö nætur.\r\nFullorðnir: 8.000 kr. á mann\r\nBörn: 5.000 kr. á mann\r\nÖryrkjar: 7.000 kr. á mann\r\nRafmagn: 1.500 kr. á dag\r\n\r\n\r\nA.T.H. 25 ÁRA ALDURSTAKMARK ER Á TJALDSVÆÐIÐ! Nema í fylgd forráðamanna.",
+    "prices_en": "Rates 2026\r\n\r\nStandard Daily Rates\r\nAdults: ISK 2,200 per person / night\r\nChildren (11-17 years): ISK 1,500 per person / night\r\nChildren 10 years and younger: Free of charge\r\nSenior citizens: ISK 1,750 per person / night\r\nPeople with disabilities: ISK 1,750 per person / night\r\n\r\nStays of Three Nights or More\r\nAdults: ISK 1,800 per person / night\r\nChildren (11-17 years): ISK 1,200 per person / night\r\nChildren 10 years and younger: Free of charge\r\nSenior citizens: ISK 1,500 per person / night\r\nPeople with disabilities: ISK 1,500 per person / night\r\n\r\nAdditional Services\r\nElectricity: ISK 1,500 per night\r\nWiFi: Free in the service building\r\nWashing machine: ISK 600 per use\r\nTumble dryer: ISK 600 per use\r\n\r\nWeekly Offer\r\nTwo adults and children including electricity (one camping unit): ISK 25,000\r\n\r\nCommerce Day Weekend Special\r\nDuring the Icelandic Commerce Day Holiday weekend, only weekly passes are available. The pass is valid for up to seven nights.\r\nAdults: ISK 8,000 per person\r\nChildren: ISK 5,000 per person\r\nPeople with disabilities: ISK 7,000 per person\r\nElectricity: ISK 1,500 per day\r\n\r\nPlease note that the minimum age for staying at the campsite without a guardian is 25 years.",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "May - September.",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.tjaldmidstod.is",
+    "phone_number": "6185005",
+    "short_description_en": "The town Flúðir has been a popular destination for icelandic tourists as well as foreign tourists mostly because the area is known for good weather and also many activities.  Flúðir is only about 100",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "golfvollur",
+        "title_en": "Golf course"
+      },
+      {
+        "slug": "veitingar",
+        "title_en": "Food service"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "losun-skolptanka",
+        "title_en": "Waste disposal for mobile homes"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "sundlaug",
+        "title_en": "Swimming pool"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "veiileyfi",
+        "title_en": "Fishing"
+      },
+      {
+        "slug": "hestaleiga",
+        "title_en": "Horse rental"
+      },
+      {
+        "slug": "heitur-pottur",
+        "title_en": "Hot tub"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Skaftafell",
+    "slug": "skaftafell",
+    "city": "Skaftafell",
+    "latitude": "64.016214",
+    "longitude": "-16.969221",
+    "prices": "Verð 2026\r\n\r\n2.800 kr – gisting á tjaldsvæði 17-66 ára: pr.einstakling, pr.nótt\r\n2.300 kr - gisting á tjaldsvæði 67+ ára og/eða öryrkjar: pr.einstakling, pr.nótt \r\nFrítt – börn 16 ára og yngri, í fylgd með fullorðnum\r\n1.500 kr – rafmagn fyrir gistieiningu á tjaldsvæði, pr.sólarhring (ekki til að hlaða rafmagnsbíl)\r\n\r\nFlatir E, F, G og H - Óheimilt að aka inn á þessar flatir\r\nFlatir B og D - Aðgengi fyrir bíla og að rafmagni – ekki hólfaskipt\r\nFlatir A og C – Aðgengi fyrir bíla, hólfaskipt og gott aðgengi að rafmagni\r\n\r\n\r\n• Stæði eru ýmist með aðgengi að rafmagni*eða án rafmagns.\r\n• Innifalið í tjaldsvæðisgjaldi er aðgangur að sturtu, þvottavél og þurrkara (Skaftafell).\r\n*Athuga þarf að rafmagnstenging er einungis ætluð fyrir rafmagnstæki innan stæðis. Óheimilt er að nýta umræddar tengingar til að hlaða bifreiðar, kerfin eru hvorki nógu öflug né örugg fyrir slíka hleðslu.",
+    "prices_en": "Rates 2026\r\n\r\n2800 ISK Adults 17-66 years old, per night\r\n2.300 ISK Senior citizens and disabled people, per night\r\nFree for children 16 years old and younger\r\n1500 ISK electricity at campsite pr. night \r\n\r\nPitches E, F, G and H – Driving is prohibited at these pitches\r\nPitches B and D – Access for cars and to electricity – not separate areas\r\nPitches A and C – Access for cars, separate areas and good access to electricity\r\n\r\n\r\n• Areas are either with access to electricity* or not.\r\n• Access to showers, a washing machine, and a dryer (Skaftafell) is included in the campsite fee.\r\n*Note: The electrical connection is only intended for electrical devices within the area. It is not permitted to use the connection to charge vehicles, the systems are neither powerful nor safe enough for such charging.",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "Open all year",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": "https://parka.is/camping/skaftafell/?#reservation#reservation",
+    "show_campsite_on_tjalda": true,
+    "camping_website": "https://www.vatnajokulsthjodgardur.is/",
+    "phone_number": "4708300",
+    "short_description_en": "The campsite is spacious with trees as shelter. The campsite is divided into several smaller areas.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "losun-skolptanka",
+        "title_en": "Waste disposal for mobile homes"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "agengi-fyrir-hjolastola",
+        "title_en": "Wheelchair accessible"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "opid-allt-arid",
+        "title_en": "Open all year"
+      },
+      {
+        "slug": "grill",
+        "title_en": "barbecue"
+      },
+      {
+        "slug": "uppvottaastaa",
+        "title_en": "Dishwashing facilities"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Camp Egilsstaðir",
+    "slug": "egilsstadir",
+    "city": "Egilsstaðir",
+    "latitude": "65.258045",
+    "longitude": "-14.408444",
+    "prices": "Verðskrá 2026\r\nFullorðnir: 2.950 kr. á mann / nótt\r\nÖryrkjar og eldri borgarar: 2.250 kr. á mann / nótt\r\nBörn 12 ára og yngri: Ókeypis\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\nRafmagn: 2.000 kr. á nótt\r\n\r\nSalerni og sturtur eru innifalin fyrir tjaldgesti.\r\n\r\nÞvottaaðstaða\r\nÞvottavél: 1.500 kr. fyrir hverja notkun (þvottaefni innifalið)\r\nÞurrkari: 1.500 kr. fyrir hverja notkun\r\n\r\nVerð fyrir aðra en tjaldgesti\r\nSturta: 1.000 kr. fyrir hverja notkun\r\nSalerni: 100 kr. fyrir hverja notkun\r\nEldhús: 1.000 kr. fyrir hverja notkun",
+    "prices_en": "Rates 2026\r\nAdults: ISK 2,950 per person / night\r\nSenior citizens and people with disabilities: ISK 2,250 per person / night\r\nChildren 12 years and younger: Free of charge\r\nLodging tax: ISK 400 per unit / night\r\nElectricity: ISK 2,000 per night\r\n\r\nToilets and showers are included for campsite guests.\r\n\r\nLaundry Facilities\r\nWashing machine: ISK 1,500 per use (detergent included)\r\nTumble dryer: ISK 1,500 per use\r\n\r\nRates for Non-Campsite Guests\r\nShower: ISK 1,000 per use\r\nToilet: ISK 100 per use\r\nKitchen access: ISK 1,000 per use",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "Open year-round.",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": false,
+    "accepts_prebooked": true,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.campegilsstadir.is/",
+    "phone_number": "470-0750",
+    "short_description_en": "Camp Egilsstadir Campsite is open all year round with toilet and shower facilities open 24/7.  The campsite is well located in the towns´ center close to all the main shops and service.",
+    "region": {
+      "name_en": "East Iceland",
+      "slug_en": "east-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "losun-skolptanka",
+        "title_en": "Waste disposal for mobile homes"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      },
+      {
+        "slug": "urrkari",
+        "title_en": "Dryer"
+      },
+      {
+        "slug": "opid-allt-arid",
+        "title_en": "Open all year"
+      },
+      {
+        "slug": "natturulaug",
+        "title_en": "Natural hot spring"
+      },
+      {
+        "slug": "aerslabelgur",
+        "title_en": "Jumping Pillow"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Hlíð, Mývatni",
+    "slug": "hlid",
+    "city": "Hlíð, Mývatni",
+    "latitude": "65.650937",
+    "longitude": "-16.922078",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir: 2.700 kr. á mann / nótt\r\nBörn 15 ára og yngri í fylgd foreldra eða forráðamanna: Ókeypis\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\nRafmagn: 900 kr. á nótt\r\n\r\nSturtur eru innifaldar í verðinu.\r\nEldhústjald er á tjaldsvæðinu og er opið öllum gestum.",
+    "prices_en": "Rates 2026\r\n\r\nAdults: ISK 2,700 per person / night\r\nChildren 15 years and younger accompanied by a parent or guardian: Free of charge\r\nLodging tax: ISK 400 per unit / night\r\nElectricity: ISK 900 per night\r\n\r\nShowers are included in the camping fee.\r\nA kitchen tent is available on site and is open to all guests.",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "Open",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.myvatnaccommodation.is",
+    "phone_number": "7818628",
+    "short_description_en": "The scenery around the camp site is divers, good flat areas and lava tubs that offer good shelter.",
+    "region": {
+      "name_en": "North Iceland",
+      "slug_en": "north-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "eldunarastaa-1",
+        "title_en": "Cooking facilities"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "name": "Grundarfjörður",
+    "slug": "grundarfjordur",
+    "city": "Grundarfjörður",
+    "latitude": "64.920661",
+    "longitude": "-23.258444",
+    "prices": "Verð 2026\r\n\r\nFullorðinn:  1.800 kr\r\nBörn, yngri en 16 ára:  Frítt\r\nEllilífeyrisþegar og öryrkjar:  1.300 kr\r\nRafmagn:  1.300 kr\r\n\r\nAfsláttarkjör:\r\nÞriggja daga dvöl:  15% afsláttur\r\nSex daga dvöl:  25% afsláttur\r\n\r\nGistináttaskattur er innifalinn í verði, nema þegar Útilegukortið er notað",
+    "prices_en": "Rates 2026\r\n\r\nAdults:  1.800 kr\r\nchildren, younger than 16 years:  Free\r\nSeniors and the disabled:  1.300 kr\r\nElectricity:  1.300 kr\r\n\r\n15% off if staying three days or more.\r\n25% off if staying six days or more.",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "Open all year",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": "https://www.parka.is/grundarfjordur",
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.grundarfjordur.is/",
+    "phone_number": "831-7242",
+    "short_description_en": "The camp site in Grundarfjörður is located above the town with a unique view either to the sea or the mountain range.",
+    "region": {
+      "name_en": "West Iceland",
+      "slug_en": "west-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "veitingar",
+        "title_en": "Food service"
+      },
+      {
+        "slug": "sundlaug",
+        "title_en": "Swimming pool"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      },
+      {
+        "slug": "opid-allt-arid",
+        "title_en": "Open all year"
+      }
+    ]
+  },
+  {
+    "id": 171,
+    "name": "Vík Camping",
+    "slug": "vik",
+    "city": "Vik",
+    "latitude": "63.419327470811744",
+    "longitude": "-18.995547487569553",
+    "prices": "Ekki skráður meðlimur síðunnar",
+    "prices_en": "Not registered Tjalda member",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": false,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": null,
+    "phone_number": "+354 487-1345 (only in summer)",
+    "short_description_en": "Vík Camping is located in Vík í Mýrdal, one of the most popular villages on Iceland's South Coast. From the campsite, it is easy to visit nearby attractions such as Reynisfjara Black Sand Beach.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Reykjavík",
+    "slug": "laugardalur",
+    "city": "Reykjavík",
+    "latitude": "64.146136",
+    "longitude": "-21.875971",
+    "prices": "Verðskrá 2026\r\n\r\nTjaldsvæði\r\nTjaldstæði án rafmagns (svæði B)\r\nInnifalið er eitt fullorðið.\r\n3.555 kr. á einingu / nótt*\r\n\r\nHúsbílar og ferðavagnar án rafmagns (svæði A eða B)\r\nInnifalið er eitt fullorðið.\r\n3.735 kr. á einingu / nótt*\r\n\r\nHúsbílar og ferðavagnar með rafmagni (svæði A eða B)\r\nInnifalið er eitt fullorðið og 16A rafmagnstenging.\r\n5.715 kr. á einingu / nótt*\r\n\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\n\r\nAukagestir\r\nFullorðnir (13 ára og eldri): 3.150 kr. á mann / nótt*\r\nBörn (12 ára og yngri): Ókeypis\r\n\r\n* Verð miðast við bókun á netinu.",
+    "prices_en": "Rates 2026\r\n\r\nCampsite\r\nTent pitch without electricity (Area B)\r\nIncludes one adult.\r\nISK 3,555 per unit / night*\r\n\r\nCampervan or caravan pitch without electricity (Area A or B)\r\nIncludes one adult.\r\nISK 3,735 per unit / night*\r\n\r\nCampervan or caravan pitch with electricity (Area A or B)\r\nIncludes one adult and a 16A electrical hookup.\r\nISK 5,715 per unit / night*\r\n\r\nLodging tax: ISK 400 per unit / night\r\n\r\nAdditional Guests\r\nAdults (13 years and older): ISK 3,150 per person / night*\r\nChildren (12 years and younger): Free of charge\r\n\r\n* Online booking discount included.",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": false,
+    "accepts_prebooked": true,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.reykjavikcampsite.is",
+    "phone_number": "568-6944",
+    "short_description_en": "The campsite in Reykjavik is situated in a great location next to the swimming pool in Laugardalur. It is about 3 km for downtown Reykjavik. It is open all year around.",
+    "region": {
+      "name_en": "Capital area",
+      "slug_en": "the-capital-area"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "eldunarastaa-1",
+        "title_en": "Cooking facilities"
+      },
+      {
+        "slug": "veitingar",
+        "title_en": "Food service"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "sundlaug",
+        "title_en": "Swimming pool"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "agengi-fyrir-hjolastola",
+        "title_en": "Wheelchair accessible"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "urrkari",
+        "title_en": "Dryer"
+      },
+      {
+        "slug": "opid-allt-arid",
+        "title_en": "Open all year"
+      },
+      {
+        "slug": "farangursgeymsla",
+        "title_en": "Luggage storage"
+      },
+      {
+        "slug": "grill",
+        "title_en": "barbecue"
+      },
+      {
+        "slug": "fritt-fyrir-born",
+        "title_en": "Free for children"
+      }
+    ]
+  },
+  {
+    "id": 154,
+    "name": "Tjaldsvæðið við Skógafoss",
+    "slug": "skogafoss",
+    "city": "Hvolsvöllur",
+    "latitude": "63.52145",
+    "longitude": "-19.507052",
+    "prices": "Verð 2026\r\n2100 ISK á mann / á nótt",
+    "prices_en": "Rates 2026\r\n2100 ISK per person a night",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "Open 2026",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "https://www.facebook.com/profile.php?id=100057230448595",
+    "phone_number": "8638064",
+    "short_description_en": "New location. A peaceful campsite in beautiful surroundings near Skógafoss, with easy access to hiking trails and the area's top natural attractions.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Tjaldsvæðið Höfn í Hornafirði",
+    "slug": "tjaldsvaedid-hofn-i-hornafirdi",
+    "city": "Höfn í Hornafirði",
+    "latitude": "64.258368",
+    "longitude": "-15.203018",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir: 2.500 kr. á mann / nótt\r\nBörn 15 ára og yngri: Ókeypis\r\nRafmagn: 1.500 kr. á nótt\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\n\r\nÞvottavél: 1500 kr.\r\nÞurrkari: 1500 kr.",
+    "prices_en": "Rates 2026\r\n\r\nAdults: ISK 2,500 per person / night\r\nChildren 15 years and younger: Free of charge\r\nElectricity: ISK 1,500 per night\r\nLodging tax: ISK 400 per accommodation unit / night\r\n\r\nUse of Washing Machine: 1500 ISK\r\nUse of Dryer: 1500 ISK",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "tjalda.is/tjaldsvaedid-hofn-i-hornafirdi/",
+    "phone_number": "+354 478 1606",
+    "short_description_en": "Tjaldsvæðið er við innkeyrsluna inn í bæinn.  Margar flatir og pallar.  Rúmgott með miklu útsýni til jökla.  Góð aðstaða og fjölbreytt þjónusta.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "golfvollur",
+        "title_en": "Golf course"
+      },
+      {
+        "slug": "farfuglaheimili",
+        "title_en": "Hostel"
+      },
+      {
+        "slug": "veitingar",
+        "title_en": "Food service"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "sundlaug",
+        "title_en": "Swimming pool"
+      },
+      {
+        "slug": "svefnpokaplass",
+        "title_en": "Sleeping bag accommodation"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Akureyri, Hamrar v/Kjarnaskóg",
+    "slug": "hamrar",
+    "city": "Akureyri",
+    "latitude": "65.647871",
+    "longitude": "-18.105236",
+    "prices": "Verð 2026\r\n\r\nVerð fyrir fullorðna*:  2.500 kr\r\nEldri borgarar og öryrkjar:  2.100 kr\r\nFrítt fyrir börn yngri en 18 ára í fylgd með fjölskyldu, á ekki við um hópa \r\n\r\nRafmagn:  1.500 kr\r\nGistieining **: 500 kr. / eining \r\nSturtur innifaldar í verði\r\nGistináttaskattur innifalinn í verði**\r\n* 2.200 kr. / nótt eftir fyrstu nótt ef keyptar eru margar í einu. \r\n** Frá 1. janúar 2024 er gistináttaskattur innheimtur samkvæmt lögum.",
+    "prices_en": "Rates 2026\r\n\r\nPrice for adults*: 2,500 ISK\r\nSenior citizens and disabled: 2,100 ISK\r\nFree for children under 18 years accompanying family, does not apply to groups\r\n\r\nElectricity: 1,500 ISK\r\nAccommodation unit**: 500 ISK / unit\r\nShower included in price\r\nAccommodation tax included in price**\r\n\r\n2,200 ISK / night after the first night if multiple are purchased at once.\r\n** From January 1, 2024, accommodation tax is collected according to law.",
+    "opening_time": "1",
+    "opening_time_custom_text_en": "",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": false,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.hamrar.is",
+    "phone_number": "461-2260",
+    "short_description_en": "The camp site Hamrar by Akureyri is an excellent camp site with great facilities and enough to do for the children.",
+    "region": {
+      "name_en": "North Iceland",
+      "slug_en": "north-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "eldunarastaa-1",
+        "title_en": "Cooking facilities"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      },
+      {
+        "slug": "opid-allt-arid",
+        "title_en": "Open all year"
+      },
+      {
+        "slug": "hjolaleiir",
+        "title_en": "Bike routes"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Geysir, Haukadal",
+    "slug": "geysir",
+    "city": "Geysir",
+    "latitude": "64.309939",
+    "longitude": "-20.30445",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir: 2.500 kr. á mann / nótt\r\nBörn (8-15 ára): 500 kr. á mann / nótt\r\nBörn 7 ára og yngri: Ókeypis\r\nRafmagn: 1.200 kr. á sólarhring\r\nSturta: 500 kr. fyrir hverja notkun\r\nGistináttaskattur: 400 kr. á einingu / nótt (ekki innifalinn í verði)\r\n\r\nGreitt er fyrir tjaldstæði hjá tjaldsvæðaverði sem er staðsettur í þjónustuhúsnæðinu á tjaldsvæðinu.",
+    "prices_en": "Rates 2026\r\n\r\nAdults: ISK 2,500 per person / night\r\nChildren (8-15 years): ISK 500 per person / night\r\nChildren (0-7 years): Free of charge\r\nElectricity: ISK 1,200 per 24 hours\r\nShower: ISK 500 per use\r\nLodging tax: ISK 400 per unit / night (not included in the price)\r\n\r\nCampsite fees are paid to the campsite warden, who is located in the service building on the campsite.",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "Open between 15.05 - 15.09.2025",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "https://hotelgeysir.is/geysir-center/camp-site/",
+    "phone_number": "4806800",
+    "short_description_en": "The camp site at Geysir in Haukadal is located next to the famous geyser Geysir and is right across from Hotel Geysir.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "golfvollur",
+        "title_en": "Golf course"
+      },
+      {
+        "slug": "veitingar",
+        "title_en": "Food service"
+      },
+      {
+        "slug": "losun-skolptanka",
+        "title_en": "Waste disposal for mobile homes"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "vottavel",
+        "title_en": "Washing machine"
+      },
+      {
+        "slug": "hestaleiga",
+        "title_en": "Horse rental"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      },
+      {
+        "slug": "leikvollur",
+        "title_en": "Playground"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Kirkjubær II, Kirkjubæjarklaustri",
+    "slug": "kirkjubaer",
+    "city": "Kirkjubæjarklaustur",
+    "latitude": "63.79284",
+    "longitude": "-18.049986",
+    "prices": "Verðskrá 2026\r\n\r\nFullorðnir (13 ára og eldri): 2.000 kr. á mann / nótt\r\nGistináttaskattur: 400 kr. á einingu / nótt\r\nRafmagn: 1.500 kr. á sólarhring\r\nÞvottavél: 950 kr. fyrir hverja notkun\r\nÞurrkari: 950 kr. fyrir hverja notkun\r\nSturta: 300 kr. fyrir 3 mínútur",
+    "prices_en": "Rates 2026\r\n\r\nAdults (13 years and older): ISK 2,000 per person / night\r\nAccommodation tax: ISK 400 per unit / night\r\nElectricity: ISK 1,500 per 24 hours\r\nWashing machine: ISK 950 per use\r\nTumble dryer: ISK 950 per use\r\nShower: ISK 300 for 3 minutes",
+    "opening_time": "2",
+    "opening_time_custom_text_en": "Open from March to November",
+    "season_start_month": null,
+    "season_start_day": null,
+    "season_end_month": null,
+    "season_end_day": null,
+    "bookable_with_parka": false,
+    "accepts_drop_in": true,
+    "accepts_prebooked": false,
+    "link_to_prebooked": null,
+    "show_campsite_on_tjalda": true,
+    "camping_website": "www.kirkjubaer.com",
+    "phone_number": "894-4495",
+    "short_description_en": "Kirkjubæjarklaustur is a village by highway no 1 with the population of 150 people.  The location of the village is very beautiful.",
+    "region": {
+      "name_en": "South Iceland",
+      "slug_en": "south-iceland"
+    },
+    "services": [
+      {
+        "slug": "rafmagn",
+        "title_en": "Electricity"
+      },
+      {
+        "slug": "gonguleiir",
+        "title_en": "Walking paths"
+      },
+      {
+        "slug": "eldunarastaa-1",
+        "title_en": "Cooking facilities"
+      },
+      {
+        "slug": "veitingar",
+        "title_en": "Food service"
+      },
+      {
+        "slug": "gludyr-i-taumi",
+        "title_en": "Pets allowed on a leash"
+      },
+      {
+        "slug": "sturta",
+        "title_en": "Shower"
+      },
+      {
+        "slug": "smahysi-til-utleigu",
+        "title_en": "Cottages"
+      },
+      {
+        "slug": "agangur-a-neti",
+        "title_en": "Wi-Fi"
+      },
+      {
+        "slug": "kalt-vatn",
+        "title_en": "Cold water"
+      },
+      {
+        "slug": "heitt-vatn",
+        "title_en": "Hot water"
+      },
+      {
+        "slug": "salerni",
+        "title_en": "Toilets"
+      }
+    ]
+  }
+]

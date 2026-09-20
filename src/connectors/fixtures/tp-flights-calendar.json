@@ -1,0 +1,260 @@
+{
+  "_synthetic": true,
+  "success": true,
+  "currency": "eur",
+  "data": {
+    "2027-09-01": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 177,
+      "airline": "FR",
+      "flight_number": 1001,
+      "departure_at": "2027-09-01T06:40:00Z",
+      "return_at": "2027-09-10T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-02": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 214,
+      "airline": "FI",
+      "flight_number": 1002,
+      "departure_at": "2027-09-02T06:40:00Z",
+      "return_at": "2027-09-11T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-03": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 161,
+      "airline": "U2",
+      "flight_number": 1003,
+      "departure_at": "2027-09-03T06:40:00Z",
+      "return_at": "2027-09-12T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-05": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 145,
+      "airline": "FR",
+      "flight_number": 1005,
+      "departure_at": "2027-09-05T06:40:00Z",
+      "return_at": "2027-09-14T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-06": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 182,
+      "airline": "FI",
+      "flight_number": 1006,
+      "departure_at": "2027-09-06T06:40:00Z",
+      "return_at": "2027-09-15T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-07": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 219,
+      "airline": "U2",
+      "flight_number": 1007,
+      "departure_at": "2027-09-07T06:40:00Z",
+      "return_at": "2027-09-16T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-09": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 203,
+      "airline": "FR",
+      "flight_number": 1009,
+      "departure_at": "2027-09-09T06:40:00Z",
+      "return_at": "2027-09-18T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-10": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 150,
+      "airline": "FI",
+      "flight_number": 1010,
+      "departure_at": "2027-09-10T06:40:00Z",
+      "return_at": "2027-09-19T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-11": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 187,
+      "airline": "U2",
+      "flight_number": 1011,
+      "departure_at": "2027-09-11T06:40:00Z",
+      "return_at": "2027-09-20T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-13": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 171,
+      "airline": "FR",
+      "flight_number": 1013,
+      "departure_at": "2027-09-13T06:40:00Z",
+      "return_at": "2027-09-22T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-14": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 208,
+      "airline": "FI",
+      "flight_number": 1014,
+      "departure_at": "2027-09-14T06:40:00Z",
+      "return_at": "2027-09-23T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-15": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 155,
+      "airline": "U2",
+      "flight_number": 1015,
+      "departure_at": "2027-09-15T06:40:00Z",
+      "return_at": "2027-09-24T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-17": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 229,
+      "airline": "FR",
+      "flight_number": 1017,
+      "departure_at": "2027-09-17T06:40:00Z",
+      "return_at": "2027-09-26T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-18": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 176,
+      "airline": "FI",
+      "flight_number": 1018,
+      "departure_at": "2027-09-18T06:40:00Z",
+      "return_at": "2027-09-27T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-19": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 213,
+      "airline": "U2",
+      "flight_number": 1019,
+      "departure_at": "2027-09-19T06:40:00Z",
+      "return_at": "2027-09-28T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-21": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 197,
+      "airline": "FR",
+      "flight_number": 1021,
+      "departure_at": "2027-09-21T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-22": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 144,
+      "airline": "FI",
+      "flight_number": 1022,
+      "departure_at": "2027-09-22T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-23": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 181,
+      "airline": "U2",
+      "flight_number": 1023,
+      "departure_at": "2027-09-23T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-25": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 165,
+      "airline": "FR",
+      "flight_number": 1025,
+      "departure_at": "2027-09-25T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-26": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 202,
+      "airline": "FI",
+      "flight_number": 1026,
+      "departure_at": "2027-09-26T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-27": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 149,
+      "airline": "U2",
+      "flight_number": 1027,
+      "departure_at": "2027-09-27T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-29": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 223,
+      "airline": "FR",
+      "flight_number": 1029,
+      "departure_at": "2027-09-29T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 1,
+      "expires_at": "2026-09-27T10:00:00Z"
+    },
+    "2027-09-30": {
+      "origin": "VIE",
+      "destination": "KEF",
+      "price": 170,
+      "airline": "FI",
+      "flight_number": 1030,
+      "departure_at": "2027-09-30T06:40:00Z",
+      "return_at": "2027-09-30T15:20:00Z",
+      "transfers": 0,
+      "expires_at": "2026-09-27T10:00:00Z"
+    }
+  }
+}

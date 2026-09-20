@@ -1,0 +1,264 @@
+{
+  "stations": [
+    {
+      "bensin95": 242.4,
+      "bensin95_discount": null,
+      "company": "Atlantsolía",
+      "diesel": 283.7,
+      "diesel_discount": null,
+      "geo": {
+        "lat": 65.69913,
+        "lon": -18.135231
+      },
+      "key": "ao_000",
+      "name": "Baldursnes Akureyri"
+    },
+    {
+      "bensin95": 242.4,
+      "bensin95_discount": null,
+      "company": "Atlantsolía",
+      "diesel": 283.7,
+      "diesel_discount": null,
+      "geo": {
+        "lat": 64.131921,
+        "lon": -21.923792
+      },
+      "key": "ao_012",
+      "name": "Öskjuhlíð"
+    },
+    {
+      "bensin95": 222.3,
+      "bensin95_discount": null,
+      "company": "Costco Iceland",
+      "diesel": 261.5,
+      "diesel_discount": null,
+      "geo": {
+        "lat": 64.075267,
+        "lon": -21.915002
+      },
+      "key": "co_000",
+      "name": "Kauptún"
+    },
+    {
+      "bensin95": 260.8,
+      "bensin95_discount": 250.8,
+      "company": "N1",
+      "diesel": 302.6,
+      "diesel_discount": 292.6,
+      "geo": {
+        "lat": 64.54398584,
+        "lon": -21.91057924
+      },
+      "key": "n1_013",
+      "name": "Borgarnes"
+    },
+    {
+      "bensin95": 270.9,
+      "bensin95_discount": 260.9,
+      "company": "N1",
+      "diesel": 307.1,
+      "diesel_discount": 297.1,
+      "geo": {
+        "lat": 63.99605943,
+        "lon": -21.19322495
+      },
+      "key": "n1_025",
+      "name": "Hveragerði"
+    },
+    {
+      "bensin95": 275.4,
+      "bensin95_discount": 265.4,
+      "company": "N1",
+      "diesel": 311.5,
+      "diesel_discount": 301.5,
+      "geo": {
+        "lat": 65.62701732,
+        "lon": -23.82604118
+      },
+      "key": "n1_037",
+      "name": "Tálknafjörður"
+    },
+    {
+      "bensin95": 275.4,
+      "bensin95_discount": 265.4,
+      "company": "N1",
+      "diesel": 311.5,
+      "diesel_discount": 301.5,
+      "geo": {
+        "lat": 66.03060011,
+        "lon": -16.48356915
+      },
+      "key": "n1_049",
+      "name": "Ásbyrgi"
+    },
+    {
+      "bensin95": 275.4,
+      "bensin95_discount": 265.4,
+      "company": "N1",
+      "diesel": 307.1,
+      "diesel_discount": 297.1,
+      "geo": {
+        "lat": 63.41794382,
+        "lon": -19.00159478
+      },
+      "key": "n1_062",
+      "name": "Vík í Mýrdal"
+    },
+    {
+      "bensin95": 275.4,
+      "bensin95_discount": 265.4,
+      "company": "N1",
+      "diesel": 311.5,
+      "diesel_discount": 301.5,
+      "geo": {
+        "lat": 64.893589,
+        "lon": -23.702756
+      },
+      "key": "n1_075",
+      "name": "Ólafsvík"
+    },
+    {
+      "bensin95": 268.5,
+      "bensin95_discount": 258.5,
+      "company": "ÓB",
+      "diesel": 304.3,
+      "diesel_discount": 294.3,
+      "geo": {
+        "lat": 65.683468,
+        "lon": -18.089544
+      },
+      "key": "ob_002",
+      "name": "Akureyri BSO"
+    },
+    {
+      "bensin95": 268.5,
+      "bensin95_discount": 258.5,
+      "company": "ÓB",
+      "diesel": 304.3,
+      "diesel_discount": 294.3,
+      "geo": {
+        "lat": 65.70132,
+        "lon": -21.692706
+      },
+      "key": "ob_016",
+      "name": "Hólmavík"
+    },
+    {
+      "bensin95": 268.5,
+      "bensin95_discount": 258.5,
+      "company": "ÓB",
+      "diesel": 304.3,
+      "diesel_discount": 294.3,
+      "geo": {
+        "lat": 64.044579,
+        "lon": -21.986533
+      },
+      "key": "ob_031",
+      "name": "Suðurhella"
+    },
+    {
+      "bensin95": 268.5,
+      "bensin95_discount": 258.5,
+      "company": "ÓB",
+      "diesel": 304.3,
+      "diesel_discount": 294.3,
+      "geo": {
+        "lat": 66.069748,
+        "lon": -18.654565
+      },
+      "key": "ob_044",
+      "name": "Ólafsfjörður"
+    },
+    {
+      "bensin95": 271.6,
+      "bensin95_discount": 261.6,
+      "company": "Olís",
+      "diesel": 307.8,
+      "diesel_discount": 297.8,
+      "geo": {
+        "lat": 64.091485,
+        "lon": -21.928103
+      },
+      "key": "ol_004",
+      "name": "Garðabær"
+    },
+    {
+      "bensin95": 271.6,
+      "bensin95_discount": 261.6,
+      "company": "Olís",
+      "diesel": 307.8,
+      "diesel_discount": 297.8,
+      "geo": {
+        "lat": 65.147542,
+        "lon": -13.695884
+      },
+      "key": "ol_028",
+      "name": "Neskaupstaður"
+    },
+    {
+      "bensin95": 268.4,
+      "bensin95_discount": 256.4,
+      "company": "Orkan",
+      "diesel": 304.2,
+      "diesel_discount": 292.2,
+      "geo": {
+        "lat": 64.151479,
+        "lon": -21.985106
+      },
+      "key": "or_008",
+      "name": "Suðurströnd"
+    },
+    {
+      "bensin95": 268.4,
+      "bensin95_discount": 256.4,
+      "company": "Orkan",
+      "diesel": 304.2,
+      "diesel_discount": 292.2,
+      "geo": {
+        "lat": 65.39242,
+        "lon": -20.938596
+      },
+      "key": "or_020",
+      "name": "Hvammstangi"
+    },
+    {
+      "bensin95": 268.4,
+      "bensin95_discount": 256.4,
+      "company": "Orkan",
+      "diesel": 304.2,
+      "diesel_discount": 292.2,
+      "geo": {
+        "lat": 64.69921,
+        "lon": -20.868397
+      },
+      "key": "or_032",
+      "name": "Húsafell"
+    },
+    {
+      "bensin95": 268.4,
+      "bensin95_discount": 256.4,
+      "company": "Orkan",
+      "diesel": 304.2,
+      "diesel_discount": 292.2,
+      "geo": {
+        "lat": 63.417474,
+        "lon": -18.993665
+      },
+      "key": "or_045",
+      "name": "Vík í Mýrdal"
+    },
+    {
+      "bensin95": 268.4,
+      "bensin95_discount": 256.4,
+      "company": "Orkan",
+      "diesel": 304.2,
+      "diesel_discount": 292.2,
+      "geo": {
+        "lat": 64.149452,
+        "lon": -21.984109
+      },
+      "key": "or_057",
+      "name": "Eiðistorg"
+    }
+  ]
+}

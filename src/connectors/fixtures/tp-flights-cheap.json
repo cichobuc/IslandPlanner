@@ -1,0 +1,25 @@
+{
+  "_synthetic": true,
+  "success": true,
+  "currency": "eur",
+  "data": {
+    "KEF": {
+      "0": {
+        "price": 189,
+        "airline": "W6",
+        "flight_number": 1234,
+        "departure_at": "2027-09-12T06:40:00Z",
+        "return_at": "2027-09-21T15:20:00Z",
+        "expires_at": "2026-09-27T10:00:00Z"
+      },
+      "1": {
+        "price": 151,
+        "airline": "FR",
+        "flight_number": 8765,
+        "departure_at": "2027-09-12T05:55:00Z",
+        "return_at": "2027-09-21T18:10:00Z",
+        "expires_at": "2026-09-27T10:00:00Z"
+      }
+    }
+  }
+}
