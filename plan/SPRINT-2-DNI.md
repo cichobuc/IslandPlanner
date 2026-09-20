@@ -8,7 +8,7 @@ Predpoklad: pracujeme spolu celý deň (Claude Code píše, ty schvaľuješ, kli
 Každý blok má „hotové = " – ak nie je splnené, ďalší blok sa nezačína.
 
 ## Pred štartom (ty, ~ 45 min, ešte pred dňom 1)
-- [ ] GitHub účet → prázdny repo `island-planner`
+- [x] GitHub repo https://github.com/cichobuc/IslandPlanner – návrh commitnutý (20. 9. 2026)
 - [ ] Vercel (login GitHub) · Supabase Free projekt (login GitHub) – pošli mi `SUPABASE_URL`, `ANON_KEY`, `SERVICE_ROLE_KEY`, DB heslo
 - [ ] Travelpayouts účet → token (Flight Data API v1) · OpenRouteService kľúč · Resend účet (na e-maily s dočasným heslom)
 - [ ] Viator affiliate (môže počkať do v1.1)

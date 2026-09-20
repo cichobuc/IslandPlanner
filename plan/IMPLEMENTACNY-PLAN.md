@@ -34,7 +34,7 @@ Letenky na september 2027 sa kupujú ~ máj–jún 2027 → app musí vedieť le
 ## Fáza 0 · Základ (M0)
 
 ### 0.0 Účty (predpoklad – zatiaľ nie sú)
-- [ ] GitHub účet (zadarmo) – jediný účet, cez ktorý sa prihlási Vercel aj Supabase
+- [x] GitHub účet + repo https://github.com/cichobuc/IslandPlanner (20. 9. 2026)
 - [ ] Vercel Hobby (login cez GitHub), Supabase Free (login cez GitHub), Resend (e-mail), Travelpayouts (affiliate token → Flight Data API v1), Viator affiliate (API key), OpenRouteService (API key)
 
 ### 0.1 Repo a nástroje

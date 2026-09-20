@@ -22,5 +22,8 @@
 
 - Audit celého návrhu (docs/09): 6 kritických opráv (route_matrix, pokrytie leteniek spike, gflights fallback, itinerár per vetva, concurrency, is_manual), 12 dôležitých, MVP do 02/2027 (~50 večerov), plný rozsah ~110.
 
+- Repo https://github.com/cichobuc/IslandPlanner založené, prvý commit = celý návrh (32 súborov).
+
 ## Ďalší krok
+- Účty: Supabase, Vercel, Travelpayouts, ORS, Resend → blok 1.1 šprintu.
 - Prejsť dokumentáciu, opraviť/potvrdiť seed ceny, začať Fázu 0.
