@@ -222,6 +222,7 @@ async function main() {
       bookAheadDays: (p.book_ahead_days as number | undefined) ?? null,
       cancelPolicySk: (p.cancel_policy_sk as string | undefined) ?? null,
       bring: (p.bring as string[]) ?? [],
+      openHours: (p.open_hours as never) ?? null,
       openHoursSeason: (p.open_hours_season as never) ?? null,
       bestLight: (p.best_light as never) ?? 'any',
       rainyDayOk: Boolean(p.rainy_day_ok),

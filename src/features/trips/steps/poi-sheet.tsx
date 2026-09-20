@@ -9,7 +9,7 @@ export const DRONE: Record<string, { tone: 'ok' | 'warn' | 'bad' | 'mut'; label:
   allowed: { tone: 'ok', label: 'dron ok' },
   permit: { tone: 'warn', label: 'dron povolenie' },
   restricted: { tone: 'warn', label: 'dron obmedzený' },
-  forbidden: { tone: 'bad', label: 'dron zákaz' },
+  banned: { tone: 'bad', label: 'dron zákaz' },
   unknown: { tone: 'mut', label: 'dron ?' },
 };
 export const stars = (n: number | null) =>

@@ -189,6 +189,9 @@ describe('pomocné', () => {
   it('regionsBetween v smere okruhu', () => {
     expect(regionsBetween('golden_circle', 'southeast')).toEqual(['golden_circle', 'south', 'southeast']);
     expect(regionsBetween(null, 'south')).toEqual(['south']);
+    // spiatočná cesta zo severu ide cez západ (cyklicky), nie späť cez východ
+    expect(regionsBetween('north_west', 'reykjavik')).toEqual(['north_west', 'snaefellsnes', 'reykjanes', 'reykjavik']);
+    expect(regionsBetween('south', 'south')).toEqual(['south']);
   });
   it('skóre: klenot dostane bonus, záujem zdvojnásobí váhu', () => {
     const b = scorePoi(poi('a', 'south', 0, 0), []);

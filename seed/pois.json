@@ -57,7 +57,10 @@
     "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "drone_status": "banned",
     "drone_note_sk": "Zákaz lietania v areáli kúpeľov; blízko CTR Keflavík.",
-    "interest_weight": { "thermal": 1.0, "photo": 0.5 },
+    "interest_weight": {
+      "thermal": 1.0,
+      "photo": 0.5
+    },
     "website_url": "https://www.bluelagoon.com",
     "verified_at": "2026-09-20"
   },
@@ -108,7 +111,10 @@
     "best_light": "evening",
     "drone_status": "banned",
     "drone_note_sk": "Mestská zóna Reykjavík + areál kúpeľov.",
-    "interest_weight": { "thermal": 0.9, "photo": 0.6 },
+    "interest_weight": {
+      "thermal": 0.9,
+      "photo": 0.6
+    },
     "website_url": "https://www.skylagoon.com",
     "verified_at": "2026-09-20"
   },
@@ -128,7 +134,13 @@
     "difficulty": "easy",
     "entry_note_sk": "Kombinovaný lístok ~ 5 490 ISK, 6–15 rokov ~ 2 990, do 5 zdarma.",
     "price_rules": [
-      { "label": "Dospelý 16+", "min_age": 16, "price": 5490, "currency": "ISK", "per": "person" },
+      {
+        "label": "Dospelý 16+",
+        "min_age": 16,
+        "price": 5490,
+        "currency": "ISK",
+        "per": "person"
+      },
       {
         "label": "Dieťa 6–15",
         "min_age": 6,
@@ -137,14 +149,24 @@
         "currency": "ISK",
         "per": "person"
       },
-      { "label": "Do 5 rokov", "max_age": 5, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Do 5 rokov",
+        "max_age": 5,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "facilities": ["toilets", "cafe", "shop"],
     "popularity": 3,
     "rainy_day_ok": true,
     "drone_status": "banned",
     "drone_note_sk": "Mesto Reykjavík – zákaz bez povolenia.",
-    "interest_weight": { "glacier": 0.5, "culture": 0.7, "aurora": 0.3 },
+    "interest_weight": {
+      "glacier": 0.5,
+      "culture": 0.7,
+      "aurora": 0.3
+    },
     "website_url": "https://perlan.is",
     "verified_at": "2026-09-20"
   },
@@ -164,7 +186,13 @@
     "difficulty": "easy",
     "entry_note_sk": "Veža ~ 1 400 ISK, deti 7–16 ~ 200 ISK; kostol zadarmo.",
     "price_rules": [
-      { "label": "Dospelý 17+", "min_age": 17, "price": 1400, "currency": "ISK", "per": "person" },
+      {
+        "label": "Dospelý 17+",
+        "min_age": 17,
+        "price": 1400,
+        "currency": "ISK",
+        "per": "person"
+      },
       {
         "label": "Dieťa 7–16",
         "min_age": 7,
@@ -173,14 +201,23 @@
         "currency": "ISK",
         "per": "person"
       },
-      { "label": "Do 6 rokov", "max_age": 6, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Do 6 rokov",
+        "max_age": 6,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "facilities": ["toilets"],
     "popularity": 4,
     "rainy_day_ok": true,
     "drone_status": "banned",
     "drone_note_sk": "Mesto Reykjavík.",
-    "interest_weight": { "culture": 0.8, "photo": 0.7 },
+    "interest_weight": {
+      "culture": 0.8,
+      "photo": 0.7
+    },
     "website_url": "https://www.hallgrimskirkja.is",
     "verified_at": "2026-09-20"
   },
@@ -200,7 +237,13 @@
     "difficulty": "easy",
     "entry_note_sk": "~ 13 900 ISK, deti 7–15 ~ 6 950, do 6 zdarma. Rezervácia online, storno 24 h.",
     "price_rules": [
-      { "label": "Dospelý 16+", "min_age": 16, "price": 13900, "currency": "ISK", "per": "person" },
+      {
+        "label": "Dospelý 16+",
+        "min_age": 16,
+        "price": 13900,
+        "currency": "ISK",
+        "per": "person"
+      },
       {
         "label": "Dieťa 7–15",
         "min_age": 7,
@@ -209,7 +252,13 @@
         "currency": "ISK",
         "per": "person"
       },
-      { "label": "Do 6 rokov", "max_age": 6, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Do 6 rokov",
+        "max_age": 6,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "booking_required": true,
     "booking_url": "https://www.elding.is",
@@ -222,7 +271,10 @@
     "best_months": [4, 5, 6, 7, 8, 9, 10],
     "season_note_sk": "Celoročne; najlepšie máj–september.",
     "drone_status": "banned",
-    "interest_weight": { "whale": 1.0, "photo": 0.6 },
+    "interest_weight": {
+      "whale": 1.0,
+      "photo": 0.6
+    },
     "website_url": "https://www.elding.is",
     "verified_at": "2026-09-20"
   },
@@ -241,7 +293,10 @@
     "visit_min_max": 120,
     "walk_km": 3,
     "difficulty": "easy",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Vstup zadarmo, parkovné 1 000 ISK/auto/deň (automat alebo Parka).",
     "price_rules": [],
     "facilities": ["toilets", "cafe", "shop"],
@@ -249,7 +304,11 @@
     "rainy_day_ok": false,
     "drone_status": "banned",
     "drone_note_sk": "Národný park – zákaz bez povolenia správy parku.",
-    "interest_weight": { "nature": 1.0, "hike": 0.6, "culture": 0.8 },
+    "interest_weight": {
+      "nature": 1.0,
+      "hike": 0.6,
+      "culture": 0.8
+    },
     "website_url": "https://www.thingvellir.is",
     "verified_at": "2026-09-20"
   },
@@ -275,7 +334,11 @@
     "rainy_day_ok": true,
     "drone_status": "restricted",
     "drone_note_sk": "Davy ľudí – bezpečnostný odstup; lietať len mimo hlavných hodín.",
-    "interest_weight": { "nature": 0.9, "lava": 0.5, "photo": 0.7 },
+    "interest_weight": {
+      "nature": 0.9,
+      "lava": 0.5,
+      "photo": 0.7
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -300,7 +363,10 @@
     "rainy_day_ok": true,
     "drone_status": "banned",
     "drone_note_sk": "Chránené územie – zákaz lietania.",
-    "interest_weight": { "nature": 1.0, "photo": 0.8 },
+    "interest_weight": {
+      "nature": 1.0,
+      "photo": 0.8
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -320,15 +386,31 @@
     "difficulty": "easy",
     "entry_note_sk": "Vstup 600 ISK/os., deti do 12 zdarma; súkromný pozemok.",
     "price_rules": [
-      { "label": "Dospelý 13+", "min_age": 13, "price": 600, "currency": "ISK", "per": "person" },
-      { "label": "Dieťa do 12", "max_age": 12, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Dospelý 13+",
+        "min_age": 13,
+        "price": 600,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "Dieťa do 12",
+        "max_age": 12,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "facilities": ["toilets"],
     "popularity": 3,
     "rainy_day_ok": false,
     "drone_status": "restricted",
     "drone_note_sk": "Súkromný pozemok – opýtať sa pri vstupe.",
-    "interest_weight": { "nature": 0.6, "lava": 0.8, "photo": 0.7 },
+    "interest_weight": {
+      "nature": 0.6,
+      "lava": 0.8,
+      "photo": 0.7
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -347,9 +429,28 @@
     "difficulty": "easy",
     "entry_note_sk": "~ 4 200 ISK, 14–17 ~ 2 000, do 13 zdarma. Rezervácia odporúčaná.",
     "price_rules": [
-      { "label": "Dospelý 18+", "min_age": 18, "price": 4200, "currency": "ISK", "per": "person" },
-      { "label": "14–17", "min_age": 14, "max_age": 17, "price": 2000, "currency": "ISK", "per": "person" },
-      { "label": "Do 13 rokov", "max_age": 13, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Dospelý 18+",
+        "min_age": 18,
+        "price": 4200,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "14–17",
+        "min_age": 14,
+        "max_age": 17,
+        "price": 2000,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "Do 13 rokov",
+        "max_age": 13,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "booking_required": false,
     "booking_url": "https://secretlagoon.is",
@@ -359,7 +460,9 @@
     "popularity": 3,
     "rainy_day_ok": true,
     "drone_status": "restricted",
-    "interest_weight": { "thermal": 0.9 },
+    "interest_weight": {
+      "thermal": 0.9
+    },
     "website_url": "https://secretlagoon.is",
     "verified_at": "2026-09-20"
   },
@@ -387,9 +490,28 @@
         "currency": "ISK",
         "per": "person"
       },
-      { "label": "Senior 67+", "min_age": 67, "price": 5000, "currency": "ISK", "per": "person" },
-      { "label": "13–16", "min_age": 13, "max_age": 16, "price": 3500, "currency": "ISK", "per": "person" },
-      { "label": "Do 12 rokov", "max_age": 12, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Senior 67+",
+        "min_age": 67,
+        "price": 5000,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "13–16",
+        "min_age": 13,
+        "max_age": 16,
+        "price": 3500,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "Do 12 rokov",
+        "max_age": 12,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "facilities": ["toilets", "cafe"],
     "bring": ["swimwear", "towel"],
@@ -397,7 +519,10 @@
     "hidden_gem": true,
     "rainy_day_ok": true,
     "drone_status": "restricted",
-    "interest_weight": { "thermal": 0.8, "culture": 0.3 },
+    "interest_weight": {
+      "thermal": 0.8,
+      "culture": 0.3
+    },
     "website_url": "https://www.fontana.is",
     "verified_at": "2026-09-20"
   },
@@ -416,7 +541,10 @@
     "visit_min_max": 240,
     "walk_km": 7,
     "difficulty": "moderate",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK (Parka).",
     "price_rules": [],
     "facilities": ["toilets", "cafe"],
@@ -427,7 +555,11 @@
     "best_light": "morning",
     "drone_status": "restricted",
     "drone_note_sk": "Ľudia v rieke – súkromie; lietať mimo kúpacej zóny.",
-    "interest_weight": { "thermal": 0.8, "hike": 1.0, "nature": 0.8 },
+    "interest_weight": {
+      "thermal": 0.8,
+      "hike": 1.0,
+      "nature": 0.8
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -445,7 +577,10 @@
     "visit_min_max": 90,
     "walk_km": 2,
     "difficulty": "easy",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto (automat/Parka).",
     "price_rules": [],
     "facilities": ["toilets", "cafe"],
@@ -455,7 +590,10 @@
     "best_light": "evening",
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo davov, nie nad ľuďmi; vodná triešť.",
-    "interest_weight": { "nature": 1.0, "photo": 0.9 },
+    "interest_weight": {
+      "nature": 1.0,
+      "photo": 0.9
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -473,7 +611,10 @@
     "visit_min_max": 120,
     "walk_km": 1.2,
     "difficulty": "easy",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Vstup zadarmo, parkovné 1 000 ISK/auto cez automat alebo app Parka.",
     "price_rules": [],
     "facilities": ["toilets", "cafe", "campsite"],
@@ -482,7 +623,11 @@
     "best_light": "morning",
     "drone_status": "restricted",
     "drone_note_sk": "Povolené s odstupom od ľudí; kemp pod vodopádom.",
-    "interest_weight": { "nature": 1.0, "hike": 0.6, "photo": 0.9 },
+    "interest_weight": {
+      "nature": 1.0,
+      "hike": 0.6,
+      "photo": 0.9
+    },
     "website_url": "https://www.south.is/",
     "verified_at": "2026-09-20"
   },
@@ -510,16 +655,37 @@
         "currency": "ISK",
         "per": "person"
       },
-      { "label": "Senior 67+", "min_age": 67, "price": 2500, "currency": "ISK", "per": "person" },
-      { "label": "12–17", "min_age": 12, "max_age": 17, "price": 1500, "currency": "ISK", "per": "person" },
-      { "label": "Do 11 rokov", "max_age": 11, "price": 0, "currency": "ISK", "per": "person" }
+      {
+        "label": "Senior 67+",
+        "min_age": 67,
+        "price": 2500,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "12–17",
+        "min_age": 12,
+        "max_age": 17,
+        "price": 1500,
+        "currency": "ISK",
+        "per": "person"
+      },
+      {
+        "label": "Do 11 rokov",
+        "max_age": 11,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "facilities": ["toilets", "cafe", "shop"],
     "popularity": 2,
     "hidden_gem": true,
     "rainy_day_ok": true,
     "drone_status": "unknown",
-    "interest_weight": { "culture": 1.0 },
+    "interest_weight": {
+      "culture": 1.0
+    },
     "website_url": "https://www.skogasafn.is",
     "verified_at": "2026-09-20"
   },
@@ -538,10 +704,19 @@
     "visit_min_max": 210,
     "walk_km": 4,
     "difficulty": "moderate",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "~ 14 990 ISK/os. (Arctic Adventures / Troll Expeditions), od 8 rokov; parkovné 1 000 ISK.",
     "price_rules": [
-      { "label": "Dospelý 8+", "min_age": 8, "price": 14990, "currency": "ISK", "per": "person" }
+      {
+        "label": "Dospelý 8+",
+        "min_age": 8,
+        "price": 14990,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "booking_required": true,
     "booking_url": "https://adventures.is",
@@ -554,7 +729,11 @@
     "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "drone_status": "restricted",
     "drone_note_sk": "Nie nad skupinami; ľadovec = chránená krajina, drž odstup.",
-    "interest_weight": { "glacier": 1.0, "hike": 0.7, "photo": 0.6 },
+    "interest_weight": {
+      "glacier": 1.0,
+      "hike": 0.7,
+      "photo": 0.6
+    },
     "website_url": "https://adventures.is",
     "verified_at": "2026-09-20"
   },
@@ -582,7 +761,11 @@
     "rainy_day_ok": false,
     "drone_status": "allowed",
     "drone_note_sk": "Mimo ochranných zón; súkromie kúpajúcich sa.",
-    "interest_weight": { "thermal": 0.7, "hike": 0.5, "photo": 0.6 },
+    "interest_weight": {
+      "thermal": 0.7,
+      "hike": 0.5,
+      "photo": 0.6
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -609,7 +792,11 @@
     "season_note_sk": "Puffiny máj–august; v septembri už odleteli.",
     "drone_status": "banned",
     "drone_note_sk": "Prírodná rezervácia a vtáčia kolónia – zákaz.",
-    "interest_weight": { "nature": 0.8, "puffin": 0.9, "photo": 0.9 },
+    "interest_weight": {
+      "nature": 0.8,
+      "puffin": 0.9,
+      "photo": 0.9
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -627,7 +814,10 @@
     "visit_min_max": 60,
     "walk_km": 1,
     "difficulty": "easy",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto.",
     "price_rules": [],
     "facilities": ["toilets", "restaurant"],
@@ -636,7 +826,11 @@
     "best_light": "morning",
     "drone_status": "restricted",
     "drone_note_sk": "Povolené mimo davov; vtáky na Reynisfjalle v sezóne.",
-    "interest_weight": { "nature": 1.0, "lava": 0.6, "photo": 1.0 },
+    "interest_weight": {
+      "nature": 1.0,
+      "lava": 0.6,
+      "photo": 1.0
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -656,7 +850,13 @@
     "difficulty": "moderate",
     "entry_note_sk": "~ 24 990 ISK/os., od 6 rokov. Odchod z Víku.",
     "price_rules": [
-      { "label": "Dospelý 6+", "min_age": 6, "price": 24990, "currency": "ISK", "per": "person" }
+      {
+        "label": "Dospelý 6+",
+        "min_age": 6,
+        "price": 24990,
+        "currency": "ISK",
+        "per": "person"
+      }
     ],
     "booking_required": true,
     "booking_url": "https://www.katlatrack.is",
@@ -669,7 +869,11 @@
     "season_note_sk": "Celoročne; modré ľadové jaskyne (Vatnajökull) len november–marec.",
     "drone_status": "banned",
     "drone_note_sk": "Katla geopark – zákaz bez povolenia; poskytovateľ zakazuje.",
-    "interest_weight": { "glacier": 1.0, "lava": 0.5, "photo": 0.7 },
+    "interest_weight": {
+      "glacier": 1.0,
+      "lava": 0.5,
+      "photo": 0.7
+    },
     "website_url": "https://www.katlatrack.is",
     "verified_at": "2026-09-20"
   },
@@ -689,7 +893,13 @@
     "difficulty": "easy",
     "entry_note_sk": "~ 6 900 ISK, deti 3–12 ~ 3 500.",
     "price_rules": [
-      { "label": "Dospelý 13+", "min_age": 13, "price": 6900, "currency": "ISK", "per": "person" },
+      {
+        "label": "Dospelý 13+",
+        "min_age": 13,
+        "price": 6900,
+        "currency": "ISK",
+        "per": "person"
+      },
       {
         "label": "Dieťa 3–12",
         "min_age": 3,
@@ -706,7 +916,10 @@
     "popularity": 3,
     "rainy_day_ok": true,
     "drone_status": "unknown",
-    "interest_weight": { "lava": 1.0, "culture": 0.6 },
+    "interest_weight": {
+      "lava": 1.0,
+      "culture": 0.6
+    },
     "website_url": "https://www.icelandiclavashow.com",
     "verified_at": "2026-09-20"
   },
@@ -725,7 +938,10 @@
     "visit_min_max": 75,
     "walk_km": 2.5,
     "difficulty": "easy",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto.",
     "price_rules": [],
     "facilities": ["toilets"],
@@ -733,7 +949,11 @@
     "rainy_day_ok": false,
     "drone_status": "banned",
     "drone_note_sk": "Chránená prírodná pamiatka – zákaz.",
-    "interest_weight": { "nature": 0.9, "hike": 0.5, "photo": 0.9 },
+    "interest_weight": {
+      "nature": 0.9,
+      "hike": 0.5,
+      "photo": 0.9
+    },
     "verified_at": "2026-09-20"
   },
   {
@@ -751,7 +971,10 @@
     "visit_min_max": 180,
     "walk_km": 5.5,
     "difficulty": "moderate",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto/deň.",
     "price_rules": [],
     "facilities": ["toilets", "cafe", "campsite", "shop"],
@@ -760,7 +983,12 @@
     "rainy_day_ok": false,
     "drone_status": "banned",
     "drone_note_sk": "Národný park Vatnajökull – zákaz bez povolenia Umhverfisstofnun.",
-    "interest_weight": { "nature": 1.0, "hike": 0.9, "glacier": 0.6, "photo": 0.8 },
+    "interest_weight": {
+      "nature": 1.0,
+      "hike": 0.9,
+      "glacier": 0.6,
+      "photo": 0.8
+    },
     "website_url": "https://www.vatnajokulsthjodgardur.is",
     "verified_at": "2026-09-20"
   },
@@ -779,7 +1007,10 @@
     "visit_min_max": 150,
     "walk_km": 2,
     "difficulty": "easy",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK/auto (platí pre lagúnu aj pláž). Amfíbia ~ 6 900 ISK (6+), zodiac ~ 14 500 ISK (10+).",
     "price_rules": [
       {
@@ -822,7 +1053,11 @@
     "season_note_sk": "Plavby amfíbiou do konca septembra; zodiac do polovice októbra.",
     "drone_status": "banned",
     "drone_note_sk": "Národný park Vatnajökull – zákaz bez povolenia.",
-    "interest_weight": { "glacier": 1.0, "nature": 0.9, "photo": 1.0 },
+    "interest_weight": {
+      "glacier": 1.0,
+      "nature": 0.9,
+      "photo": 1.0
+    },
     "website_url": "https://icelagoon.is",
     "verified_at": "2026-09-20"
   },
@@ -841,7 +1076,10 @@
     "visit_min_max": 240,
     "walk_km": 8,
     "difficulty": "moderate",
-    "parking_fee": { "amount": 1000, "currency": "ISK" },
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
     "entry_note_sk": "Zadarmo, parkovné 1 000 ISK (Parka).",
     "price_rules": [],
     "facilities": ["toilets"],
@@ -850,8 +1088,1352 @@
     "rainy_day_ok": false,
     "drone_status": "restricted",
     "drone_note_sk": "Pri aktívnej erupcii zákaz (NOTAM); inak povolené s odstupom od ľudí.",
-    "interest_weight": { "lava": 1.0, "hike": 0.8, "photo": 0.8 },
+    "interest_weight": {
+      "lava": 1.0,
+      "hike": 0.8,
+      "photo": 0.8
+    },
     "website_url": "https://www.visitreykjanes.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "fjallsarlon",
+    "kind": "attraction",
+    "category_tags": ["glacier", "lagoon", "nature"],
+    "region": "southeast",
+    "name": "Fjallsárlón",
+    "lat": 64.0134,
+    "lng": -16.372,
+    "description_sk": "Menšia a tichšia sestra Jökulsárlónu 10 km západne – ľadovcová lagúna priamo pod splazom Fjallsjökull, kry sa telia na dosah. Bez davov, s výhľadom na celý ľadovec.",
+    "tips_sk": "Choď najprv sem (ráno prázdno), potom na Jökulsárlón. Člnkové jazdy medzi krami od ~ 9 000 ISK, treba rezervovať.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 90,
+    "walk_km": 1.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Vstup aj parkovanie zadarmo; kaviareň.",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 4,
+    "hidden_gem": true,
+    "rainy_day_ok": true,
+    "best_light": "morning",
+    "drone_status": "restricted",
+    "drone_note_sk": "Vatnajökull NP – povolené len mimo návštevníckych zón, nie nad ľuďmi; pri lagúne často zákaz kvôli vtákom.",
+    "interest_weight": {
+      "glacier": 1.0,
+      "nature": 0.8,
+      "photo": 0.9
+    },
+    "website_url": "https://fjallsarlon.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "stokksnes-vestrahorn",
+    "kind": "viewpoint",
+    "category_tags": ["mountain", "beach", "photo"],
+    "region": "southeast",
+    "name": "Stokksnes – Vestrahorn",
+    "lat": 64.243,
+    "lng": -14.976,
+    "description_sk": "Ikonická hora Vestrahorn nad čiernou dunovou plážou s trávou a odrazmi v mokrom piesku. Súkromný pozemok pri Viking Café, kde sa platí vstup; vrátane kulisy vikingskej dediny z filmu.",
+    "tips_sk": "Najlepšie za odlivu a pri nízkom slnku; vietor tu býva extrémny – drž dvere auta. 10 min od Höfnu, ideálne na večer po príchode.",
+    "visit_min": 75,
+    "visit_min_min": 45,
+    "visit_min_max": 120,
+    "walk_km": 2.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Vstup 1 000 ISK/os. (Viking Café), deti zdarma; orientačne 2026.",
+    "price_rules": [
+      {
+        "label": "Dospelý",
+        "min_age": 16,
+        "price": 1000,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 15",
+        "max_age": 15,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "facilities": ["cafe", "toilets"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "evening",
+    "drone_status": "allowed",
+    "drone_note_sk": "Mimo NP; pýtaj sa v kaviarni, vietor.",
+    "interest_weight": {
+      "photo": 1.0,
+      "nature": 0.8
+    },
+    "website_url": "https://www.vikingcafe.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hoffell-hot-tubs",
+    "kind": "thermal",
+    "category_tags": ["thermal", "hot_tub"],
+    "region": "southeast",
+    "name": "Hoffell – horúce kade",
+    "lat": 64.402,
+    "lng": -15.339,
+    "description_sk": "Päť jednoduchých kamenných kadí s geotermálnou vodou pod ľadovcom Hoffellsjökull, 20 min od Höfnu. Žiadny luxus, zato výhľad, ticho a cena zlomok Blue Lagoon.",
+    "tips_sk": "Plaťte v schránke/na farme (hotovosť alebo karta v recepcii). Večer po zotmení šanca na polárnu žiaru. Šatne minimálne – prezleč sa v aute.",
+    "visit_min": 60,
+    "visit_min_min": 45,
+    "visit_min_max": 90,
+    "walk_km": 0.2,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "~ 1 500 ISK/os., deti zdarma; platba na mieste (orientačne).",
+    "price_rules": [
+      {
+        "label": "Dospelý",
+        "min_age": 13,
+        "price": 1500,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 12",
+        "max_age": 12,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "facilities": ["toilets"],
+    "popularity": 3,
+    "hidden_gem": true,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "allowed",
+    "drone_note_sk": "Súkromná farma – opýtaj sa; nie nad kaďami.",
+    "interest_weight": {
+      "thermal": 1.0,
+      "aurora": 0.5,
+      "glacier": 0.4
+    },
+    "bring": ["swimwear", "towel"],
+    "website_url": "https://www.visitvatnajokull.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hofn-langoustine",
+    "kind": "attraction",
+    "category_tags": ["food", "town"],
+    "region": "southeast",
+    "name": "Höfn – prístav a langusty",
+    "lat": 64.2539,
+    "lng": -15.2082,
+    "description_sk": "Hlavné mestečko juhovýchodu s výhľadom na Vatnajökull z prístavu. Známe humrovými polievkami a langustami (Pakkhús, Otto). Jediný väčší obchod (Nettó) medzi Vík a Egilsstaðir – dobré miesto na doplnenie zásob.",
+    "tips_sk": "Humrová polievka ~ 3 500 ISK je lacnejší spôsob, ako ochutnať langusty. Bazén Höfn (1 200 ISK) má horúce kade s výhľadom na ľadovec.",
+    "visit_min": 60,
+    "visit_min_min": 30,
+    "visit_min_max": 120,
+    "walk_km": 1.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo; jedlo podľa výberu (nie je v rozpočte atrakcií).",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "popularity": 3,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "restricted",
+    "drone_note_sk": "Letisko Hornafjörður – bez povolenia nelietať v meste.",
+    "interest_weight": {
+      "culture": 0.5,
+      "photo": 0.4
+    },
+    "website_url": "https://www.visitvatnajokull.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "studlagil-canyon",
+    "kind": "attraction",
+    "category_tags": ["canyon", "basalt", "hike", "photo"],
+    "region": "eastfjords",
+    "name": "Stuðlagil kaňon",
+    "lat": 65.165,
+    "lng": -15.308,
+    "description_sk": "Kaňon s najhustejším stĺpovým čadičom na Islande a tyrkysovou riekou Jökla – odhalený až po roku 2009, keď priehrada Kárahnjúkar znížila prietok. Východný breh (cez Klaustursel) vedie až dolu k vode, západná plošina má vyhliadku po pár schodoch.",
+    "tips_sk": "Východný breh = 5 km pešo tam a späť po štrku, ale najlepšie fotky. Voda je tyrkysová hlavne do začiatku septembra, po dažďoch šedá. Odbočka z Ring Road ~ 20 km štrku (2WD ok).",
+    "visit_min": 120,
+    "visit_min_min": 60,
+    "visit_min_max": 180,
+    "walk_km": 5.0,
+    "difficulty": "moderate",
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
+    "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (Parka) na východnom brehu; orientačne.",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 4,
+    "hidden_gem": true,
+    "rainy_day_ok": false,
+    "best_light": "morning",
+    "drone_status": "allowed",
+    "drone_note_sk": "Súkromné pozemky fariem – rešpektuj značky; obľúbené dronové miesto.",
+    "interest_weight": {
+      "nature": 1.0,
+      "hike": 0.7,
+      "photo": 1.0,
+      "lava": 0.5
+    },
+    "website_url": "https://www.east.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hengifoss",
+    "kind": "attraction",
+    "category_tags": ["waterfall", "hike"],
+    "region": "eastfjords",
+    "name": "Hengifoss + Litlanesfoss",
+    "lat": 65.079,
+    "lng": -14.883,
+    "description_sk": "Tretí najvyšší vodopád Islandu (128 m) padajúci cez červené pásy ílu medzi čadičom; cestou míňaš Litlanesfoss so stĺpovým čadičom. Túra 2,5 km do kopca nad jazerom Lagarfljót.",
+    "tips_sk": "Ráta sa 1,5–2 h tam a späť; pevná obuv, na konci pri vysokej vode sa nedá prejsť rieku. Kombinuj so Skriðuklaustur a Vök Baths.",
+    "visit_min": 120,
+    "visit_min_min": 90,
+    "visit_min_max": 150,
+    "walk_km": 5.0,
+    "difficulty": "moderate",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo; parkovisko s WC.",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 3,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "any",
+    "drone_status": "allowed",
+    "drone_note_sk": "Povolené, nie nad ľuďmi na chodníku.",
+    "interest_weight": {
+      "nature": 0.9,
+      "hike": 1.0,
+      "photo": 0.7
+    },
+    "website_url": "https://www.east.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "vok-baths",
+    "kind": "thermal",
+    "category_tags": ["thermal", "spa"],
+    "region": "eastfjords",
+    "name": "Vök Baths",
+    "lat": 65.314,
+    "lng": -14.438,
+    "description_sk": "Plávajúce geotermálne bazény priamo v jazere Urriðavatn pri Egilsstaðir – jediné na Islande, kde je horúca voda certifikovaná ako pitná (čajový bar). Moderné, tiché, s výhľadom na jazero.",
+    "tips_sk": "Skoky do studeného jazera medzi bazénmi. Rezervuj online na večer; v septembri občas šanca na polárnu žiaru z bazéna.",
+    "visit_min": 120,
+    "visit_min_min": 90,
+    "visit_min_max": 180,
+    "walk_km": 0.2,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 7 490 ISK, 12–16 r. polovica, do 11 r. zdarma; dynamicky podľa času (orientačne 2026).",
+    "price_rules": [
+      {
+        "label": "Dospelý 17+",
+        "min_age": 17,
+        "price": 7490,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Mládež 12–16",
+        "min_age": 12,
+        "max_age": 16,
+        "price": 3745,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 11",
+        "max_age": 11,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "booking_required": true,
+    "booking_url": "https://vokbaths.is",
+    "book_ahead_days": 3,
+    "facilities": ["toilets", "cafe", "showers"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "banned",
+    "drone_note_sk": "Zákaz nad kúpeľmi.",
+    "interest_weight": {
+      "thermal": 1.0,
+      "aurora": 0.4
+    },
+    "bring": ["swimwear"],
+    "website_url": "https://vokbaths.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "seydisfjordur",
+    "kind": "attraction",
+    "category_tags": ["town", "culture", "photo"],
+    "region": "eastfjords",
+    "name": "Seyðisfjörður",
+    "lat": 65.261,
+    "lng": -14.01,
+    "description_sk": "Najkrajšie mestečko východu: farebné nórske drevenice, dúhová ulica pred modrým kostolom, umelecká komunita a fjord medzi 1 000 m stenami. Cesta cez priesmyk Fjarðarheiði (620 m) je sama zážitok – a v septembri môže byť ráno námraza.",
+    "tips_sk": "Z Egilsstaðir 27 km, počítaj 35 min. Vo štvrtok chodí trajekt z Dánska – mesto plné. Kaviareň Skaftfell, pekáreň Norð Austur (sushi večer).",
+    "visit_min": 90,
+    "visit_min_min": 60,
+    "visit_min_max": 150,
+    "walk_km": 2.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "restricted",
+    "drone_note_sk": "Nad mestom a ľuďmi nie; fjord ok.",
+    "interest_weight": {
+      "culture": 1.0,
+      "photo": 0.9
+    },
+    "website_url": "https://www.visitseydisfjordur.com",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "petra-stone-collection",
+    "kind": "museum",
+    "category_tags": ["museum", "culture"],
+    "region": "eastfjords",
+    "name": "Petrina zbierka kameňov (Stöðvarfjörður)",
+    "lat": 64.833,
+    "lng": -13.872,
+    "description_sk": "Dom a záhrada Petry Sveinsdóttir, ktorá 80 rokov zbierala minerály po východných fjordoch – tisíce achátov, jaspisov a zeolitov naukladaných všade, kam sa pozrieš. Najzvláštnejšie múzeum Islandu.",
+    "tips_sk": "Ideálna zastávka na daždivý deň po fjordoch; 30–45 min stačí. Kaviareň s waflami.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 60,
+    "walk_km": 0.3,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 2 000 ISK, deti do 14 zdarma (orientačne).",
+    "price_rules": [
+      {
+        "label": "Dospelý",
+        "min_age": 15,
+        "price": 2000,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 14",
+        "max_age": 14,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 3,
+    "hidden_gem": true,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "banned",
+    "drone_note_sk": "Súkromná záhrada v obci.",
+    "interest_weight": {
+      "culture": 1.0
+    },
+    "website_url": "https://www.steinapetra.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "djupivogur-eggs",
+    "kind": "viewpoint",
+    "category_tags": ["art", "town", "photo"],
+    "region": "eastfjords",
+    "name": "Djúpivogur – Eggin í Gleðivík",
+    "lat": 64.656,
+    "lng": -14.29,
+    "description_sk": "34 žulových vajec na móle – každé podľa vajca iného vtáka, ktorý hniezdi vo fjorde (Sigurður Guðmundsson). Pokojné cittaslow mestečko, prvá zastávka po dlhom presune z Höfnu.",
+    "tips_sk": "15 min stačí; dobrá káva v Við Voginn. Pri odlive vidno tulene v zálive.",
+    "visit_min": 30,
+    "visit_min_min": 15,
+    "visit_min_max": 45,
+    "walk_km": 0.8,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 2,
+    "hidden_gem": true,
+    "rainy_day_ok": true,
+    "best_light": "morning",
+    "drone_status": "allowed",
+    "drone_note_sk": "Mimo prístavných operácií.",
+    "interest_weight": {
+      "culture": 0.7,
+      "photo": 0.6
+    },
+    "website_url": "https://www.djupivogur.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "dettifoss",
+    "kind": "attraction",
+    "category_tags": ["waterfall", "nature", "photo"],
+    "region": "north_myvatn",
+    "name": "Dettifoss + Selfoss",
+    "lat": 65.8148,
+    "lng": -16.384,
+    "description_sk": "Najmohutnejší vodopád Európy – 100 m široký, 44 m vysoký, sivá ľadovcová voda z Vatnajökullu s dunivým hrmotom (Prometheus). Západný breh (cesta 862, asfalt) má vyhliadky nad vodopádom; 1 km pešo proti prúdu je Selfoss.",
+    "tips_sk": "Z Ring Road 862 asfalt (2WD), 864 na východný breh je štrk a lepšie fotky – v septembri ok, ale pomalé. Vodná triešť namočí objektív; pršiplášť.",
+    "visit_min": 90,
+    "visit_min_min": 60,
+    "visit_min_max": 120,
+    "walk_km": 2.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo (Vatnajökull NP).",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 5,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "morning",
+    "drone_status": "permit",
+    "drone_note_sk": "Národný park Vatnajökull – bez povolenia zákaz.",
+    "interest_weight": {
+      "nature": 1.0,
+      "photo": 1.0
+    },
+    "website_url": "https://www.vatnajokulsthjodgardur.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "asbyrgi",
+    "kind": "attraction",
+    "category_tags": ["canyon", "hike", "nature"],
+    "region": "north_myvatn",
+    "name": "Ásbyrgi",
+    "lat": 66.01,
+    "lng": -16.509,
+    "description_sk": "Podkovovitý kaňon 3,5 km dlhý so 100 m stenami, podľa legendy odtlačok kopyta Ódinovho koňa – v skutočnosti ho vyryla katastrofická povodeň spod ľadovca. Na konci brezový les a jazierko Botnstjörn s kačicami.",
+    "tips_sk": "Odbočka na sever od Dettifossu (~ 35 km) – oplatí sa, ak máš deň navyše; s Dettifossom a Húsavíkom tvorí Diamantový okruh. Návštevnícke centrum Gljúfrastofa.",
+    "visit_min": 90,
+    "visit_min_min": 60,
+    "visit_min_max": 150,
+    "walk_km": 3.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo (Vatnajökull NP).",
+    "price_rules": [],
+    "facilities": ["toilets", "campsite"],
+    "popularity": 3,
+    "hidden_gem": true,
+    "rainy_day_ok": false,
+    "best_light": "any",
+    "drone_status": "permit",
+    "drone_note_sk": "NP – bez povolenia zákaz.",
+    "interest_weight": {
+      "nature": 0.9,
+      "hike": 0.8
+    },
+    "website_url": "https://www.vatnajokulsthjodgardur.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hverir-namaskard",
+    "kind": "attraction",
+    "category_tags": ["geothermal", "lava", "photo"],
+    "region": "north_myvatn",
+    "name": "Hverir (Námaskarð)",
+    "lat": 65.641,
+    "lng": -16.81,
+    "description_sk": "Marsovská plocha bublajúcich bahenných kotlov a syčiacich fumarol pod oranžovým svahom Námafjall, silný zápach síry. Najfotogenickejšie geotermálne pole Islandu, 5 min od Mývatnu.",
+    "tips_sk": "Drž sa chodníkov – pôda je tenká a 100 °C. Ráno bez ľudí a s parou v studenom vzduchu. Výstup na Námafjall (30 min) pre pohľad zhora.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 75,
+    "walk_km": 1.0,
+    "difficulty": "easy",
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
+    "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (Parka); orientačne 2026.",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 5,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "morning",
+    "drone_status": "restricted",
+    "drone_note_sk": "Povolené mimo ľudí; v sezóne často plno.",
+    "interest_weight": {
+      "lava": 1.0,
+      "photo": 1.0,
+      "nature": 0.7
+    },
+    "website_url": "https://www.visitmyvatn.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "myvatn-nature-baths",
+    "kind": "thermal",
+    "category_tags": ["thermal", "spa"],
+    "region": "north_myvatn",
+    "name": "Mývatn Nature Baths",
+    "lat": 65.631,
+    "lng": -16.848,
+    "description_sk": "„Blue Lagoon severu“ – mliečna modrá lagúna 36–40 °C s výhľadom na jazero a krátery, o polovicu lacnejšia a bez davov. Nová budova od 2024, parné kúpele nad prírodnou fumarolou.",
+    "tips_sk": "Choď večer (od 19:00 lacnejšie a šanca na polárnu žiaru). Voda obsahuje síru – strieborné šperky sčernejú.",
+    "visit_min": 120,
+    "visit_min_min": 90,
+    "visit_min_max": 180,
+    "walk_km": 0.2,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 7 900 ISK (po 19:00 lacnejšie), 13–15 r. polovica, deti zdarma; orientačne 2026.",
+    "price_rules": [
+      {
+        "label": "Dospelý 16+",
+        "min_age": 16,
+        "price": 7900,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Mládež 13–15",
+        "min_age": 13,
+        "max_age": 15,
+        "price": 3950,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 12",
+        "max_age": 12,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "booking_required": true,
+    "booking_url": "https://myvatnnaturebaths.is",
+    "book_ahead_days": 3,
+    "facilities": ["toilets", "cafe", "showers"],
+    "popularity": 5,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "banned",
+    "drone_note_sk": "Zákaz nad kúpeľmi.",
+    "interest_weight": {
+      "thermal": 1.0,
+      "aurora": 0.5
+    },
+    "bring": ["swimwear"],
+    "website_url": "https://myvatnnaturebaths.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "dimmuborgir",
+    "kind": "attraction",
+    "category_tags": ["lava", "hike", "culture"],
+    "region": "north_myvatn",
+    "name": "Dimmuborgir",
+    "lat": 65.591,
+    "lng": -16.912,
+    "description_sk": "„Temné hrady“ – labyrint lávových veží, oblúkov a jaskýň, ktorý vznikol, keď sa láva zrútila do jazera pred 2 300 rokmi. Domov islandských Yule Lads a kulisa Hry o tróny (tábor za Múrom).",
+    "tips_sk": "Okruh Kirkjuhringur (2,2 km, 45 min) vedie k „kostolu“ – lávovému oblúku. V septembri už bez pakomárov.",
+    "visit_min": 60,
+    "visit_min_min": 45,
+    "visit_min_max": 90,
+    "walk_km": 2.2,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo; kaviareň a WC pri vstupe.",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "any",
+    "drone_status": "restricted",
+    "drone_note_sk": "Chránené územie – len mimo ľudí a nízko nie.",
+    "interest_weight": {
+      "lava": 1.0,
+      "hike": 0.6,
+      "culture": 0.5
+    },
+    "website_url": "https://www.visitmyvatn.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hverfjall",
+    "kind": "attraction",
+    "category_tags": ["volcano", "hike", "viewpoint"],
+    "region": "north_myvatn",
+    "name": "Hverfjall (Hverfell)",
+    "lat": 65.605,
+    "lng": -16.872,
+    "description_sk": "Dokonalý tufový kráter 1 km v priemere a 140 m vysoký; výstup po strmej cestičke trvá 20 min a odmenou je pohľad na celý Mývatn, Krafla a lávové polia. Jeden z najväčších kráterov svojho typu na svete.",
+    "tips_sk": "Okruh po hrane 3 km, vietor na vrchole silný. Kombinuj s Dimmuborgir (5 min autom). Parkovisko na severnej strane.",
+    "visit_min": 75,
+    "visit_min_min": 60,
+    "visit_min_max": 120,
+    "walk_km": 4.0,
+    "difficulty": "moderate",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": [],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "evening",
+    "drone_status": "restricted",
+    "drone_note_sk": "Chránené územie; nie nad ľuďmi na hrane.",
+    "interest_weight": {
+      "hike": 1.0,
+      "lava": 0.8,
+      "photo": 0.8
+    },
+    "website_url": "https://www.visitmyvatn.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "grjotagja",
+    "kind": "attraction",
+    "category_tags": ["lava", "cave", "photo"],
+    "region": "north_myvatn",
+    "name": "Grjótagjá",
+    "lat": 65.626,
+    "lng": -16.883,
+    "description_sk": "Lávová puklina s krištáľovým jazierkom v jaskyni (Hra o tróny, Jon a Ygritte). Voda má 45 °C – kúpanie je zakázané, ale pohľad z okraja stojí za 15 minút.",
+    "tips_sk": "Vstup do jaskyne po kameňoch je klzký; baterka pomôže. Prejdi sa po hrane pukliny nad jaskyňou.",
+    "visit_min": 20,
+    "visit_min_min": 15,
+    "visit_min_max": 30,
+    "walk_km": 0.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo (súkromný pozemok, kúpanie zakázané).",
+    "price_rules": [],
+    "facilities": [],
+    "popularity": 3,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "restricted",
+    "drone_note_sk": "Súkromný pozemok – len so súhlasom.",
+    "interest_weight": {
+      "lava": 0.8,
+      "photo": 0.7,
+      "culture": 0.4
+    },
+    "website_url": "https://www.visitmyvatn.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "krafla-viti",
+    "kind": "attraction",
+    "category_tags": ["volcano", "lava", "geothermal"],
+    "region": "north_myvatn",
+    "name": "Krafla – kráter Víti a Leirhnjúkur",
+    "lat": 65.717,
+    "lng": -16.756,
+    "description_sk": "Sopečná oblasť s tyrkysovým kráterovým jazerom Víti („Peklo“) a lávovým poľom Leirhnjúkur, kde sa ešte parí z erupcií 1975–84. Cesta vedie okolo geotermálnej elektrárne Krafla pod potrubím.",
+    "tips_sk": "Okruh po hrane Víti 20 min; Leirhnjúkur 1,5 h po chodníkoch medzi teplou lávou. V septembri môže byť ráno sneh na ceste.",
+    "visit_min": 90,
+    "visit_min_min": 45,
+    "visit_min_max": 150,
+    "walk_km": 3.5,
+    "difficulty": "moderate",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "any",
+    "drone_status": "restricted",
+    "drone_note_sk": "Nie pri elektrárni; inak mimo ľudí ok.",
+    "interest_weight": {
+      "lava": 1.0,
+      "hike": 0.7,
+      "nature": 0.8
+    },
+    "website_url": "https://www.visitmyvatn.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "godafoss",
+    "kind": "attraction",
+    "category_tags": ["waterfall", "culture", "photo"],
+    "region": "akureyri",
+    "name": "Goðafoss",
+    "lat": 65.6828,
+    "lng": -17.5502,
+    "description_sk": "„Vodopád bohov“ – polkruhová podkova 30 m široká, kam v roku 1000 zákonodarca Þorgeir hodil sochy pohanských bohov po prijatí kresťanstva. Priamo pri Ring Road medzi Mývatnom a Akureyri.",
+    "tips_sk": "Oba brehy sú spojené mostom pre peších (15 min okruh); východný breh má lepšie svetlo večer. Kaviareň a čerpačka pri parkovisku.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 60,
+    "walk_km": 1.2,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe", "fuel"],
+    "popularity": 5,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "restricted",
+    "drone_note_sk": "Povolené mimo ľudí; často plno.",
+    "interest_weight": {
+      "nature": 1.0,
+      "photo": 0.9,
+      "culture": 0.5
+    },
+    "website_url": "https://www.northiceland.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "husavik-whale-watching",
+    "kind": "tour",
+    "category_tags": ["whale", "boat", "wildlife"],
+    "region": "akureyri",
+    "name": "Húsavík – pozorovanie veľrýb",
+    "lat": 66.045,
+    "lng": -17.34,
+    "description_sk": "Hlavné mesto veľrýb: v zálive Skjálfandi sú vráskavce dlhoploutvé (humpback) takmer istota, v lete aj vráskavce obrovské. Tradičné dubové lode (North Sailing) alebo RIB; 3 h na mori, teplé overaly v cene.",
+    "tips_sk": "September ešte veľmi dobrá sezóna. Ranné plavby pokojnejšie more. Húsavík je 50 min od Mývatnu – dá sa spojiť s Ásbyrgi. GeoSea kúpele na útese (~ 6 900 ISK) ako bonus.",
+    "visit_min": 195,
+    "visit_min_min": 180,
+    "visit_min_max": 240,
+    "walk_km": 0.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 12 990 ISK, 7–15 r. polovica, do 6 r. zdarma (orientačne 2026).",
+    "price_rules": [
+      {
+        "label": "Dospelý 16+",
+        "min_age": 16,
+        "price": 12990,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa 7–15",
+        "min_age": 7,
+        "max_age": 15,
+        "price": 6495,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 6",
+        "max_age": 6,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "booking_required": true,
+    "booking_url": "https://www.northsailing.is",
+    "book_ahead_days": 7,
+    "cancel_policy_sk": "Pri zrušení kvôli počasiu vrátia peniaze alebo presunú.",
+    "facilities": ["toilets", "cafe"],
+    "popularity": 5,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "morning",
+    "drone_status": "banned",
+    "drone_note_sk": "Z lode zakázané.",
+    "interest_weight": {
+      "whale": 1.0,
+      "photo": 0.7
+    },
+    "bring": ["warm_layers", "seasickness_pills"],
+    "website_url": "https://www.northsailing.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "forest-lagoon",
+    "kind": "thermal",
+    "category_tags": ["thermal", "spa"],
+    "region": "akureyri",
+    "name": "Forest Lagoon (Akureyri)",
+    "lat": 65.689,
+    "lng": -18.054,
+    "description_sk": "Kúpele v lese nad fjordom Eyjafjörður oproti Akureyri – dva infinity bazény medzi brezami, studený bazén, sauna s výhľadom na mesto. Otvorené do 23:00, dizajnovo najkrajšie kúpele severu.",
+    "tips_sk": "Večer po 20:00 s výhľadom na svetlá Akureyri; bar v bazéne. Rezervuj vopred na víkend.",
+    "visit_min": 120,
+    "visit_min_min": 90,
+    "visit_min_max": 180,
+    "walk_km": 0.2,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 6 990 ISK, 12–15 r. polovica, deti do 11 zdarma (orientačne 2026).",
+    "price_rules": [
+      {
+        "label": "Dospelý 16+",
+        "min_age": 16,
+        "price": 6990,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Mládež 12–15",
+        "min_age": 12,
+        "max_age": 15,
+        "price": 3495,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 11",
+        "max_age": 11,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "booking_required": true,
+    "booking_url": "https://www.forestlagoon.is",
+    "book_ahead_days": 3,
+    "facilities": ["toilets", "cafe", "showers"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "banned",
+    "drone_note_sk": "Zákaz nad kúpeľmi a v blízkosti letiska Akureyri.",
+    "interest_weight": {
+      "thermal": 1.0
+    },
+    "bring": ["swimwear"],
+    "website_url": "https://www.forestlagoon.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "akureyri-town",
+    "kind": "attraction",
+    "category_tags": ["town", "culture", "food"],
+    "region": "akureyri",
+    "name": "Akureyri – centrum a botanická záhrada",
+    "lat": 65.6835,
+    "lng": -18.0878,
+    "description_sk": "„Hlavné mesto severu“ (19 000 obyv.): kostol na schodoch, najsevernejšia botanická záhrada sveta (zadarmo), srdiečkové semafory, kaviarne a najlepší bazén na Islande (Sundlaug Akureyrar, 1 500 ISK). Dobré na daždivé popoludnie a veľký nákup (Bónus, Nettó).",
+    "tips_sk": "Parkovanie v centre s kotúčom zdarma (max 2 h). Brynja – slávna zmrzlina od 1939. Hof – kultúrne centrum pri prístave.",
+    "visit_min": 120,
+    "visit_min_min": 60,
+    "visit_min_max": 240,
+    "walk_km": 3.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo (bazén 1 500 ISK voliteľne).",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe", "grocery", "fuel"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "banned",
+    "drone_note_sk": "CTR letiska Akureyri – zákaz bez povolenia.",
+    "interest_weight": {
+      "culture": 0.9,
+      "photo": 0.5
+    },
+    "website_url": "https://www.visitakureyri.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hvitserkur",
+    "kind": "viewpoint",
+    "category_tags": ["rock", "beach", "photo", "wildlife"],
+    "region": "north_west",
+    "name": "Hvítserkur",
+    "lat": 65.606,
+    "lng": -20.638,
+    "description_sk": "15 m čadičová skala v mori v tvare pijúceho slona/draka, biela od vtáčieho trusu. Na pláži pod útesom sa vyhrievajú tulene (odbočka Illugastaðir/Ósar). Poloostrov Vatnsnes, 30 km štrku z Ring Road.",
+    "tips_sk": "Odbočka je 1–1,5 h navyše – oplatí sa pri peknom počasí a za odlivu (dá sa zísť na pláž). Cesta 711 štrk, 2WD pomaly ok.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 75,
+    "walk_km": 1.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 3,
+    "hidden_gem": true,
+    "rainy_day_ok": false,
+    "best_light": "evening",
+    "drone_status": "restricted",
+    "drone_note_sk": "Hniezdiská – nie pri útesoch a tuleňoch.",
+    "interest_weight": {
+      "photo": 1.0,
+      "nature": 0.7,
+      "puffin": 0.3
+    },
+    "website_url": "https://www.northwest.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "kolugljufur",
+    "kind": "attraction",
+    "category_tags": ["canyon", "waterfall", "photo"],
+    "region": "north_west",
+    "name": "Kolugljúfur",
+    "lat": 65.335,
+    "lng": -20.575,
+    "description_sk": "Kaňon s kaskádou vodopádov Kolufossar, podľa legendy domov obryne Kola. Iba 6 km od Ring Road, most priamo nad vodopádmi, takmer bez turistov.",
+    "tips_sk": "Ideálna 30-minútová prestávka pri dlhom presune Akureyri → Reykjavík. Pozor na okraj bez zábradlia.",
+    "visit_min": 30,
+    "visit_min_min": 20,
+    "visit_min_max": 45,
+    "walk_km": 0.6,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": [],
+    "popularity": 3,
+    "hidden_gem": true,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "allowed",
+    "drone_note_sk": "Súkromná farma – rešpektuj značky.",
+    "interest_weight": {
+      "nature": 0.9,
+      "photo": 0.9
+    },
+    "website_url": "https://www.northwest.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "glaumbaer",
+    "kind": "museum",
+    "category_tags": ["museum", "culture", "history"],
+    "region": "north_west",
+    "name": "Glaumbær – drnový statok",
+    "lat": 65.61,
+    "lng": -19.504,
+    "description_sk": "Najzachovalejší drnový statok Islandu – 13 domčekov s trávnatými strechami spojených tmavou chodbou, zariadených ako v 19. storočí. Vedľa kaviareň Áskaffi s tradičnými koláčmi v dobovom dome.",
+    "tips_sk": "Otvorené do 20. 9. (potom na požiadanie) – over pred cestou. 45 min stačí; kombinuj so Sauðárkrókom alebo pivovarom Gæðingur.",
+    "visit_min": 60,
+    "visit_min_min": 45,
+    "visit_min_max": 90,
+    "walk_km": 0.4,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 2 500 ISK, deti do 17 zdarma (orientačne).",
+    "price_rules": [
+      {
+        "label": "Dospelý",
+        "min_age": 18,
+        "price": 2500,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa do 17",
+        "max_age": 17,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "season": {
+      "from": "05-20",
+      "to": "09-20"
+    },
+    "facilities": ["toilets", "cafe"],
+    "popularity": 3,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "restricted",
+    "drone_note_sk": "Nad múzeom a ľuďmi nie.",
+    "interest_weight": {
+      "culture": 1.0,
+      "photo": 0.5
+    },
+    "website_url": "https://www.glaumbaer.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "grabrok-crater",
+    "kind": "attraction",
+    "category_tags": ["volcano", "viewpoint", "hike"],
+    "region": "north_west",
+    "name": "Grábrók – kráter pri Ring Road",
+    "lat": 64.771,
+    "lng": -21.535,
+    "description_sk": "Trojica škvárových kráterov priamo pri Ring Road v Borgarfjörðure; po drevených schodoch si za 15 min na hrane s výhľadom na lávové pole a údolie Norðurá. Najlepšia „nohy vystrieť“ zastávka medzi severom a Reykjavíkom.",
+    "tips_sk": "Parkovisko a chodník sú udržiavané; vietor na hrane. Kaviareň v Hreðavatnsskáli oproti (skyr koláč).",
+    "visit_min": 30,
+    "visit_min_min": 20,
+    "visit_min_max": 45,
+    "walk_km": 1.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 3,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "any",
+    "drone_status": "allowed",
+    "drone_note_sk": "Mimo ľudí ok.",
+    "interest_weight": {
+      "lava": 0.8,
+      "hike": 0.5,
+      "photo": 0.6
+    },
+    "website_url": "https://www.west.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "hraunfossar-barnafoss",
+    "kind": "attraction",
+    "category_tags": ["waterfall", "lava", "photo"],
+    "region": "north_west",
+    "name": "Hraunfossar + Barnafoss",
+    "lat": 64.703,
+    "lng": -20.977,
+    "description_sk": "Na 900 m dĺžky vyteká rieka priamo spod lávového poľa v desiatkach pramienkov do tyrkysovej Hvítá; o 200 m vyššie divoká úžina Barnafoss. Z Ring Road 30 km odbočka do Húsafellu – po ceste Deildartunguhver, najvýdatnejší horúci prameň Európy, a kúpele Krauma.",
+    "tips_sk": "Najkrajšie na jeseň, keď brezy nad vodopádom sčervenajú (polovica septembra!). Krauma 6 900 ISK ako lacnejšia alternatíva Blue Lagoon na ceste do Reykjavíku.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 60,
+    "walk_km": 1.0,
+    "difficulty": "easy",
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
+    "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (orientačne).",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "morning",
+    "drone_status": "restricted",
+    "drone_note_sk": "Mimo ľudí; často plno.",
+    "interest_weight": {
+      "nature": 1.0,
+      "photo": 1.0,
+      "lava": 0.6
+    },
+    "website_url": "https://www.west.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "kirkjufell",
+    "kind": "viewpoint",
+    "category_tags": ["mountain", "waterfall", "photo"],
+    "region": "snaefellsnes",
+    "name": "Kirkjufell + Kirkjufellsfoss",
+    "lat": 64.941,
+    "lng": -23.306,
+    "description_sk": "Najfotografovanejšia hora Islandu – 463 m „kostolná“ hora nad Grundarfjörðurom s trojitým vodopádom v popredí (Hra o tróny, „hora ako hrot šípu“). Klasický záber je z chodníka pri vodopáde, 5 min od parkoviska.",
+    "tips_sk": "Východ alebo západ slnka a odraz v jazierku; v septembri šanca na polárnu žiaru nad horou. Výstup na horu je nebezpečný – neodporúča sa.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 75,
+    "walk_km": 0.8,
+    "difficulty": "easy",
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
+    "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (Parka); orientačne.",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 5,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "evening",
+    "drone_status": "restricted",
+    "drone_note_sk": "Povolené mimo ľudí; hniezdiská na jar.",
+    "interest_weight": {
+      "photo": 1.0,
+      "nature": 0.8,
+      "aurora": 0.6
+    },
+    "website_url": "https://www.west.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "arnarstapi-hellnar",
+    "kind": "attraction",
+    "category_tags": ["coast", "hike", "photo", "wildlife"],
+    "region": "snaefellsnes",
+    "name": "Arnarstapi – Hellnar pobrežná túra",
+    "lat": 64.769,
+    "lng": -23.622,
+    "description_sk": "2,5 km chodník po lávovom pobreží medzi dvoma rybárskymi osadami: čadičové oblúky Gatklettur, kolónie čajok, hučiace morské jaskyne a kamenná socha Bárðura Snæfellsása. Pod ľadovcom Snæfellsjökull (Cesta do stredu Zeme).",
+    "tips_sk": "Tam pešo, späť po ceste alebo autom (40 min). Kaviareň Fjöruhúsið v Hellnare – rybacia polievka s výhľadom. Súčasť NP Snæfellsjökull.",
+    "visit_min": 90,
+    "visit_min_min": 60,
+    "visit_min_max": 150,
+    "walk_km": 5.0,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo (NP Snæfellsjökull).",
+    "price_rules": [],
+    "facilities": ["toilets", "cafe"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": false,
+    "best_light": "any",
+    "drone_status": "permit",
+    "drone_note_sk": "Národný park – bez povolenia zákaz.",
+    "interest_weight": {
+      "nature": 1.0,
+      "hike": 0.9,
+      "photo": 0.9,
+      "puffin": 0.4
+    },
+    "website_url": "https://www.snaefellsjokull.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "djupalonssandur",
+    "kind": "attraction",
+    "category_tags": ["beach", "lava", "hike"],
+    "region": "snaefellsnes",
+    "name": "Djúpalónssandur",
+    "lat": 64.752,
+    "lng": -23.904,
+    "description_sk": "Čierna kamienková pláž pod lávovými útesmi s vrakom britského trawlera Epine z 1948 a štyrmi „silovými kameňmi“, ktorými sa kedysi skúšali rybári (23–154 kg). Prístup cez lávovú rokliny Nautastígur.",
+    "tips_sk": "Vlny sú nebezpečné – nechoď k vode. Pláž Dritvík 1 km ďalej po pobreží býva prázdna.",
+    "visit_min": 45,
+    "visit_min_min": 30,
+    "visit_min_max": 75,
+    "walk_km": 1.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo (NP).",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "permit",
+    "drone_note_sk": "Národný park – bez povolenia zákaz.",
+    "interest_weight": {
+      "nature": 0.9,
+      "lava": 0.6,
+      "photo": 0.8
+    },
+    "website_url": "https://www.snaefellsjokull.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "budakirkja",
+    "kind": "viewpoint",
+    "category_tags": ["church", "photo", "lava"],
+    "region": "snaefellsnes",
+    "name": "Búðakirkja – čierny kostol",
+    "lat": 64.822,
+    "lng": -23.385,
+    "description_sk": "Osamelý čierny drevený kostolík z 1848 uprostred lávového poľa Búðahraun pri zlatej pláži – jeden z najfotogenickejších motívov západu. Vedľa hotel Búðir s dobrou reštauráciou.",
+    "tips_sk": "15 min na fotku, viac pri prechádzke po lávovom poli k pláži (orchidey v lete). Pri západe slnka svieti láva do zlata.",
+    "visit_min": 20,
+    "visit_min_min": 15,
+    "visit_min_max": 40,
+    "walk_km": 0.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Zadarmo.",
+    "price_rules": [],
+    "facilities": [],
+    "popularity": 4,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "evening",
+    "drone_status": "allowed",
+    "drone_note_sk": "Mimo ľudí a hotela ok.",
+    "interest_weight": {
+      "photo": 1.0,
+      "culture": 0.5
+    },
+    "website_url": "https://www.west.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "ytri-tunga-seals",
+    "kind": "attraction",
+    "category_tags": ["wildlife", "beach"],
+    "region": "snaefellsnes",
+    "name": "Ytri Tunga – tulene",
+    "lat": 64.803,
+    "lng": -23.077,
+    "description_sk": "Zlatá pláž (vzácnosť na Islande), kde sa na skalách pri odlive takmer vždy vyhrievajú tulene obyčajné a sivé – najspoľahlivejšie miesto na tulene v krajine, 10 min z Ring Road cez Snæfellsnes.",
+    "tips_sk": "Choď 1–2 h okolo odlivu, ďalekohľad sa hodí; drž 50 m odstup. Parkovné cez Parka.",
+    "visit_min": 40,
+    "visit_min_min": 30,
+    "visit_min_max": 60,
+    "walk_km": 1.0,
+    "difficulty": "easy",
+    "parking_fee": {
+      "amount": 1000,
+      "currency": "ISK"
+    },
+    "entry_note_sk": "Vstup zadarmo, parkovné ~ 1 000 ISK/auto (orientačne).",
+    "price_rules": [],
+    "facilities": ["toilets"],
+    "popularity": 3,
+    "hidden_gem": true,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "banned",
+    "drone_note_sk": "Zákaz – ruší tulene.",
+    "interest_weight": {
+      "nature": 0.8,
+      "whale": 0.3,
+      "photo": 0.6
+    },
+    "website_url": "https://www.west.is",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "slug": "vatnshellir-cave",
+    "kind": "tour",
+    "category_tags": ["lava", "cave", "tour"],
+    "region": "snaefellsnes",
+    "name": "Vatnshellir – lávová jaskyňa",
+    "lat": 64.748,
+    "lng": -23.818,
+    "description_sk": "8 000 rokov stará lávová trubica 200 m dlhá a 35 m pod zemou – po točitých schodoch do úplnej tmy s helmou a baterkou; sprievodca ukáže lávové stalaktity a rozpráva o Ceste do stredu Zeme. Prehliadky každú hodinu, 45 min.",
+    "tips_sk": "Teplo sa obleč (4 °C) a pevná obuv. Rezervácia online, v septembri stačí deň vopred. Deti od 5 rokov.",
+    "visit_min": 50,
+    "visit_min_min": 45,
+    "visit_min_max": 60,
+    "walk_km": 0.5,
+    "difficulty": "easy",
+    "parking_fee": null,
+    "entry_note_sk": "Dospelý ~ 4 750 ISK, 12–17 r. ~ 2 500 ISK, 5–11 zdarma s dospelým (orientačne 2026).",
+    "price_rules": [
+      {
+        "label": "Dospelý 18+",
+        "min_age": 18,
+        "price": 4750,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Mládež 12–17",
+        "min_age": 12,
+        "max_age": 17,
+        "price": 2500,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      },
+      {
+        "label": "Dieťa 5–11",
+        "min_age": 5,
+        "max_age": 11,
+        "price": 0,
+        "currency": "ISK",
+        "per": "person",
+        "variant": "basic",
+        "is_default": true
+      }
+    ],
+    "booking_required": true,
+    "booking_url": "https://www.summitguides.is",
+    "book_ahead_days": 1,
+    "open_hours": {
+      "from": "10:00",
+      "until": "18:00"
+    },
+    "facilities": ["toilets"],
+    "popularity": 3,
+    "hidden_gem": false,
+    "rainy_day_ok": true,
+    "best_light": "any",
+    "drone_status": "permit",
+    "drone_note_sk": "NP Snæfellsjökull – bez povolenia zákaz.",
+    "interest_weight": {
+      "lava": 1.0,
+      "culture": 0.4
+    },
+    "bring": ["warm_layers"],
+    "website_url": "https://www.summitguides.is",
     "verified_at": "2026-09-20"
   }
 ]

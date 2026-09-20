@@ -104,6 +104,7 @@ export const MAX_DETOUR_MIN = 75;
 /** penalizácia plného dňa pri výbere dňa pre miesto (min za 100 % vyťaženia) */
 export const LOAD_PENALTY_MIN = 60;
 
+/** Hlavný okruh v smere hodinových ručičiek (Ring Road + Snæfellsnes na spiatočnej ceste); Westfjordy a Vysočina sú mimo okruhu. */
 export const RING_ORDER = [
   'reykjanes',
   'reykjavik',
@@ -115,8 +116,6 @@ export const RING_ORDER = [
   'akureyri',
   'north_west',
   'snaefellsnes',
-  'westfjords',
-  'highlands',
 ];
 
 export const regionKey = (regionId: string | null | undefined, airportKey = 'kef') =>
@@ -131,16 +130,17 @@ export function scorePoi(p: PoiCandidate, interests: string[], gemShare = 0.3): 
   return Math.round(s * 100) / 100;
 }
 
-/** Regióny „po ceste“ medzi dvoma regiónmi v smere okruhu (vrátane oboch). */
+/** Regióny „po ceste“ medzi dvoma regiónmi v smere okruhu (vrátane oboch); okruh je cyklický (sever → Reykjavík ide cez západ). */
 export function regionsBetween(from: string | null, to: string | null, order = RING_ORDER): string[] {
   if (!from && !to) return [];
   if (!from) return [to!];
   if (!to) return [from];
+  if (from === to) return [from];
   const a = order.indexOf(from);
   const b = order.indexOf(to);
   if (a === -1 || b === -1) return [from, to];
   if (a <= b) return order.slice(a, b + 1);
-  return [...order.slice(b, a + 1)].reverse();
+  return [...order.slice(a), ...order.slice(0, b + 1)];
 }
 
 /** Východ a západ slnka v minútach dňa (KEF), symetricky okolo 13:30 (Island je „posunutý“ voči UTC). */
