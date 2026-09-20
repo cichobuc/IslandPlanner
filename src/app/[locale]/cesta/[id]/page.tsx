@@ -4,9 +4,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Button, ButtonLink, Card, Label, Notice, PhoneHeader, RingMap, Stepper, StickyBar, TopBar, TripLayout, type StepItem } from '@/components/ui';
 import { getTripAccess } from '@/features/trips/access';
-import { stepNames, tripProgress } from '@/features/trips/progress';
+import { dateRangeLabel, stepNames, tripProgress } from '@/features/trips/progress';
 import { countTravelers, listTripMembers } from '@/features/trips/queries';
 import { Step01, step01Summary } from '@/features/trips/steps/step01';
+import { Step02 } from '@/features/trips/steps/step02';
 import { stepNo } from '@/lib/format';
 import { RenameTrip } from './rename-trip';
 
@@ -45,7 +46,14 @@ export default async function TripPage({
     return {
       n,
       name,
-      summary: n === 1 ? step01Summary(travelersCount, trip.originAirports, trip.targetMonth) : done ? '' : n <= progress.active ? '' : `po ${stepNo(n - 1)}`,
+      summary:
+        n === 1
+          ? step01Summary(travelersCount, trip.originAirports, trip.targetMonth)
+          : n === 2 && trip.startDate && trip.endDate
+            ? `${dateRangeLabel(trip.startDate, trip.endDate)} · ${Math.round((Date.parse(trip.endDate) - Date.parse(trip.startDate)) / 86_400_000) + 1} dní`
+            : done || n <= progress.active
+              ? ''
+              : `po ${stepNo(n - 1)}`,
       state: n === current ? 'active' : done ? 'done' : 'pending',
       href: `?krok=${n}`,
     };
@@ -90,6 +98,8 @@ export default async function TripPage({
         </Card>
         {current === 1 ? (
           <Step01 access={access} />
+        ) : current === 2 ? (
+          <Step02 access={access} />
         ) : (
           <section className="flex flex-col gap-3">
             <Label className="text-accent">

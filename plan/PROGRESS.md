@@ -42,9 +42,14 @@
   domov + 5 letísk zo seedu s prepínačom (→ `trips.origin_airports`), riadok = km · čas · 1 auto pre ≤ 4 · najlacnejšie parkovanie na (dni+1) · známka · priamy Wizz / cez hub, suma skupina + /os (`airport-access.ts`, zdieľané so search-service);
   „Kedy a ako": mesiac ‹ ›, dĺžka 3–21, prestupy, tempo, záujmy, cieľový rozpočet; predvolený názov „Island · <mesiac>" sa premenúva s mesiacom. „Čo z toho vyplýva" → 02.
   e2e `tests/e2e/step01-flow.mjs` (iPad + iPhone). Poučenia: render-prop zo server → client komponentu nejde (riadok cestujúceho je klient); `z.coerce.number()` z '' robí 0 → `optInt/optNum` s preprocess.
+- **Blok 2.4 hotový** – **krok 02 Letenky**: `snapshot.ts` (DB → `TripSnapshot` a späť: `persistFlightCascade` zapisuje dátumy, preset, kostru dní scenára `drive` a noci per vetva car/camper; zamknuté dni a ručné noci ostávajú),
+  `step02-actions.ts` (výber kombinácie / ručný let / zrušenie – všetko cez `applyFlightSelection`), `steps/step02*.tsx`: auto vyhľadávanie cez SSE `/api/flights/search` s progresom per letisko,
+  kalendár-heatmapa (min. cena per deň odletu, 4 kvantilové pásma, ⚡ najlacnejší deň, /os · skupina, klik = filter), chipy letísk / len priame / radenie, zoznam kombinácií (rozpis letenky · batožina · park. · cesta, štítky API/odhad/self-transfer),
+  pripnutá karta vybraného letu (deep link „Overiť cenu u predajcu“, zrušiť), sheet ručného letu, DiffToast so zmenami kaskády. e2e `tests/e2e/step02-flow.mjs` (živé konektory: 200 kombinácií, výber → 18.–25. 9., 8 dní, 7 nocí × 2 vetvy, preset ring; ručný let → 12.–21. 9.).
+  Stub: `verify` pre 4 os. (gflights konektor neexistuje) = deep link; „Vrátiť“ v DiffToaste príde s históriou (v1.1).
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový, bloky 2.1–2.3 hotové.** Pokračovať **blokom 2.4** (krok 02 – kalendár, kombinácie, výber letu → kaskáda) podľa `plan/SPRINT-2-DNI.md`.
+- **Deň 1 hotový, bloky 2.1–2.4 hotové.** Pokračovať **blokom 2.5** (krok 03 – Auto/Karavan, vozidlá zo seedu, poistenia, palivo) podľa `plan/SPRINT-2-DNI.md`.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.

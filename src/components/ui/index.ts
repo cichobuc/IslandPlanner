@@ -25,3 +25,4 @@ export type { StepItem, StepState } from './stepper';
 export type { SummaryColumn } from './summary';
 export type { Tone } from './tone';
 export type { RingMapPoint } from './island-mark';
+export { DiffToast } from './diff-toast';
