@@ -30,9 +30,8 @@ export async function generateMetadata({
   return { title: { default: t('name'), template: `%s · ${t('name')}` }, description: t('tagline') };
 }
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
+// Všetky stránky čítajú session (cookies) → dynamické, bez generateStaticParams
+export const dynamic = 'force-dynamic';
 
 export default async function LocaleLayout({
   children,

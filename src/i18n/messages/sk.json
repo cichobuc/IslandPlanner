@@ -4,13 +4,59 @@
     "tagline": "Lacná cesta na Island pre 3–4 ľudí z Bratislavy – letenky, auto alebo karavan, noci, trasa, vstupné a rozpočet na osobu."
   },
   "home": {
-    "status": "Aplikácia sa stavia. Šprint deň 1 · blok 1.1 – základ projektu.",
+    "status": "Aplikácia sa stavia. Šprint deň 1 · blok 1.3 – účty a prihlásenie.",
     "cta": "Prihlásiť sa",
-    "howItWorks": "Ako to funguje"
+    "howItWorks": "Ako to funguje",
+    "signedInAs": "Prihlásený ako {name}",
+    "signOut": "Odhlásiť sa",
+    "toProfile": "Profil",
+    "toUsers": "Používatelia (správca)"
   },
   "nav": {
     "trips": "Cesty",
     "profile": "Profil",
     "signIn": "Prihlásenie"
+  },
+  "auth": {
+    "signIn": "Prihlásenie",
+    "signInLead": "Konto ti založil správca. Prihlás sa e-mailom a dočasným heslom, ktoré si dostal.",
+    "email": "E-mail",
+    "password": "Heslo",
+    "tempPasswordHint": "Pri prvom prihlásení použi dočasné heslo od správcu.",
+    "signingIn": "Prihlasujem…",
+    "invalidInput": "Skontroluj e-mail a heslo.",
+    "badCredentials": "Nesprávny e-mail alebo heslo.",
+    "changePassword": "Zmena hesla",
+    "changePasswordForcedLead": "Dočasné heslo si teraz zmeň na vlastné. Potom pokračuješ na profil.",
+    "signedInAs": "Prihlásený ako {email}",
+    "newPassword": "Nové heslo",
+    "confirmPassword": "Nové heslo znova",
+    "passwordRule": "Aspoň {min} znakov. Odporúčame vetu alebo tri slová.",
+    "passwordTooShort": "Heslo musí mať aspoň {min} znakov.",
+    "passwordsDiffer": "Heslá sa nezhodujú.",
+    "notSignedIn": "Nie si prihlásený.",
+    "saving": "Ukladám…",
+    "savePassword": "Uložiť heslo"
+  },
+  "admin": {
+    "admin": "Správa",
+    "users": "Používatelia",
+    "usersLead": "Zakladáš kontá členom skupiny. Dočasné heslo sa zobrazí raz – pošli ho dotyčnému; po prihlásení si ho zmení.",
+    "newUser": "Nový používateľ",
+    "displayName": "Meno",
+    "email": "E-mail",
+    "create": "Založiť konto",
+    "creating": "Zakladám…",
+    "created": "Konto založené",
+    "resetDone": "Konto už existovalo – heslo resetované na nové dočasné",
+    "tempPassword": "dočasné heslo",
+    "emailSent": "E-mail s heslom odoslaný.",
+    "emailNotSent": "E-mail sa neposlal (Resend nie je nastavený) – heslo pošli sám.",
+    "forbidden": "Len pre správcu.",
+    "invalidInput": "Skontroluj meno a e-mail.",
+    "roleAdmin": "správca",
+    "tempPasswordTag": "dočasné heslo",
+    "profileDone": "profil hotový",
+    "noUsers": "Zatiaľ žiadni používatelia."
   }
 }
