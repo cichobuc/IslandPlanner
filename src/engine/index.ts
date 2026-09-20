@@ -11,3 +11,4 @@ export * from './transportMode';
 export * from './cascade';
 export * from './budget';
 export * from './timeline';
+export * from './flightCombos';
