@@ -9,7 +9,7 @@ Každý blok má „hotové = " – ak nie je splnené, ďalší blok sa nezač�
 
 ## Pred štartom (ty, ~ 45 min, ešte pred dňom 1)
 - [x] GitHub repo https://github.com/cichobuc/IslandPlanner – návrh commitnutý (20. 9. 2026)
-- [ ] Vercel (login GitHub – CLI nainštalované, treba `vercel login`) · Supabase Free projekt (login GitHub) – pošli mi `SUPABASE_URL`, `ANON_KEY`, `SERVICE_ROLE_KEY`, DB heslo
+- [x] Vercel: https://islandplanner.vercel.app (import z GitHubu, 20. 9. 2026) · [ ] Supabase Free projekt (login GitHub) – pošli mi `SUPABASE_URL`, `ANON_KEY`, `SERVICE_ROLE_KEY`, DB heslo
 - [ ] Travelpayouts účet → token (Flight Data API v1) · OpenRouteService kľúč · Resend účet (na e-maily s dočasným heslom)
 - [ ] Viator affiliate (môže počkať do v1.1)
 - [x] Rozhodnutia: MVP bez „Bez auta" = **áno**, správca inštancie = **l.pjecha@gmail.com** (20. 9. 2026)
