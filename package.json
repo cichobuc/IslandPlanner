@@ -21,7 +21,8 @@
     "admin:bootstrap": "tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts",
     "spike:coverage": "tsx scripts/spike-coverage.ts",
     "matrix:build": "tsx scripts/build-route-matrix.ts",
-    "e2e": "node tests/e2e/full-flow.mjs"
+    "e2e": "node tests/e2e/full-flow.mjs",
+    "itinerary:review": "tsx -r ./scripts/server-only-shim.cjs scripts/review-itinerary.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",

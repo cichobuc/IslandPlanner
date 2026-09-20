@@ -21,6 +21,8 @@ export type PoiCandidate = {
   bookingRequired?: boolean;
   /** vstupné na dospelého v EUR (0 = zadarmo); parkovné sa neráta */
   entryPpEur?: number;
+  /** kedy je miesto najlepšie – termály a 'evening' idú na koniec dňa, 'morning' na začiatok */
+  bestLight?: 'morning' | 'evening' | 'any' | null;
 };
 
 export type DaySkeleton = {
@@ -120,18 +122,21 @@ export function valueForMoney(p: Pick<PoiCandidate, 'popularity' | 'entryPpEur'>
 }
 
 export const PACE_CAPACITY: Record<Pace, { dayMin: number; maxStops: number; maxDriveMin: number }> = {
-  relaxed: { dayMin: 8 * 60, maxStops: 3, maxDriveMin: 4 * 60 },
-  normal: { dayMin: 10 * 60, maxStops: 5, maxDriveMin: 5 * 60 },
-  intense: { dayMin: 12 * 60, maxStops: 7, maxDriveMin: 6.5 * 60 },
+  // dayMin = dĺžka dňa od odchodu (západ slnka ju v septembri aj tak skráti); maxDriveMin len varuje
+  relaxed: { dayMin: 9 * 60, maxStops: 3, maxDriveMin: 4 * 60 },
+  normal: { dayMin: 11 * 60, maxStops: 5, maxDriveMin: 5 * 60 },
+  intense: { dayMin: 13 * 60, maxStops: 7, maxDriveMin: 6.5 * 60 },
 };
 
 export const DRIVE_REAL_FACTOR = 1.25;
 export const STOP_OVERHEAD_MIN = 10;
 export const DEFAULT_START_MIN = 8 * 60 + 30;
-/** max. obchádzka, ktorú sa oplatí spraviť pre jedno miesto (čistá jazda navyše) */
-export const MAX_DETOUR_MIN = 75;
-/** penalizácia plného dňa pri výbere dňa pre miesto (min za 100 % vyťaženia) */
-export const LOAD_PENALTY_MIN = 60;
+/** max. obchádzka, ktorú sa oplatí spraviť pre jedno miesto (čistá jazda navyše) – 50 min = 40 km štrku tam a späť */
+export const MAX_DETOUR_MIN = 50;
+/** penalizácia plného dňa pri výbere dňa pre miesto (min za 100 % vyťaženia) – menšia než obchádzka, aby sa necúvalo */
+export const LOAD_PENALTY_MIN = 30;
+/** koľko minút navyše smie stáť presun termálov/„evening“ miest na koniec dňa a „morning“ na začiatok */
+export const TIME_OF_DAY_SLACK_MIN = 25;
 
 /** Hlavný okruh v smere hodinových ručičiek (Ring Road + Snæfellsnes na spiatočnej ceste); Westfjordy a Vysočina sú mimo okruhu. */
 export const RING_ORDER = [
@@ -242,6 +247,21 @@ export function orderStops(
         }
       }
   }
+  // denná doba: termály / 'evening' na koniec, 'morning' na začiatok – ak to nestojí viac než TIME_OF_DAY_SLACK_MIN
+  const tryMove = (pred: (p: PoiCandidate) => boolean, toEnd: boolean) => {
+    const idx = seq.findIndex(pred);
+    if (idx === -1) return;
+    if (toEnd ? idx === seq.length - 1 : idx === 0) return;
+    const item = seq[idx];
+    const rest = seq.filter((_, i) => i !== idx);
+    const cand = toEnd ? [...rest, item] : [item, ...rest];
+    if (cost(cand) <= best + TIME_OF_DAY_SLACK_MIN) {
+      seq = cand;
+      best = cost(cand);
+    }
+  };
+  tryMove((p) => p.kind === 'thermal' || p.bestLight === 'evening', true);
+  tryMove((p) => p.bestLight === 'morning' && p.kind !== 'thermal', false);
   return seq;
 }
 
@@ -424,13 +444,20 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
     .map((p) => {
       const options: Option[] = ctxs
         .filter((c) => !c.day.locked && p.regionId && c.regions.includes(p.regionId))
-        .map((c) => ({ c, detour: leg(c.startKey, p.slug).min + leg(p.slug, c.endKey).min - c.baselineMin }))
-        .filter((o) => o.detour <= MAX_DETOUR_MIN)
+        .map((c) => {
+          const raw = leg(c.startKey, p.slug).min + leg(p.slug, c.endKey).min - c.baselineMin;
+          // deň s 2 nocami na mieste (štart = cieľ): „obchádzka“ je výlet tam a späť → ráta sa polovica
+          return { c, detour: c.startKey === c.endKey ? raw / 2 : raw };
+        })
+        // 5★ miesto stojí za dlhšiu obchádzku (Dettifoss z Ring Road ≈ 60 min)
+        .filter((o) => o.detour <= (stars(p) === 5 ? MAX_DETOUR_MIN * 1.3 : MAX_DETOUR_MIN))
         .sort((a, b) => a.detour - b.detour || a.c.idx - b.c.idx);
       return { p, score: scorePoi(p, input.interests, input.gemShare), options };
     })
     .filter((x) => x.options.length > 0)
-    .sort((a, b) => b.score - a.score);
+    // hodnota za čas: 45-min 5★ miesto (Geysir) ide pred 3-h túru s rovnakým skóre; dlhé zážitky doplnia zvyšok kapacity
+    .map((x) => ({ ...x, density: x.score / (0.5 + x.p.visitMin / 180) }))
+    .sort((a, b) => b.density - a.density || b.score - a.score);
 
   // vyťaženie dňa (0–1) – aby sa top miesta rozložili a nie nahrnuli do jedného dňa
   const load = (c: DayCtx) => {
@@ -448,7 +475,7 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
       splurge = true;
     }
     const ranked = options
-      .map((o) => ({ ...o, cost: o.detour + LOAD_PENALTY_MIN * load(o.c) }))
+      .map((o) => ({ ...o, cost: o.detour * (1 + o.detour / 60) + LOAD_PENALTY_MIN * load(o.c) }))
       .sort((a, b) => a.cost - b.cost || a.c.idx - b.c.idx);
     for (const { c } of ranked) {
       if (fits(c, [...c.chosen, p], false)) {

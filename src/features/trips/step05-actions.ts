@@ -76,6 +76,7 @@ export async function loadPoiCandidates(month: number, iskEur = 0.0067): Promise
       requires4x4: Boolean(p.requires4x4),
       kind: p.kind,
       entryPpEur: adultEur(p.id),
+      bestLight: p.bestLight,
       openFrom: (p.openHours as { from?: string } | null)?.from ?? null,
       openUntil: (p.openHours as { until?: string } | null)?.until ?? null,
       bookingRequired: Boolean(p.bookingRequired),
