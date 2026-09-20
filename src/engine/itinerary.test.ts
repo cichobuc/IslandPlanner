@@ -5,7 +5,9 @@ import {
   orderStops,
   regionsBetween,
   scorePoi,
+  stars,
   sunTimes,
+  valueForMoney,
   type MatrixLookup,
   type PoiCandidate,
 } from './itinerary';
@@ -190,12 +192,83 @@ describe('pomocné', () => {
     expect(regionsBetween('golden_circle', 'southeast')).toEqual(['golden_circle', 'south', 'southeast']);
     expect(regionsBetween(null, 'south')).toEqual(['south']);
     // spiatočná cesta zo severu ide cez západ (cyklicky), nie späť cez východ
-    expect(regionsBetween('north_west', 'reykjavik')).toEqual(['north_west', 'snaefellsnes', 'reykjanes', 'reykjavik']);
+    expect(regionsBetween('north_west', 'reykjavik')).toEqual([
+      'north_west',
+      'snaefellsnes',
+      'reykjanes',
+      'reykjavik',
+    ]);
     expect(regionsBetween('south', 'south')).toEqual(['south']);
   });
   it('skóre: klenot dostane bonus, záujem zdvojnásobí váhu', () => {
     const b = scorePoi(poi('a', 'south', 0, 0), []);
     expect(scorePoi(poi('a', 'south', 0, 0, { hiddenGem: true }), [])).toBeGreaterThan(b);
     expect(scorePoi(poi('a', 'south', 0, 0, { interestWeight: { thermal: 1 } }), ['thermal'])).toBe(b + 2);
+  });
+});
+
+describe('rozpočet na atrakcie (ADR-015)', () => {
+  const paid = [
+    poi('blue-lagoon-x', 'golden_circle', 64.2, -20.7, { popularity: 5, visitMin: 120, entryPpEur: 86 }),
+    poi('secret-x', 'golden_circle', 64.21, -20.72, { popularity: 4, visitMin: 90, entryPpEur: 30 }),
+    poi('free-gem', 'golden_circle', 64.22, -20.68, {
+      popularity: 3,
+      hiddenGem: true,
+      visitMin: 30,
+      entryPpEur: 0,
+    }),
+    poi('glacier-hike', 'south', 63.55, -19.4, {
+      popularity: 5,
+      visitMin: 180,
+      entryPpEur: 115,
+      interestWeight: { glacier: 1 },
+    }),
+    poi('cheap-museum', 'south', 63.5, -19.35, { popularity: 3, visitMin: 60, entryPpEur: 18 }),
+  ];
+  const localPts: Record<string, [number, number]> = { ...pts };
+  for (const p of paid) localPts[p.slug] = [p.lat, p.lng];
+  const m: MatrixLookup = (a, b) => {
+    const A = localPts[a];
+    const B = localPts[b];
+    if (!A || !B) return null;
+    if (a === b) return { km: 0, min: 0 };
+    const km = Math.hypot((A[0] - B[0]) * 111, (A[1] - B[1]) * 48) * 1.25;
+    return { km, min: (km / 70) * 60 };
+  };
+  const run = (level: 'free' | 'budget' | 'balanced' | 'unlimited') =>
+    generateItinerary({
+      days: days.slice(0, 2),
+      pois: paid,
+      matrix: m,
+      anchorPoints: ANCHORS,
+      interests: ['glacier'],
+      pace: 'intense',
+      attractionBudget: level,
+      pax: 4,
+    });
+  const slugs = (out: ReturnType<typeof run>) => out.flatMap((d) => d.stops.map((s) => s.slug));
+  it('zadarmo: len bezplatné miesta', () => {
+    expect(slugs(run('free'))).toEqual(['free-gem']);
+  });
+  it('úsporne: mešec 12 €/os/deň × 2 dni = 24 €/os → lacnejšie kúpele áno, Blue Lagoon nie', () => {
+    const s = slugs(run('budget'));
+    expect(s).toContain('free-gem');
+    expect(s).not.toContain('blue-lagoon-x');
+    expect(s).not.toContain('glacier-hike');
+  });
+  it('vyvážene: mešec 35 × 2 = 70 €/os + jeden „veľký zážitok“ nad mešec (5★ so záujmom) → ľadovcová túra áno, Blue Lagoon už nie', () => {
+    const s = slugs(run('balanced'));
+    expect(s).toContain('glacier-hike');
+    expect(s).not.toContain('blue-lagoon-x');
+  });
+  it('bez limitu: všetko, čo sa zmestí do dňa', () => {
+    const s = slugs(run('unlimited'));
+    expect(s).toEqual(expect.arrayContaining(['blue-lagoon-x', 'glacier-hike']));
+  });
+  it('hviezdičky a hodnota za peniaze', () => {
+    expect(stars(paid[0])).toBe(5);
+    expect(valueForMoney(paid[0])).toBe(0.6); // 5★ / 8,6 desiatok €
+    expect(valueForMoney(paid[1])).toBe(1.3);
+    expect(valueForMoney(paid[2])).toBeNull();
   });
 });

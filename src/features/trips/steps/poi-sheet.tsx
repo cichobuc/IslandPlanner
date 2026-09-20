@@ -76,8 +76,13 @@ export function PoiSheet({
           {stop.walkKm ? ` · pešo ${stop.walkKm} km` : ''}
           {stop.difficulty ? ` · ${stop.difficulty}` : ''}
         </SheetRow>
+        <SheetRow label="Hodnotenie">
+          <b>{'★'.repeat(stop.stars) + '☆'.repeat(5 - stop.stars)}</b>
+          {stop.valuePer10Eur != null ? ` · ${stop.valuePer10Eur} ★ za 10 € na osobu` : ' · zadarmo'}
+        </SheetRow>
         <SheetRow label="Vstupné">
           <b>{stop.entryGroup ? fmtEur(stop.entryGroup) : '0 €'}</b>
+          {stop.entryPpEur ? ` (${fmtEur(stop.entryPpEur)}/dosp.)` : ''}
           {stop.parkingEur ? ` · parkovné ${fmtEur(stop.parkingEur)}` : ' · parkovné 0'}
           {stop.entryNote ? <span className="text-ink-3"> · {stop.entryNote}</span> : null}
         </SheetRow>
@@ -91,9 +96,16 @@ export function PoiSheet({
         <SheetRow label="Dron">
           <Tag tone={d.tone}>{d.label}</Tag> {stop.droneNote ?? ''}
         </SheetRow>
-        <SheetRow label="Tipy" last>
+        <SheetRow label="Tipy" last={!stop.cheaper}>
           {stop.tips ?? '—'}
         </SheetRow>
+        {stop.cheaper && (
+          <SheetRow label="Lacnejšie" last>
+            <b>{stop.cheaper.name}</b> ·{' '}
+            {stop.cheaper.entryPpEur ? `${fmtEur(stop.cheaper.entryPpEur)}/os` : 'zadarmo'} – podobný zážitok
+            za menej
+          </SheetRow>
+        )}
       </div>
     </Sheet>
   );

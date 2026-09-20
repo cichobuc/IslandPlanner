@@ -69,6 +69,8 @@ export const trips = pgTable(
     /** Rozhodnutie z kroku 03 – určuje typ krokov 04/05. */
     transportMode: transportModeEnum('transport_mode'),
     budgetTargetPp: numeric('budget_target_pp', { precision: 12, scale: 2 }),
+    /** Koľko míňať na atrakcie (krok 04/06): free · budget (≤ 12 €/os/deň) · balanced (≤ 35) · unlimited. */
+    attractionBudget: text('attraction_budget').notNull().default('balanced'),
     baseCurrency: text('base_currency').notNull().default('EUR'),
     reservePct: numeric('reserve_pct', { precision: 5, scale: 2 }).notNull().default('10'),
     status: tripStatusEnum('status').notNull().default('draft'),

@@ -37,7 +37,14 @@ import { fmtH } from '@/engine/itinerary';
 import { fmtEur, fmtKm } from '@/lib/format';
 import type { ActionState } from '../actions';
 import type { CatalogPoi, DayLite, StopLite } from '../itinerary-data';
-import { addStopAction, generateItineraryAction, lockDayAction, removeStopAction } from '../step05-actions';
+import {
+  addStopAction,
+  generateItineraryAction,
+  lockDayAction,
+  removeStopAction,
+  setAttractionBudgetAction,
+} from '../step05-actions';
+import { ATTRACTION_BUDGET, type AttractionBudgetLevel } from '@/engine/itinerary';
 import { DRONE, PoiSheet } from './poi-sheet';
 
 const dm = (iso: string) => `${Number(iso.slice(8, 10))}. ${Number(iso.slice(5, 7))}.`;
@@ -58,6 +65,7 @@ export function Step05Client({
   dates,
   pace,
   presetKey,
+  attractionBudget,
   canEdit,
 }: {
   tripId: string;
@@ -68,6 +76,7 @@ export function Step05Client({
   dates: string | null;
   pace: string;
   presetKey: string | null;
+  attractionBudget: AttractionBudgetLevel;
   canEdit: boolean;
 }) {
   const [open, setOpen] = useState<Set<string>>(new Set(days.slice(0, 1).map((d) => d.dayId)));
@@ -75,6 +84,7 @@ export function Step05Client({
   const [addTo, setAddTo] = useState<DayLite | null>(null);
   const [gem, setGem] = useState(0.3);
   const [genState, genAct, genPending] = useActionState<ActionState, FormData>(generateItineraryAction, null);
+  const [, budgetAct, budgetPending] = useActionState<ActionState, FormData>(setAttractionBudgetAction, null);
   const [, removeAct, removing] = useActionState<ActionState, FormData>(removeStopAction, null);
   const [, lockAct] = useActionState<ActionState, FormData>(lockDayAction, null);
   const [addState, addAct, adding] = useActionState<ActionState, FormData>(async (p, fd) => {
@@ -161,6 +171,21 @@ export function Step05Client({
             </Button>
           )}
         </form>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-ink-3 text-[12px]">Atrakcie – koľko míňať:</span>
+          {(Object.keys(ATTRACTION_BUDGET) as AttractionBudgetLevel[]).map((k) => (
+            <form key={k} action={budgetAct} className="contents">
+              <input type="hidden" name="tripId" value={tripId} />
+              <input type="hidden" name="level" value={k} />
+              <Chip on={attractionBudget === k} type="submit" disabled={!canEdit || budgetPending}>
+                {ATTRACTION_BUDGET[k].labelSk}
+              </Chip>
+            </form>
+          ))}
+          <span className="text-ink-3 text-[12px]">
+            mešec = limit × dni × osoby, jeden 5★ zážitok nad limit; potom Generovať
+          </span>
+        </div>
         {genState && !genState.ok && <Notice tone="bad">{genState.error}</Notice>}
         {empty && (
           <Notice tone="info">

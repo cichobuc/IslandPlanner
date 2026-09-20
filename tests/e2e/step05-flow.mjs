@@ -96,6 +96,16 @@ if (await removeBtn.count()) {
   await p.waitForTimeout(1500);
 }
 await shot('05-step05-edited');
+// rozpočet atrakcií: úsporne → pregenerovať → menej platených
+const paidBefore = (await sql`select count(*)::int n from itinerary_stops s join itinerary_days d on d.id=s.day_id join trips t on t.id=d.trip_id join poi_price_rules r on r.poi_id=s.poi_id and r.per='person' and r.max_age is null and (r.price->>'amount')::numeric > 0 where t.owner_id=(${owner()})`)[0].n;
+await p.locator('button:has-text("úsporne")').click();
+await p.waitForTimeout(1500);
+await p.click('button:has-text("Pregenerovať")');
+await p.waitForSelector('button:has-text("Pregenerovať nezamknuté"):not([disabled])', { timeout: 60000 });
+await p.waitForTimeout(1000);
+const paidAfter = (await sql`select count(*)::int n from itinerary_stops s join itinerary_days d on d.id=s.day_id join trips t on t.id=d.trip_id join poi_price_rules r on r.poi_id=s.poi_id and r.per='person' and r.max_age is null and (r.price->>'amount')::numeric > 0 where t.owner_id=(${owner()})`)[0].n;
+console.log('platené zastávky: vyvážene', paidBefore, '→ úsporne', paidAfter);
+await shot('05c-step04-budget');
 // krok 06
 await p.goto(`${tripUrl}?krok=6`);
 await shot('05b-step06');

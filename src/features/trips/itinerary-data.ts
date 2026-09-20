@@ -4,7 +4,7 @@ import { osrm } from '@/connectors';
 import { initConnectors } from '@/connectors/server';
 import { getDb, schema } from '@/db';
 import { ageOn, entryTotal } from '@/engine/ageRules';
-import { fmtClock, fmtH, sunTimes } from '@/engine/itinerary';
+import { fmtClock, fmtH, stars, sunTimes, valueForMoney } from '@/engine/itinerary';
 import type { Money, PriceRule } from '@/engine/types';
 import { getRates } from './rates';
 
@@ -40,6 +40,10 @@ export type StopLite = {
   walkKm: number | null;
   difficulty: string | null;
   entryNote: string | null;
+  stars: number;
+  entryPpEur: number;
+  valuePer10Eur: number | null;
+  cheaper: { slug: string; name: string; entryPpEur: number } | null;
 };
 
 export type DayLite = {
@@ -79,6 +83,10 @@ export type CatalogPoi = {
   popularity: number;
   description: string | null;
   inPlanDay: number | null;
+  stars: number;
+  entryPpEur: number;
+  valuePer10Eur: number | null;
+  cheaper: { slug: string; name: string; entryPpEur: number } | null;
 };
 
 const DOW = ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'];
@@ -163,6 +171,24 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
       })),
     };
   };
+  const adultEur = (poi: (typeof pois)[number]) => {
+    const r = rules.filter(
+      (x) => x.poiId === poi.id && x.per === 'person' && x.isDefault !== false && x.maxAge == null,
+    );
+    if (!r.length) return 0;
+    const m = r[0].price;
+    return Math.round((m.currency === 'ISK' ? m.amount * fx.ISK_EUR : m.amount) * 100) / 100;
+  };
+  const extras = (poi: (typeof pois)[number]) => {
+    const eur = adultEur(poi);
+    const alt = poi.cheaperAlternativePoiId ? pois.find((x) => x.id === poi.cheaperAlternativePoiId) : null;
+    return {
+      stars: stars({ popularity: poi.popularity ?? 3 }),
+      entryPpEur: eur,
+      valuePer10Eur: valueForMoney({ popularity: poi.popularity ?? 3, entryPpEur: eur }),
+      cheaper: alt ? { slug: alt.slug, name: alt.nameSk ?? alt.name, entryPpEur: adultEur(alt) } : null,
+    };
+  };
   const monthRating = (p: (typeof pois)[number]) =>
     p.monthRating?.[String(month)] ?? (p.bestMonths?.length ? (p.bestMonths.includes(month) ? 4 : 2) : null);
 
@@ -219,6 +245,7 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
             walkKm: p.walkKm ? Number(p.walkKm) : null,
             difficulty: p.difficulty,
             entryNote: p.entryNoteSk,
+            ...extras(p),
           },
         ];
       });
@@ -290,6 +317,7 @@ export async function loadItinerary(tripId: string, opts: { geometry?: boolean }
       popularity: p.popularity ?? 3,
       description: p.descriptionSk,
       inPlanDay: inPlan.get(p.slug) ?? null,
+      ...extras(p),
     }))
     .sort((a, b) => (a.inPlanDay ?? 99) - (b.inPlanDay ?? 99) || b.popularity - a.popularity);
 

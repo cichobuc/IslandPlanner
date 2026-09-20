@@ -43,6 +43,10 @@ export default function DevMapPage() {
     walkKm: null,
     difficulty: null,
     entryNote: null,
+    stars: 4,
+    entryPpEur: 0,
+    valuePer10Eur: null,
+    cheaper: null,
   });
   const days: DayLite[] = [
     {

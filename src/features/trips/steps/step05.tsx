@@ -22,6 +22,7 @@ export async function Step05({ access }: { access: TripAccess }) {
       dates={trip.endDate ? dateRangeLabel(trip.startDate, trip.endDate) : null}
       pace={trip.pace}
       presetKey={trip.routePreset}
+      attractionBudget={(trip.attractionBudget as 'free' | 'budget' | 'balanced' | 'unlimited') ?? 'balanced'}
       canEdit={canEdit(role)}
     />
   );

@@ -54,6 +54,10 @@ const catalogToStop = (p: CatalogPoi): StopLite => ({
   walkKm: null,
   difficulty: null,
   entryNote: null,
+  stars: p.stars,
+  entryPpEur: p.entryPpEur,
+  valuePer10Eur: p.valuePer10Eur,
+  cheaper: p.cheaper,
 });
 
 export function MapView({

@@ -19,6 +19,8 @@ export type PoiCandidate = {
   openFrom?: string | null;
   openUntil?: string | null;
   bookingRequired?: boolean;
+  /** vstupné na dospelého v EUR (0 = zadarmo); parkovné sa neráta */
+  entryPpEur?: number;
 };
 
 export type DaySkeleton = {
@@ -88,7 +90,34 @@ export type GenerateInput = {
   reserveDay?: boolean;
   /** súradnice kotiev (`region:<id>`, `kef`) pre zoradenie pozdĺž smeru jazdy */
   anchorPoints?: Record<string, { lat: number; lng: number }>;
+  /** úroveň míňania na atrakcie (default balanced) a počet osôb pre mešec */
+  attractionBudget?: AttractionBudgetLevel;
+  pax?: number;
 };
+
+/**
+ * Koľko míňať na atrakcie (ADR-015): mešec na celú cestu = limit €/os/deň × dni × osoby, plus penalizácia ceny v skóre
+ * (λ bodov za €) – platené miesto musí byť o toľko lepšie, o koľko je drahšie. Zadarmo miesta nie sú dotknuté.
+ */
+export type AttractionBudgetLevel = 'free' | 'budget' | 'balanced' | 'unlimited';
+export const ATTRACTION_BUDGET: Record<
+  AttractionBudgetLevel,
+  { ppPerDayEur: number | null; lambda: number; labelSk: string }
+> = {
+  free: { ppPerDayEur: 0, lambda: Infinity, labelSk: 'len zadarmo' },
+  budget: { ppPerDayEur: 12, lambda: 0.06, labelSk: 'úsporne · ≤ 12 €/os/deň' },
+  balanced: { ppPerDayEur: 35, lambda: 0.025, labelSk: 'vyvážene · ≤ 35 €/os/deň' },
+  unlimited: { ppPerDayEur: null, lambda: 0.005, labelSk: 'bez limitu' },
+};
+
+/** Hviezdičky kvality 1–5 (zo seedu `popularity` = „oplatí sa vidieť“) a hodnota za peniaze: hviezdičky na 10 € na osobu. */
+export const stars = (p: Pick<PoiCandidate, 'popularity'>) =>
+  Math.max(1, Math.min(5, Math.round(p.popularity)));
+export function valueForMoney(p: Pick<PoiCandidate, 'popularity' | 'entryPpEur'>): number | null {
+  const eur = p.entryPpEur ?? 0;
+  if (eur <= 0) return null;
+  return Math.round((stars(p) / (eur / 10)) * 10) / 10;
+}
 
 export const PACE_CAPACITY: Record<Pace, { dayMin: number; maxStops: number; maxDriveMin: number }> = {
   relaxed: { dayMin: 8 * 60, maxStops: 3, maxDriveMin: 4 * 60 },
@@ -122,11 +151,13 @@ export const regionKey = (regionId: string | null | undefined, airportKey = 'kef
   regionId ? `region:${regionId}` : airportKey;
 
 /** Skóre POI: popularita + záujmy skupiny + sezóna; klenoty dostanú bonus podľa `gemShare`. */
-export function scorePoi(p: PoiCandidate, interests: string[], gemShare = 0.3): number {
+export function scorePoi(p: PoiCandidate, interests: string[], gemShare = 0.3, lambda = 0): number {
   let s = p.popularity;
   for (const k of interests) s += (p.interestWeight[k] ?? 0) * 2;
   if (p.monthRating != null) s += (p.monthRating - 3) * 0.8;
   if (p.hiddenGem) s += gemShare * 3;
+  // penalizácia ceny: pri „bez limitu“ takmer nič, pri „úsporne“ 50 € = −3 body (≈ rozdiel medzi 5★ a 2★)
+  if (lambda && p.entryPpEur && Number.isFinite(lambda)) s -= lambda * p.entryPpEur;
   return Math.round(s * 100) / 100;
 }
 
@@ -260,6 +291,18 @@ type DayCtx = {
  */
 export function generateItinerary(input: GenerateInput): GeneratedDay[] {
   const cap = PACE_CAPACITY[input.pace];
+  const budget = ATTRACTION_BUDGET[input.attractionBudget ?? 'balanced'];
+  const pax = Math.max(1, input.pax ?? 1);
+  const poolEur = budget.ppPerDayEur == null ? Infinity : budget.ppPerDayEur * input.days.length * pax;
+  let spentEur = 0;
+  // jeden „veľký zážitok“ nad mešec: 5★ miesto, ktoré sedí na záujem skupiny (nie pri „úsporne“)
+  let splurgeUsed = false;
+  const costOf = (p: PoiCandidate) => (p.entryPpEur ?? 0) * pax;
+  const isSplurge = (p: PoiCandidate) =>
+    !splurgeUsed &&
+    input.attractionBudget !== 'budget' &&
+    stars(p) === 5 &&
+    input.interests.some((k) => (p.interestWeight[k] ?? 0) >= 0.8);
   const airport = input.airportKey ?? 'kef';
   const order = input.ringOrder ?? RING_ORDER;
   const sorted = [...input.days].sort((a, b) => a.dayIndex - b.dayIndex);
@@ -377,6 +420,7 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
     .filter((p) => !used.has(p.slug))
     .filter((p) => !p.requires4x4 || input.allow4x4)
     .filter((p) => p.monthRating == null || p.monthRating >= 2)
+    .filter((p) => budget.ppPerDayEur !== 0 || !(p.entryPpEur && p.entryPpEur > 0))
     .map((p) => {
       const options: Option[] = ctxs
         .filter((c) => !c.day.locked && p.regionId && c.regions.includes(p.regionId))
@@ -396,6 +440,13 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
       : c.baselineMin / span;
   };
   for (const { p, options } of candidates) {
+    // mešec na celú cestu: platené miesto sa zmestí, len ak zostáva; zadarmo vždy
+    const entryCost = costOf(p);
+    let splurge = false;
+    if (entryCost > 0 && spentEur + entryCost > poolEur) {
+      if (!isSplurge(p)) continue;
+      splurge = true;
+    }
     const ranked = options
       .map((o) => ({ ...o, cost: o.detour + LOAD_PENALTY_MIN * load(o.c) }))
       .sort((a, b) => a.cost - b.cost || a.c.idx - b.c.idx);
@@ -403,6 +454,8 @@ export function generateItinerary(input: GenerateInput): GeneratedDay[] {
       if (fits(c, [...c.chosen, p], false)) {
         c.chosen.push(p);
         used.add(p.slug);
+        spentEur += entryCost;
+        if (splurge) splurgeUsed = true;
         break;
       }
     }

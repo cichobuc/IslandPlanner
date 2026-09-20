@@ -9,10 +9,12 @@ import {
   DEFAULT_START_MIN,
   generateItinerary,
   orderStops,
+  type AttractionBudgetLevel,
   type DaySkeleton,
   type MatrixLookup,
   type PoiCandidate,
 } from '@/engine/itinerary';
+import { getRates } from './rates';
 import { canEdit, getTripAccess } from './access';
 import type { ActionState } from './actions';
 import { loadFlightInput } from './snapshot';
@@ -41,8 +43,21 @@ export async function loadAnchorPoints(): Promise<Record<string, { lat: number; 
 const arriveAt = (date: string | null, min: number) =>
   date ? new Date(`${date}T00:00:00Z`).getTime() + min * 60_000 : null;
 
-export async function loadPoiCandidates(month: number): Promise<PoiCandidate[]> {
-  const rows = await getDb().select().from(schema.pois);
+export async function loadPoiCandidates(month: number, iskEur = 0.0067): Promise<PoiCandidate[]> {
+  const db = getDb();
+  const [rows, rules] = await Promise.all([
+    db.select().from(schema.pois),
+    db.select().from(schema.poiPriceRules),
+  ]);
+  // vstupné dospelého v EUR: predvolený variant, pravidlo per osoba bez max_age (dospelý)
+  const adultEur = (poiId: string) => {
+    const r = rules.filter(
+      (x) => x.poiId === poiId && x.per === 'person' && x.isDefault !== false && x.maxAge == null,
+    );
+    if (!r.length) return 0;
+    const m = r[0].price;
+    return Math.round((m.currency === 'ISK' ? m.amount * iskEur : m.amount) * 100) / 100;
+  };
   return rows
     .filter((p) => p.kind !== 'campsite' && p.kind !== 'fuel' && p.kind !== 'grocery')
     .map((p) => ({
@@ -60,6 +75,7 @@ export async function loadPoiCandidates(month: number): Promise<PoiCandidate[]> 
         (p.bestMonths?.length ? (p.bestMonths.includes(month) ? 4 : 2) : null),
       requires4x4: Boolean(p.requires4x4),
       kind: p.kind,
+      entryPpEur: adultEur(p.id),
       openFrom: (p.openHours as { from?: string } | null)?.from ?? null,
       openUntil: (p.openHours as { until?: string } | null)?.until ?? null,
       bookingRequired: Boolean(p.bookingRequired),
@@ -96,7 +112,7 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
       .orderBy(asc(schema.itineraryDays.dayIndex)),
     loadFlightInput(tripId),
     loadMatrix(),
-    loadPoiCandidates(Number(trip.targetMonth.slice(5, 7))),
+    loadPoiCandidates(Number(trip.targetMonth.slice(5, 7)), (await getRates()).fx.ISK_EUR),
     db
       .select({ cls: schema.vehicleOptions.class })
       .from(schema.vehicleSelection)
@@ -150,6 +166,16 @@ export async function generateItineraryAction(_prev: ActionState, formData: Form
     allow4x4,
     gemShare: parsed.data.gemShare ?? 0.3,
     keep,
+    attractionBudget: (trip.attractionBudget as AttractionBudgetLevel) ?? 'balanced',
+    pax: Math.max(
+      1,
+      (
+        await db
+          .select({ id: schema.travelers.id })
+          .from(schema.travelers)
+          .where(eq(schema.travelers.tripId, tripId))
+      ).length,
+    ),
   });
   const slugToId = new Map([...poiById.entries()].map(([id, slug]) => [slug, id]));
 
@@ -360,4 +386,26 @@ async function recomputeDay(tripId: string, dayId: string) {
       updatedAt: new Date(),
     })
     .where(eq(schema.itineraryDays.id, dayId));
+}
+
+const budgetSchema = z.object({
+  tripId: z.uuid(),
+  level: z.enum(['free', 'budget', 'balanced', 'unlimited']),
+});
+
+/** Koľko míňať na atrakcie (ADR-015) – uloží sa na cestu; generátor ju použije pri ďalšom Generovať. */
+export async function setAttractionBudgetAction(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const parsed = budgetSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { ok: false, error: 'Neplatná úroveň.' };
+  const { tripId, level } = parsed.data;
+  if (!(await editable(tripId))) return { ok: false, error: NO_EDIT };
+  await getDb()
+    .update(schema.trips)
+    .set({ attractionBudget: level, updatedAt: new Date() })
+    .where(eq(schema.trips.id, tripId));
+  revalidate(tripId);
+  return { ok: true };
 }

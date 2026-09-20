@@ -48,7 +48,13 @@ export async function loadFlightInput(tripId: string): Promise<FlightSelectionIn
       outArrAt: m.outArrAt ?? m.outDepAt,
       retDepAt: m.retDepAt,
       retArrAt: m.retArrAt ?? m.retDepAt,
-      farePp: { amount: m.farePp ?? (sel.lockedPrice ? sel.lockedPrice.amount / Math.max(1, await countTravelersFor(tripId)) : 0), currency: 'EUR', source: 'manual' },
+      farePp: {
+        amount:
+          m.farePp ??
+          (sel.lockedPrice ? sel.lockedPrice.amount / Math.max(1, await countTravelersFor(tripId)) : 0),
+        currency: 'EUR',
+        source: 'manual',
+      },
       isEstimate: false,
     };
   }
@@ -56,7 +62,10 @@ export async function loadFlightInput(tripId: string): Promise<FlightSelectionIn
 }
 
 async function countTravelersFor(tripId: string): Promise<number> {
-  const rows = await getDb().select({ id: schema.travelers.id }).from(schema.travelers).where(eq(schema.travelers.tripId, tripId));
+  const rows = await getDb()
+    .select({ id: schema.travelers.id })
+    .from(schema.travelers)
+    .where(eq(schema.travelers.tripId, tripId));
   return rows.length;
 }
 

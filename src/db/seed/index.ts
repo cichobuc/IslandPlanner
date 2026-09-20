@@ -263,7 +263,26 @@ async function main() {
       rules += p.price_rules.length;
     }
   }
-  console.log(`✓ pois ${allPois.length} (z toho kempy ${campsites.length}), price_rules ${rules}`);
+  // lacnejšia alternatíva (ADR-015): slug → id v druhom prechode
+  const bySlug = new Map(
+    (await db.select({ id: schema.pois.id, slug: schema.pois.slug }).from(schema.pois)).map((p) => [
+      p.slug,
+      p.id,
+    ]),
+  );
+  let alts = 0;
+  for (const p of pois) {
+    const alt = p.cheaper_alternative_slug as string | undefined;
+    if (!alt || !bySlug.get(alt)) continue;
+    await db
+      .update(schema.pois)
+      .set({ cheaperAlternativePoiId: bySlug.get(alt)! })
+      .where(eq(schema.pois.slug, p.slug));
+    alts++;
+  }
+  console.log(
+    `✓ pois ${allPois.length} (z toho kempy ${campsites.length}), price_rules ${rules}, lacnejšie alternatívy ${alts}`,
+  );
 
   // kempy aj ako lodging_options (trip_id null) pre krok 04
   await db.delete(schema.lodgingOptions).where(isNull(schema.lodgingOptions.tripId));
@@ -316,7 +335,11 @@ async function main() {
 
   // route_matrix: OSRM matica zo seed/route_matrix.json (pnpm matrix:build), pre chýbajúce dvojice Haversine × 1,25
   const regionsSeed = read<Array<{ id: string; centroid_lat: number; centroid_lng: number }>>('regions.json');
-  const points = [...poiIds.map((p) => ({ slug: p.slug })), ...regionsSeed.map((r) => ({ slug: `region:${r.id}` })), { slug: 'kef' }];
+  const points = [
+    ...poiIds.map((p) => ({ slug: p.slug })),
+    ...regionsSeed.map((r) => ({ slug: `region:${r.id}` })),
+    { slug: 'kef' },
+  ];
   const coords = new Map<string, [number, number]>();
   for (const p of allPois) coords.set(p.slug, [Number(p.lat), Number(p.lng)]);
   for (const r of regionsSeed) coords.set(`region:${r.id}`, [r.centroid_lat, r.centroid_lng]);
@@ -345,14 +368,26 @@ async function main() {
       const o = osrmMap.get(`${a.slug}>${b.slug}`);
       if (o) {
         fromOsrm++;
-        matrixRows.push({ fromSlug: a.slug, toSlug: b.slug, km: String(o.km), min: String(o.min), surface: 'paved' });
+        matrixRows.push({
+          fromSlug: a.slug,
+          toSlug: b.slug,
+          km: String(o.km),
+          min: String(o.min),
+          surface: 'paved',
+        });
         continue;
       }
       const ca = coords.get(a.slug);
       const cb = coords.get(b.slug);
       if (!ca || !cb) continue;
       const km = Math.round(hav(ca, cb) * 1.25 * 10) / 10;
-      matrixRows.push({ fromSlug: a.slug, toSlug: b.slug, km: String(km), min: String(Math.round((km / 70) * 60)), surface: 'estimate' });
+      matrixRows.push({
+        fromSlug: a.slug,
+        toSlug: b.slug,
+        km: String(km),
+        min: String(Math.round((km / 70) * 60)),
+        surface: 'estimate',
+      });
     }
   await db.execute(sql`delete from route_matrix`);
   for (let i = 0; i < matrixRows.length; i += 500)
@@ -360,7 +395,9 @@ async function main() {
       .insert(schema.routeMatrix)
       .values(matrixRows.slice(i, i + 500))
       .onConflictDoNothing();
-  console.log(`✓ route_matrix ${matrixRows.length} dvojíc (OSRM ${fromOsrm}, Haversine ${matrixRows.length - fromOsrm})`);
+  console.log(
+    `✓ route_matrix ${matrixRows.length} dvojíc (OSRM ${fromOsrm}, Haversine ${matrixRows.length - fromOsrm})`,
+  );
 
   console.log(`Hotovo za ${((Date.now() - t0) / 1000).toFixed(1)} s`);
   process.exit(0);

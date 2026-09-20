@@ -23,7 +23,19 @@ import { fmtEur } from '@/lib/format';
 import type { ActionState } from '../actions';
 import type { CatalogPoi, DayLite, StopLite } from '../itinerary-data';
 import { addStopAction, removeStopAction } from '../step05-actions';
-import { DRONE, PoiSheet, stars } from './poi-sheet';
+import { DRONE, PoiSheet } from './poi-sheet';
+
+const starStr = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
+const PRICE_TIER = (eur: number) =>
+  eur <= 0 ? 'zadarmo' : eur < 20 ? 'do 20 €' : eur < 60 ? '20–60 €' : 'nad 60 €';
+const valueTag = (v: number | null) =>
+  v == null
+    ? null
+    : v >= 1.2
+      ? { tone: 'ok' as const, label: `oplatí sa · ${v}★/10 €` }
+      : v < 0.5
+        ? { tone: 'warn' as const, label: `drahé · ${v}★/10 €` }
+        : null;
 
 const KINDS: Record<string, string> = {
   thermal: 'Termály',
@@ -49,6 +61,7 @@ export function Step06Client({
   canEdit: boolean;
 }) {
   const [kind, setKind] = useState<string | null>(null);
+  const [tier, setTier] = useState<string | null>(null);
   const [gemsOnly, setGemsOnly] = useState(false);
   const [detail, setDetail] = useState<{ stop: StopLite; dayIndex: number } | null>(null);
   const [dayFor, setDayFor] = useState<Record<string, string>>({});
@@ -60,8 +73,14 @@ export function Step06Client({
   );
   const rest = useMemo(
     () =>
-      catalog.filter((p) => p.inPlanDay == null && (!kind || p.kind === kind) && (!gemsOnly || p.hiddenGem)),
-    [catalog, kind, gemsOnly],
+      catalog.filter(
+        (p) =>
+          p.inPlanDay == null &&
+          (!kind || p.kind === kind) &&
+          (!gemsOnly || p.hiddenGem) &&
+          (!tier || PRICE_TIER(p.entryPpEur) === tier),
+      ),
+    [catalog, kind, gemsOnly, tier],
   );
   const kinds = useMemo(() => [...new Set(catalog.map((p) => p.kind))], [catalog]);
   const bookings = inPlan.filter(({ s }) => s.bookingRequired).length;
@@ -88,8 +107,9 @@ export function Step06Client({
                 leading={<Tile icon={Sparkles} tone="info" />}
                 title={`${s.name}${s.hiddenGem ? ' 💎' : ''}`}
                 meta={[
+                  starStr(s.stars),
                   `${s.stayMin} min`,
-                  stars(s.monthRating) ? `${stars(s.monthRating)} sept` : null,
+                  s.entryPpEur ? `${fmtEur(s.entryPpEur)}/os` : 'zadarmo',
                   `deň ${String(d.dayIndex).padStart(2, '0')}`,
                   s.regionName,
                 ]
@@ -97,6 +117,9 @@ export function Step06Client({
                   .join(' · ')}
                 badges={
                   <>
+                    {valueTag(s.valuePer10Eur) && (
+                      <Tag tone={valueTag(s.valuePer10Eur)!.tone}>{valueTag(s.valuePer10Eur)!.label}</Tag>
+                    )}
                     <Tag tone={dr.tone}>{dr.label}</Tag>
                     {s.bookingRequired && <Tag tone="vio">rezervácia</Tag>}
                   </>
@@ -148,6 +171,12 @@ export function Step06Client({
           <Chip on={gemsOnly} onClick={() => setGemsOnly((v) => !v)}>
             💎 klenoty
           </Chip>
+          <span className="text-ink-3 mx-1 text-[12px]">cena:</span>
+          {['zadarmo', 'do 20 €', '20–60 €', 'nad 60 €'].map((t) => (
+            <Chip key={t} on={tier === t} onClick={() => setTier(tier === t ? null : t)}>
+              {t}
+            </Chip>
+          ))}
         </ChipRow>
         <ListCard>
           {rest.map((p) => {
@@ -159,14 +188,24 @@ export function Step06Client({
                 leading={<Tile icon={Sparkles} tone={p.hiddenGem ? 'vio' : 'mut'} />}
                 title={`${p.name}${p.hiddenGem ? ' 💎' : ''}`}
                 meta={[
+                  starStr(p.stars),
                   p.regionName,
                   `${p.visitMin} min`,
-                  stars(p.monthRating) ? `${stars(p.monthRating)} sept` : null,
-                  `popularita ${p.popularity}/5`,
+                  p.entryPpEur ? `${fmtEur(p.entryPpEur)}/os` : 'zadarmo',
+                  p.cheaper
+                    ? `lacnejšie: ${p.cheaper.name} (${p.cheaper.entryPpEur ? fmtEur(p.cheaper.entryPpEur) : '0 €'})`
+                    : null,
                 ]
                   .filter(Boolean)
                   .join(' · ')}
-                badges={<Tag tone={dr.tone}>{dr.label}</Tag>}
+                badges={
+                  <>
+                    {valueTag(p.valuePer10Eur) && (
+                      <Tag tone={valueTag(p.valuePer10Eur)!.tone}>{valueTag(p.valuePer10Eur)!.label}</Tag>
+                    )}
+                    <Tag tone={dr.tone}>{dr.label}</Tag>
+                  </>
+                }
                 amount={p.entryGroup ? fmtEur(p.entryGroup) : '0 €'}
                 amountSub={p.entryGroup ? `${fmtEur(p.entryGroup / pax)}/os` : 'zadarmo'}
                 action={
