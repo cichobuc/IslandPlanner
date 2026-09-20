@@ -1,0 +1,110 @@
+[
+  {
+    "id": "reykjanes",
+    "name_sk": "Reykjanes (KEF)",
+    "name_cs": "Reykjanes (KEF)",
+    "name_en": "Reykjanes",
+    "centroid_lat": 63.9,
+    "centroid_lng": -22.4,
+    "order_on_ring": 0
+  },
+  {
+    "id": "reykjavik",
+    "name_sk": "Reykjavík",
+    "name_cs": "Reykjavík",
+    "name_en": "Reykjavík",
+    "centroid_lat": 64.13,
+    "centroid_lng": -21.9,
+    "order_on_ring": 1
+  },
+  {
+    "id": "golden_circle",
+    "name_sk": "Golden Circle",
+    "name_cs": "Zlatý okruh",
+    "name_en": "Golden Circle",
+    "centroid_lat": 64.25,
+    "centroid_lng": -20.6,
+    "order_on_ring": 2
+  },
+  {
+    "id": "south",
+    "name_sk": "Juh (Selfoss–Vík)",
+    "name_cs": "Jih (Selfoss–Vík)",
+    "name_en": "South",
+    "centroid_lat": 63.55,
+    "centroid_lng": -19.4,
+    "order_on_ring": 3
+  },
+  {
+    "id": "southeast",
+    "name_sk": "Juhovýchod (Skaftafell–Höfn)",
+    "name_cs": "Jihovýchod (Skaftafell–Höfn)",
+    "name_en": "Southeast",
+    "centroid_lat": 64.05,
+    "centroid_lng": -16.8,
+    "order_on_ring": 4
+  },
+  {
+    "id": "eastfjords",
+    "name_sk": "Východné fjordy",
+    "name_cs": "Východní fjordy",
+    "name_en": "Eastfjords",
+    "centroid_lat": 65.1,
+    "centroid_lng": -14.2,
+    "order_on_ring": 5
+  },
+  {
+    "id": "north_myvatn",
+    "name_sk": "Mývatn a okolie",
+    "name_cs": "Mývatn a okolí",
+    "name_en": "Mývatn",
+    "centroid_lat": 65.65,
+    "centroid_lng": -16.95,
+    "order_on_ring": 6
+  },
+  {
+    "id": "akureyri",
+    "name_sk": "Akureyri / Eyjafjörður",
+    "name_cs": "Akureyri / Eyjafjörður",
+    "name_en": "Akureyri",
+    "centroid_lat": 65.68,
+    "centroid_lng": -18.1,
+    "order_on_ring": 7
+  },
+  {
+    "id": "north_west",
+    "name_sk": "Severozápad",
+    "name_cs": "Severozápad",
+    "name_en": "Northwest",
+    "centroid_lat": 65.3,
+    "centroid_lng": -20.8,
+    "order_on_ring": 8
+  },
+  {
+    "id": "snaefellsnes",
+    "name_sk": "Snæfellsnes",
+    "name_cs": "Snæfellsnes",
+    "name_en": "Snæfellsnes",
+    "centroid_lat": 64.9,
+    "centroid_lng": -23.3,
+    "order_on_ring": 9
+  },
+  {
+    "id": "westfjords",
+    "name_sk": "Západné fjordy",
+    "name_cs": "Západní fjordy",
+    "name_en": "Westfjords",
+    "centroid_lat": 65.8,
+    "centroid_lng": -23.2,
+    "order_on_ring": 10
+  },
+  {
+    "id": "highlands",
+    "name_sk": "Vysočina (F-cesty)",
+    "name_cs": "Vysočina (F-cesty)",
+    "name_en": "Highlands",
+    "centroid_lat": 64.05,
+    "centroid_lng": -19.1,
+    "order_on_ring": 11
+  }
+]

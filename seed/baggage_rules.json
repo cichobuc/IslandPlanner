@@ -1,0 +1,160 @@
+[
+  {
+    "airline": "W6",
+    "bag_type": "cabin_small",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 10,
+    "dims": "40×30×20",
+    "notes": "v cene, pod sedadlo"
+  },
+  {
+    "airline": "W6",
+    "bag_type": "cabin_10",
+    "price_low": 12,
+    "price_high": 40,
+    "max_kg": 10,
+    "dims": "55×40×23",
+    "notes": "WIZZ Priority + trolley, dynamická cena/segment"
+  },
+  {
+    "airline": "W6",
+    "bag_type": "checked_20",
+    "price_low": 22,
+    "price_high": 75,
+    "max_kg": 20,
+    "notes": "online, per segment; na letisku dvojnásobok"
+  },
+  {
+    "airline": "W6",
+    "bag_type": "checked_32",
+    "price_low": 40,
+    "price_high": 110,
+    "max_kg": 32,
+    "notes": "per segment"
+  },
+  {
+    "airline": "FR",
+    "bag_type": "cabin_small",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 10,
+    "dims": "40×25×20",
+    "notes": "v cene"
+  },
+  {
+    "airline": "FR",
+    "bag_type": "cabin_10",
+    "price_low": 8,
+    "price_high": 38,
+    "max_kg": 10,
+    "dims": "55×40×20",
+    "notes": "Priority & 2 Cabin Bags"
+  },
+  {
+    "airline": "FR",
+    "bag_type": "checked_20",
+    "price_low": 20,
+    "price_high": 65,
+    "max_kg": 20,
+    "notes": "per segment"
+  },
+  {
+    "airline": "U2",
+    "bag_type": "cabin_small",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 15,
+    "dims": "45×36×20",
+    "notes": "v cene"
+  },
+  {
+    "airline": "U2",
+    "bag_type": "cabin_10",
+    "price_low": 7,
+    "price_high": 40,
+    "max_kg": 15,
+    "dims": "56×45×25",
+    "notes": "large cabin bag"
+  },
+  {
+    "airline": "U2",
+    "bag_type": "checked_20",
+    "price_low": 10,
+    "price_high": 55,
+    "max_kg": 23,
+    "notes": "23 kg hold bag"
+  },
+  {
+    "airline": "OG",
+    "bag_type": "cabin_small",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 10,
+    "notes": "v cene"
+  },
+  {
+    "airline": "OG",
+    "bag_type": "cabin_10",
+    "price_low": 25,
+    "price_high": 50,
+    "max_kg": 10,
+    "notes": "cabin bag 10 kg"
+  },
+  {
+    "airline": "OG",
+    "bag_type": "checked_20",
+    "price_low": 35,
+    "price_high": 70,
+    "max_kg": 20,
+    "notes": "checked 20 kg"
+  },
+  {
+    "airline": "FI",
+    "bag_type": "cabin_small",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 10,
+    "notes": "Economy Light: 10 kg kabína v cene"
+  },
+  {
+    "airline": "FI",
+    "bag_type": "cabin_10",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 10,
+    "notes": "v cene"
+  },
+  {
+    "airline": "FI",
+    "bag_type": "checked_20",
+    "price_low": 40,
+    "price_high": 75,
+    "max_kg": 23,
+    "notes": "Economy Light príplatok; Standard v cene"
+  },
+  {
+    "airline": "OS",
+    "bag_type": "cabin_small",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 8,
+    "notes": "v cene"
+  },
+  {
+    "airline": "OS",
+    "bag_type": "cabin_10",
+    "price_low": 0,
+    "price_high": 0,
+    "max_kg": 8,
+    "notes": "v cene"
+  },
+  {
+    "airline": "OS",
+    "bag_type": "checked_20",
+    "price_low": 0,
+    "price_high": 45,
+    "max_kg": 23,
+    "notes": "Light bez, Classic v cene"
+  }
+]

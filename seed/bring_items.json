@@ -1,0 +1,197 @@
+[
+  {
+    "category": "drink",
+    "name_sk": "Pivo 0,5 l",
+    "price_is": 4.0,
+    "price_sk": 1.0,
+    "weight_g": 500,
+    "default_qty_per_person": 2,
+    "customs_note": "Limit alkoholu (20+); duty free na KEF po prílete ~ 2,2 €/ks je lepšia voľba",
+    "airline_note": "Podaná batožina"
+  },
+  {
+    "category": "drink",
+    "name_sk": "Víno 0,75 l",
+    "price_is": 20.0,
+    "price_sk": 5.0,
+    "weight_g": 1200,
+    "default_qty_per_person": 0.5,
+    "customs_note": "Limit 0,75–1,5 l na osobu 20+",
+    "airline_note": "Podaná, zabaliť do oblečenia"
+  },
+  {
+    "category": "drink",
+    "name_sk": "Tvrdý alkohol 0,7 l",
+    "price_is": 50.0,
+    "price_sk": 12.0,
+    "weight_g": 1200,
+    "default_qty_per_person": 0.25,
+    "customs_note": "Limit 1 l na osobu 20+; duty free KEF ~ 25 €",
+    "airline_note": "Podaná"
+  },
+  {
+    "category": "food",
+    "name_sk": "Káva mletá 250 g",
+    "price_is": 9.0,
+    "price_sk": 3.0,
+    "weight_g": 250,
+    "default_qty_per_person": 0.5
+  },
+  {
+    "category": "food",
+    "name_sk": "Cestoviny 500 g",
+    "price_is": 2.5,
+    "price_sk": 1.0,
+    "weight_g": 500,
+    "default_qty_per_person": 1,
+    "customs_note": "Ťažké – len ak je miesto"
+  },
+  {
+    "category": "food",
+    "name_sk": "Ryža 1 kg",
+    "price_is": 4.0,
+    "price_sk": 1.8,
+    "weight_g": 1000,
+    "default_qty_per_person": 0.25
+  },
+  {
+    "category": "food",
+    "name_sk": "Instantné polievky / rezance",
+    "price_is": 2.5,
+    "price_sk": 0.6,
+    "weight_g": 100,
+    "default_qty_per_person": 4,
+    "customs_note": "Výborný pomer úspora/kg"
+  },
+  {
+    "category": "food",
+    "name_sk": "Müsli tyčinky, orechy 100 g",
+    "price_is": 2.5,
+    "price_sk": 1.0,
+    "weight_g": 100,
+    "default_qty_per_person": 5
+  },
+  {
+    "category": "food",
+    "name_sk": "Sušené mäso / saláma vákuovo 100 g",
+    "price_is": 8.0,
+    "price_sk": 3.0,
+    "weight_g": 100,
+    "default_qty_per_person": 3,
+    "customs_note": "Tepelne spracované balené – OK; surové mäso zakázané"
+  },
+  {
+    "category": "food",
+    "name_sk": "Tvrdý syr 250 g",
+    "price_is": 7.0,
+    "price_sk": 2.5,
+    "weight_g": 250,
+    "default_qty_per_person": 1,
+    "customs_note": "Pasterizovaný balený – OK"
+  },
+  {
+    "category": "food",
+    "name_sk": "Korenie, olej v malom, čaj, cukor",
+    "price_is": 4.0,
+    "price_sk": 1.0,
+    "weight_g": 200,
+    "default_qty_per_person": 0.25
+  },
+  {
+    "category": "food",
+    "name_sk": "Sušené ovocie, čokoláda 100 g",
+    "price_is": 4.0,
+    "price_sk": 1.5,
+    "weight_g": 100,
+    "default_qty_per_person": 3
+  },
+  {
+    "category": "hygiene",
+    "name_sk": "Sprchový gél, šampón, zubná pasta",
+    "price_is": 7.5,
+    "price_sk": 2.5,
+    "weight_g": 300,
+    "default_qty_per_person": 1,
+    "airline_note": "Tekutiny > 100 ml do podanej"
+  },
+  {
+    "category": "meds",
+    "name_sk": "Lieky (ibuprofen, náplasti, lekárnička)",
+    "price_is": 12.0,
+    "price_sk": 4.0,
+    "weight_g": 200,
+    "default_qty_per_person": 0.5,
+    "customs_note": "Lekáreň na Islande drahá a zriedkavá"
+  },
+  {
+    "category": "hygiene",
+    "name_sk": "Opaľovací krém 50+",
+    "price_is": 15.0,
+    "price_sk": 6.0,
+    "weight_g": 200,
+    "default_qty_per_person": 0.5
+  },
+  {
+    "category": "gear",
+    "name_sk": "Pršiplášť / pončo",
+    "price_is": 40.0,
+    "price_sk": 10.0,
+    "weight_g": 300,
+    "default_qty_per_person": 1
+  },
+  {
+    "category": "gear",
+    "name_sk": "Termoska 0,75 l",
+    "price_is": 30.0,
+    "price_sk": 12.0,
+    "weight_g": 400,
+    "default_qty_per_person": 0.5,
+    "customs_note": "Voda z kohútika zadarmo"
+  },
+  {
+    "category": "gear",
+    "name_sk": "Rýchloschnúci uterák",
+    "price_is": 25.0,
+    "price_sk": 8.0,
+    "weight_g": 200,
+    "default_qty_per_person": 1,
+    "customs_note": "Kúpele prenajímajú za ~ 7 €"
+  },
+  {
+    "category": "gear",
+    "name_sk": "Čelovka + batérie",
+    "price_is": 30.0,
+    "price_sk": 10.0,
+    "weight_g": 100,
+    "default_qty_per_person": 0.5,
+    "airline_note": "Batérie v príručnej"
+  },
+  {
+    "category": "gear",
+    "name_sk": "Spacák (sleeping-bag ubytovanie / karavan)",
+    "price_is": 35.0,
+    "price_sk": 0,
+    "weight_g": 1200,
+    "default_qty_per_person": 1,
+    "customs_note": "Prenájom 30–40 €",
+    "seasonal": true
+  },
+  {
+    "category": "gear",
+    "name_sk": "Plynová kartuša",
+    "price_is": 8.0,
+    "price_sk": 0,
+    "weight_g": 0,
+    "default_qty_per_person": 0,
+    "airline_note": "NESMIE do lietadla – kúpiť na N1/Bónus"
+  },
+  {
+    "category": "gear",
+    "name_sk": "Powerbanka, autonabíjačka, kábel",
+    "price_is": 30.0,
+    "price_sk": 10.0,
+    "weight_g": 300,
+    "default_qty_per_person": 0.5,
+    "airline_note": "LiPo len v príručnej"
+  }
+]

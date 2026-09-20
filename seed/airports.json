@@ -1,0 +1,162 @@
+[
+  {
+    "iata": "BTS",
+    "name": "Letisko M. R. Štefánika",
+    "city": "Bratislava",
+    "country": "SK",
+    "lat": 48.1702,
+    "lng": 17.2127,
+    "tz": "Europe/Bratislava",
+    "drive_km_from_home": 12,
+    "drive_min_from_home": 15,
+    "is_origin": true
+  },
+  {
+    "iata": "VIE",
+    "name": "Vienna International Airport",
+    "city": "Viedeň",
+    "country": "AT",
+    "lat": 48.1103,
+    "lng": 16.5697,
+    "tz": "Europe/Vienna",
+    "drive_km_from_home": 65,
+    "drive_min_from_home": 55,
+    "is_origin": true
+  },
+  {
+    "iata": "BUD",
+    "name": "Budapest Ferenc Liszt",
+    "city": "Budapešť",
+    "country": "HU",
+    "lat": 47.4369,
+    "lng": 19.2556,
+    "tz": "Europe/Budapest",
+    "drive_km_from_home": 200,
+    "drive_min_from_home": 130,
+    "is_origin": true
+  },
+  {
+    "iata": "PRG",
+    "name": "Praha Václav Havel",
+    "city": "Praha",
+    "country": "CZ",
+    "lat": 50.1008,
+    "lng": 14.26,
+    "tz": "Europe/Prague",
+    "drive_km_from_home": 330,
+    "drive_min_from_home": 210,
+    "is_origin": true
+  },
+  {
+    "iata": "KTW",
+    "name": "Katowice Airport (Pyrzowice)",
+    "city": "Katovice",
+    "country": "PL",
+    "lat": 50.4743,
+    "lng": 19.08,
+    "tz": "Europe/Warsaw",
+    "drive_km_from_home": 320,
+    "drive_min_from_home": 200,
+    "is_origin": true
+  },
+  {
+    "iata": "KEF",
+    "name": "Keflavík International",
+    "city": "Keflavík",
+    "country": "IS",
+    "lat": 63.985,
+    "lng": -22.6056,
+    "tz": "Atlantic/Reykjavik",
+    "is_origin": false
+  },
+  {
+    "iata": "STN",
+    "name": "London Stansted",
+    "city": "Londýn",
+    "country": "GB",
+    "lat": 51.885,
+    "lng": 0.235,
+    "tz": "Europe/London",
+    "is_hub": true
+  },
+  {
+    "iata": "LTN",
+    "name": "London Luton",
+    "city": "Londýn",
+    "country": "GB",
+    "lat": 51.8747,
+    "lng": -0.3683,
+    "tz": "Europe/London",
+    "is_hub": true
+  },
+  {
+    "iata": "LGW",
+    "name": "London Gatwick",
+    "city": "Londýn",
+    "country": "GB",
+    "lat": 51.1537,
+    "lng": -0.1821,
+    "tz": "Europe/London",
+    "is_hub": true
+  },
+  {
+    "iata": "BER",
+    "name": "Berlin Brandenburg",
+    "city": "Berlín",
+    "country": "DE",
+    "lat": 52.3667,
+    "lng": 13.5033,
+    "tz": "Europe/Berlin",
+    "is_hub": true
+  },
+  {
+    "iata": "CPH",
+    "name": "Copenhagen Kastrup",
+    "city": "Kodaň",
+    "country": "DK",
+    "lat": 55.618,
+    "lng": 12.656,
+    "tz": "Europe/Copenhagen",
+    "is_hub": true
+  },
+  {
+    "iata": "AMS",
+    "name": "Amsterdam Schiphol",
+    "city": "Amsterdam",
+    "country": "NL",
+    "lat": 52.3105,
+    "lng": 4.7683,
+    "tz": "Europe/Amsterdam",
+    "is_hub": true
+  },
+  {
+    "iata": "DUB",
+    "name": "Dublin",
+    "city": "Dublin",
+    "country": "IE",
+    "lat": 53.4264,
+    "lng": -6.2499,
+    "tz": "Europe/Dublin",
+    "is_hub": true
+  },
+  {
+    "iata": "MUC",
+    "name": "München Franz Josef Strauss",
+    "city": "Mníchov",
+    "country": "DE",
+    "lat": 48.3538,
+    "lng": 11.7861,
+    "tz": "Europe/Berlin",
+    "is_hub": true
+  },
+  {
+    "iata": "ZRH",
+    "name": "Zürich",
+    "city": "Zürich",
+    "country": "CH",
+    "lat": 47.4647,
+    "lng": 8.5492,
+    "tz": "Europe/Zurich",
+    "is_hub": true
+  }
+]

@@ -1,0 +1,11 @@
+[
+  { "iata": "W6", "name": "Wizz Air", "kind": "lcc", "website": "https://wizzair.com" },
+  { "iata": "FR", "name": "Ryanair", "kind": "lcc", "website": "https://www.ryanair.com" },
+  { "iata": "U2", "name": "easyJet", "kind": "lcc", "website": "https://www.easyjet.com" },
+  { "iata": "OG", "name": "PLAY", "kind": "lcc", "website": "https://flyplay.com" },
+  { "iata": "FI", "name": "Icelandair", "kind": "full", "website": "https://www.icelandair.com" },
+  { "iata": "OS", "name": "Austrian Airlines", "kind": "full", "website": "https://www.austrian.com" },
+  { "iata": "SK", "name": "SAS", "kind": "full", "website": "https://www.flysas.com" },
+  { "iata": "KL", "name": "KLM", "kind": "full", "website": "https://www.klm.com" },
+  { "iata": "LH", "name": "Lufthansa", "kind": "full", "website": "https://www.lufthansa.com" }
+]

@@ -1,0 +1,117 @@
+[
+  {
+    "iata": "VIE",
+    "name": "Mazur Parking VIE (shuttle)",
+    "kind": "external_shuttle",
+    "price_rules": [
+      { "days": 7, "price": 59 },
+      { "days": 10, "price": 84 },
+      { "days": 14, "price": 109 },
+      { "extraDayPrice": 6 }
+    ],
+    "currency": "EUR",
+    "shuttle_min": 10,
+    "url": "https://www.mazur-parken.at",
+    "source": "seed",
+    "verified_at": "2026-09-20",
+    "notes": "Rezervácia online, transfer minibusom"
+  },
+  {
+    "iata": "VIE",
+    "name": "VIE Parkplatz C (oficiálne, dlhodobé)",
+    "kind": "official",
+    "price_rules": [
+      { "days": 7, "price": 79 },
+      { "days": 10, "price": 109 },
+      { "days": 14, "price": 139 },
+      { "extraDayPrice": 9 }
+    ],
+    "currency": "EUR",
+    "shuttle_min": 0,
+    "url": "https://www.viennaairport.com/parken",
+    "source": "seed",
+    "verified_at": "2026-09-20",
+    "notes": "Online rezervácia lacnejšia"
+  },
+  {
+    "iata": "BTS",
+    "name": "BTS P Long-term",
+    "kind": "official",
+    "price_rules": [{ "perDay": 6 }],
+    "currency": "EUR",
+    "shuttle_min": 0,
+    "url": "https://www.bts.aero/parkovanie",
+    "source": "seed",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "iata": "BUD",
+    "name": "Holiday Parking BUD",
+    "kind": "official",
+    "price_rules": [
+      { "days": 7, "price": 35 },
+      { "days": 10, "price": 45 },
+      { "days": 14, "price": 55 },
+      { "extraDayPrice": 4 }
+    ],
+    "currency": "EUR",
+    "shuttle_min": 5,
+    "url": "https://www.bud.hu/parking",
+    "source": "seed",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "iata": "PRG",
+    "name": "PRG P Long (oficiálne)",
+    "kind": "official",
+    "price_rules": [{ "perDay": 8 }],
+    "currency": "EUR",
+    "shuttle_min": 0,
+    "url": "https://www.prg.aero/parkovani",
+    "source": "seed",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "iata": "PRG",
+    "name": "GO Parking PRG (shuttle)",
+    "kind": "external_shuttle",
+    "price_rules": [
+      { "days": 7, "price": 40 },
+      { "days": 10, "price": 52 },
+      { "days": 14, "price": 65 },
+      { "extraDayPrice": 4 }
+    ],
+    "currency": "EUR",
+    "shuttle_min": 10,
+    "url": "https://www.goparking.cz",
+    "source": "seed",
+    "verified_at": "2026-09-20"
+  },
+  {
+    "iata": "KTW",
+    "name": "KTW P3 (oficiálne, dlhodobé)",
+    "kind": "official",
+    "price_rules": [
+      { "days": 7, "price": 30 },
+      { "days": 10, "price": 40 },
+      { "days": 14, "price": 50 },
+      { "extraDayPrice": 3.5 }
+    ],
+    "currency": "EUR",
+    "shuttle_min": 0,
+    "url": "https://www.katowice-airport.com/parking",
+    "source": "seed",
+    "verified_at": "2026-09-20",
+    "notes": "Cena v PLN, prepočet ~ 4,3 PLN/€"
+  },
+  {
+    "iata": "KTW",
+    "name": "Parking Lotnisko Pyrzowice (súkromné)",
+    "kind": "external_shuttle",
+    "price_rules": [{ "perDay": 3 }],
+    "currency": "EUR",
+    "shuttle_min": 5,
+    "source": "seed",
+    "verified_at": "2026-09-20"
+  }
+]
