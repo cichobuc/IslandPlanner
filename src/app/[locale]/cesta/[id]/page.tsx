@@ -118,7 +118,7 @@ export default async function TripPage({
           </section>
         )}
       </TripLayout>
-      <StickyBar>
+      <StickyBar backHref={current > 1 ? `/cesta/${id}?krok=${current - 1}` : '/'}>
         <Button variant="secondary" icon aria-label="Mapa" disabled>
           <MapIcon size={18} strokeWidth={1.75} />
         </Button>
