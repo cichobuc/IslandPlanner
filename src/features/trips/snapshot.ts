@@ -48,11 +48,16 @@ export async function loadFlightInput(tripId: string): Promise<FlightSelectionIn
       outArrAt: m.outArrAt ?? m.outDepAt,
       retDepAt: m.retDepAt,
       retArrAt: m.retArrAt ?? m.retDepAt,
-      farePp: sel.lockedPrice ?? { amount: 0, currency: 'EUR', source: 'manual' },
+      farePp: { amount: m.farePp ?? (sel.lockedPrice ? sel.lockedPrice.amount / Math.max(1, await countTravelersFor(tripId)) : 0), currency: 'EUR', source: 'manual' },
       isEstimate: false,
     };
   }
   return null;
+}
+
+async function countTravelersFor(tripId: string): Promise<number> {
+  const rows = await getDb().select({ id: schema.travelers.id }).from(schema.travelers).where(eq(schema.travelers.tripId, tripId));
+  return rows.length;
 }
 
 export function optionToInput(o: typeof schema.flightOptions.$inferSelect): FlightSelectionInput {
@@ -386,7 +391,8 @@ export async function persistFlightCascade(tripId: string, result: CascadeResult
           nightIndex: s.nightIndex,
           dayId: dayIdByIndex.get(s.nightIndex) ?? null,
           regionId: s.regionId ?? null,
-          hasKitchen: key === 'camper' ? true : null,
+          // predvolene s kuchynkou (úsporná strava, penzión/Airbnb ju mávajú) – v kroku 05 sa dá vypnúť
+          hasKitchen: true,
           isManual: false,
         });
       }

@@ -98,6 +98,8 @@ export const flightSelection = pgTable(
       retArrAt?: string;
       airline?: string;
       url?: string;
+      /** cena letenky na osobu (EUR) – lockedPrice je za skupinu */
+      farePp?: number;
     }>(),
     parkingOptionId: uuid('parking_option_id').references(() => parkingOptions.id),
     airportAccessMode: accessModeEnum('airport_access_mode').notNull().default('car'),

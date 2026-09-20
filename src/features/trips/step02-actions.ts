@@ -101,6 +101,7 @@ export async function selectManualFlightAction(_prev: SelectState, formData: For
   const pax = (await loadSnapshot(v.tripId)).travelers.length || 1;
   const home = (s: string) => `${s}:00+02:00`;
   const kef = (s: string) => `${s}:00+00:00`;
+  const farePpAmount = Math.round((v.priceGroup / pax) * 100) / 100;
   const manual = {
     origin: v.origin,
     outDepAt: home(v.outDepAt),
@@ -109,6 +110,7 @@ export async function selectManualFlightAction(_prev: SelectState, formData: For
     retArrAt: home(v.retArrAt),
     airline: v.airline || undefined,
     url: v.url || undefined,
+    farePp: farePpAmount,
   };
   if (
     Date.parse(manual.outArrAt) <= Date.parse(manual.outDepAt) ||
@@ -138,7 +140,7 @@ export async function selectManualFlightAction(_prev: SelectState, formData: For
     outArrAt: manual.outArrAt,
     retDepAt: manual.retDepAt,
     retArrAt: manual.retArrAt,
-    farePp: { amount: Math.round((v.priceGroup / pax) * 100) / 100, currency: 'EUR', source: 'manual' },
+    farePp: { amount: farePpAmount, currency: 'EUR', source: 'manual' },
   };
   const result = await runCascade(v.tripId, flight);
   revalidate(v.tripId);

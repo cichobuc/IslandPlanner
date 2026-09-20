@@ -67,9 +67,12 @@
   **krok 07 Strava** (úroveň, káva, alkohol, prvý nákup → `food_profile`; dni s kuchynkou z nocí, časti prvého/posledného dňa z letu, override úrovne per deň, porovnanie s druhou vetvou),
   **krok 08 Rozpočet** (Súhrn kategórie → položky s odkazom na krok, Scenáre Auto vs. Karavan s víťazom, Na osobu (skupinové rovným dielom, osobné presne), ručné položky, rezerva % a cieľ/os., export **JSON + CSV** `/api/trips/[id]/export`, PDF v1.1).
   e2e `tests/e2e/step0708-flow.mjs` (2 os.: strava stredná + deň komfort, položka na osobu, rezerva 5 %, cieľ 1 500 €, export JSON 200 / CSV 32 riadkov).
+- **Blok 2.9 (časť)** – `pnpm e2e` = `tests/e2e/full-flow.mjs`: celý tok na iPade (4 testovacie kontá → členovia → 01 → 02 ručný let → 03 → 04 generátor → 05 ponuka → 06 → 07 → 08 export JSON, mapa) za ~45 s, kontrola Σ na osobu = celkom ✓ (7 152 € / 4 os. = 1 788 €/os pri úspornej strave 19 €/os/deň).
+  Opravy z behu: ručný let ukladá cenu na osobu (`manual.farePp`) – predtým sa skupinová cena násobila počtom osôb; odhadované noci majú predvolene kuchynku (úsporná strava), vypnúť sa dá v 05. Produkcia nasadená (`cb66b18`+), logy bez chýb.
+  **Čaká na používateľa:** mená + e-maily členov → kontá s dočasným heslom (`/sprava/pouzivatelia`), test na vlastných zariadeniach.
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový, bloky 2.1–2.8 hotové.** Pokračovať **blokom 2.9** (Playwright e2e celý tok na iPade, nasadenie, dočasné heslá pre členov – treba mená/e-maily od používateľa, PROGRESS).
+- **Šprint hotový až na kontá členov (2.9).** Ďalej: (a) kontá členov po dodaní e-mailov; (b) po šprinte: odľahčiť krok 01 (tempo/záujmy/rozpočet do sheetu), mini mapa nocí v 05 + prepis regiónu noci s návrhom do 04, POI pre sever/východ, Travelpayouts token, PDF export, Ja/Skupina, história.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.

@@ -20,7 +20,8 @@
     "seed": "tsx -r ./scripts/server-only-shim.cjs src/db/seed/index.ts",
     "admin:bootstrap": "tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts",
     "spike:coverage": "tsx scripts/spike-coverage.ts",
-    "matrix:build": "tsx scripts/build-route-matrix.ts"
+    "matrix:build": "tsx scripts/build-route-matrix.ts",
+    "e2e": "node tests/e2e/full-flow.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
