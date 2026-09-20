@@ -24,8 +24,17 @@
 
 - Repo https://github.com/cichobuc/IslandPlanner založené, prvý commit = celý návrh (32 súborov).
 
+## 2026-09-20 · Deň 2
+- **Blok 2.1 hotový** – design system v6 v kóde: tokeny (globals.css + `--shadow-sheet`), `src/lib/format.ts` (sumy „4 680 €“, /os, rozsah),
+  komponenty `src/components/ui/`: TopBar (+ModeToggle Ja/Skupina, avatary), Stepper (Postup) + ProgressBar (iPhone), TripSummary (Odhad cesty) + StepAmount,
+  StepHead/StepFooter, StepSection/Label/Card, Chip/ChipRow, Tag, Tile, ListRow/ListCard (58 px, vybraný, vnorený; na telefóne akcia pod meta),
+  OptionCard/OptionGrid (Auto/Karavan/Bez auta; na telefóne kompaktne), ResultsCard („Čo z toho vyplýva“), Sheet/SheetRow (zdola, ≥ 1024 pravý panel 420),
+  TripLayout/PhoneHeader/StickyBar, IslandMark/RingMap (obrys z artboardu), Avatar; `Button` má `icon` a `ButtonLink`; ikony `lucide-react`.
+  `/dev/ui` = krok 03 podľa artboardu Main + katalóg; verejné len mimo produkcie. Skontrolované Playwrightom (`tests/e2e/ui-kit.mjs`) na iPad 820 / iPhone 390 / Mac 1280 + sheet.
+  Poučenia: Tailwind 4 neprepisuje triedy podľa poradia v `className` (px-0 vs px-[18px], bg-white vs bg-ok-fg) → podmienené triedy, nie prepisovanie; žiadny `<button>` v `<button>` (hydration).
+
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový (1.1–1.9).** Pokračovať **blokom 2.1** (design system v6, komponenty, `/dev/ui`, Playwright kontrola) podľa `plan/SPRINT-2-DNI.md`.
+- **Deň 1 hotový (1.1–1.9), blok 2.1 hotový.** Pokračovať **blokom 2.2** (obrazovka Cesty + „Ako to funguje“ + založenie cesty a členovia) podľa `plan/SPRINT-2-DNI.md`.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.

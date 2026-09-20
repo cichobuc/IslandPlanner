@@ -7,7 +7,10 @@ const handleI18n = createIntlMiddleware(routing);
 
 // Cesty bez prihlásenia (bez prefixu jazyka)
 const PUBLIC = ['/', '/prihlasenie', '/ako-to-funguje'];
-const isPublic = (path: string) => PUBLIC.includes(path) || path.startsWith('/zdielane/');
+const isPublic = (path: string) =>
+  PUBLIC.includes(path) ||
+  path.startsWith('/zdielane/') ||
+  (process.env.NODE_ENV !== 'production' && path.startsWith('/dev/'));
 
 function splitLocale(pathname: string): { locale: string; path: string } {
   const m = pathname.match(/^\/(sk|cs)(\/.*)?$/);
