@@ -56,13 +56,13 @@ export function Step04Client({ data }: { data: Step04Data }) {
   return (
     <>
       <StepHead
-        step={4}
+        step={5}
         name={title}
         question={isCamper ? 'V ktorom kempe ktorú noc?' : 'Kde spíme ktorú noc?'}
         lead={
           isCamper
-            ? 'Noc = kemp v regióne z návrhu trasy. Ceny sú živé z tjalda (os./noc + elektrina + daň); divoké kempovanie je zakázané. Camping Card sa oplatí len pri dostatku nocí v sieti a platí do 15. 9.'
-            : 'Každá noc má región z návrhu trasy a cenové rozpätie pre skupinu – to na rozhodnutie stačí. Keď nájdeš konkrétnu ponuku (Booking/Airbnb), vlož ju a noc bude presná. Kuchynka ovplyvní stravu v kroku 07.'
+            ? 'Noc = kemp v regióne, kde deň končí (krok 04). Ceny sú živé z tjalda (os./noc + elektrina + daň); divoké kempovanie je zakázané. Camping Card sa oplatí len pri dostatku nocí v sieti a platí do 15. 9.'
+            : 'Každá noc má región, kde deň končí (krok 04), a cenové rozpätie pre skupinu – to na rozhodnutie stačí. Keď nájdeš konkrétnu ponuku (Booking/Airbnb), vlož ju a noc bude presná. Kuchynka ovplyvní stravu v kroku 07.'
         }
         aside={
           <StepAmount
@@ -83,7 +83,7 @@ export function Step04Client({ data }: { data: Step04Data }) {
             {data.vehicleLabel ? ` · ${data.vehicleLabel}` : ''}
           </Chip>
           <Chip icon={Waypoints} iconClassName="text-ink-3">
-            regióny z trasy {data.presetKey ?? ''}
+            regióny z trasy (04) {data.presetKey ?? ''}
           </Chip>
           <Chip>
             {pax} os. → {isCamper ? '1 jednotka' : `${Math.max(1, Math.ceil(pax / 2))} izby / apartmán`}
@@ -228,8 +228,8 @@ export function Step04Client({ data }: { data: Step04Data }) {
       <StepFooter
         className="hidden sm:flex"
         primary={
-          <ButtonLink href={`/cesta/${tripId}?krok=5`}>
-            Pokračovať na 05 Itinerár <ChevronRight size={16} strokeWidth={1.75} />
+          <ButtonLink href={`/cesta/${tripId}?krok=6`}>
+            Pokračovať na 06 Atrakcie <ChevronRight size={16} strokeWidth={1.75} />
           </ButtonLink>
         }
       />

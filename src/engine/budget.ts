@@ -52,6 +52,26 @@ function finalize(d: LineDraft, memberIds: string[]): BudgetLine {
   };
 }
 
+/** Dni stravy vetvy: kuchynka ráno/večer z nocí, prvý/posledný deň podľa časov letu (zdieľané s krokom 07). */
+export function foodDaysFor(snapshot: TripSnapshot, key: 'car' | 'camper'): FoodDayInput[] {
+  const { days } = tripDays(snapshot);
+  const stays = snapshot.lodgingStays[key] ?? [];
+  const kitchen = kitchenByNight(stays, key === 'camper');
+  const derived = snapshot.flight ? deriveFromFlight(snapshot.flight, snapshot.trip.homeTz) : null;
+  return Array.from({ length: days }, (_, i) => {
+    const dayIndex = i + 1;
+    const date = snapshot.itinerary.find((d) => d.dayIndex === dayIndex)?.date ?? `day-${dayIndex}`;
+    const override = snapshot.food.dayOverrides?.[date];
+    return {
+      date,
+      level: override,
+      kitchenMorning: dayIndex === 1 ? false : (kitchen[dayIndex - 1] ?? false),
+      kitchenEvening: dayIndex === days ? false : (kitchen[dayIndex] ?? false),
+      part: dayIndex === 1 ? (derived?.firstDayPart ?? 'from_lunch') : dayIndex === days ? (derived?.lastDayPart ?? 'until_lunch') : 'full',
+    };
+  });
+}
+
 /** Počet 20/32 kg kufrov skupiny (pre vozidlá). */
 export const checkedBagsCount = (snapshot: TripSnapshot) =>
   snapshot.travelers.reduce((a, t) => a + (t.bags?.checked20 ?? 0) + (t.bags?.checked32 ?? 0), 0);
@@ -358,23 +378,7 @@ export function computeBudget(snapshot: TripSnapshot): BudgetResult {
     }
 
     // strava – kuchynka podľa nocí vetvy
-    const kitchen = kitchenByNight(stays, key === 'camper');
-    const derived = f ? deriveFromFlight(f, snapshot.trip.homeTz) : null;
-    const foodDays: FoodDayInput[] = Array.from({ length: days }, (_, i) => {
-      const dayIndex = i + 1;
-      const date = snapshot.itinerary.find((d) => d.dayIndex === dayIndex)?.date ?? `day-${dayIndex}`;
-      return {
-        date,
-        kitchenMorning: dayIndex === 1 ? false : (kitchen[dayIndex - 1] ?? false),
-        kitchenEvening: dayIndex === days ? false : (kitchen[dayIndex] ?? false),
-        part:
-          dayIndex === 1
-            ? (derived?.firstDayPart ?? 'from_lunch')
-            : dayIndex === days
-              ? (derived?.lastDayPart ?? 'until_lunch')
-              : 'full',
-      };
-    });
+    const foodDays = foodDaysFor(snapshot, key);
     const ft = foodTotal(foodDays, snapshot.food, pax);
     const foodPp = round2(ft.perPerson - ft.firstShopPp);
     lines.push(

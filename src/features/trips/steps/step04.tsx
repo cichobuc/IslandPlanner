@@ -44,7 +44,7 @@ const distKm = (a: { lat: number; lng: number }, b: { lat: number; lng: number }
   return 2 * R * Math.asin(Math.sqrt(x));
 };
 
-/** Krok 04 · Kde spať – noci per vetva (car → izby ako rozpätie/ponuka, camper → kempy tjalda + seed, Camping Card). */
+/** Krok 05 · Kde spať – noci per vetva (car → izby ako rozpätie/ponuka, camper → kempy tjalda + seed, Camping Card). */
 export async function Step04({ access }: { access: TripAccess }) {
   const { trip, role } = access;
   if (!trip.transportMode || trip.transportMode === 'no_car') {

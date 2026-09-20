@@ -58,7 +58,7 @@ await p.waitForSelector('button:has-text("Zvoliť")', { timeout: 20000 });
 await p.locator('button:has-text("Zvoliť")').nth(1).click();
 await p.waitForSelector('button:has-text("Zvolené")', { timeout: 20000 });
 // krok 05
-await p.goto(`${tripUrl}?krok=5`, { timeout: 90000 });
+await p.goto(`${tripUrl}?krok=4`, { timeout: 90000 });
 await shot('01-step05-empty');
 await p.click('button:has-text("Generovať")');
 await p.waitForSelector('text=/[1-9]\\d* zastávok/', { timeout: 60000 });
@@ -126,7 +126,7 @@ await q.fill('input[name=email]', EMAIL);
 await q.fill('input[name=password]', PW);
 await q.click('button[type=submit]');
 await q.waitForURL(`${BASE}/sk`);
-await q.goto(`${tripUrl}?krok=5`);
+await q.goto(`${tripUrl}?krok=4`);
 await q.waitForLoadState('networkidle');
 await q.screenshot({ path: `${SHOTS}/09-iphone-step05.png`, fullPage: true });
 await q.goto(`${tripUrl}/mapa?den=1`);

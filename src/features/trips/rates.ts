@@ -3,7 +3,9 @@ import { frankfurter, gasvaktin } from '@/connectors';
 import { initConnectors } from '@/connectors/server';
 import { FUEL_SEED_ISK } from '@/engine/presets';
 import type { MoneySource } from '@/engine/types';
-import { DEFAULT_FX } from './snapshot';
+
+/** Predvolený kurz, kým frankfurter nedodá (1 ISK ≈ 0,0067 €). */
+const DEFAULT_FX = { ISK_EUR: 0.0067, date: '2026-09-20' };
 
 export type Rates = {
   fx: { ISK_EUR: number; date: string; source: MoneySource };

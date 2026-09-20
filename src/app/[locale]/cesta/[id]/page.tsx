@@ -107,7 +107,7 @@ export default async function TripPage({
               <RingMap points={[]} width={210} height={150} />
               <span className="flex justify-between px-1">
                 <span className="text-[13px] font-semibold">Mapa okruhu</span>
-                <span className="text-ink-3 text-[12px]">po 05</span>
+                <span className="text-ink-3 text-[12px]">po 04</span>
               </span>
             </Card>
             <Button variant="secondary" disabled title="v1.1">
@@ -127,9 +127,9 @@ export default async function TripPage({
         ) : current === 3 ? (
           <Step03 access={access} />
         ) : current === 4 ? (
-          <Step04 access={access} />
-        ) : current === 5 ? (
           <Step05 access={access} />
+        ) : current === 5 ? (
+          <Step04 access={access} />
         ) : current === 6 ? (
           <Step06 access={access} />
         ) : (

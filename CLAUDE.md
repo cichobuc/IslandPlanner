@@ -19,7 +19,7 @@ Stav: **návrh hotový, implementácia začína.** Používateľ komunikuje po s
 - Účty zakladá správca s **dočasným heslom** (`profiles.must_change_password`), žiadne platobné údaje. Roly owner/editor/viewer cez RLS na `trip_members`.
 - Konektory: `tp-flights` (Travelpayouts Flight Data v1), `wizz` (KTW/BUD priame, rotujúca verzia), `ryanair` (segmenty do hubov), `gflights` (fast-flights, len overenie pre 4 os., fallback deep link), `viator`, `tjalda` (kempy s cenami), `parka` (parkovné), `gasvaktin`, `frankfurter`, `open-meteo`, `overpass`, `osrm/ors`. Jednotné rozhranie `Connector` (cache, TTL, health, fallback, fixtures). Izby/Airbnb = rozpätie zo seedu + ručne.
 - Engine `src/engine` = čisté funkcie bez IO, Vitest; generátor trasy používa **predpočítanú `route_matrix`** (nie živý OSRM); kaskáda mení len `is_manual = false`; optimistic concurrency cez `updated_at`; časy s tz (KEF UTC+0, BA UTC+2).
-- Krok 03 je rozhodnutie Auto/Karavan/Bez auta → určuje typ krokov 04/05; dáta vetiev sa uchovávajú (`scenario_key`).
+- Poradie krokov (ADR-014): 01 Cestujúci · 02 Letenky · 03 Doprava · **04 Itinerár** · **05 Kde spať** · 06 Atrakcie · 07 Strava · 08 Rozpočet. Krok 03 je rozhodnutie Auto/Karavan/Bez auta → určuje typ nocí v 05; dáta vetiev sa uchovávajú (`scenario_key`). Súbory `steps/step04*` = Kde spať, `steps/step05*` = Itinerár (historické názvy).
 - Dizajn v6: svetlé, bez skla/tieňov, biele karty 1 px `#E4E8EE` na `#F4F6F9`, akcent `#0F4C81`, Sora + Instrument Sans, radius 12/10/8. **Každú obrazovku vykresli Playwrightom a pozri PNG pred tým, než ju vyhlásiš za hotovú.**
 
 ## Ako pracovať

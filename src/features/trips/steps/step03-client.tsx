@@ -112,7 +112,7 @@ export function Step03Client({ data }: { data: Step03Data }) {
     return r;
   }, null);
 
-  const step4 = mode === 'camper' ? 'Kempy' : mode === 'no_car' ? 'Základňa' : 'Ubytovanie';
+  const step5 = mode === 'camper' ? 'Kempy' : mode === 'no_car' ? 'Základňa' : 'Ubytovanie';
   const stepAmount = chosen
     ? chosen.cost.total
     : mode
@@ -133,7 +133,7 @@ export function Step03Client({ data }: { data: Step03Data }) {
         step={3}
         name="Doprava"
         question="Auto, karavan alebo bez auta?"
-        lead="Tri možnosti s odhadom celej cesty (letenky + vozidlo + palivo + noci + strava). Voľba určí, či ďalší krok budú izby (Ubytovanie), kempy, alebo hotel v Reykjavíku s výletmi. Dá sa kedykoľvek zmeniť – dáta druhej vetvy ostávajú."
+        lead="Tri možnosti s odhadom celej cesty (letenky + vozidlo + palivo + noci + strava). Voľba určí, či noci v kroku 05 budú izby (Ubytovanie), kempy, alebo hotel v Reykjavíku s výletmi. Dá sa kedykoľvek zmeniť – dáta druhej vetvy ostávajú."
         aside={
           mode ? (
             <StepAmount amount={stepAmount} source={chosen ? chosen.source : 'estimate'} approx={!chosen} />
@@ -231,7 +231,7 @@ export function Step03Client({ data }: { data: Step03Data }) {
           {scenario === 'camper' && (
             <Notice tone="warn">
               September: noci 3–8 °C → kúrenie (Webasto) nutné. Divoké kempovanie je zakázané – noci musia byť
-              v kempoch (krok 04). 4 dospelí v jednom camperi = tesné; alternatíva 2× 2-os.
+              v kempoch (krok 05). 4 dospelí v jednom camperi = tesné; alternatíva 2× 2-os.
             </Notice>
           )}
         </StepSection>
@@ -241,7 +241,7 @@ export function Step03Client({ data }: { data: Step03Data }) {
         <ResultsCard
           cells={[
             { label: 'Palivo → krok 03', value: chosen ? fmtEur(chosen.cost.fuel) : '—' },
-            { label: 'Krok 04 bude', value: mode ? step4 : '—' },
+            { label: 'Krok 05 bude', value: mode ? step5 : '—' },
             {
               label: 'Strava v aute',
               value: mode === 'camper' ? 'kuchynka vždy' : mode === 'car' ? 'podľa ubytovania' : '—',
@@ -266,7 +266,7 @@ export function Step03Client({ data }: { data: Step03Data }) {
             className={mode && chosen ? '' : 'pointer-events-none opacity-50'}
             aria-disabled={!(mode && chosen)}
           >
-            Pokračovať na 04 {step4} <ChevronRight size={16} strokeWidth={1.75} />
+            Pokračovať na 04 Itinerár <ChevronRight size={16} strokeWidth={1.75} />
           </ButtonLink>
         }
       />

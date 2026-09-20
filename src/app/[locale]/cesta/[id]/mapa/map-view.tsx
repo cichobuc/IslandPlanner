@@ -361,7 +361,7 @@ export function MapView({
       {/* horný pás */}
       <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-col gap-2 p-3 sm:p-4">
         <div className="pointer-events-auto flex items-center gap-2">
-          <ButtonLink href={`/cesta/${tripId}?krok=5`} variant="secondary" size="sm">
+          <ButtonLink href={`/cesta/${tripId}?krok=4`} variant="secondary" size="sm">
             <X size={14} /> Zavrieť
           </ButtonLink>
           <span className="rounded-btn border-card-line bg-card flex h-[34px] items-center gap-2 border px-3 text-[13px] font-semibold">
@@ -435,10 +435,10 @@ export function MapView({
               <ListRow
                 leading={<Tile icon={Tent} tone="ok" />}
                 title={`Noc ${selected.day.dayIndex} · ${selected.day.overnight?.regionName}`}
-                meta={selected.day.overnight?.lodgingName ?? 'ubytovanie z kroku 04 (odhad)'}
+                meta={selected.day.overnight?.lodgingName ?? 'ubytovanie z kroku 05 (odhad)'}
                 action={
-                  <ButtonLink href={`/cesta/${tripId}?krok=4`} size="sm" variant="secondary">
-                    Krok 04
+                  <ButtonLink href={`/cesta/${tripId}?krok=5`} size="sm" variant="secondary">
+                    Krok 05
                   </ButtonLink>
                 }
                 className="border-t-0"

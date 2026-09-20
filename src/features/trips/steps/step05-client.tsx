@@ -107,10 +107,10 @@ export function Step05Client({
   return (
     <>
       <StepHead
-        step={5}
+        step={4}
         name="Itinerár"
         question="Kam ktorý deň?"
-        lead="Dni idú z prenocovania do prenocovania (z kroku 04). Generátor vyberie zastávky po ceste podľa záujmov, tempa a sezóny; časy jazdy sú z predpočítanej matice (× 1,25 realisticky + 10 min na zastávku). Zamknutý deň sa už nemení."
+        lead="Dni idú z prenocovania do prenocovania (regióny z návrhu trasy podľa počtu dní; miesto noci upresníš v kroku 05). Generátor vyberie zastávky po ceste podľa záujmov, tempa a sezóny; časy jazdy sú z predpočítanej matice (× 1,25 realisticky + 10 min na zastávku). Zamknutý deň sa už nemení."
         aside={<StepAmount amount={totals.entryGroup} source="seed" />}
       />
 
@@ -302,7 +302,7 @@ export function Step05Client({
                     <div className="text-ink-2 flex flex-wrap items-center gap-2 bg-[#FAFBFC] py-2 pl-[52px] text-[12px] sm:pl-[66px]">
                       <Tile icon={d.overnight ? Tent : Car} tone={d.overnight ? 'ok' : 'info'} size={26} />
                       {d.overnight
-                        ? `Noc ${d.dayIndex} · ${d.overnight.regionName}${d.overnight.lodgingName ? ` · ${d.overnight.lodgingName}` : ' · z kroku 04'}`
+                        ? `Noc ${d.dayIndex} · ${d.overnight.regionName}${d.overnight.lodgingName ? ` · ${d.overnight.lodgingName}` : ' · región noci, ubytovanie vyberieš v 05'}`
                         : 'Odovzdanie auta a odlet z KEF'}
                       <span className="grow" />
                       {canEdit && (
@@ -333,8 +333,8 @@ export function Step05Client({
       <StepFooter
         className="hidden sm:flex"
         primary={
-          <ButtonLink href={`/cesta/${tripId}?krok=6`}>
-            Pokračovať na 06 Atrakcie <ChevronRight size={16} strokeWidth={1.75} />
+          <ButtonLink href={`/cesta/${tripId}?krok=5`}>
+            Pokračovať na 05 Kde spať <ChevronRight size={16} strokeWidth={1.75} />
           </ButtonLink>
         }
       />

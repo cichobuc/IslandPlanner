@@ -1,5 +1,7 @@
 # 02 · Obrazovka Cesta – checklist 8 krokov
 
+> **ADR-014:** 04 = Itinerár, 05 = Kde spať (v texte nižšie sú čísla pôvodné, obsah platí).
+
 **Route:** `/cesta/[id]#krok-N` · Jedna strana. Vzor v [00-vzor.md](00-vzor.md). Detail každého kroku v `krok-*.md`.
 
 ## Celá strana (iPad portrait 820) – vetva Auto, krok 3 práve uzavretý

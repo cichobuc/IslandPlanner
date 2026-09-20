@@ -26,9 +26,9 @@ describe('tripProgress', () => {
     expect(p.steps.slice(0, 3)).toEqual(['done', 'done', 'active']);
   });
   it('vetva mení názvy krokov 04/05', () => {
-    expect(stepNames('camper')[3]).toBe('Kempy');
-    expect(stepNames('no_car').slice(3, 5)).toEqual(['Základňa', 'Výlety']);
-    expect(stepNames('car')[3]).toBe('Kde spať');
+    expect(stepNames('camper')[4]).toBe('Kempy');
+    expect(stepNames('no_car').slice(3, 5)).toEqual(['Výlety', 'Základňa']);
+    expect(stepNames('car').slice(3, 5)).toEqual(['Itinerár', 'Kde spať']);
   });
 });
 

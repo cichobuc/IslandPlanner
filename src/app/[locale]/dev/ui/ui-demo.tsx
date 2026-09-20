@@ -51,8 +51,8 @@ const STEPS: StepItem[] = [
   { n: 1, name: 'Cestujúci & kedy', summary: '4 dospelí · BA · sept 2027', state: 'done' },
   { n: 2, name: 'Letenky', summary: 'KTW 12.–21. 9. · 1 180 €', state: 'done' },
   { n: 3, name: 'Doprava', summary: 'Auto · Kombi · 890 €', state: 'active' },
-  { n: 4, name: 'Kde spať', summary: '9 nocí · ≈ 1 690 €', state: 'pending' },
-  { n: 5, name: 'Itinerár', summary: 'Ring Road · 10 dní', state: 'pending' },
+  { n: 4, name: 'Itinerár', summary: 'Ring Road · 10 dní', state: 'pending' },
+  { n: 5, name: 'Kde spať', summary: '9 nocí · ≈ 1 690 €', state: 'pending' },
   { n: 6, name: 'Atrakcie', summary: '12 v pláne · 610 €', state: 'pending' },
   { n: 7, name: 'Strava', summary: 'úsporná · 720 €', state: 'pending' },
   { n: 8, name: 'Rozpočet', summary: '4 680 € · 1 170 €/os', state: 'pending' },
@@ -222,7 +222,7 @@ export function UiDemo() {
           <ResultsCard
             cells={[
               { label: 'Palivo → krok 03', value: fmtEur(303) },
-              { label: 'Krok 04 bude', value: mode === 'car' ? 'Ubytovanie' : mode === 'camper' ? 'Kempy' : 'Základňa' },
+              { label: 'Krok 05 bude', value: mode === 'car' ? 'Ubytovanie' : mode === 'camper' ? 'Kempy' : 'Základňa' },
               { label: 'Strava v aute', value: mode === 'camper' ? 'kuchynka vždy' : 'bez kuchynky' },
               { label: 'Na osobu', value: fmtEur(223, { sign: true }) },
             ]}
@@ -243,7 +243,7 @@ export function UiDemo() {
           }
           primary={
             <Button>
-              Pokračovať na 04 Ubytovanie <ChevronRight size={16} strokeWidth={1.75} />
+              Pokračovať na 04 Itinerár <ChevronRight size={16} strokeWidth={1.75} />
             </Button>
           }
         />
@@ -298,7 +298,7 @@ export function UiDemo() {
           <MapIcon size={18} strokeWidth={1.75} />
         </Button>
         <Button className="grow">
-          Pokračovať na 04 Ubytovanie <ChevronRight size={16} strokeWidth={1.75} />
+          Pokračovať na 04 Itinerár <ChevronRight size={16} strokeWidth={1.75} />
         </Button>
       </StickyBar>
 

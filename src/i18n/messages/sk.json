@@ -205,17 +205,17 @@
       {
         "name": "Doprava",
         "text": "Auto, karavan alebo bez auta – s odhadom celej cesty pri každej voľbe. Voľba mení, čo príde ďalej.",
-        "gives": "vozidlo · palivo · typ kroku 04 a 05"
-      },
-      {
-        "name": "Kde spať",
-        "text": "Noci s regiónmi z trasy. Izby ako cenové rozpätie (stačí), kempy so živými cenami. Kuchynka ovplyvní stravu.",
-        "gives": "noci · kuchynka · miesta"
+        "gives": "vozidlo · palivo · typ nocí v kroku 05"
       },
       {
         "name": "Itinerár",
-        "text": "Dni → zastávky: reálne časy jazdy, svetlo, vstupné podľa veku, dron zóny, klenoty. Mapa cez celú obrazovku.",
-        "gives": "km → palivo · zastávky → atrakcie"
+        "text": "Dni → zastávky: reálne časy jazdy, svetlo, vstupné podľa veku, dron zóny, klenoty. Mapa cez celú obrazovku. Určí, kde ktorá noc končí.",
+        "gives": "km → palivo · zastávky → atrakcie · miesta nocí → 05"
+      },
+      {
+        "name": "Kde spať",
+        "text": "Noci tam, kde deň končí. Izby ako cenové rozpätie (stačí), kempy so živými cenami. Kuchynka ovplyvní stravu.",
+        "gives": "noci · kuchynka · ceny"
       },
       {
         "name": "Atrakcie",

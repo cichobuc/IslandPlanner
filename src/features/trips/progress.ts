@@ -4,8 +4,8 @@ export const STEP_NAMES = [
   'Cestujúci & kedy',
   'Letenky',
   'Doprava',
-  'Kde spať',
   'Itinerár',
+  'Kde spať',
   'Atrakcie',
   'Strava',
   'Rozpočet',
@@ -22,15 +22,15 @@ export type TripProgressInput = {
 
 /**
  * Stav 8 krokov z uložených dát cesty (čisté, bez IO). Hotový = má výstup pre ďalší krok.
- * Aktívny = prvý nehotový; ostatné čakajú. Kroky 04–08 sa spresnia v blokoch 2.6–2.8.
+ * Aktívny = prvý nehotový; ostatné čakajú. 04 = itinerár má dni so zastávkami, 05 = noci vetvy existujú.
  */
 export function tripProgress(t: TripProgressInput): { steps: StepState[]; done: number; active: number } {
   const done = [
     t.travelersCount > 0 && t.originAirports.length > 0,
     Boolean(t.startDate),
     Boolean(t.transportMode),
-    (t.lodgingCount ?? 0) > 0,
     (t.dayCount ?? 0) > 0,
+    (t.lodgingCount ?? 0) > 0,
     false,
     false,
     false,
@@ -41,13 +41,13 @@ export function tripProgress(t: TripProgressInput): { steps: StepState[]; done: 
   return { steps, done: done.filter(Boolean).length, active };
 }
 
-/** Názov kroku 04 podľa vetvy (docs/obrazovky/00-vzor). */
+/** Názvy krokov 04/05 podľa vetvy (ADR-014: 04 Itinerár, 05 Kde spať). */
 export function stepNames(mode: 'car' | 'camper' | 'no_car' | null): string[] {
   const names = [...STEP_NAMES] as string[];
-  if (mode === 'camper') names[3] = 'Kempy';
+  if (mode === 'camper') names[4] = 'Kempy';
   if (mode === 'no_car') {
-    names[3] = 'Základňa';
-    names[4] = 'Výlety';
+    names[3] = 'Výlety';
+    names[4] = 'Základňa';
   }
   return names;
 }

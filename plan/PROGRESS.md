@@ -62,7 +62,7 @@
   **Mapa** `/cesta/[id]/mapa` – MapLibre GL 5 + OpenFreeMap Liberty: trasy dní po cestách (aktívny deň modrý), číslované zastávky, zelené noci, katalóg (vrstva), **tooltip pri hoveri, klik → spodný riadok + Detail sheet**, ‹ › dni, `?den=&poi=`; `/dev/mapa` ukážka bez prihlásenia.
   Poučenia: MapLibre 6 (module worker) v Next dev nefunguje → v5; React strict mode dvojité mount rozbije zdieľaný worker pool → mapu vytvárať odložene (setTimeout 0 + zrušenie); maplibre prepíše `position` kontajnera (vnútorný div h-full). Seed: +3 veľké obytné autá (Happy 4, Sunlight T69, Kuku Casper) na žiadosť používateľa.
   Stub: sever/východ bez POI v seede (dni 6–8 prázdne), dron zóny, počasie, presun zastávok drag & drop (v1.1).
-- **Otvorené rozhodnutie (používateľ, 20. 9.):** vymeniť poradie krokov 04 a 05 (03 Doprava → 04 Trasa → 05 Kde spať) – odporúčam áno; čaká na odpoveď.
+- **ADR-014 (používateľ potvrdil 20. 9.):** poradie krokov vymenené – **04 Itinerár, 05 Kde spať**; súbory komponentov ostali (`step04*` = Kde spať, `step05*` = Itinerár), zmenené číslovanie, odkazy, Postup, „Ako to funguje“, docs anotované. `loadSnapshot` je už plný (zastávky s POI a cenníkmi, vozidlo per vetva, strava, ručné položky, kurz/palivo) – základ pre 2.8.
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
 - **Deň 1 hotový, bloky 2.1–2.7 hotové.** Pokračovať **blokom 2.8** (krok 07 Strava + krok 08 Rozpočet + „Odhad cesty“ v hlavičke) podľa `plan/SPRINT-2-DNI.md`.

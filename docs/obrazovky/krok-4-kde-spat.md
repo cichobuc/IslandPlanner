@@ -1,4 +1,4 @@
-# Krok 4 · Kde spať – Ubytovanie (Auto) / Kempy (Karavan) / Základňa (Bez auta)
+# Krok 5 · Kde spať  *(od ADR-014 je to krok 05; súbor si necháva pôvodný názov)* – Ubytovanie (Auto) / Kempy (Karavan) / Základňa (Bez auta)
 
 **Berie z krokov:** 02 noci a dátumy, 03 vetva (typ nocí) a vozidlo, návrh trasy na pozadí (región každej noci), 01 pax.
 **Dáva ďalej:** kuchynka per noc → 07 strava; miesta nocí (súradnice) → 05 itinerár; ceny → 08.

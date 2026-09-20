@@ -5,7 +5,7 @@ import { loadItinerary } from '../itinerary-data';
 import { dateRangeLabel } from '../progress';
 import { Step05Client } from './step05-client';
 
-/** Krok 05 · Itinerár – dni → zastávky z generátora (matica trás), vstupné podľa veku, mapa. */
+/** Krok 04 · Itinerár – dni → zastávky z generátora (matica trás), vstupné podľa veku, mapa. */
 export async function Step05({ access }: { access: TripAccess }) {
   const { trip, role } = access;
   if (!trip.startDate) return <Notice tone="info">Dni vzniknú po výbere letu v kroku 02.</Notice>;

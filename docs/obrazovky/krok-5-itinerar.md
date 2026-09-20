@@ -1,4 +1,4 @@
-# Krok 5 · Itinerár (Auto, Karavan) / Výlety (Bez auta)
+# Krok 4 · Itinerár  *(od ADR-014 je to krok 04; súbor si necháva pôvodný názov)* (Auto, Karavan) / Výlety (Bez auta)
 
 **Berie z krokov:** 02 dni a časy letu, 03 vozidlo (4×4 → F-cesty), 04 miesta nocí (trasa dňa končí tam, kde spíme), 01 záujmy, tempo, klenoty.
 **Dáva ďalej:** km → 03 palivo; zastávky → 06 atrakcie; dni v aute a sloty → 07 strava; body a trasa → Mapa.

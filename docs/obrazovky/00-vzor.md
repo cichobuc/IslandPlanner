@@ -20,6 +20,8 @@ Sheety (výsuvné panely zdola na mobile/tablete, vpravo na desktope) nie sú ob
 
 ## Kroky – reťaz s vetvením v kroku 3
 
+> **ADR-014 (20. 9. 2026):** poradie je **03 Doprava → 04 Itinerár → 05 Kde spať**. Schéma nižšie ukazuje pôvodný návrh (04 Kde spať, 05 Itinerár) – čísla čítaj vymenené; obsah krokov platí.
+
 Kroky idú za sebou a **každý si berie vstupy z predchádzajúcich** (dátumy z letu, počet nocí, vozidlo, kuchynku…). Hlavné tlačidlo kroku
 vždy vedie na ďalší krok. Krok 3 je rozhodnutie, ktoré určí, ako vyzerajú kroky 4 a 5:
 

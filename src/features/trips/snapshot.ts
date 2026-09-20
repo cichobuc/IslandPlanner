@@ -1,15 +1,20 @@
 import 'server-only';
-import { and, asc, eq } from 'drizzle-orm';
+import { and, asc, eq, inArray } from 'drizzle-orm';
 import { getDb, schema } from '@/db';
 import type { CascadeResult } from '@/engine/cascade';
 import type {
   FlightSelectionInput,
   LodgingStayInput,
+  ManualItemInput,
   Money,
+  PoiInput,
+  PriceRule,
   ScenarioKey,
   TravelerInput,
   TripSnapshot,
+  VehicleInput,
 } from '@/engine/types';
+import { getRates } from './rates';
 
 /** Predvolené kurzy/palivo, kým ich nedodá frankfurter/gasvaktin snapshot (blok 2.5). */
 export const DEFAULT_FX = { ISK_EUR: 0.0067, date: '2026-09-20' };
@@ -66,45 +71,123 @@ export function optionToInput(o: typeof schema.flightOptions.$inferSelect): Flig
   };
 }
 
-/** Celý stav cesty pre engine (docs/05). Vozidlo/strava sa doplnia v blokoch 2.5/2.8. */
-export async function loadSnapshot(tripId: string): Promise<TripSnapshot> {
+/** Celý stav cesty pre engine (docs/05): let, cestujúci, dni so zastávkami (POI + cenníky), noci a vozidlo per vetva, strava, ručné položky, kurz a palivo. */
+export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {}): Promise<TripSnapshot> {
   const db = getDb();
   const [trip] = await db.select().from(schema.trips).where(eq(schema.trips.id, tripId)).limit(1);
   if (!trip) throw new Error('Cesta neexistuje');
-  const [travelers, days, stays, flight] = await Promise.all([
-    db
-      .select()
-      .from(schema.travelers)
-      .where(eq(schema.travelers.tripId, tripId))
-      .orderBy(asc(schema.travelers.sortOrder)),
+  const [travelers, days, stays, flight, vehicleRows, foodRow, manualRows, rates] = await Promise.all([
+    db.select().from(schema.travelers).where(eq(schema.travelers.tripId, tripId)).orderBy(asc(schema.travelers.sortOrder)),
     db
       .select()
       .from(schema.itineraryDays)
       .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive')))
       .orderBy(asc(schema.itineraryDays.dayIndex)),
-    db
-      .select()
-      .from(schema.lodgingStays)
-      .where(eq(schema.lodgingStays.tripId, tripId))
-      .orderBy(asc(schema.lodgingStays.nightIndex)),
+    db.select().from(schema.lodgingStays).where(eq(schema.lodgingStays.tripId, tripId)).orderBy(asc(schema.lodgingStays.nightIndex)),
     loadFlightInput(tripId),
+    db
+      .select({ sel: schema.vehicleSelection, opt: schema.vehicleOptions })
+      .from(schema.vehicleSelection)
+      .innerJoin(schema.vehicleOptions, eq(schema.vehicleOptions.id, schema.vehicleSelection.vehicleOptionId))
+      .where(eq(schema.vehicleSelection.tripId, tripId)),
+    db.select().from(schema.foodProfile).where(eq(schema.foodProfile.tripId, tripId)).limit(1),
+    db.select().from(schema.manualItems).where(eq(schema.manualItems.tripId, tripId)),
+    opts.rates === false ? Promise.resolve(null) : getRates(),
   ]);
+  const dayIds = days.map((d) => d.id);
+  const stops = dayIds.length ? await db.select().from(schema.itineraryStops).where(inArray(schema.itineraryStops.dayId, dayIds)).orderBy(asc(schema.itineraryStops.order)) : [];
+  const poiIds = [...new Set(stops.map((s) => s.poiId).filter((x): x is string => Boolean(x)))];
+  const [pois, rules, optionRows] = await Promise.all([
+    poiIds.length ? db.select().from(schema.pois).where(inArray(schema.pois.id, poiIds)) : Promise.resolve([]),
+    poiIds.length ? db.select().from(schema.poiPriceRules).where(inArray(schema.poiPriceRules.poiId, poiIds)) : Promise.resolve([]),
+    (() => {
+      const ids = stays.map((s) => s.lodgingOptionId).filter((x): x is string => Boolean(x));
+      return ids.length ? db.select().from(schema.lodgingOptions).where(inArray(schema.lodgingOptions.id, ids)) : Promise.resolve([]);
+    })(),
+  ]);
+  const poiInput = new Map<string, PoiInput>();
+  for (const p of pois)
+    poiInput.set(p.id, {
+      id: p.id,
+      slug: p.slug,
+      name: p.nameSk ?? p.name,
+      regionId: p.regionId,
+      visitMin: p.visitMin,
+      parkingFee: asMoney(p.parkingFee),
+      priceRules: rules
+        .filter((r) => r.poiId === p.id)
+        .map<PriceRule>((r) => ({ label: r.label, minAge: r.minAge, maxAge: r.maxAge, price: r.price, per: r.per, variant: r.variant, isDefault: r.isDefault })),
+      requires4x4: p.requires4x4,
+      season: p.season ?? null,
+      bookAheadDays: p.bookAheadDays,
+    });
+
   const lodgingStays: TripSnapshot['lodgingStays'] = {};
   for (const s of stays) {
+    const o = optionRows.find((x) => x.id === s.lodgingOptionId);
+    const notes = s.notes?.startsWith('{') ? (JSON.parse(s.notes) as { electricityIsk?: number; campingCard?: boolean }) : null;
     (lodgingStays[s.scenarioKey] ??= []).push({
       id: s.id,
       scenarioKey: s.scenarioKey,
       nightIndex: s.nightIndex,
       nightDate: s.nightDate,
       regionId: s.regionId,
-      kind: s.kindOverride ?? (s.scenarioKey === 'camper' ? 'camper_site' : 'guesthouse'),
+      kind: s.kindOverride ?? o?.kind ?? (s.scenarioKey === 'camper' ? 'camper_site' : 'guesthouse'),
+      pricePerNight: asMoney(o?.pricePerNight),
       priceOverride: asMoney(s.priceOverride),
       priceRangeMin: asMoney(s.priceRangeMin),
       priceRangeMax: asMoney(s.priceRangeMax),
+      cleaningFee: asMoney(o?.cleaningFee),
+      serviceFeePct: o?.serviceFeePct ? Number(o.serviceFeePct) : null,
+      cityTaxPp: asMoney(o?.cityTaxPp),
+      perPersonNight: asMoney(o?.pricePerPerson),
+      electricity: notes?.electricityIsk ? { amount: notes.electricityIsk, currency: 'ISK', source: 'api' } : null,
+      inCampingCardNetwork: notes?.campingCard ?? null,
       hasKitchen: s.hasKitchen,
       isManual: s.isManual,
+      openUntil: o?.openUntil ?? null,
+      checkInUntil: o?.checkInUntil ? String(o.checkInUntil).slice(0, 5) : null,
     });
   }
+
+  const vehicle: TripSnapshot['vehicle'] = {};
+  for (const { sel, opt } of vehicleRows) {
+    if (sel.scenarioKey !== 'car' && sel.scenarioKey !== 'camper') continue;
+    vehicle[sel.scenarioKey] = {
+      scenarioKey: sel.scenarioKey,
+      kind: opt.kind,
+      class: opt.class,
+      name: opt.name,
+      days: sel.days ?? trip.minDays,
+      pricePerDay: sel.priceOverride ?? opt.pricePerDay,
+      consumptionL100km: Number(opt.consumptionL100km),
+      fuel: opt.fuel,
+      insurance: opt.insurance ?? {},
+      insuranceChosen: sel.insuranceChosen ?? [],
+      extras: opt.extras ?? {},
+      extrasChosen: sel.extrasChosen ?? {},
+      deposit: opt.deposit ?? null,
+      seats: opt.seats,
+      sleeps: opt.sleeps ?? 0,
+      luggageCapacity: opt.luggageCapacity ?? 2,
+      campingCard: Boolean(sel.campingCard),
+      consumptionOverride: sel.consumptionOverride ? Number(sel.consumptionOverride) : null,
+      fuelPriceOverride: sel.fuelPriceOverride ? Number(sel.fuelPriceOverride) : null,
+      isManual: sel.isManual,
+    } satisfies VehicleInput;
+  }
+
+  const fp = foodRow[0];
+  const manual = manualRows.map<ManualItemInput>((m) => ({
+    id: m.id,
+    category: m.category as ManualItemInput['category'],
+    label: m.label,
+    amount: m.amount,
+    split: m.split,
+    customShares: m.customShares ?? null,
+    scenarioKey: m.scenarioKey ?? null,
+  }));
+
   return {
     trip: {
       id: trip.id,
@@ -140,14 +223,33 @@ export async function loadSnapshot(tripId: string): Promise<TripSnapshot> {
       driveMin: d.driveMin,
       driveMinReal: d.driveMinReal,
       locked: d.locked,
-      stops: [],
+      stops: stops
+        .filter((s) => s.dayId === d.id)
+        .map((s) => ({
+          id: s.id,
+          poi: s.poiId ? (poiInput.get(s.poiId) ?? null) : null,
+          customLabel: s.customLabel,
+          stayMin: s.stayMin,
+          skip: s.skip,
+          must: s.must,
+          isManual: s.isManual,
+          entryOverride: asMoney(s.entryOverride),
+          variant: s.variant,
+        })),
     })),
     lodgingStays,
-    vehicle: {},
-    food: { level: 'budget' },
-    manualItems: [],
-    fx: DEFAULT_FX,
-    fuel: DEFAULT_FUEL,
+    vehicle,
+    food: {
+      level: fp?.level ?? 'budget',
+      customPrices: fp?.customPrices ?? null,
+      coffeePerDay: fp?.coffeePerDay ?? 1,
+      alcohol: fp?.alcohol ?? false,
+      firstShopPp: fp?.firstShop ? Number(asMoney(fp.firstShop)?.amount ?? 0) : null,
+      dayOverrides: fp?.dayOverrides ?? null,
+    },
+    manualItems: manual,
+    fx: rates ? { ISK_EUR: rates.fx.ISK_EUR, date: rates.fx.date } : DEFAULT_FX,
+    fuel: rates ? { petrol: rates.fuel.petrol, diesel: rates.fuel.diesel } : DEFAULT_FUEL,
   };
 }
 

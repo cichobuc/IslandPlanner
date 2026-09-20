@@ -74,7 +74,7 @@ export function Step06Client({
         step={6}
         name="Atrakcie"
         question="Čo je v pláne a čo ešte pridať?"
-        lead="Vstupné je spočítané pre každého podľa veku v deň návštevy (z profilov). Katalóg sú miesta zo seedu, ktoré ešte nie sú v trase – pridaj ich do dňa a krok 05 prepočíta km a časy."
+        lead="Vstupné je spočítané pre každého podľa veku v deň návštevy (z profilov). Katalóg sú miesta zo seedu, ktoré ešte nie sú v trase – pridaj ich do dňa a krok 04 prepočíta km a časy."
         aside={<StepAmount amount={totals.entryGroup} source="seed" />}
       />
 
@@ -129,7 +129,7 @@ export function Step06Client({
           })}
           {inPlan.length === 0 && (
             <div className="text-ink-3 px-4 py-6 text-center text-sm">
-              Zatiaľ nič – vygeneruj trasu v kroku 05 alebo pridaj z katalógu.
+              Zatiaľ nič – vygeneruj trasu v kroku 04 alebo pridaj z katalógu.
             </div>
           )}
         </ListCard>
