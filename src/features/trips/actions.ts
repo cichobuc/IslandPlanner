@@ -42,7 +42,7 @@ export async function createTripAction(): Promise<void> {
     return trip.id;
   });
   revalidatePath('/', 'layout');
-  redirect(`/${await getLocale()}/cesta/${tripId}`);
+  redirect(`/${await getLocale()}/cesta/${tripId}?krok=1`);
 }
 
 const memberSchema = z.object({

@@ -1,11 +1,13 @@
-import { Users, Zap } from 'lucide-react';
+import { ChevronRight, Map as MapIcon, Users, Zap } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Button, ButtonLink, Card, Label, Notice, RingMap, Stepper, TopBar, TripLayout, type StepItem } from '@/components/ui';
+import { Button, ButtonLink, Card, Label, Notice, PhoneHeader, RingMap, Stepper, StickyBar, TopBar, TripLayout, type StepItem } from '@/components/ui';
 import { getTripAccess } from '@/features/trips/access';
-import { monthLabel, stepNames, tripProgress } from '@/features/trips/progress';
+import { stepNames, tripProgress } from '@/features/trips/progress';
 import { countTravelers, listTripMembers } from '@/features/trips/queries';
+import { Step01, step01Summary } from '@/features/trips/steps/step01';
+import { stepNo } from '@/lib/format';
 import { RenameTrip } from './rename-trip';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -13,8 +15,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return { title: access?.trip.name ?? 'Cesta' };
 }
 
-/** Obrazovka Cesta – kostra v6 (Postup vľavo, obsah vpravo). Kroky sa dopĺňajú v blokoch 2.3–2.8. */
-export default async function TripPage({ params }: { params: Promise<{ locale: string; id: string }> }) {
+/** Obrazovka Cesta (v6): Postup vľavo, jeden aktívny krok vpravo; `?krok=N` volí krok (predvolene prvý nehotový). */
+export default async function TripPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+  searchParams: Promise<{ krok?: string }>;
+}) {
   const { locale, id } = await params;
   setRequestLocale(locale);
   const access = await getTripAccess(id);
@@ -28,32 +36,37 @@ export default async function TripPage({ params }: { params: Promise<{ locale: s
     startDate: trip.startDate,
     transportMode: trip.transportMode,
   });
+  const requested = Number((await searchParams).krok);
+  const current = requested >= 1 && requested <= 8 ? requested : progress.active;
   const names = stepNames(trip.transportMode);
-  const steps: StepItem[] = names.map((name, i) => ({
-    n: i + 1,
-    name,
-    summary:
-      i === 0
-        ? `${travelersCount} os. · ${trip.originAirports.join(' ')} · ${monthLabel(trip.targetMonth)}`
-        : progress.steps[i] === 'pending'
-          ? `po ${String(progress.active).padStart(2, '0')}`
-          : '',
-    state: progress.steps[i],
-    href: `#krok-${i + 1}`,
-  }));
+  const steps: StepItem[] = names.map((name, i) => {
+    const n = i + 1;
+    const done = progress.steps[i] === 'done';
+    return {
+      n,
+      name,
+      summary: n === 1 ? step01Summary(travelersCount, trip.originAirports, trip.targetMonth) : done ? '' : n <= progress.active ? '' : `po ${stepNo(n - 1)}`,
+      state: n === current ? 'active' : done ? 'done' : 'pending',
+      href: `?krok=${n}`,
+    };
+  });
 
   return (
-    <div className="bg-bg min-h-dvh">
+    <div className="bg-bg min-h-dvh pb-24 sm:pb-0">
       <TopBar
         title={trip.name}
         mode="group"
         members={members.map((m) => m.displayName)}
         actions={
-          <ButtonLink href={`/cesta/${id}/clenovia`} variant="ghost" size="sm" className="text-ink-2">
-            <Users size={16} strokeWidth={1.8} /> <span className="hidden sm:inline">{t('members')}</span>
-          </ButtonLink>
+          <span className="flex items-center gap-1">
+            {(role === 'owner' || role === 'editor') && <RenameTrip tripId={id} name={trip.name} />}
+            <ButtonLink href={`/cesta/${id}/clenovia`} variant="ghost" size="sm" className="text-ink-2">
+              <Users size={16} strokeWidth={1.8} /> <span className="hidden sm:inline">{t('members')}</span>
+            </ButtonLink>
+          </span>
         }
       />
+      <PhoneHeader steps={steps} step={current} name={names[current - 1]} total={0} perPerson={0} />
       <TripLayout
         aside={
           <>
@@ -71,22 +84,32 @@ export default async function TripPage({ params }: { params: Promise<{ locale: s
           </>
         }
       >
-        <Card className="flex flex-col gap-1 px-5 py-4">
+        <Card className="hidden flex-col gap-1 px-5 py-4 sm:flex">
           <Label>Odhad cesty · {travelersCount} os.</Label>
           <span className="text-ink-3 text-sm">{t('estimateSoon')}</span>
         </Card>
-        <section id="krok-1" className="flex flex-col gap-3">
-          <Label className="text-accent">Krok 01 · {names[0]}</Label>
-          <h1 className="font-display text-[22px] leading-[1.15] font-semibold sm:text-[26px]">{t('step1Soon')}</h1>
-          <Notice tone="info">{t('step1SoonLead')}</Notice>
-          <div className="flex flex-wrap gap-2">
-            <ButtonLink href={`/cesta/${id}/clenovia`} variant="secondary">
-              <Users size={16} strokeWidth={1.8} /> {t('members')} · {members.length}
-            </ButtonLink>
-            {(role === 'owner' || role === 'editor') && <RenameTrip tripId={id} name={trip.name} />}
-          </div>
-        </section>
+        {current === 1 ? (
+          <Step01 access={access} />
+        ) : (
+          <section className="flex flex-col gap-3">
+            <Label className="text-accent">
+              Krok {stepNo(current)} · {names[current - 1]}
+            </Label>
+            <h1 className="font-display text-[22px] leading-[1.15] font-semibold sm:text-[26px]">{names[current - 1]}</h1>
+            <Notice tone="info">Krok sa stavia (bloky 2.4–2.8).</Notice>
+          </section>
+        )}
       </TripLayout>
+      <StickyBar>
+        <Button variant="secondary" icon aria-label="Mapa" disabled>
+          <MapIcon size={18} strokeWidth={1.75} />
+        </Button>
+        {current < 8 && (
+          <ButtonLink href={`/cesta/${id}?krok=${current + 1}`} className="grow">
+            Pokračovať na {stepNo(current + 1)} {names[current]} <ChevronRight size={16} strokeWidth={1.75} />
+          </ButtonLink>
+        )}
+      </StickyBar>
     </div>
   );
 }

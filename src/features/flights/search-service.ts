@@ -15,6 +15,7 @@ import {
 } from '@/engine/flightCombos';
 import { round2 } from '@/engine/money';
 import { airportAccessCost } from '@/engine/split';
+import { BUS_PP, FUEL_EUR_PER_L, VIGNETTES } from '@/features/trips/airport-access';
 import type { BagType, Bags, PriceRuleTier } from '@/engine/types';
 
 export type SearchParams = {
@@ -74,9 +75,6 @@ const HUB_NIGHT_ROOM: Record<string, number> = {
   AMS: 110,
 };
 /** Diaľničné známky/mýto z Bratislavy (auto, € za cestu tam a späť) */
-const VIGNETTES: Record<string, number> = { BTS: 0, VIE: 12.4, BUD: 20, PRG: 14, KTW: 22 };
-const BUS_PP: Record<string, number> = { PRG: 18, BUD: 9, VIE: 8 };
-const FUEL_EUR_PER_L = 1.6;
 
 const daysIn = (month: string) => {
   const [y, m] = month.split('-').map(Number);

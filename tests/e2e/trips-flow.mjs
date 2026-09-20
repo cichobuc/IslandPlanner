@@ -104,7 +104,7 @@ await q.screenshot({ path: `${SHOTS}/12-peter-members-iphone.png`, fullPage: tru
 console.log('peter vidí Pridať člena?', await q.locator('button:has-text("Pridať")').count());
 console.log('roly v DB:', (await sql`select p.display_name, m.role from trip_members m join profiles p on p.user_id = m.user_id order by m.joined_at`).map((r) => `${r.display_name}=${r.role}`).join(', '));
 await q.goto(tripUrl);
-console.log('peter (editor) vidí Premenovať?', await q.locator('button:has-text("Premenovať")').count());
+console.log('peter (editor) vidí Premenovať?', await q.locator('button[aria-label="Premenovať"]').count());
 
 await b.close();
 await cleanup();

@@ -37,9 +37,14 @@
   `/cesta/[id]` kostra v6 (TopBar s členmi, Postup z `tripProgress`, premenovanie v sheete), `/cesta/[id]/clenovia` (pridať existujúce konto = člen + cestujúci z profilu; rola; odobrať; len vlastník).
   e2e `tests/e2e/trips-flow.mjs`: 4 členovia, 4 cestujúci v DB, člen nespravuje členov, editor premenuje. Poučenia: `trips_add_owner_member` trigger už pridáva vlastníka; `trips.owner_id` bez kaskády → test cleanup maže najprv cesty; ListRow nikdy nerenderovať `action` dvakrát (grid areas).
 - Požiadavka používateľa (20. 9.): v bloku 2.7 **reálna OSM mapa** (MapLibre) s bodmi trasy – tooltip pri hoveri, klik otvorí sheet/rozbalí riadok. Zapísané v SPRINT-2-DNI 2.7.
+- **Blok 2.3 hotový** – obrazovka Cesta s výberom kroku `?krok=N` (predvolene prvý nehotový; nová cesta → 01), PhoneHeader + StickyBar na telefóne.
+  **Krok 01** (`src/features/trips/steps/step01*.tsx`, akcie `step01-actions.ts`): cestujúci z profilov členov + ručne (sheet: meno, dátum/vek, vodič od roku, kreditka, batožina 4 steppery, kufor vo dvojici – symetricky), štítky (člen/ručne, vodič < 20, bez kreditky);
+  domov + 5 letísk zo seedu s prepínačom (→ `trips.origin_airports`), riadok = km · čas · 1 auto pre ≤ 4 · najlacnejšie parkovanie na (dni+1) · známka · priamy Wizz / cez hub, suma skupina + /os (`airport-access.ts`, zdieľané so search-service);
+  „Kedy a ako": mesiac ‹ ›, dĺžka 3–21, prestupy, tempo, záujmy, cieľový rozpočet; predvolený názov „Island · <mesiac>" sa premenúva s mesiacom. „Čo z toho vyplýva" → 02.
+  e2e `tests/e2e/step01-flow.mjs` (iPad + iPhone). Poučenia: render-prop zo server → client komponentu nejde (riadok cestujúceho je klient); `z.coerce.number()` z '' robí 0 → `optInt/optNum` s preprocess.
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový, bloky 2.1–2.2 hotové.** Pokračovať **blokom 2.3** (obrazovka Cesta + krok 01) podľa `plan/SPRINT-2-DNI.md`.
+- **Deň 1 hotový, bloky 2.1–2.3 hotové.** Pokračovať **blokom 2.4** (krok 02 – kalendár, kombinácie, výber letu → kaskáda) podľa `plan/SPRINT-2-DNI.md`.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.
