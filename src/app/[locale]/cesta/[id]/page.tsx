@@ -9,6 +9,7 @@ import { countTravelers, listTripMembers } from '@/features/trips/queries';
 import { Step01, step01Summary } from '@/features/trips/steps/step01';
 import { Step02 } from '@/features/trips/steps/step02';
 import { Step03 } from '@/features/trips/steps/step03';
+import { Step04 } from '@/features/trips/steps/step04';
 import { stepNo } from '@/lib/format';
 import { RenameTrip } from './rename-trip';
 
@@ -105,6 +106,8 @@ export default async function TripPage({
           <Step02 access={access} />
         ) : current === 3 ? (
           <Step03 access={access} />
+        ) : current === 4 ? (
+          <Step04 access={access} />
         ) : (
           <section className="flex flex-col gap-3">
             <Label className="text-accent">

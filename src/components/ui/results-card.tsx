@@ -24,7 +24,7 @@ export function ResultsCard({ cells, className }: { cells: ResultCell[]; classNa
           )}
         >
           <span className="text-ink-3 text-[12px]">{c.label}</span>
-          <span className="font-display truncate text-base font-semibold tabular-nums">{c.value}</span>
+          <span className="font-display text-[15px] leading-tight font-semibold break-words tabular-nums sm:text-base">{c.value}</span>
         </div>
       ))}
     </div>

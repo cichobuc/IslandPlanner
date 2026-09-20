@@ -51,9 +51,14 @@
   `steps/step03*.tsx`: karty Auto/Karavan/Bez auta (v1.1, zakázaná) s `estimateBranch` + letenky, chipy vstupov (dni prenájmu z letu, pickup/return, vodiči + vek, kreditka, km z itinerára/presetu), triedy, riadky vozidiel zo seedu (`transportCost`: prenájom + poistenie + extras + palivo ×1,05 + tunel Vaðlaheiði pri Ring),
   vnorené Poistenie (checkboxy ukladajú hneď) · Extras · Požiadavky (`vehicleChecks`), Palivo, Tunel; „Čo z toho vyplýva“ (krok 04 = Ubytovanie/Kempy, kuchynka). Prepnutie vetvy premenuje kroky 04/05 v Postupe; dáta druhej vetvy ostávajú (e2e: car=Kia, camper=VW Caddy).
   `OptionCard` má `submit` (odošle obklopujúci form). e2e `tests/e2e/step03-flow.mjs`.
+- **Hotfix DB (kritické)** – produkcia padala (`EMAXCONN`) a potom náhodne visela: (1) `getDb()` v produkcii otváral nový pool pri každom volaní; (2) postgres.js cez Supavisor (port 6543) **zamrzne, keď sa dotazy radia do fronty nad `max`** (reprodukované samostatne: max 2 + 8 dotazov → 2. kolo TIMEOUT; max 10 OK; `pg` 25 kôl OK).
+  Riešenie: Drizzle na `drizzle-orm/node-postgres` (`pg` Pool, jeden na proces, max 2 v produkcii / 5 lokálne). `apply-sql.ts` a e2e skripty ostávajú na `postgres` (jedno spojenie, bez fronty).
+- **Blok 2.6 hotový** – **krok 04 Kde spať**: `step04-actions.ts` (vložiť ponuku Booking/Airbnb → `lodging_options` per cesta + priradenie; priradiť kemp tjalda/seed; noc späť na odhad / bez ubytovania / kuchynka; Camping Card na vozidle vetvy Karavan),
+  `steps/step04*.tsx`: noci vetvy s regiónom z trasy, rozpätie zo seedu (`stayCost`), predvyplnené Booking/Airbnb linky (miesto per región, dátumy, hostia), kempy z **tjalda (živé, 154 kempov)** + seed POI mapované na región podľa najbližšieho centroidu, otvorenie k dátumu noci, `campingCardDecision`, `lodgingWarnings` (prílet po 20:00, odlet pred 10:00, zatvorené), súčet + podiel odhadov + kuchynka → 07.
+  e2e `tests/e2e/step04-flow.mjs` (Auto: ponuka + noc bez ubytovania; Karavan: kemp tjalda priradený, Camping Card zapnutá).
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový, bloky 2.1–2.5 hotové.** Pokračovať **blokom 2.6** (krok 04 – noci s regiónmi, izby rozpätia zo seedu, kempy z tjalda, ručná ponuka, kuchynka) podľa `plan/SPRINT-2-DNI.md`.
+- **Deň 1 hotový, bloky 2.1–2.6 hotové.** Pokračovať **blokom 2.7** (krok 05 + reálna OSM mapa, route_matrix, krok 06) podľa `plan/SPRINT-2-DNI.md`. Pred tým: navigácia späť na telefóne (Postup ako sheet + šípka späť) – požiadavka používateľa 20. 9.
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.
