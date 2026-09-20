@@ -25,7 +25,12 @@ export async function AppBar({ me, locale }: { me: { name: string; isAdmin: bool
         <Avatar name={me.name} size={28} />
       </Link>
       <form action={`/api/auth/signout?locale=${locale}`} method="post">
-        <button type="submit" title={t('signOut')} aria-label={t('signOut')} className="text-ink-3 hover:text-ink flex size-[34px] items-center justify-center">
+        <button
+          type="submit"
+          title={t('signOut')}
+          aria-label={t('signOut')}
+          className="text-ink-3 hover:text-ink flex size-[34px] items-center justify-center"
+        >
           <LogOut size={16} strokeWidth={1.8} />
         </button>
       </form>

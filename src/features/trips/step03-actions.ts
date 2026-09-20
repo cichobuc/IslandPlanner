@@ -82,17 +82,15 @@ export async function selectVehicleAction(_prev: ActionState, formData: FormData
       .where(
         and(eq(schema.vehicleSelection.tripId, tripId), eq(schema.vehicleSelection.scenarioKey, scenario)),
       );
-    await tx
-      .insert(schema.vehicleSelection)
-      .values({
-        tripId,
-        scenarioKey: scenario,
-        vehicleOptionId,
-        days,
-        insuranceChosen,
-        extrasChosen,
-        isManual: false,
-      });
+    await tx.insert(schema.vehicleSelection).values({
+      tripId,
+      scenarioKey: scenario,
+      vehicleOptionId,
+      days,
+      insuranceChosen,
+      extrasChosen,
+      isManual: false,
+    });
   });
   revalidate(tripId);
   return { ok: true };
@@ -202,17 +200,15 @@ export async function addManualVehicleAction(_prev: ActionState, formData: FormD
           eq(schema.vehicleSelection.scenarioKey, v.scenario),
         ),
       );
-    await tx
-      .insert(schema.vehicleSelection)
-      .values({
-        tripId: v.tripId,
-        scenarioKey: v.scenario,
-        vehicleOptionId: row.id,
-        days,
-        insuranceChosen: [],
-        extrasChosen: {},
-        isManual: true,
-      });
+    await tx.insert(schema.vehicleSelection).values({
+      tripId: v.tripId,
+      scenarioKey: v.scenario,
+      vehicleOptionId: row.id,
+      days,
+      insuranceChosen: [],
+      extrasChosen: {},
+      isManual: true,
+    });
   });
   revalidate(v.tripId);
   return { ok: true };

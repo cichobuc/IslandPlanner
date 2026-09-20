@@ -81,7 +81,12 @@ export function UiDemo() {
 
   return (
     <div className="bg-bg min-h-dvh pb-24 sm:pb-0">
-      <TopBar title="Island · september 2027" mode={view} onModeChange={setView} members={['Lukáš', 'Peter', 'Jana', 'Martin']} />
+      <TopBar
+        title="Island · september 2027"
+        mode={view}
+        onModeChange={setView}
+        members={['Lukáš', 'Peter', 'Jana', 'Martin']}
+      />
       <PhoneHeader steps={STEPS} step={3} name="Doprava" total={4680} perPerson={1170} />
 
       <TripLayout
@@ -146,9 +151,30 @@ export function UiDemo() {
 
         <StepSection title="Tvoja voľba">
           <OptionGrid>
-            <OptionCard icon={Car} title="Auto" amount="≈ 4 680 €" description="izby po trase · flexibilné · teplo" selected={mode === 'car'} onSelect={() => setMode('car')} />
-            <OptionCard icon={Tent} title="Karavan" amount="≈ 4 910 €" description="kempy · kuchynka vždy · noci 3–8 °C" selected={mode === 'camper'} onSelect={() => setMode('camper')} />
-            <OptionCard icon={Bus} title="Bez auta" amount="≈ 5 300 €" description="hotel v Reykjavíku · výlety z mesta" selected={mode === 'no_car'} onSelect={() => setMode('no_car')} />
+            <OptionCard
+              icon={Car}
+              title="Auto"
+              amount="≈ 4 680 €"
+              description="izby po trase · flexibilné · teplo"
+              selected={mode === 'car'}
+              onSelect={() => setMode('car')}
+            />
+            <OptionCard
+              icon={Tent}
+              title="Karavan"
+              amount="≈ 4 910 €"
+              description="kempy · kuchynka vždy · noci 3–8 °C"
+              selected={mode === 'camper'}
+              onSelect={() => setMode('camper')}
+            />
+            <OptionCard
+              icon={Bus}
+              title="Bez auta"
+              amount="≈ 5 300 €"
+              description="hotel v Reykjavíku · výlety z mesta"
+              selected={mode === 'no_car'}
+              onSelect={() => setMode('no_car')}
+            />
           </OptionGrid>
         </StepSection>
 
@@ -160,7 +186,9 @@ export function UiDemo() {
             </Chip>
             <Chip onClick={() => {}}>SUV</Chip>
             <Chip onClick={() => {}}>4×4</Chip>
-            <span className="text-ink-3 ml-auto hidden text-[12px] sm:inline">seed cenníky 09/2026 · odkazy na požičovne</span>
+            <span className="text-ink-3 ml-auto hidden text-[12px] sm:inline">
+              seed cenníky 09/2026 · odkazy na požičovne
+            </span>
           </ChipRow>
           <ListCard>
             <ListRow
@@ -222,7 +250,10 @@ export function UiDemo() {
           <ResultsCard
             cells={[
               { label: 'Palivo → krok 03', value: fmtEur(303) },
-              { label: 'Krok 05 bude', value: mode === 'car' ? 'Ubytovanie' : mode === 'camper' ? 'Kempy' : 'Základňa' },
+              {
+                label: 'Krok 05 bude',
+                value: mode === 'car' ? 'Ubytovanie' : mode === 'camper' ? 'Kempy' : 'Základňa',
+              },
               { label: 'Strava v aute', value: mode === 'camper' ? 'kuchynka vždy' : 'bez kuchynky' },
               { label: 'Na osobu', value: fmtEur(223, { sign: true }) },
             ]}
@@ -329,8 +360,8 @@ export function UiDemo() {
           <span className="text-[11px] font-semibold tracking-[.08em] text-[#6B7684] uppercase">Fotka</span>
         </div>
         <p className="text-ink-2 my-2 text-sm leading-[1.55]">
-          Vodopád v úzkej rokline päť minút chôdze od Skógafossu. Chodník vedie priamo za vodnú clonu. Väčšina turistov ho minie – aj v
-          hlavnej sezóne tu býva takmer prázdno.
+          Vodopád v úzkej rokline päť minút chôdze od Skógafossu. Chodník vedie priamo za vodnú clonu. Väčšina
+          turistov ho minie – aj v hlavnej sezóne tu býva takmer prázdno.
         </p>
         <SheetRow label="Trvanie">
           <b>45 min</b> · rozsah 30–60 · pešo 1,2 km · ľahké

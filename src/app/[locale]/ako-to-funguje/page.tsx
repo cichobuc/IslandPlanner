@@ -1,4 +1,15 @@
-import { ArrowRight, Car, CalendarCheck, ChevronLeft, MapPinned, Plane, Sparkles, Tent, Users, Utensils, Wallet } from 'lucide-react';
+import {
+  ArrowRight,
+  Car,
+  ChevronLeft,
+  MapPinned,
+  Plane,
+  Sparkles,
+  Tent,
+  Users,
+  Utensils,
+  Wallet,
+} from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ButtonLink, Card, IslandMark, Label, RingMap, Tile, type Tone } from '@/components/ui';
@@ -49,7 +60,10 @@ export default async function HowItWorksPage({ params }: { params: Promise<{ loc
   return (
     <div className="bg-bg min-h-dvh">
       <header className="border-card-line bg-card flex h-14 items-center gap-3.5 border-b px-4 sm:px-6">
-        <Link href="/" className="text-ink-2 hover:text-accent flex items-center gap-1 text-[13px] font-semibold">
+        <Link
+          href="/"
+          className="text-ink-2 hover:text-accent flex items-center gap-1 text-[13px] font-semibold"
+        >
           <ChevronLeft size={16} strokeWidth={1.75} aria-hidden />
           Cesty
         </Link>
@@ -62,7 +76,9 @@ export default async function HowItWorksPage({ params }: { params: Promise<{ loc
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end">
           <div className="flex max-w-[560px] flex-col gap-2.5">
             <Label>{t('kicker')}</Label>
-            <h1 className="font-display text-[26px] leading-[1.1] font-semibold sm:text-[34px]">{t('headline')}</h1>
+            <h1 className="font-display text-[26px] leading-[1.1] font-semibold sm:text-[34px]">
+              {t('headline')}
+            </h1>
             <p className="text-ink-2 text-[15px] leading-[1.5]">{t('lead')}</p>
           </div>
           <div className="sm:ml-auto">

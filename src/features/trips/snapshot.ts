@@ -77,13 +77,21 @@ export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {
   const [trip] = await db.select().from(schema.trips).where(eq(schema.trips.id, tripId)).limit(1);
   if (!trip) throw new Error('Cesta neexistuje');
   const [travelers, days, stays, flight, vehicleRows, foodRow, manualRows, rates] = await Promise.all([
-    db.select().from(schema.travelers).where(eq(schema.travelers.tripId, tripId)).orderBy(asc(schema.travelers.sortOrder)),
+    db
+      .select()
+      .from(schema.travelers)
+      .where(eq(schema.travelers.tripId, tripId))
+      .orderBy(asc(schema.travelers.sortOrder)),
     db
       .select()
       .from(schema.itineraryDays)
       .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive')))
       .orderBy(asc(schema.itineraryDays.dayIndex)),
-    db.select().from(schema.lodgingStays).where(eq(schema.lodgingStays.tripId, tripId)).orderBy(asc(schema.lodgingStays.nightIndex)),
+    db
+      .select()
+      .from(schema.lodgingStays)
+      .where(eq(schema.lodgingStays.tripId, tripId))
+      .orderBy(asc(schema.lodgingStays.nightIndex)),
     loadFlightInput(tripId),
     db
       .select({ sel: schema.vehicleSelection, opt: schema.vehicleOptions })
@@ -95,14 +103,26 @@ export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {
     opts.rates === false ? Promise.resolve(null) : getRates(),
   ]);
   const dayIds = days.map((d) => d.id);
-  const stops = dayIds.length ? await db.select().from(schema.itineraryStops).where(inArray(schema.itineraryStops.dayId, dayIds)).orderBy(asc(schema.itineraryStops.order)) : [];
+  const stops = dayIds.length
+    ? await db
+        .select()
+        .from(schema.itineraryStops)
+        .where(inArray(schema.itineraryStops.dayId, dayIds))
+        .orderBy(asc(schema.itineraryStops.order))
+    : [];
   const poiIds = [...new Set(stops.map((s) => s.poiId).filter((x): x is string => Boolean(x)))];
   const [pois, rules, optionRows] = await Promise.all([
-    poiIds.length ? db.select().from(schema.pois).where(inArray(schema.pois.id, poiIds)) : Promise.resolve([]),
-    poiIds.length ? db.select().from(schema.poiPriceRules).where(inArray(schema.poiPriceRules.poiId, poiIds)) : Promise.resolve([]),
+    poiIds.length
+      ? db.select().from(schema.pois).where(inArray(schema.pois.id, poiIds))
+      : Promise.resolve([]),
+    poiIds.length
+      ? db.select().from(schema.poiPriceRules).where(inArray(schema.poiPriceRules.poiId, poiIds))
+      : Promise.resolve([]),
     (() => {
       const ids = stays.map((s) => s.lodgingOptionId).filter((x): x is string => Boolean(x));
-      return ids.length ? db.select().from(schema.lodgingOptions).where(inArray(schema.lodgingOptions.id, ids)) : Promise.resolve([]);
+      return ids.length
+        ? db.select().from(schema.lodgingOptions).where(inArray(schema.lodgingOptions.id, ids))
+        : Promise.resolve([]);
     })(),
   ]);
   const poiInput = new Map<string, PoiInput>();
@@ -116,7 +136,15 @@ export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {
       parkingFee: asMoney(p.parkingFee),
       priceRules: rules
         .filter((r) => r.poiId === p.id)
-        .map<PriceRule>((r) => ({ label: r.label, minAge: r.minAge, maxAge: r.maxAge, price: r.price, per: r.per, variant: r.variant, isDefault: r.isDefault })),
+        .map<PriceRule>((r) => ({
+          label: r.label,
+          minAge: r.minAge,
+          maxAge: r.maxAge,
+          price: r.price,
+          per: r.per,
+          variant: r.variant,
+          isDefault: r.isDefault,
+        })),
       requires4x4: p.requires4x4,
       season: p.season ?? null,
       bookAheadDays: p.bookAheadDays,
@@ -125,7 +153,9 @@ export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {
   const lodgingStays: TripSnapshot['lodgingStays'] = {};
   for (const s of stays) {
     const o = optionRows.find((x) => x.id === s.lodgingOptionId);
-    const notes = s.notes?.startsWith('{') ? (JSON.parse(s.notes) as { electricityIsk?: number; campingCard?: boolean }) : null;
+    const notes = s.notes?.startsWith('{')
+      ? (JSON.parse(s.notes) as { electricityIsk?: number; campingCard?: boolean })
+      : null;
     (lodgingStays[s.scenarioKey] ??= []).push({
       id: s.id,
       scenarioKey: s.scenarioKey,
@@ -141,7 +171,9 @@ export async function loadSnapshot(tripId: string, opts: { rates?: boolean } = {
       serviceFeePct: o?.serviceFeePct ? Number(o.serviceFeePct) : null,
       cityTaxPp: asMoney(o?.cityTaxPp),
       perPersonNight: asMoney(o?.pricePerPerson),
-      electricity: notes?.electricityIsk ? { amount: notes.electricityIsk, currency: 'ISK', source: 'api' } : null,
+      electricity: notes?.electricityIsk
+        ? { amount: notes.electricityIsk, currency: 'ISK', source: 'api' }
+        : null,
       inCampingCardNetwork: notes?.campingCard ?? null,
       hasKitchen: s.hasKitchen,
       isManual: s.isManual,

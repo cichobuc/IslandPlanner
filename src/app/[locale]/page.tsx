@@ -1,6 +1,19 @@
 import { CalendarCheck, GitFork, Plus } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { AvatarStack, Button, ButtonLink, Chip, ChipRow, Label, ListCard, ListRow, Notice, StepSection, Tag, Tile } from '@/components/ui';
+import {
+  AvatarStack,
+  Button,
+  ButtonLink,
+  Chip,
+  ChipRow,
+  Label,
+  ListCard,
+  ListRow,
+  Notice,
+  StepSection,
+  Tag,
+  Tile,
+} from '@/components/ui';
 import { createTripAction } from '@/features/trips/actions';
 import { dateRangeLabel, monthLabel } from '@/features/trips/progress';
 import { listTripsForUser } from '@/features/trips/queries';
@@ -64,7 +77,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     </>
                   }
                   action={
-                    <ButtonLink href={`/cesta/${trip.id}`} variant={i === 0 ? 'primary' : 'secondary'} size="sm">
+                    <ButtonLink
+                      href={`/cesta/${trip.id}`}
+                      variant={i === 0 ? 'primary' : 'secondary'}
+                      size="sm"
+                    >
                       {t('open')}
                     </ButtonLink>
                   }
@@ -73,7 +90,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 />
               );
             })}
-            {trips.length === 0 && <div className="text-ink-3 px-4 py-8 text-center text-sm">{t('empty')}</div>}
+            {trips.length === 0 && (
+              <div className="text-ink-3 px-4 py-8 text-center text-sm">{t('empty')}</div>
+            )}
           </ListCard>
         </StepSection>
 

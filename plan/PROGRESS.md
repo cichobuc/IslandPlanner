@@ -63,9 +63,13 @@
   Poučenia: MapLibre 6 (module worker) v Next dev nefunguje → v5; React strict mode dvojité mount rozbije zdieľaný worker pool → mapu vytvárať odložene (setTimeout 0 + zrušenie); maplibre prepíše `position` kontajnera (vnútorný div h-full). Seed: +3 veľké obytné autá (Happy 4, Sunlight T69, Kuku Casper) na žiadosť používateľa.
   Stub: sever/východ bez POI v seede (dni 6–8 prázdne), dron zóny, počasie, presun zastávok drag & drop (v1.1).
 - **ADR-014 (používateľ potvrdil 20. 9.):** poradie krokov vymenené – **04 Itinerár, 05 Kde spať**; súbory komponentov ostali (`step04*` = Kde spať, `step05*` = Itinerár), zmenené číslovanie, odkazy, Postup, „Ako to funguje“, docs anotované. `loadSnapshot` je už plný (zastávky s POI a cenníkmi, vozidlo per vetva, strava, ručné položky, kurz/palivo) – základ pre 2.8.
+- **Blok 2.8 hotový** – `budget-data.ts` (`computeBudget` nad plným snapshotom, `summaryColumns`, `foodBreakdown`; `foodDaysFor` vytiahnuté do enginu), hlavička **„Odhad cesty“** (suma, /os, rozsah, 4 stĺpce s pôvodom) + sumy v Postupe a v hlavičke telefónu,
+  **krok 07 Strava** (úroveň, káva, alkohol, prvý nákup → `food_profile`; dni s kuchynkou z nocí, časti prvého/posledného dňa z letu, override úrovne per deň, porovnanie s druhou vetvou),
+  **krok 08 Rozpočet** (Súhrn kategórie → položky s odkazom na krok, Scenáre Auto vs. Karavan s víťazom, Na osobu (skupinové rovným dielom, osobné presne), ručné položky, rezerva % a cieľ/os., export **JSON + CSV** `/api/trips/[id]/export`, PDF v1.1).
+  e2e `tests/e2e/step0708-flow.mjs` (2 os.: strava stredná + deň komfort, položka na osobu, rezerva 5 %, cieľ 1 500 €, export JSON 200 / CSV 32 riadkov).
 
 ## Ďalší krok (stav 20. 9. 2026 večer)
-- **Deň 1 hotový, bloky 2.1–2.7 hotové.** Pokračovať **blokom 2.8** (krok 07 Strava + krok 08 Rozpočet + „Odhad cesty“ v hlavičke) podľa `plan/SPRINT-2-DNI.md`.
+- **Deň 1 hotový, bloky 2.1–2.8 hotové.** Pokračovať **blokom 2.9** (Playwright e2e celý tok na iPade, nasadenie, dočasné heslá pre členov – treba mená/e-maily od používateľa, PROGRESS).
 - Otvorené na strane používateľa: (a) Travelpayouts token – `public/tp-drive.html` je lokálne, **nie je commitnutý** (filter blokuje push cudzieho skriptu; používateľ pushne sám z Macu), potom `TRAVELPAYOUTS_TOKEN` + `TRAVELPAYOUTS_MARKER` (kandidát 576032) do `.env` a Vercel; (b) prihlásiť sa a vyplniť profil.
 - Vercel env: 6 kľúčov + `FLAG_WIZZ`/`FLAG_RYANAIR`=true nahrané CLI; produkcia `/api/health` 6/7 OK.
 - Lokálne: `.env` (nie `.env.local`) obsahuje kľúče; `pnpm dev -p 3111` používajú e2e skripty v `tests/e2e/`.

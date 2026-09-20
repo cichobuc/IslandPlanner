@@ -15,8 +15,10 @@ import {
   TopBar,
   TripLayout,
   type StepItem,
+  TripSummary,
 } from '@/components/ui';
 import { getTripAccess } from '@/features/trips/access';
+import { loadBudget, summaryColumns } from '@/features/trips/budget-data';
 import { dateRangeLabel, stepNames, tripProgress } from '@/features/trips/progress';
 import { countProgressInputs, countTravelers, listTripMembers } from '@/features/trips/queries';
 import { Step01, step01Summary } from '@/features/trips/steps/step01';
@@ -25,7 +27,9 @@ import { Step03 } from '@/features/trips/steps/step03';
 import { Step04 } from '@/features/trips/steps/step04';
 import { Step05 } from '@/features/trips/steps/step05';
 import { Step06 } from '@/features/trips/steps/step06';
-import { stepNo } from '@/lib/format';
+import { Step07 } from '@/features/trips/steps/step07';
+import { Step08 } from '@/features/trips/steps/step08';
+import { fmtEur, stepNo } from '@/lib/format';
 import { RenameTrip } from './rename-trip';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -47,11 +51,15 @@ export default async function TripPage({
   if (!access) notFound();
   const t = await getTranslations('trip');
   const { trip, role } = access;
-  const [members, travelersCount, counts] = await Promise.all([
+  const [members, travelersCount, counts, budget] = await Promise.all([
     listTripMembers(id),
     countTravelers(id),
     countProgressInputs(id, trip.transportMode),
+    trip.startDate ? loadBudget(id).catch(() => null) : Promise.resolve(null),
   ]);
+  const totals = budget?.totals ?? null;
+  const cat = (k: 'flights' | 'transport' | 'lodging' | 'attractions' | 'food') =>
+    totals ? fmtEur(totals.byCategory[k].amount) : '';
   const progress = tripProgress({
     travelersCount,
     originAirports: trip.originAirports,
@@ -72,12 +80,20 @@ export default async function TripPage({
         n === 1
           ? step01Summary(travelersCount, trip.originAirports, trip.targetMonth)
           : n === 2 && trip.startDate && trip.endDate
-            ? `${dateRangeLabel(trip.startDate, trip.endDate)} · ${Math.round((Date.parse(trip.endDate) - Date.parse(trip.startDate)) / 86_400_000) + 1} dní`
+            ? `${dateRangeLabel(trip.startDate, trip.endDate)} · ${Math.round((Date.parse(trip.endDate) - Date.parse(trip.startDate)) / 86_400_000) + 1} dní${totals ? ` · ${cat('flights')}` : ''}`
             : n === 3 && trip.transportMode
-              ? { car: 'Auto', camper: 'Karavan', no_car: 'Bez auta' }[trip.transportMode]
-              : done || n <= progress.active
-                ? ''
-                : `po ${stepNo(n - 1)}`,
+              ? `${{ car: 'Auto', camper: 'Karavan', no_car: 'Bez auta' }[trip.transportMode]}${totals ? ` · ${cat('transport')}` : ''}`
+              : n === 4 && counts.dayCount > 0 && totals
+                ? `${counts.dayCount} dní so zastávkami · ${cat('attractions')} vstupné`
+                : n === 5 && counts.lodgingCount > 0 && totals
+                  ? `${counts.lodgingCount} nocí · ${totals.byCategory.lodging.confidence === 'estimate' ? '≈ ' : ''}${cat('lodging')}`
+                  : n === 7 && totals
+                    ? `${budget?.snapshot.food.level === 'budget' ? 'úsporná' : budget?.snapshot.food.level === 'mid' ? 'stredná' : 'komfortná'} · ${cat('food')}`
+                    : n === 8 && totals
+                      ? `${fmtEur(totals.group)} · ${fmtEur(totals.perPerson)}/os`
+                      : done || n <= progress.active
+                        ? ''
+                        : `po ${stepNo(n - 1)}`,
       state: n === current ? 'active' : done ? 'done' : 'pending',
       href: `?krok=${n}`,
     };
@@ -98,7 +114,13 @@ export default async function TripPage({
           </span>
         }
       />
-      <PhoneHeader steps={steps} step={current} name={names[current - 1]} total={0} perPerson={0} />
+      <PhoneHeader
+        steps={steps}
+        step={current}
+        name={names[current - 1]}
+        total={totals?.group ?? 0}
+        perPerson={totals?.perPerson ?? 0}
+      />
       <TripLayout
         aside={
           <>
@@ -116,10 +138,22 @@ export default async function TripPage({
           </>
         }
       >
-        <Card className="hidden flex-col gap-1 px-5 py-4 sm:flex">
-          <Label>Odhad cesty · {travelersCount} os.</Label>
-          <span className="text-ink-3 text-sm">{t('estimateSoon')}</span>
-        </Card>
+        {totals ? (
+          <TripSummary
+            total={totals.group}
+            perPerson={totals.perPerson}
+            pax={travelersCount}
+            range={totals.min !== totals.max ? { min: totals.min, max: totals.max } : undefined}
+            step={current}
+            columns={summaryColumns(totals)}
+            className="hidden sm:flex"
+          />
+        ) : (
+          <Card className="hidden flex-col gap-1 px-5 py-4 sm:flex">
+            <Label>Odhad cesty · {travelersCount} os.</Label>
+            <span className="text-ink-3 text-sm">{t('estimateSoon')}</span>
+          </Card>
+        )}
         {current === 1 ? (
           <Step01 access={access} />
         ) : current === 2 ? (
@@ -132,6 +166,10 @@ export default async function TripPage({
           <Step04 access={access} />
         ) : current === 6 ? (
           <Step06 access={access} />
+        ) : current === 7 ? (
+          <Step07 access={access} />
+        ) : current === 8 ? (
+          <Step08 access={access} />
         ) : (
           <section className="flex flex-col gap-3">
             <Label className="text-accent">
