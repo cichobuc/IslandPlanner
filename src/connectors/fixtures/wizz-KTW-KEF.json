@@ -1,0 +1,766 @@
+{
+  "outboundFlights": [
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-02T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-02T15:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-04T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-04T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-05T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-05T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-07T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-07T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-09T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-09T15:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-11T00:00:00",
+      "price": {
+        "amount": 245.6,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 245.6,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-11T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-12T00:00:00",
+      "price": {
+        "amount": 319,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 319,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-12T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-14T00:00:00",
+      "price": {
+        "amount": 359,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 359,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-14T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-16T00:00:00",
+      "price": {
+        "amount": 359,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 359,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-16T15:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-18T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-18T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-19T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-19T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-21T00:00:00",
+      "price": {
+        "amount": 449,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 449,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-21T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-22T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-22T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-23T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-23T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-25T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-25T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-26T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-26T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-28T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-28T14:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-29T00:00:00",
+      "price": {
+        "amount": 539,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 539,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-29T16:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KTW",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-30T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-30T14:15:00"],
+      "hasMacFlight": false
+    }
+  ],
+  "returnFlights": [
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-02T00:00:00",
+      "price": {
+        "amount": 449,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 449,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-02T18:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-04T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-04T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-05T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-05T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-07T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-07T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-09T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-09T18:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-11T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-11T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-12T00:00:00",
+      "price": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 409,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-12T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-14T00:00:00",
+      "price": {
+        "amount": 359,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 359,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-14T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-16T00:00:00",
+      "price": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 499,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-16T18:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-18T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-18T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-19T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-19T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-21T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-21T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-22T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-22T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-23T00:00:00",
+      "price": {
+        "amount": 659,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 659,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-23T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-25T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-25T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-26T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-26T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-28T00:00:00",
+      "price": {
+        "amount": 539,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 539,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-28T17:15:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-29T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-29T19:05:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "KTW",
+      "departureDate": "2027-09-30T00:00:00",
+      "price": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 589,
+        "currencyCode": "PLN",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-30T17:15:00"],
+      "hasMacFlight": false
+    }
+  ]
+}

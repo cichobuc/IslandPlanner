@@ -1,0 +1,426 @@
+{
+  "outbound": {
+    "fares": [
+      {
+        "day": "2027-09-01",
+        "arrivalDate": "2027-09-01T12:00:00",
+        "departureDate": "2027-09-01T10:40:00",
+        "price": {
+          "value": 114.99,
+          "valueMainUnit": "114",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-02",
+        "arrivalDate": "2027-09-02T12:00:00",
+        "departureDate": "2027-09-02T10:40:00",
+        "price": {
+          "value": 63.99,
+          "valueMainUnit": "63",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-03",
+        "arrivalDate": "2027-09-03T12:00:00",
+        "departureDate": "2027-09-03T10:40:00",
+        "price": {
+          "value": 83.99,
+          "valueMainUnit": "83",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-04",
+        "arrivalDate": "2027-09-04T12:00:00",
+        "departureDate": "2027-09-04T10:40:00",
+        "price": {
+          "value": 83.99,
+          "valueMainUnit": "83",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-05",
+        "arrivalDate": "2027-09-05T12:00:00",
+        "departureDate": "2027-09-05T10:40:00",
+        "price": {
+          "value": 94.99,
+          "valueMainUnit": "94",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-06",
+        "arrivalDate": "2027-09-06T12:00:00",
+        "departureDate": "2027-09-06T10:40:00",
+        "price": {
+          "value": 94.99,
+          "valueMainUnit": "94",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-07",
+        "arrivalDate": "2027-09-07T12:00:00",
+        "departureDate": "2027-09-07T10:40:00",
+        "price": {
+          "value": 63.99,
+          "valueMainUnit": "63",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-08",
+        "arrivalDate": "2027-09-08T12:00:00",
+        "departureDate": "2027-09-08T10:40:00",
+        "price": {
+          "value": 55.99,
+          "valueMainUnit": "55",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-09",
+        "arrivalDate": "2027-09-09T12:00:00",
+        "departureDate": "2027-09-09T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-10",
+        "arrivalDate": "2027-09-10T12:00:00",
+        "departureDate": "2027-09-10T10:40:00",
+        "price": {
+          "value": 63.99,
+          "valueMainUnit": "63",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-11",
+        "arrivalDate": "2027-09-11T12:00:00",
+        "departureDate": "2027-09-11T10:40:00",
+        "price": {
+          "value": 63.99,
+          "valueMainUnit": "63",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-12",
+        "arrivalDate": "2027-09-12T12:00:00",
+        "departureDate": "2027-09-12T10:40:00",
+        "price": {
+          "value": 72.99,
+          "valueMainUnit": "72",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-13",
+        "arrivalDate": "2027-09-13T12:00:00",
+        "departureDate": "2027-09-13T10:40:00",
+        "price": {
+          "value": 72.99,
+          "valueMainUnit": "72",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-14",
+        "arrivalDate": "2027-09-14T12:00:00",
+        "departureDate": "2027-09-14T10:40:00",
+        "price": {
+          "value": 55.99,
+          "valueMainUnit": "55",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-15",
+        "arrivalDate": "2027-09-15T12:00:00",
+        "departureDate": "2027-09-15T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-16",
+        "arrivalDate": "2027-09-16T12:00:00",
+        "departureDate": "2027-09-16T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-17",
+        "arrivalDate": "2027-09-17T12:00:00",
+        "departureDate": "2027-09-17T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-18",
+        "arrivalDate": "2027-09-18T12:00:00",
+        "departureDate": "2027-09-18T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-19",
+        "arrivalDate": "2027-09-19T12:00:00",
+        "departureDate": "2027-09-19T10:40:00",
+        "price": {
+          "value": 63.99,
+          "valueMainUnit": "63",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-20",
+        "arrivalDate": "2027-09-20T12:00:00",
+        "departureDate": "2027-09-20T10:40:00",
+        "price": {
+          "value": 63.99,
+          "valueMainUnit": "63",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-21",
+        "arrivalDate": "2027-09-21T12:00:00",
+        "departureDate": "2027-09-21T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-22",
+        "arrivalDate": "2027-09-22T12:00:00",
+        "departureDate": "2027-09-22T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-23",
+        "arrivalDate": "2027-09-23T12:00:00",
+        "departureDate": "2027-09-23T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-24",
+        "arrivalDate": "2027-09-24T12:00:00",
+        "departureDate": "2027-09-24T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-25",
+        "arrivalDate": "2027-09-25T12:00:00",
+        "departureDate": "2027-09-25T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-26",
+        "arrivalDate": "2027-09-26T12:00:00",
+        "departureDate": "2027-09-26T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-27",
+        "arrivalDate": "2027-09-27T12:00:00",
+        "departureDate": "2027-09-27T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-28",
+        "arrivalDate": "2027-09-28T12:00:00",
+        "departureDate": "2027-09-28T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-29",
+        "arrivalDate": "2027-09-29T12:00:00",
+        "departureDate": "2027-09-29T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      },
+      {
+        "day": "2027-09-30",
+        "arrivalDate": "2027-09-30T12:00:00",
+        "departureDate": "2027-09-30T10:40:00",
+        "price": {
+          "value": 47.99,
+          "valueMainUnit": "47",
+          "valueFractionalUnit": "99",
+          "currencyCode": "EUR",
+          "currencySymbol": "€"
+        },
+        "soldOut": false,
+        "unavailable": false
+      }
+    ]
+  }
+}

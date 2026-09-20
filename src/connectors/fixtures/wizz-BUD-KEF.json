@@ -1,0 +1,526 @@
+{
+  "outboundFlights": [
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-02T00:00:00",
+      "price": {
+        "amount": 38290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 38290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-02T15:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-04T00:00:00",
+      "price": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-04T15:40:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-07T00:00:00",
+      "price": {
+        "amount": 68990,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 68990,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-07T13:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-09T00:00:00",
+      "price": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-09T15:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-11T00:00:00",
+      "price": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-11T15:40:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-14T00:00:00",
+      "price": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-14T13:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-16T00:00:00",
+      "price": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 42190,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-16T15:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-18T00:00:00",
+      "price": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-18T15:40:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-21T00:00:00",
+      "price": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-21T13:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-23T00:00:00",
+      "price": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-23T15:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-25T00:00:00",
+      "price": {
+        "amount": 30690,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 30690,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-25T15:40:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-28T00:00:00",
+      "price": {
+        "amount": 38290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 38290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-28T13:25:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "BUD",
+      "arrivalStation": "KEF",
+      "departureDate": "2027-09-30T00:00:00",
+      "price": {
+        "amount": 30690,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 30690,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-30T15:25:00"],
+      "hasMacFlight": false
+    }
+  ],
+  "returnFlights": [
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-02T00:00:00",
+      "price": {
+        "amount": 61290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 61290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-02T18:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-04T00:00:00",
+      "price": {
+        "amount": 61290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 61290,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-04T19:00:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-07T00:00:00",
+      "price": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-07T16:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-09T00:00:00",
+      "price": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-09T18:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-11T00:00:00",
+      "price": {
+        "amount": 72790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 72790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-11T19:00:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-14T00:00:00",
+      "price": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-14T16:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-16T00:00:00",
+      "price": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-16T18:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-18T00:00:00",
+      "price": {
+        "amount": 32990,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 32990,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-18T19:00:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-21T00:00:00",
+      "price": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-21T16:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-23T00:00:00",
+      "price": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 34490,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-23T18:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-25T00:00:00",
+      "price": {
+        "amount": 30690,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 30690,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-25T19:00:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-28T00:00:00",
+      "price": {
+        "amount": 32990,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 32990,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-28T16:45:00"],
+      "hasMacFlight": false
+    },
+    {
+      "departureStation": "KEF",
+      "arrivalStation": "BUD",
+      "departureDate": "2027-09-30T00:00:00",
+      "price": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "originalPrice": {
+        "amount": 49790,
+        "currencyCode": "HUF",
+        "exchangedAmount": null,
+        "exchangedCurrencyCode": null
+      },
+      "priceType": "price",
+      "departureDates": ["2027-09-30T18:45:00"],
+      "hasMacFlight": false
+    }
+  ]
+}

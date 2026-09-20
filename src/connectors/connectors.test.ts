@@ -4,7 +4,9 @@ import { frankfurter } from './frankfurter';
 import { gasvaktin } from './gasvaktin';
 import { matchLot, parka } from './parka';
 import { parseCampsitePrices, tjalda } from './tjalda';
+import { ryanair } from './ryanair';
 import { aviasalesLink, tpFlights } from './tp-flights';
+import { WIZZ_FALLBACK_VERSION, discoverWizzVersion, wizz } from './wizz';
 
 const fx = { mode: 'fixtures' as const, env: {} };
 
@@ -204,5 +206,90 @@ describe('tp-flights', () => {
     );
     expect(r).toMatchObject({ ok: false, reason: 'chýba TRAVELPAYOUTS_TOKEN' });
     expect(called).toBe(false);
+  });
+});
+
+describe('wizz', () => {
+  it('fixture KTW: 19 dní tam, 19 späť, PLN, zoradené, deep link', async () => {
+    const r = await wizz.fetch(
+      { origin: 'KTW', destination: 'KEF', from: '2027-09-01', to: '2027-09-30' },
+      { ...fx, env: { FLAG_WIZZ: 'true' } },
+    );
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.data.outbound).toHaveLength(19);
+    expect(r.data.inbound).toHaveLength(19);
+    expect(r.data.outbound[0]).toMatchObject({
+      origin: 'KTW',
+      destination: 'KEF',
+      departDate: '2027-09-02',
+      price: 589,
+      currency: 'PLN',
+      airline: 'W6',
+      transfers: 0,
+    });
+    expect(r.data.outbound.find((f) => f.departDate === '2027-09-11')?.price).toBe(245.6);
+    expect(r.data.inbound[0].origin).toBe('KEF');
+    expect(r.data.outbound[0].deepLink).toContain('/KTW/KEF/2027-09-02/');
+  });
+  it('bez flagu je vypnutý; BUD fixture v HUF', async () => {
+    expect(
+      await wizz.fetch(
+        { origin: 'BUD', destination: 'KEF', from: '2027-09-01', to: '2027-09-30' },
+        { ...fx, env: {} },
+      ),
+    ).toMatchObject({ ok: false, retryable: false });
+    const r = await wizz.fetch(
+      { origin: 'BUD', destination: 'KEF', from: '2027-09-01', to: '2027-09-30' },
+      { ...fx, env: { FLAG_WIZZ: 'true' } },
+    );
+    expect(r.ok && r.data.outbound[0].currency).toBe('HUF');
+    expect(r.ok && r.data.outbound.length).toBe(13);
+  });
+  it('discoverWizzVersion: z HTML, cache, fallback', async () => {
+    const cache = new MemoryCache();
+    const ctx = {
+      cache,
+      mode: 'live' as const,
+      env: {},
+      now: () => new Date(),
+      bypassCache: false,
+      fetchImpl: (async () =>
+        new Response('<script src="https://be.wizzair.com/30.1.0/x.js">')) as unknown as typeof fetch,
+    };
+    expect(await discoverWizzVersion(ctx)).toBe('30.1.0');
+    expect(
+      await discoverWizzVersion({
+        ...ctx,
+        fetchImpl: (async () => new Response('nič')) as unknown as typeof fetch,
+      }),
+    ).toBe('30.1.0'); // z cache
+    expect(
+      await discoverWizzVersion({
+        ...ctx,
+        cache: new MemoryCache(),
+        fetchImpl: (async () => new Response('nič')) as unknown as typeof fetch,
+      }),
+    ).toBe(WIZZ_FALLBACK_VERSION);
+  });
+});
+
+describe('ryanair', () => {
+  it('fixture BTS→STN: 30/30 dní, EUR, min 47.99', async () => {
+    const r = await ryanair.fetch(
+      { origin: 'BTS', destination: 'STN', month: '2027-09' },
+      { ...fx, env: { FLAG_RYANAIR: 'true' } },
+    );
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.data).toHaveLength(30);
+    expect(Math.min(...r.data.map((f) => f.price))).toBe(47.99);
+    expect(r.data[0]).toMatchObject({
+      departDate: '2027-09-01',
+      airline: 'FR',
+      currency: 'EUR',
+      transfers: 0,
+    });
+    expect(r.data[0].deepLink).toContain('originIata=BTS');
   });
 });

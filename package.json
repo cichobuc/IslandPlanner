@@ -18,7 +18,8 @@
     "db:studio": "drizzle-kit studio",
     "db:sql": "tsx src/db/apply-sql.ts",
     "seed": "tsx -r ./scripts/server-only-shim.cjs src/db/seed/index.ts",
-    "admin:bootstrap": "tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts"
+    "admin:bootstrap": "tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts",
+    "spike:coverage": "tsx scripts/spike-coverage.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
