@@ -6,11 +6,30 @@ import { createClient } from '@supabase/supabase-js';
 import postgres from 'postgres';
 const SHOTS = process.argv[2];
 const BASE = 'http://localhost:3111';
-const out = execSync('pnpm exec tsx -r ./scripts/server-only-shim.cjs scripts/bootstrap-admin.ts "Lukáš"', {
-  encoding: 'utf8',
+// testovací správca – nikdy nesiahať na skutočné konto správcu
+const adminEmail = 'admin.test@example.com';
+const adminPw = 'TestAdmin2027xyz';
+const admin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY.trim(),
+  {
+    auth: { persistSession: false },
+  },
+);
+const sql = postgres(process.env.DATABASE_URL, { ssl: 'require', prepare: false, max: 1 });
+const TEST_EMAILS = ['admin.test@example.com', 'peter.test@example.com'];
+const cleanup = async () => {
+  for (const u of (await admin.auth.admin.listUsers()).data.users)
+    if (TEST_EMAILS.includes(u.email)) await admin.auth.admin.deleteUser(u.id);
+};
+await cleanup();
+const { data: created } = await admin.auth.admin.createUser({
+  email: adminEmail,
+  password: adminPw,
+  email_confirm: true,
+  app_metadata: { must_change_password: true },
 });
-const adminPw = out.match(/Dočasné heslo: (\S+)/)[1];
-const adminEmail = 'l.pjecha@gmail.com';
+await sql`insert into profiles (user_id, email, display_name, is_admin, must_change_password) values (${created.user.id}, ${adminEmail}, 'Admin Test', true, true)`;
 const NEW_PW = 'test-heslo-lukas-2027';
 
 const b = await chromium.launch();
