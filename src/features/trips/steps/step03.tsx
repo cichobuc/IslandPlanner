@@ -11,7 +11,8 @@ import type { TripAccess } from '../access';
 import { canEdit } from '../access';
 import { dateRangeLabel } from '../progress';
 import { getRates } from '../rates';
-import { loadFlightInput } from '../snapshot';
+import { computeBudget } from '@/engine/budget';
+import { loadFlightInput, loadSnapshot } from '../snapshot';
 import { Step03Client } from './step03-client';
 import type { BranchCard, Step03Data, VehicleLite, VehicleSel } from './step03-types';
 
@@ -163,7 +164,27 @@ export async function Step03({ access }: { access: TripAccess }) {
       amt(flight.parkingTotal) +
       amt(flight.airportAccessTotal)
     : 0;
+  // Auto / Karavan: tá istá suma ako v hlavičke a kroku 08 (computeBudget nad snapshotom – noci, vozidlo/odhad, strava,
+  // atrakcie, rezerva); Bez auta ostáva odhad zo seedu. Bez letu ešte nie sú dni → odhad pre všetky.
+  const budget = flight ? computeBudget(await loadSnapshot(trip.id)) : null;
   const branches: BranchCard[] = (['car', 'camper', 'no_car'] as TransportMode[]).map((mode) => {
+    const sc = mode !== 'no_car' ? budget?.scenarios[mode] : null;
+    if (sc) {
+      const tr = sc.byCategory.transport.lines;
+      const sumIds = (ids: string[]) => tr.filter((l) => ids.includes(l.id)).reduce((a, l) => a + l.amount, 0);
+      return {
+        mode,
+        total: Math.round(sc.group),
+        min: Math.round(sc.min),
+        max: Math.round(sc.max),
+        perPerson: Math.round(sc.perPerson),
+        vehicle: Math.round(sumIds(['rental', 'insurance', 'extras', 'oneway'])),
+        fuel: Math.round(sumIds(['fuel', 'tolls'])),
+        lodging: Math.round(sc.byCategory.lodging.amount),
+        food: Math.round(sc.byCategory.food.amount),
+        tours: 0,
+      };
+    }
     const e = estimateBranch(mode, {
       days: tripDays,
       pax,

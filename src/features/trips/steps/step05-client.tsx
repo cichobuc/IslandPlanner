@@ -52,6 +52,8 @@ import { AttractionBudgetPanel, type AttractionBudgetState } from './attraction-
 import { DRONE, PoiSheet } from './poi-sheet';
 
 const dm = (iso: string) => `${Number(iso.slice(8, 10))}. ${Number(iso.slice(5, 7))}.`;
+/** „45 min“ / „1 h 05“ – krátky čas pre jazdu a pobyt. */
+const fmtDrive = (min: number) => (min < 60 ? `${min} min` : fmtH(min));
 const KIND_ICON: Record<string, typeof Sparkles> = {
   thermal: Sparkles,
   attraction: Sparkles,
@@ -134,7 +136,7 @@ export function Step05Client({
         step={4}
         name="Itinerár"
         question="Kam ktorý deň?"
-        lead="Dni idú z prenocovania do prenocovania (regióny z návrhu trasy podľa počtu dní; miesto noci upresníš v kroku 05). Generátor priradí každé miesto dňu s najmenšou obchádzkou, zoradí ich pozdĺž smeru jazdy a naplánuje časy tak, aby si skončil pred západom slnka (jazda × 1,25 + 10 min na zastávku). Pri ≥ 8 dňoch nechá jeden rezervný deň na počasie; „musí“ = najlepšie miesta dňa, „voliteľné“ sa dajú pri zlom počasí vynechať. Zamknutý deň sa už nemení."
+        lead="Každý deň = cesta z noci na noc so zastávkami. Generátor ich rozloží a napočíta časy; čo sa ti nepáči, vyhoď, pridaj alebo zamkni deň."
         aside={<StepAmount amount={totals.entryGroup} source="seed" />}
       />
 
@@ -309,7 +311,7 @@ export function Step05Client({
                   }
                   title={`Deň ${d.dayIndex} · ${d.dow} ${dm(d.date)} · ${d.regionName}`}
                   meta={[
-                    `${fmtKm(d.driveKm)} · ${fmtH(d.driveMinReal)}`,
+                    `${fmtKm(d.driveKm)} · ${fmtH(d.driveMinReal)} jazdy`,
                     `${d.stops.length} zast.`,
                     `☀ do ${d.sunset}`,
                     d.overnight
@@ -363,6 +365,7 @@ export function Step05Client({
                     </span>
                   }
                   selected={isOpen}
+                  inlineAction
                   onOpen={() => toggle(d.dayId)}
                 />
                 {isOpen && (
@@ -371,10 +374,10 @@ export function Step05Client({
                       const dr = DRONE[s.droneStatus] ?? DRONE.unknown;
                       return (
                         <div key={s.stopId}>
-                          <div className="text-ink-3 flex items-center gap-2 bg-[#FAFBFC] py-0.5 pl-[104px] text-[11px]">
+                          <div className="text-ink-3 flex items-center gap-2 bg-[#FAFBFC] py-0.5 pl-[52px] text-[11px] sm:pl-[104px]">
                             {s.driveKmFromPrev > 0
-                              ? `${fmtKm(s.driveKmFromPrev)} · ${Math.round(s.driveMinFromPrev * 1.25)} min`
-                              : 'štart'}
+                              ? `↓ + ${fmtDrive(Math.round(s.driveMinFromPrev * 1.25))} jazdy · ${fmtKm(s.driveKmFromPrev)}`
+                              : '↓ štart'}
                           </div>
                           <ListRow
                             nested
@@ -385,7 +388,7 @@ export function Step05Client({
                             }
                             title={`${s.name}${s.hiddenGem ? ' 💎' : ''}`}
                             meta={[
-                              s.arrive ? `${s.arrive} · ${s.stayMin} min` : `${s.stayMin} min`,
+                              s.arrive ? `${s.arrive} · ${fmtDrive(s.stayMin)}` : fmtDrive(s.stayMin),
                               s.parkingEur ? `park. ${fmtEur(s.parkingEur)}` : null,
                               s.bookingRequired ? 'rezervácia' : null,
                             ]
@@ -399,6 +402,7 @@ export function Step05Client({
                               </>
                             }
                             amount={s.entryGroup ? fmtEur(s.entryGroup) : '0 €'}
+                            inlineAction
                             action={
                               canEdit ? (
                                 <form action={removeAct}>

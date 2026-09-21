@@ -63,6 +63,7 @@ const AIRLINE: Record<string, string> = {
   OG: 'PLAY',
 };
 const airlineName = (c: string) => AIRLINE[c] ?? c;
+const SOURCE_NAME: Record<string, string> = { wizz: 'Wizz Air', ryanair: 'Ryanair', 'tp-flights': 'Travelpayouts', seed: 'seed' };
 /** Mená členov, ktorí nemôžu v niektorý deň medzi odletom a návratom (vrátane). */
 function blockedBetween(blocked: Record<string, string[]> | undefined, from: string, to: string): string[] {
   if (!blocked) return [];
@@ -248,6 +249,17 @@ export function Step02Client(props: {
 
   const bestOption = listed[0];
   // zlyhané zdroje zoskupené podľa konektora: „tp-flights: chýba TRAVELPAYOUTS_TOKEN (BUD, KTW)"
+  const okSources = useMemo(
+    () =>
+      [
+        ...new Set(
+          Object.entries(search?.connectorStats ?? {})
+            .filter(([, c]) => c.ok && c.count > 0)
+            .map(([k]) => (k.includes(':') ? k.split(':')[1] : k)),
+        ),
+      ].map((c) => SOURCE_NAME[c] ?? c),
+    [search],
+  );
   const failedSources = useMemo(() => {
     const by = new Map<string, Set<string>>();
     for (const [key, c] of Object.entries(search?.connectorStats ?? {})) {
@@ -267,7 +279,7 @@ export function Step02Client(props: {
         step={2}
         name="Letenky"
         question="Kedy letíme a odkiaľ?"
-        lead="Každý deň v kalendári má najlacnejšiu celkovú cenu (letenka + batožina + parkovanie + cesta na letisko) cez zapnuté letiská a dĺžky pobytu. Klik na deň filtruje kombinácie; „Vybrať“ nastaví termín a prepočíta zvyšok."
+        lead="V kalendári je pri každom dni najlacnejšia cena za celú cestu na letisko a späť (letenka + batožina + parkovanie + cesta autom). Klikni na deň, vyber kombináciu – termín cesty a všetko ďalšie sa prepočíta."
         aside={
           selected ? (
             <div className="flex flex-col items-end gap-1">
@@ -458,8 +470,11 @@ export function Step02Client(props: {
         )}
         {searchError && <Notice tone="bad">{searchError}</Notice>}
         {failedSources.length > 0 && (
-          <Notice tone="warn">
-            Niektoré zdroje zlyhali: {failedSources.join(' · ')}. Ceny sú z ostatných zdrojov.
+          // pre ľudí: bez technických dôvodov (tokeny, verzie) – tie sú v /api/health
+          <Notice tone="mut">
+            Ceny sú z dostupných zdrojov ({okSources.join(', ') || 'seed'}); {failedSources.length === 1 ? 'zdroj' : 'zdroje'}{' '}
+            {[...new Set(failedSources.map((f) => SOURCE_NAME[f.split(':')[0].split(' ')[0]] ?? f.split(':')[0]))].join(', ')} teraz {failedSources.length === 1 ? 'nedáva' : 'nedávajú'}{' '}
+            lety – niektoré kombinácie môžu chýbať.
           </Notice>
         )}
         <Card className="p-3">

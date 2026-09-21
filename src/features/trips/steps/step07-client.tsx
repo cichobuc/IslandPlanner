@@ -75,7 +75,7 @@ export function Step07Client({
         step={7}
         name="Strava"
         question="Ako budeme jesť?"
-        lead="Úsporná = vlastné raňajky a večere všade, kde je kuchynka (z kroku 05), obed zo zásob. Kempy majú kuchynku vždy. Prvý a posledný deň sa počítajú podľa časov letu. Ceny sú seed 09/2026 pre Island."
+        lead="Úsporná = varíme si, kde je kuchynka; stredná = občas reštaurácia; komfortná = jeme vonku. Dni s kuchynkou sa berú z nocí, prvý a posledný deň podľa letu."
         aside={<StepAmount amount={total.total} source={food.customPrices ? 'manual' : 'seed'} />}
       />
 

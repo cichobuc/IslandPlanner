@@ -134,7 +134,7 @@ export function Step03Client({ data }: { data: Step03Data }) {
         step={3}
         name="Doprava"
         question="Auto, karavan alebo bez auta?"
-        lead="Tri možnosti s odhadom celej cesty (letenky + vozidlo + palivo + noci + strava). Voľba určí, či noci v kroku 05 budú izby (Ubytovanie), kempy, alebo hotel v Reykjavíku s výletmi. Dá sa kedykoľvek zmeniť – dáta druhej vetvy ostávajú."
+        lead="Auto = izby, karavan = kempy. Pri každej možnosti je cena celej cesty, aby sa dalo porovnať. Dá sa kedykoľvek prepnúť – nič sa nestratí."
         aside={
           mode ? (
             <StepAmount amount={stepAmount} source={chosen ? chosen.source : 'estimate'} approx={!chosen} />

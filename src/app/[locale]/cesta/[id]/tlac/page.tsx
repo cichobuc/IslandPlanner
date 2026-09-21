@@ -131,7 +131,7 @@ export default async function PrintPage({ params }: { params: Promise<{ locale: 
                   Deň {d.dayIndex} · {d.dow} {dm(d.date)} · {d.regionName}
                 </span>
                 <span className="text-[#5B6675]">
-                  {fmtKm(d.driveKm)} · {fmtH(d.driveMinReal)} · ☀ do {d.sunset}
+                  {fmtKm(d.driveKm)} · {fmtH(d.driveMinReal)} jazdy · ☀ do {d.sunset}
                   {d.reserve ? ' · rezervný deň' : ''}
                 </span>
               </div>
@@ -146,7 +146,9 @@ export default async function PrintPage({ params }: { params: Promise<{ locale: 
                         <span className="font-semibold">{s.name}</span>
                         {s.hiddenGem ? ' 💎' : ''}{' '}
                         <span className="text-[#5B6675]">
-                          · {s.stayMin} min{s.bookingRequired ? ' · rezervácia vopred' : ''}
+                          · {s.stayMin} min
+                          {s.driveMinFromPrev > 0 ? ` · + ${Math.round(s.driveMinFromPrev * 1.25)} min jazdy (${Math.round(s.driveKmFromPrev)} km)` : ''}
+                          {s.bookingRequired ? ' · rezervácia vopred' : ''}
                           {s.droneStatus === 'banned'
                             ? ' · dron zákaz'
                             : s.droneStatus === 'permit'

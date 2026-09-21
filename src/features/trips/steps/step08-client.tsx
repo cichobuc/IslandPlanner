@@ -125,7 +125,7 @@ export function Step08Client({
         step={8}
         name="Rozpočet"
         question="Koľko to stojí – celkom a na osobu?"
-        lead={`Všetko z krokov 01–07 pre vetvu ${scenario === 'camper' ? 'Karavan' : 'Auto'}: skupinové položky rovným dielom, osobné (letenka, vstupné podľa veku, strava) presne. Odhady majú rozsah; rezerva ${reservePct} %. Kurz 1 ISK = ${fx.ISK_EUR.toFixed(4)} € (${fx.date}).`}
+        lead={`Súčet krokov 01–07 pre vetvu ${scenario === 'camper' ? 'Karavan' : 'Auto'}. Spoločné veci (auto, noci) delíme rovným dielom, osobné (letenka, vstupné, strava) každému presne. Rezerva ${reservePct} % na nečakané; kurz ISK z ${fx.date}.`}
         aside={
           <StepAmount
             amount={t.group}

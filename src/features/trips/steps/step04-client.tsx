@@ -70,8 +70,8 @@ export function Step04Client({ data }: { data: Step04Data }) {
         question={isCamper ? 'V ktorom kempe ktorú noc?' : 'Kde spíme ktorú noc?'}
         lead={
           isCamper
-            ? 'Noc = kemp v regióne, kde deň končí (krok 04). Ceny sú živé z tjalda (os./noc + elektrina + daň); divoké kempovanie je zakázané. Camping Card sa oplatí len pri dostatku nocí v sieti a platí do 15. 9.'
-            : 'Každá noc má región, kde deň končí (krok 04), a cenové rozpätie pre skupinu – to na rozhodnutie stačí. Keď nájdeš konkrétnu ponuku (Booking/Airbnb), vlož ju a noc bude presná. Kuchynka ovplyvní stravu v kroku 07.'
+            ? 'Každá noc má kemp v oblasti, kde deň končí; ceny sú živé (osoba + elektrina + daň). Divoké kempovanie je na Islande zakázané.'
+            : 'Každá noc má oblasť, kde deň končí, a cenové rozpätie pre skupinu – na rozhodnutie to stačí. Keď nájdeš konkrétnu ponuku (Booking/Airbnb), vlož ju a noc bude presná.'
         }
         aside={
           <StepAmount

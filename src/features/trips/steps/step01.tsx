@@ -100,7 +100,7 @@ export async function Step01({ access }: { access: TripAccess }) {
         step={1}
         name="Cestujúci & kedy"
         question="Kto ide, odkiaľ a kedy?"
-        lead="Cestujúci sa berú z profilov členov (vek, vodičák, kreditka, batožina). Zapnuté letiská určujú, kde sa v kroku 02 hľadajú letenky – cesta na letisko je 1 autom pre 4 zo skupinovej kasy."
+        lead="Kto ide (z profilov členov), z ktorých letísk sme ochotní letieť a v ktorom mesiaci. Cestu na letisko rátame jedným autom pre všetkých."
       />
 
       <StepSection

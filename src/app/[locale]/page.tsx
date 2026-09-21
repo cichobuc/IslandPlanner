@@ -1,15 +1,11 @@
-import { CalendarCheck, GitFork, Plus } from 'lucide-react';
+import { CalendarCheck, Plus } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
   AvatarStack,
   Button,
   ButtonLink,
-  Chip,
-  ChipRow,
-  Label,
   ListCard,
   ListRow,
-  Notice,
   StepSection,
   Tag,
   Tile,
@@ -41,9 +37,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <span className="text-ink-2 text-sm">{t('lead')}</span>
           </div>
           <div className="grow" />
-          <Button variant="secondary" disabled title="v1.1">
-            <GitFork size={16} strokeWidth={1.8} /> {t('fromTemplate')}
-          </Button>
           <form action={createTripAction}>
             <Button type="submit">
               <Plus size={16} strokeWidth={1.75} /> {t('newTrip')}
@@ -96,17 +89,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </ListCard>
         </StepSection>
 
-        <StepSection title={t('templates')} hint={t('templatesLead')}>
-          <ChipRow>
-            <Chip on>{t('filterMine')}</Chip>
-            <Chip>{t('filterShared')}</Chip>
-            <Chip>{t('filterPublic')}</Chip>
-          </ChipRow>
-          <Notice tone="mut">
-            <Label className="mr-2">v1.1</Label>
-            {t('templatesSoon')}
-          </Notice>
-        </StepSection>
+        {/* šablóny (v1.1) – zatiaľ len jedna nenápadná veta, nie prázdna sekcia s filtrami */}
+        <p className="text-ink-3 text-[12px]">{t('templatesSoon')}</p>
       </div>
     </div>
   );

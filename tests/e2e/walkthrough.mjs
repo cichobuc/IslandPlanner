@@ -36,7 +36,8 @@ for (const [email, name, birth] of USERS) {
     values (${data.user.id}, ${email}, ${name}, false, now(), ${birth}, ${sql.json({ has: true, sinceYear: 2012, willingToDrive: 'yes' })}, ${email.startsWith('owner')}, '{KTW,BUD,VIE}'::text[], ${sql.json({ thermal: 3, glacier: 2, hike: 2 })})`;
 }
 const b = await chromium.launch();
-const ctx = await b.newContext({ viewport: { width: 1440, height: 1000 } });
+const PHONE = process.env.PHONE === '1';
+const ctx = await b.newContext(PHONE ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 } : { viewport: { width: 1440, height: 1000 } });
 const p = await ctx.newPage();
 const errors = [];
 p.on('pageerror', (e) => errors.push(e.message));
@@ -68,7 +69,7 @@ await p.locator('form:has(input[name=iata][value=VIE]) button').click();
 await p.waitForTimeout(1200);
 await shot('01-cestujuci');
 await p.goto(`${tripUrl}?krok=2`);
-await p.click('button:has-text("Zadať let ručne")');
+await p.locator('button:has-text("Zadať let ručne"):visible').first().click();
 await p.waitForSelector('[role=dialog]');
 await p.fill('[role=dialog] input[name=priceGroup]', '1180');
 await p.click('[role=dialog] button:has-text("Uložiť a prepočítať")');

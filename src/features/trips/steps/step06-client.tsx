@@ -102,7 +102,7 @@ export function Step06Client({
         step={6}
         name="Atrakcie"
         question="Koľko dáme na vstupné a za čo?"
-        lead="Celý zoznam zastávok s časmi je v kroku 04 – tu sú len platené miesta: vstupné pre každého podľa veku v deň návštevy, hodnota za peniaze a lacnejšia alternatíva na výmenu. Katalóg sú miesta zo seedu, ktoré ešte nie sú v trase."
+        lead="Tu sú len platené miesta z trasy (vstupné podľa veku) a čo za ne dostaneš; drahé sa dá vymeniť za lacnejšie alebo vyradiť. Zoznam všetkých zastávok s časmi je v kroku 04. Nižšie katalóg miest, ktoré v trase nie sú."
         aside={<StepAmount amount={totals.entryGroup} source="seed" />}
       />
 

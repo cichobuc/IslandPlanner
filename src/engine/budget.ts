@@ -3,7 +3,7 @@ import { deriveFromFlight } from './cascade';
 import { foodTotal, type FoodDayInput } from './food';
 import { campingCardDecision, kitchenByNight, stayCost } from './lodging';
 import { confidenceOf, mergeConfidence, rangeFor, round2, sum, toEur } from './money';
-import { LODGING_KIND_SK, REGION_LABEL_SK } from './presets';
+import { LODGING_KIND_SK, REGION_LABEL_SK, VEHICLE_DEFAULTS } from './presets';
 import { splitAmount } from './split';
 import { daysBetween, inSeason } from './time';
 import { transportCost } from './transport';
@@ -16,6 +16,8 @@ import type {
   MoneySource,
   ScenarioTotals,
   TripSnapshot,
+  VehicleClass,
+  VehicleInput,
 } from './types';
 
 const CATEGORIES: BudgetCategory[] = [
@@ -221,7 +223,25 @@ export function computeBudget(snapshot: TripSnapshot): BudgetResult {
     const lines: BudgetLine[] = [];
     const warnings = [...warningsCommon];
     const stays = snapshot.lodgingStays[key] ?? [];
-    const vehicle = snapshot.vehicle[key] ?? null;
+    // bez vybraného vozidla vetvy: odhad z predvolenej triedy (kombi / camper podľa osôb), aby scenáre boli porovnateľné
+    const vehicle: VehicleInput | null =
+      snapshot.vehicle[key] ??
+      (days > 0
+        ? (() => {
+            const cls: VehicleClass = key === 'car' ? 'estate' : pax > 2 ? 'camper4' : 'camper2';
+            const d = VEHICLE_DEFAULTS[cls];
+            return {
+              scenarioKey: key,
+              kind: d.kind,
+              class: cls,
+              name: `odhad (${key === 'car' ? 'kombi' : 'camper'} – nevybrané v 03)`,
+              days: Math.max(1, days - 1),
+              pricePerDay: { amount: d.perDay, currency: 'EUR', source: 'estimate' as const },
+              consumptionL100km: d.consumption,
+              fuel: d.fuel,
+            };
+          })()
+        : null);
 
     // noci
     const campingCard =
