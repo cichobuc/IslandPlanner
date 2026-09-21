@@ -98,6 +98,7 @@ await p.waitForSelector('text=/[1-9]\\d* zastávok/', { timeout: 60000 });
 await p.waitForSelector('button:has-text("Pregenerovať")', { timeout: 20000 });
 await shot('04-itinerar');
 // vlastný limit na atrakcie 200 €/os + pregenerovanie
+await p.click('button:has-text("Upraviť limit")');
 await p.fill('input[name=ppEur]', '200');
 await p.click('form:has(input[name=ppEur]) button:has-text("Uložiť")');
 await p.waitForSelector('text=limit 200 €/os', { timeout: 20000 });

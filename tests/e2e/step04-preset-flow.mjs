@@ -71,7 +71,8 @@ console.log('preset:', await preset(), '| noci:', await nights());
 await p.click('button:has-text("Generovať")');
 await p.waitForSelector('button:has-text("Pregenerovať")', { timeout: 60000 });
 await shot('01-okruhy-auto');
-// všetky okruhy
+// Zmeniť okruh → všetky okruhy
+await p.click('button:has-text("Zmeniť okruh")');
 await p.click('button:has-text("všetky okruhy")');
 await p.waitForTimeout(300);
 await shot('02-okruhy-vsetky');

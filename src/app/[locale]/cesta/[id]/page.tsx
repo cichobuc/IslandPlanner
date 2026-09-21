@@ -1,4 +1,4 @@
-import { ChevronRight, Map as MapIcon, Users, Zap } from 'lucide-react';
+import { ChevronRight, Map as MapIcon, Users } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -20,7 +20,7 @@ import {
 import { getTripAccess } from '@/features/trips/access';
 import { loadBudget, summaryColumns } from '@/features/trips/budget-data';
 import { dateRangeLabel, stepNames, tripProgress } from '@/features/trips/progress';
-import { countProgressInputs, countTravelers, listTripMembers } from '@/features/trips/queries';
+import { countProgressInputs, countTravelers, listTripMembers, ringMapPoints } from '@/features/trips/queries';
 import { Step01, step01Summary } from '@/features/trips/steps/step01';
 import { Step02 } from '@/features/trips/steps/step02';
 import { Step03 } from '@/features/trips/steps/step03';
@@ -67,6 +67,7 @@ export default async function TripPage({
     transportMode: trip.transportMode,
     ...counts,
   });
+  const mapPoints = await ringMapPoints(id);
   const requested = Number((await searchParams).krok);
   const current = requested >= 1 && requested <= 8 ? requested : progress.active;
   const names = stepNames(trip.transportMode);
@@ -126,15 +127,18 @@ export default async function TripPage({
           <>
             <Stepper steps={steps} />
             <Card className="flex flex-col gap-1.5 p-2.5">
-              <RingMap points={[]} width={210} height={150} />
-              <span className="flex justify-between px-1">
+              <RingMap points={mapPoints} width={210} height={150} />
+              <span className="flex items-center justify-between px-1">
                 <span className="text-[13px] font-semibold">Mapa okruhu</span>
-                <span className="text-ink-3 text-[12px]">po 04</span>
+                {mapPoints.length ? (
+                  <ButtonLink href={`/cesta/${id}/mapa`} variant="ghost" size="sm" className="-mr-2">
+                    <MapIcon size={14} strokeWidth={1.8} /> Otvoriť
+                  </ButtonLink>
+                ) : (
+                  <span className="text-ink-3 text-[12px]">po kroku 04</span>
+                )}
               </span>
             </Card>
-            <Button variant="secondary" disabled title="v1.1">
-              <Zap size={16} strokeWidth={1.8} className="text-accent" /> Najlacnejšie pre všetkých
-            </Button>
           </>
         }
       >

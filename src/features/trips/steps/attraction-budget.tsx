@@ -34,6 +34,7 @@ export function AttractionBudgetPanel({
   spentGroup,
   canEdit,
   hint,
+  compact = false,
 }: {
   tripId: string;
   budget: AttractionBudgetState;
@@ -43,14 +44,40 @@ export function AttractionBudgetPanel({
   spentGroup: number;
   canEdit: boolean;
   hint?: string;
+  /** zbalený riadok (krok 04): úroveň · v pláne vs. limit · Upraviť */
+  compact?: boolean;
 }) {
   const [state, act, pending] = useActionState<ActionState, FormData>(setAttractionBudgetAction, null);
+  const [open, setOpen] = useState(!compact);
   const [draft, setDraft] = useState(budget.ppEur != null ? String(budget.ppEur) : '');
   const limit = attractionLimitPp(budget, days);
   const spentPp = spentGroup / Math.max(1, pax);
   const ratio = limit == null ? 0 : limit === 0 ? (spentPp > 0 ? 1 : 0) : Math.min(1, spentPp / limit);
   const over = limit != null && spentPp > limit + 0.5;
   const nDays = Math.max(1, days);
+
+  const levelLabel =
+    budget.ppEur != null ? `vlastný limit ${fmtEur(budget.ppEur)}/os` : ATTRACTION_BUDGET[budget.level].labelSk;
+  if (!open)
+    return (
+      <Card className="flex flex-wrap items-center gap-x-3 gap-y-1.5 px-4 py-2.5">
+        <span className="text-ink-3 text-[12px]">Atrakcie</span>
+        <span className="text-[13px] font-medium">{levelLabel}</span>
+        <span className="text-ink-2 text-[13px]">
+          v pláne {fmtEur(Math.round(spentPp))}/os{limit != null ? ` z ${fmtEur(limit)}` : ''}
+        </span>
+        {limit != null && (
+          <span className="bg-line h-1.5 w-[120px] overflow-hidden rounded-[3px]">
+            <span className={cn('block h-full rounded-[3px]', over ? 'bg-warn-fg' : 'bg-accent')} style={{ width: `${Math.round(ratio * 100)}%` }} />
+          </span>
+        )}
+        {over && <Tag tone="warn">nad limit</Tag>}
+        <span className="grow" />
+        <Button type="button" size="sm" variant="ghost" onClick={() => setOpen(true)}>
+          Upraviť limit
+        </Button>
+      </Card>
+    );
 
   return (
     <Card className="flex flex-col gap-3 p-4">
@@ -133,6 +160,13 @@ export function AttractionBudgetPanel({
         </div>
       </div>
       {state && !state.ok && <Notice tone="bad">{state.error}</Notice>}
+      {compact && (
+        <div className="flex justify-end">
+          <Button type="button" size="sm" variant="ghost" onClick={() => setOpen(false)}>
+            Zbaliť
+          </Button>
+        </div>
+      )}
     </Card>
   );
 }

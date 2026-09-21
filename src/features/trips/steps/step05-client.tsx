@@ -100,6 +100,7 @@ export function Step05Client({
   const [genState, genAct, genPending] = useActionState<ActionState, FormData>(generateItineraryAction, null);
   const [presetState, presetAct, presetPending] = useActionState<ActionState, FormData>(setRoutePresetAction, null);
   const [allPresets, setAllPresets] = useState(false);
+  const [pickPreset, setPickPreset] = useState(false);
   const activeKey: PresetKey = presetChoice === PRESET_AUTO ? autoKey : (presetChoice as PresetKey);
   const [, removeAct, removing] = useActionState<ActionState, FormData>(removeStopAction, null);
   const [, lockAct] = useActionState<ActionState, FormData>(lockDayAction, null);
@@ -166,6 +167,7 @@ export function Step05Client({
         title="Okruh"
         hint={`${ratings.filter((r) => r.fit === 'ok').length} sedí na ${days.length} dní · ★ = dni, jazda vs. tempo, záujmy`}
       >
+        {/* zbalené = len zvolený okruh; „Zmeniť okruh“ ukáže vhodné, „všetky okruhy“ aj ostatné */}
         <div className="flex flex-wrap items-center gap-2">
           <form action={presetAct} className="contents">
             <input type="hidden" name="tripId" value={tripId} />
@@ -179,16 +181,23 @@ export function Step05Client({
               Auto · {PRESETS[autoKey].nameSk}
             </Chip>
           </form>
-          <Chip icon={Route} on={allPresets} onClick={() => setAllPresets((v) => !v)}>
-            {allPresets ? 'len vhodné' : `všetky okruhy (${ratings.length})`}
+          <Chip icon={Route} on={pickPreset} onClick={() => setPickPreset((v) => !v)}>
+            {pickPreset ? 'Skryť okruhy' : 'Zmeniť okruh'}
           </Chip>
-          <span className="text-ink-3 text-[12px]">
-            zmena okruhu prerozdelí noci (05) a pregeneruje nezamknuté dni
-          </span>
+          {pickPreset && (
+            <Chip on={allPresets} onClick={() => setAllPresets((v) => !v)}>
+              {allPresets ? 'len vhodné' : `všetky okruhy (${ratings.length})`}
+            </Chip>
+          )}
+          {pickPreset && (
+            <span className="text-ink-3 text-[12px]">
+              zmena okruhu prerozdelí noci (05) a pregeneruje nezamknuté dni
+            </span>
+          )}
         </div>
         <ListCard>
           {ratings
-            .filter((r) => allPresets || r.fit === 'ok' || r.key === activeKey)
+            .filter((r) => r.key === activeKey || (pickPreset && (allPresets || r.fit === 'ok')))
             .map((r) => {
               const p = PRESETS[r.key];
               const on = r.key === activeKey;
@@ -282,6 +291,7 @@ export function Step05Client({
           pax={pax}
           spentGroup={totals.entryGroup}
           canEdit={canEdit}
+          compact
         />
         {genState && !genState.ok && <Notice tone="bad">{genState.error}</Notice>}
         {empty && (

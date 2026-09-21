@@ -260,18 +260,15 @@ export function Step02Client(props: {
       ].map((c) => SOURCE_NAME[c] ?? c),
     [search],
   );
-  const failedSources = useMemo(() => {
-    const by = new Map<string, Set<string>>();
+  const failedOnly = useMemo(() => {
+    const failed = new Set<string>();
     for (const [key, c] of Object.entries(search?.connectorStats ?? {})) {
-      if (c.ok) continue;
-      const [origin, connector] = key.includes(':') ? key.split(':') : ['', key];
-      const k = `${connector}${c.reason ? `: ${c.reason}` : ''}`;
-      (by.get(k) ?? by.set(k, new Set()).get(k)!).add(origin);
+      if (c.ok && c.count > 0) continue;
+      const connector = key.includes(':') ? key.split(':')[1] : key;
+      failed.add(SOURCE_NAME[connector] ?? connector);
     }
-    return [...by.entries()].map(
-      ([k, origins]) => `${k}${origins.size && [...origins][0] ? ` (${[...origins].join(', ')})` : ''}`,
-    );
-  }, [search]);
+    return [...failed].filter((f) => !okSources.includes(f));
+  }, [search, okSources]);
 
   return (
     <>
@@ -469,12 +466,11 @@ export function Step02Client(props: {
           </Notice>
         )}
         {searchError && <Notice tone="bad">{searchError}</Notice>}
-        {failedSources.length > 0 && (
+        {failedOnly.length > 0 && (
           // pre ľudí: bez technických dôvodov (tokeny, verzie) – tie sú v /api/health
           <Notice tone="mut">
-            Ceny sú z dostupných zdrojov ({okSources.join(', ') || 'seed'}); {failedSources.length === 1 ? 'zdroj' : 'zdroje'}{' '}
-            {[...new Set(failedSources.map((f) => SOURCE_NAME[f.split(':')[0].split(' ')[0]] ?? f.split(':')[0]))].join(', ')} teraz {failedSources.length === 1 ? 'nedáva' : 'nedávajú'}{' '}
-            lety – niektoré kombinácie môžu chýbať.
+            Ceny sú z {okSources.join(' a ') || 'seedu'}; {failedOnly.join(', ')} teraz{' '}
+            {failedOnly.length === 1 ? 'nedáva' : 'nedávajú'} lety – niektoré kombinácie môžu chýbať.
           </Notice>
         )}
         <Card className="p-3">

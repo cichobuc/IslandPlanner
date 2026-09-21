@@ -1,5 +1,6 @@
 import 'server-only';
 import { and, asc, desc, eq, inArray, or, sql } from 'drizzle-orm';
+import { projectLatLng, type RingMapPoint } from '@/components/ui/island-mark';
 import { getDb, schema } from '@/db';
 import { tripProgress } from './progress';
 
@@ -146,4 +147,50 @@ export async function countProgressInputs(tripId: string, mode: 'car' | 'camper'
       .where(eq(schema.itineraryDays.tripId, tripId)),
   ]);
   return { lodgingCount: mode ? (l?.n ?? 0) : 0, dayCount: d?.n ?? 0 };
+}
+
+/** Body pre mini mapu v ľavom stĺpci: KEF → zastávky (biele) a noci (zelené) v poradí dní scenára `drive`. */
+export async function ringMapPoints(tripId: string): Promise<RingMapPoint[]> {
+  const db = getDb();
+  const days = await db
+    .select({
+      id: schema.itineraryDays.id,
+      dayIndex: schema.itineraryDays.dayIndex,
+      region: schema.itineraryDays.overnightRegionId,
+    })
+    .from(schema.itineraryDays)
+    .where(and(eq(schema.itineraryDays.tripId, tripId), eq(schema.itineraryDays.scenarioKey, 'drive')))
+    .orderBy(asc(schema.itineraryDays.dayIndex));
+  if (!days.length) return [];
+  const [stops, regions] = await Promise.all([
+    db
+      .select({
+        dayId: schema.itineraryStops.dayId,
+        order: schema.itineraryStops.order,
+        lat: schema.pois.lat,
+        lng: schema.pois.lng,
+      })
+      .from(schema.itineraryStops)
+      .innerJoin(schema.pois, eq(schema.pois.id, schema.itineraryStops.poiId))
+      .where(
+        and(
+          inArray(
+            schema.itineraryStops.dayId,
+            days.map((d) => d.id),
+          ),
+          eq(schema.itineraryStops.skip, false),
+        ),
+      ),
+    db.select({ id: schema.regions.id, lat: schema.regions.centroidLat, lng: schema.regions.centroidLng }).from(schema.regions),
+  ]);
+  const regionById = new Map(regions.map((r) => [r.id, r]));
+  const out: RingMapPoint[] = [{ ...projectLatLng(63.985, -22.6056), label: 'KEF' }];
+  for (const d of days) {
+    for (const s of stops.filter((x) => x.dayId === d.id).sort((a, b) => a.order - b.order))
+      out.push(projectLatLng(Number(s.lat), Number(s.lng)));
+    const r = d.region ? regionById.get(d.region) : null;
+    if (r) out.push({ ...projectLatLng(Number(r.lat), Number(r.lng)), night: true, label: String(d.dayIndex) });
+  }
+  out.push({ ...projectLatLng(63.985, -22.6056) });
+  return out;
 }
