@@ -154,7 +154,18 @@
     "ehic": "Európsky preukaz poistenca",
     "ehicHint": "EHIC – Island ho uznáva.",
     "insurance": "Cestovné poistenie s túrami",
-    "insuranceHint": "Ľadovce, ice cave a túry bývajú vylúčené zo základného."
+    "insuranceHint": "Ľadovce, ice cave a túry bývajú vylúčené zo základného.",
+    "when": "Kedy môžem",
+    "whenLead": "Prienik dostupnosti skupiny – krok 01 upozorní, keď mesiac, dĺžka alebo termín niekomu nesedí.",
+    "whenMonths": "Mesiace",
+    "whenMonthsHint": "Kedy môžem ísť (viac). Nič = kedykoľvek.",
+    "whenBlocked": "Blokované termíny",
+    "whenBlockedHint": "Od – do (dovolenka inde, práca, rodina).",
+    "whenAddBlocked": "+ Termín",
+    "whenRemove": "Odobrať",
+    "whenDays": "Dĺžka cesty",
+    "whenDaysHint": "Min. – max. dní, ktoré mi vyhovujú.",
+    "whenDaysUnit": "dní"
   },
   "trips": {
     "title": "Cesty",

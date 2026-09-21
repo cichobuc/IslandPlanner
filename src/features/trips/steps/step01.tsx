@@ -4,6 +4,7 @@ import {
   ButtonLink,
   ListCard,
   ListRow,
+  Notice,
   ResultsCard,
   StepFooter,
   StepHead,
@@ -12,12 +13,14 @@ import {
   Tile,
 } from '@/components/ui';
 import { getDb, schema } from '@/db';
+import { MONTHS_SK } from '@/engine/availability';
 import { ageOn } from '@/engine/ageRules';
 import type { PriceRuleTier } from '@/engine/types';
 import { fmtEur, fmtKm } from '@/lib/format';
 import type { TripAccess } from '../access';
 import { canEdit } from '../access';
 import { airportFacts } from '../airport-access';
+import { tripAvailability } from '../interests';
 import { monthLabel } from '../progress';
 import {
   AddTravelerButton,
@@ -75,6 +78,7 @@ export async function Step01({ access }: { access: TripAccess }) {
   const tripDate = trip.startDate ?? `${trip.targetMonth.slice(0, 7)}-15`;
   const checkedBags = rows.reduce((a, t) => a + t.bags.checked20 + t.bags.checked32, 0);
   const typicalDays = Math.round((trip.minDays + trip.maxDays) / 2);
+  const avail = await tripAvailability(trip.id, trip.targetMonth, { min: trip.minDays, max: trip.maxDays });
   const drivers = rows.filter((t) => t.isDriver);
   const missingBirth = rows.filter((t) => !t.birthDate).length;
   const enabled = new Set(trip.originAirports);
@@ -190,7 +194,22 @@ export async function Step01({ access }: { access: TripAccess }) {
         </ListCard>
       </StepSection>
 
-      <StepSection title="Kedy a ako" hint="mesiac, dĺžka, prestupy, tempo, záujmy">
+      <StepSection
+        title="Kedy a ako"
+        hint={
+          avail.filled
+            ? `„Kedy môžem“ vyplnené u ${avail.filled} z ${pax}${avail.monthsAll.length ? ` · všetkým sedí ${avail.monthsAll.map((m) => MONTHS_SK[m - 1]).join(', ')}` : ''}`
+            : 'mesiac, dĺžka, prestupy, tempo, záujmy · „Kedy môžem“ v profiloch zatiaľ nikto nevyplnil'
+        }
+      >
+        {avail.warnings.map((w) => (
+          <Notice key={w} tone="warn">
+            {w}
+          </Notice>
+        ))}
+        {avail.filled > 0 && avail.warnings.length === 0 && (
+          <Notice tone="ok">Mesiac aj dĺžka sedia všetkým, čo vyplnili „Kedy môžem“ v profile.</Notice>
+        )}
         <SettingsForm
           tripId={trip.id}
           targetMonth={trip.targetMonth.slice(0, 7)}
@@ -200,6 +219,13 @@ export async function Step01({ access }: { access: TripAccess }) {
           pace={trip.pace}
           interests={trip.interests}
           budgetTargetPp={trip.budgetTargetPp ? Number(trip.budgetTargetPp) : null}
+          monthHint={
+            avail.monthsAll.length
+              ? `všetkým sedí: ${avail.monthsAll.map((m) => MONTHS_SK[m - 1]).join(', ')}`
+              : avail.filled
+                ? 'žiadny mesiac nesedí všetkým – pozri profily'
+                : null
+          }
           canEdit={editable}
         />
       </StepSection>

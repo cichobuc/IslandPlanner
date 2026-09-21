@@ -1,11 +1,12 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChipGroup, FieldRow, Section, Segmented } from '@/components/ui/choice';
 import { Input } from '@/components/ui/field';
 import { Notice } from '@/components/ui/notice';
+import { MONTHS_SK } from '@/engine/availability';
 import { INTEREST_KEYS, ORIGIN_AIRPORTS, type InterestKey } from '@/engine/types';
 import type { schema } from '@/db';
 import { saveProfileAction, type ProfileState } from './actions';
@@ -17,6 +18,13 @@ export function ProfileForm({ profile, email }: { profile: Profile; email: strin
   const t = useTranslations('profile');
   const [state, action, pending] = useActionState<ProfileState, FormData>(saveProfileAction, null);
   const scoreOptions = [0, 1, 2, 3].map((n) => ({ value: String(n), label: t(`score.${n}`) }));
+  const avail = profile.availability ?? {};
+  const [blocked, setBlocked] = useState<{ from: string; to: string }[]>(() =>
+    (avail.blocked ?? []).map((r) => {
+      const [from, to = from] = r.split('/');
+      return { from, to };
+    }),
+  );
 
   return (
     <form action={action} className="flex flex-col gap-4">
@@ -238,6 +246,82 @@ export function ProfileForm({ profile, email }: { profile: Profile; email: strin
             defaultValues={(profile.airports as string[] | null) ?? []}
             options={ORIGIN_AIRPORTS.map((a) => ({ value: a, label: `${a} · ${t(`airport.${a}`)}` }))}
           />
+        </FieldRow>
+      </Section>
+
+      <Section title={t('when')} lead={t('whenLead')}>
+        <FieldRow label={t('whenMonths')} hint={t('whenMonthsHint')}>
+          <ChipGroup
+            name="availMonths[]"
+            defaultValues={(avail.months ?? []).map(String)}
+            options={MONTHS_SK.map((m, i) => ({ value: String(i + 1), label: m }))}
+          />
+        </FieldRow>
+        <FieldRow label={t('whenBlocked')} hint={t('whenBlockedHint')}>
+          <div className="flex flex-col gap-2">
+            {blocked.map((b, i) => (
+              <div key={i} className="flex flex-wrap items-center gap-2">
+                {/* riadené polia – React 19 po odoslaní akcie resetuje neriadené inputy */}
+                <Input
+                  name="blockedFrom[]"
+                  type="date"
+                  value={b.from}
+                  onChange={(e) => setBlocked((l) => l.map((x, j) => (j === i ? { ...x, from: e.target.value } : x)))}
+                  aria-label="od"
+                  className="sm:max-w-[170px]"
+                />
+                <span className="text-ink-3">–</span>
+                <Input
+                  name="blockedTo[]"
+                  type="date"
+                  value={b.to}
+                  onChange={(e) => setBlocked((l) => l.map((x, j) => (j === i ? { ...x, to: e.target.value } : x)))}
+                  aria-label="do"
+                  className="sm:max-w-[170px]"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setBlocked((l) => l.filter((_, j) => j !== i))}
+                >
+                  {t('whenRemove')}
+                </Button>
+              </div>
+            ))}
+            <div>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => setBlocked((l) => [...l, { from: '', to: '' }])}
+              >
+                {t('whenAddBlocked')}
+              </Button>
+            </div>
+          </div>
+        </FieldRow>
+        <FieldRow label={t('whenDays')} hint={t('whenDaysHint')}>
+          <div className="flex items-center gap-2">
+            <Input
+              name="availMinDays"
+              type="number"
+              min={1}
+              max={60}
+              defaultValue={avail.minDays ?? ''}
+              className="max-w-[80px]"
+            />
+            <span className="text-ink-3">–</span>
+            <Input
+              name="availMaxDays"
+              type="number"
+              min={1}
+              max={60}
+              defaultValue={avail.maxDays ?? ''}
+              className="max-w-[80px]"
+            />
+            <span className="text-ink-3 text-[12px]">{t('whenDaysUnit')}</span>
+          </div>
         </FieldRow>
       </Section>
 

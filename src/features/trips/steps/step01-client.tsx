@@ -321,6 +321,7 @@ export function SettingsForm({
   pace,
   interests,
   budgetTargetPp,
+  monthHint,
   canEdit,
 }: {
   tripId: string;
@@ -331,6 +332,8 @@ export function SettingsForm({
   pace: 'relaxed' | 'normal' | 'intense';
   interests: string[];
   budgetTargetPp: number | null;
+  /** „všetkým sedí jún, september“ z profilov */
+  monthHint?: string | null;
   canEdit: boolean;
 }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(updateTripSettingsAction, null);
@@ -348,7 +351,7 @@ export function SettingsForm({
     >
       <input type="hidden" name="tripId" value={tripId} />
       <fieldset disabled={!canEdit} className="contents">
-        <FieldRow label="Mesiac" hint="návrh ideálneho mesiaca príde v 1.1">
+        <FieldRow label="Mesiac" hint={monthHint ?? 'podľa „Kedy môžem“ v profiloch členov'}>
           <div className="flex items-center gap-2">
             <input type="hidden" name="targetMonth" value={ym} />
             <Button

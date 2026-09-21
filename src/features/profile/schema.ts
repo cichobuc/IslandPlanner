@@ -43,6 +43,12 @@ export const profileFormSchema = z.object({
 
   airports: z.array(z.enum(ORIGIN_AIRPORTS)).default([]),
 
+  availMonths: z.array(z.coerce.number().int().min(1).max(12)).default([]),
+  blockedFrom: z.array(z.string().trim()).default([]),
+  blockedTo: z.array(z.string().trim()).default([]),
+  availMinDays: optionalInt(1, 60),
+  availMaxDays: optionalInt(1, 60),
+
   idValidUntil: optionalDate,
   ehic: yesNo.default(false),
   insurance: yesNo.default(false),
@@ -67,6 +73,18 @@ export function formDataToObject(fd: FormData): Record<string, unknown> {
       out[key] = value;
     }
   }
-  for (const k of ['driverCategories', 'airports']) if (!(k in out)) out[k] = [];
+  for (const k of ['driverCategories', 'airports', 'availMonths', 'blockedFrom', 'blockedTo']) if (!(k in out)) out[k] = [];
+  return out;
+}
+
+/** Blokované termíny z párov od/do → 'YYYY-MM-DD/YYYY-MM-DD' (prázdne riadky sa vynechajú, od > do sa otočí). */
+export function blockedRanges(from: string[], to: string[]): string[] {
+  const out: string[] = [];
+  from.forEach((f, i) => {
+    const a = f || to[i] || '';
+    const b = to[i] || f || '';
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(a) || !/^\d{4}-\d{2}-\d{2}$/.test(b)) return;
+    out.push(a <= b ? `${a}/${b}` : `${b}/${a}`);
+  });
   return out;
 }

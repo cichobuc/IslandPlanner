@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getDb, schema } from '@/db';
 import type { InterestScores } from '@/engine/types';
-import { formDataToObject, profileFormSchema } from '@/features/profile/schema';
+import { blockedRanges, formDataToObject, profileFormSchema } from '@/features/profile/schema';
 import { getCurrentUser } from '@/lib/auth/session';
 import { createSupabaseAdmin } from '@/lib/supabase/admin';
 
@@ -56,6 +56,12 @@ export async function saveProfileAction(_prev: ProfileState, formData: FormData)
       bagsPref: v.bagsPref,
       budgetTarget: v.budgetTarget != null ? String(v.budgetTarget) : null,
       airports: v.airports,
+      availability: {
+        months: v.availMonths.length ? [...new Set(v.availMonths)].sort((a, b) => a - b) : undefined,
+        blocked: blockedRanges(v.blockedFrom, v.blockedTo),
+        minDays: v.availMinDays ?? undefined,
+        maxDays: v.availMaxDays ?? undefined,
+      },
       docs: { idValidUntil: v.idValidUntil ?? undefined, ehic: v.ehic, insurance: v.insurance },
       completedAt: completing ? now : (me.profile?.completedAt ?? null),
     })

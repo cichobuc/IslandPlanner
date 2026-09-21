@@ -63,6 +63,13 @@ const AIRLINE: Record<string, string> = {
   OG: 'PLAY',
 };
 const airlineName = (c: string) => AIRLINE[c] ?? c;
+/** Mená členov, ktorí nemôžu v niektorý deň medzi odletom a návratom (vrátane). */
+function blockedBetween(blocked: Record<string, string[]> | undefined, from: string, to: string): string[] {
+  if (!blocked) return [];
+  const names = new Set<string>();
+  for (const [d, who] of Object.entries(blocked)) if (d >= from && d <= to) who.forEach((n) => names.add(n));
+  return [...names];
+}
 /** „2× 20 kg · 4× 10 kg príručná“ z kufrov cestujúcich (krok 01). */
 function bagsSummary(bags: Bags[]): string | null {
   const n = (k: keyof Bags) => bags.reduce((a, b) => a + (Number(b?.[k]) || 0), 0);
@@ -88,6 +95,8 @@ export function Step02Client(props: {
   options: OptionLite[];
   selected: SelectedFlight | null;
   search: SearchMeta | null;
+  /** dni v mesiaci, keď niekto zo skupiny nemôže (z profilov „Kedy môžem“): ISO → mená */
+  blockedDays?: Record<string, string[]>;
   canEdit: boolean;
 }) {
   const { tripId, month, pax, options, selected, search, canEdit } = props;
@@ -468,19 +477,29 @@ export function Step02Client(props: {
               const v = heat.min.get(iso);
               const sel = day === iso;
               const best = v != null && v === heat.best;
+              const blocked = props.blockedDays?.[iso];
               return (
                 <button
                   key={iso}
                   type="button"
                   onClick={() => setDay(sel ? null : iso)}
                   disabled={v == null}
+                  title={blocked ? `Nemôže: ${blocked.join(', ')}` : undefined}
                   className={cn(
                     'rounded-chip relative flex h-[46px] flex-col items-start justify-between border px-1.5 py-1 text-left disabled:cursor-default',
                     sel
                       ? 'border-accent bg-accent text-white'
-                      : 'border-card-line bg-card hover:border-accent-line',
+                      : blocked
+                        ? 'border-bad-bg bg-bad-bg/40 hover:border-bad-fg'
+                        : 'border-card-line bg-card hover:border-accent-line',
                   )}
                 >
+                  {blocked && !sel && (
+                    <span
+                      className="bg-bad-fg absolute top-1 right-1 size-1.5 rounded-full"
+                      aria-label={`nemôže: ${blocked.join(', ')}`}
+                    />
+                  )}
                   <span className={cn('text-[11px] leading-none', sel ? 'text-white/80' : 'text-ink-3')}>
                     {i + 1}
                   </span>
@@ -508,6 +527,13 @@ export function Step02Client(props: {
               Číslo = najlacnejšia kombinácia s odletom v ten deň ({perPerson ? 'na osobu' : 'skupina'}).
               Tmavšie = lacnejšie: ≤ {Math.round(heat.bounds[0])} · ≤ {Math.round(heat.bounds[1])} · ≤{' '}
               {Math.round(heat.bounds[2])} · viac. ⚡ = najlacnejší deň. Klik filtruje zoznam.
+              {props.blockedDays && Object.keys(props.blockedDays).length > 0 && (
+                <>
+                  {' '}
+                  <span className="bg-bad-fg inline-block size-1.5 rounded-full align-middle" /> = niekto nemôže
+                  (profil „Kedy môžem“).
+                </>
+              )}
             </p>
           )}
           {!heat.bounds && !running && (
@@ -538,6 +564,7 @@ export function Step02Client(props: {
         <ListCard>
           {listed.map((o, i) => {
             const isSel = selected?.optionId === o.id;
+            const conflict = blockedBetween(props.blockedDays, o.outDate, o.retDate);
             return (
               <ListRow
                 key={o.id}
@@ -573,6 +600,7 @@ export function Step02Client(props: {
                       {o.isEstimate ? 'odhad' : sourceTag[o.source].label}
                     </Tag>
                     {o.selfTransfer && <Tag tone="warn">self-transfer</Tag>}
+                    {conflict.length > 0 && <Tag tone="bad">nemôže {conflict.join(', ')}</Tag>}
                     {isSel && <Tag tone="ok">vybrané ✓</Tag>}
                   </>
                 }

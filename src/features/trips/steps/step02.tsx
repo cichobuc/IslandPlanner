@@ -5,6 +5,7 @@ import { TZ_KEF, TZ_HOME } from '@/engine/time';
 import type { Money } from '@/engine/types';
 import type { TripAccess } from '../access';
 import { canEdit } from '../access';
+import { tripAvailability } from '../interests';
 import { loadFlightBreakdown } from '../snapshot';
 import { Step02Client } from './step02-client';
 import type { OptionLite, SearchMeta, SelectedFlight } from './step02-types';
@@ -60,6 +61,7 @@ export async function Step02({ access }: { access: TripAccess }) {
     db.select().from(schema.flightSelection).where(eq(schema.flightSelection.tripId, trip.id)).limit(1),
   ]);
   const pax = travelers.length || 1;
+  const avail = await tripAvailability(trip.id, trip.targetMonth, { min: trip.minDays, max: trip.maxDays });
 
   const lite: OptionLite[] = options.map((o) => ({
     id: o.id,
@@ -143,6 +145,7 @@ export async function Step02({ access }: { access: TripAccess }) {
       options={lite}
       selected={selected}
       search={meta}
+      blockedDays={avail.blockedDays}
       canEdit={canEdit(role)}
     />
   );
