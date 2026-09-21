@@ -72,6 +72,7 @@ export const vehicleClassEnum = pgEnum('vehicle_class', [
   'camper2',
   'camper4',
   'camper4x4',
+  'motorhome',
 ]);
 export const fuelEnum = pgEnum('fuel', ['petrol', 'diesel']);
 export const pickupModeEnum = pgEnum('pickup_mode', ['desk', 'shuttle']);

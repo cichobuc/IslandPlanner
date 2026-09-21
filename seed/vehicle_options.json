@@ -368,7 +368,7 @@
   },
   {
     "kind": "camper",
-    "class": "camper4",
+    "class": "motorhome",
     "provider": "Happy Campers",
     "name": "Happy 4 – motorhome s WC a sprchou (4 os.)",
     "seats": 4,
@@ -417,7 +417,7 @@
   },
   {
     "kind": "camper",
-    "class": "camper4",
+    "class": "motorhome",
     "provider": "McRent / Camper Iceland",
     "name": "Sunlight T69 – polointegrál (4–5 os.)",
     "seats": 5,

@@ -154,7 +154,7 @@ const manualSchema = z.object({
   scenario: z.enum(['car', 'camper']),
   name: z.string().trim().min(2).max(80),
   provider: z.string().trim().min(1).max(60),
-  class: z.enum(['economy', 'estate', 'suv2wd', '4x4', 'camper2', 'camper4', 'camper4x4']),
+  class: z.enum(['economy', 'estate', 'suv2wd', '4x4', 'camper2', 'camper4', 'camper4x4', 'motorhome']),
   pricePerDay: z.coerce.number().min(1).max(5000),
   consumption: z.coerce.number().min(2).max(25),
   fuel: z.enum(['petrol', 'diesel']),

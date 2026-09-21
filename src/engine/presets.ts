@@ -510,6 +510,8 @@ export const VEHICLE_DEFAULTS: Record<
   camper2: { perDay: 150, consumption: 8.5, fuel: 'diesel', kind: 'camper' },
   camper4: { perDay: 210, consumption: 9.0, fuel: 'diesel', kind: 'camper' },
   camper4x4: { perDay: 260, consumption: 10.0, fuel: 'diesel', kind: 'camper' },
+  // reálne obytné auto (WC, sprcha, kúrenie) – Fiat Ducato / Sprinter základ
+  motorhome: { perDay: 330, consumption: 11.0, fuel: 'diesel', kind: 'camper' },
 };
 
 export const FUEL_SEED_ISK = { petrol: 320, diesel: 315 };

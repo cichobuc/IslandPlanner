@@ -104,7 +104,7 @@ export type CustomFoodPrices = Partial<
 
 export type LodgingKind = 'airbnb' | 'hotel' | 'guesthouse' | 'hostel' | 'campsite' | 'camper_site';
 export type VehicleKind = 'car' | 'camper';
-export type VehicleClass = 'economy' | 'estate' | 'suv2wd' | '4x4' | 'camper2' | 'camper4' | 'camper4x4';
+export type VehicleClass = 'economy' | 'estate' | 'suv2wd' | '4x4' | 'camper2' | 'camper4' | 'camper4x4' | 'motorhome';
 export type FuelType = 'petrol' | 'diesel';
 export type Split = 'group' | 'vehicle' | 'person' | 'custom';
 export type PricePer = 'person' | 'vehicle' | 'group';

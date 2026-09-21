@@ -52,9 +52,10 @@ const CLASS_LABEL: Record<VehicleClass, string> = {
   estate: 'Kombi',
   suv2wd: 'SUV',
   '4x4': '4×4',
-  camper2: '2 os.',
-  camper4: '3–4 os.',
+  camper2: 'van 2 os.',
+  camper4: 'van 3–5 os.',
   camper4x4: '4×4 camper',
+  motorhome: 'obytné auto · WC + sprcha',
 };
 const INS_LABEL: Record<string, string> = {
   cdw: 'CDW',

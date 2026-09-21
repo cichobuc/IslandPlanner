@@ -161,7 +161,7 @@ Kempovacia daň ~ 333 ISK/os./noc.
 | Položka | Hodnota |
 |---|---|
 | Palivo (09/2026) | benzín ~ 320 ISK/l, diesel ~ 315 ISK/l |
-| Spotreba | economy 6,0 l/100 km · kombi 6,5 · SUV 2WD 7,5 · 4×4 Duster 7,0 (diesel) · camper VW 8,5 · 4×4 camper 10 |
+| Spotreba | economy 6,0 l/100 km · kombi 6,5 · SUV 2WD 7,5 · 4×4 Duster 7,0 (diesel) · camper VW 8,5 · 4×4 camper 10 · **obytné auto (trieda `motorhome`: WC, sprcha, kúrenie – Happy 4, Sunlight T69) 11** |
 | Vaðlaheiði tunel | 1 990 ISK / prejazd (platí sa online do 24 h) |
 | Cestovné poistenie | ~ 15–30 €/os. (seed 20 €) |
 | eSIM 10 GB | ~ 15 €/os. (seed) |
