@@ -5,7 +5,7 @@ import { TZ_KEF, TZ_HOME } from '@/engine/time';
 import type { Money } from '@/engine/types';
 import type { TripAccess } from '../access';
 import { canEdit } from '../access';
-import { loadFlightInput } from '../snapshot';
+import { loadFlightBreakdown } from '../snapshot';
 import { Step02Client } from './step02-client';
 import type { OptionLite, SearchMeta, SelectedFlight } from './step02-types';
 
@@ -89,15 +89,16 @@ export async function Step02({ access }: { access: TripAccess }) {
   let selected: SelectedFlight | null = null;
   const sel = selection[0];
   if (sel) {
-    const input = await loadFlightInput(trip.id);
-    if (input) {
+    const bd = await loadFlightBreakdown(trip.id);
+    if (bd) {
+      const input = bd.input;
       const derived = deriveFromFlight(input);
       const opt = sel.flightOptionId ? lite.find((o) => o.id === sel.flightOptionId) : null;
       const out = new Date(input.outDepAt);
       const outA = new Date(input.outArrAt);
       const ret = new Date(input.retDepAt);
       const retA = new Date(input.retArrAt);
-      const total = amt(sel.lockedPrice) ?? opt?.totalGroup ?? 0;
+      const total = bd.totalGroup;
       selected = {
         optionId: sel.flightOptionId,
         manual: sel.isManual,
@@ -111,6 +112,10 @@ export async function Step02({ access }: { access: TripAccess }) {
         source: sel.isManual ? 'manual' : (opt?.source ?? 'api'),
         deepLink: opt?.deepLink ?? sel.manual?.url ?? null,
         airline: sel.manual?.airline ?? opt?.airlines.join(' + ') ?? null,
+        lines: bd.lines.map((l) => ({ ...l, source: l.source as 'api' | 'seed' | 'manual' | 'estimate' })),
+        parkingChoices: bd.parkingChoices,
+        parkingOptionId: bd.parkingOptionId,
+        parkingDays: bd.parkingDays,
       };
     }
   }

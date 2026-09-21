@@ -74,6 +74,17 @@ await p.fill('[role=dialog] input[name=priceGroup]', '1180');
 await p.click('[role=dialog] button:has-text("Uložiť a prepočítať")');
 await p.waitForSelector('text=Ručný let uložený', { timeout: 60000 });
 await shot('02-letenky');
+// rozpis letu: parkovanie preč → suma klesne; iné parkovisko
+const park = p.locator('li:has-text("Parkovanie") button:has-text("Dať preč")');
+if (await park.count()) {
+  const before = await p.locator('text=/Letenky\\s+[\\d\\s]+€/').first().textContent().catch(() => '');
+  await park.click();
+  await p.waitForSelector('li:has-text("Parkovanie") button:has-text("Vrátiť")', { timeout: 20000 });
+  await shot('02b-letenky-bez-parkovania');
+  await p.click('li:has-text("Parkovanie") button:has-text("Vrátiť")');
+  await p.waitForSelector('li:has-text("Parkovanie") button:has-text("Dať preč")', { timeout: 20000 });
+  log('parkovanie preč/späť ✓', before ?? '');
+}
 await p.goto(`${tripUrl}?krok=3`);
 await p.click('[role=radio]:has-text("Auto")');
 await p.waitForSelector('button:has-text("Zvoliť")', { timeout: 20000 });

@@ -2,7 +2,10 @@ import 'server-only';
 import { and, asc, eq, inArray } from 'drizzle-orm';
 import { getDb, schema } from '@/db';
 import { applyFlightSelection, type CascadeResult } from '@/engine/cascade';
+import { parkingFromRules } from '@/engine/flightCombos';
 import { PRESET_AUTO } from '@/engine/presets';
+import { airportAccessCost } from '@/engine/split';
+import { BUS_PP, FUEL_EUR_PER_L, VIGNETTES } from './airport-access';
 import type {
   FlightSelectionInput,
   LodgingStayInput,
@@ -24,8 +27,26 @@ export const DEFAULT_FUEL = { petrol: 320, diesel: 318 };
 const asMoney = (m: unknown): Money | null =>
   m && typeof m === 'object' && 'amount' in (m as object) ? (m as Money) : null;
 
-/** Vybraný let ako vstup enginu (z flight_options alebo ručný záznam). */
-export async function loadFlightInput(tripId: string): Promise<FlightSelectionInput | null> {
+export type FlightExtraId = 'bags' | 'parking' | 'access' | 'hub_night';
+export type FlightBreakdown = {
+  input: FlightSelectionInput;
+  pax: number;
+  /** položky letu vrátane vyradených (amount = plná cena, excluded = nepočíta sa) */
+  lines: { id: 'fare' | FlightExtraId; label: string; hint: string | null; amount: number; excluded: boolean; source: Money['source'] }[];
+  /** parkoviská pri letisku odletu na počet dní (najlacnejšie prvé) */
+  parkingChoices: { id: string; name: string; kind: string; price: number; shuttleMin: number | null; url: string | null }[];
+  parkingOptionId: string | null;
+  parkingDays: number;
+  totalGroup: number;
+};
+
+const eurOf = (m: Money | null | undefined) => (m ? (m.currency === 'ISK' ? m.amount * DEFAULT_FX.ISK_EUR : m.amount) : 0);
+
+/**
+ * Vybraný let rozpísaný na položky (letenky · batožina · parkovanie · cesta na letisko · nocľah na hube) s ohľadom na
+ * vyradené položky a zvolené parkovisko – jeden zdroj pravdy pre krok 02 aj rozpočet (`loadFlightInput` je jeho `input`).
+ */
+export async function loadFlightBreakdown(tripId: string): Promise<FlightBreakdown | null> {
   const db = getDb();
   const [sel] = await db
     .select()
@@ -33,33 +54,157 @@ export async function loadFlightInput(tripId: string): Promise<FlightSelectionIn
     .where(eq(schema.flightSelection.tripId, tripId))
     .limit(1);
   if (!sel) return null;
+  const pax = Math.max(1, await countTravelersFor(tripId));
+  const excluded = new Set((sel.excluded ?? []) as FlightExtraId[]);
+  let base: FlightSelectionInput | null = null;
+  let hubNight = 0;
+  let manualParking: number | null = null;
   if (sel.flightOptionId) {
     const [o] = await db
       .select()
       .from(schema.flightOptions)
       .where(eq(schema.flightOptions.id, sel.flightOptionId))
       .limit(1);
-    if (o) return optionToInput(o);
+    if (o) {
+      base = optionToInput(o);
+      // nocľah na hube (self-transfer) nie je v tabuľke zvlášť – dopočíta sa zo zamknutej sumy
+      const parts = eurOf(base.farePp) * pax + eurOf(base.bagsTotal) + eurOf(base.parkingTotal) + eurOf(base.airportAccessTotal);
+      hubNight = Math.max(0, Math.round((Number(o.totalGroupAmount) - parts) * 100) / 100);
+      if (hubNight > 0 && hubNight < 1) hubNight = 0;
+    }
   }
-  if (sel.manual) {
+  if (!base && sel.manual) {
     const m = sel.manual;
-    return {
+    base = {
       origin: m.origin,
       outDepAt: m.outDepAt,
       outArrAt: m.outArrAt ?? m.outDepAt,
       retDepAt: m.retDepAt,
       retArrAt: m.retArrAt ?? m.retDepAt,
       farePp: {
-        amount:
-          m.farePp ??
-          (sel.lockedPrice ? sel.lockedPrice.amount / Math.max(1, await countTravelersFor(tripId)) : 0),
+        amount: m.farePp ?? (sel.lockedPrice ? sel.lockedPrice.amount / pax : 0),
         currency: 'EUR',
         source: 'manual',
       },
+      bagsTotal: m.bagsTotal != null ? { amount: m.bagsTotal, currency: 'EUR', source: 'manual' } : null,
       isEstimate: false,
     };
+    manualParking = m.parkingTotal ?? null;
+    // cesta na letisko ako pri vyhľadaných kombináciách (palivo + známky autom z BA, alebo bus) – odhad
+    const [ap] = await db
+      .select({ km: schema.airports.driveKmFromHome })
+      .from(schema.airports)
+      .where(eq(schema.airports.iata, m.origin))
+      .limit(1);
+    const travelers = await db
+      .select({ bags: schema.travelers.bags })
+      .from(schema.travelers)
+      .where(eq(schema.travelers.tripId, tripId));
+    const checkedBags = travelers.reduce((a, t) => a + (t.bags?.checked20 ?? 0) + (t.bags?.checked32 ?? 0), 0);
+    const access = airportAccessCost({
+      pax,
+      checkedBags,
+      km: ap?.km ? Number(ap.km) : 100,
+      consumptionL100km: 6.5,
+      fuelPriceEur: FUEL_EUR_PER_L,
+      vignettes: VIGNETTES[m.origin] ?? 0,
+      busTicketPp: BUS_PP[m.origin] ?? null,
+    });
+    base.airportAccessTotal = { amount: access.total, currency: 'EUR', source: 'estimate' };
   }
-  return null;
+  if (!base) return null;
+
+  // parkovanie: zvolené parkovisko zo seedu (podľa dní) má prednosť; ručný let bez zadania → najlacnejšie zo seedu
+  const days = Math.max(1, Math.round((Date.parse(base.retArrAt) - Date.parse(base.outDepAt)) / 86_400_000) + 1);
+  const parkingDays = days + 1;
+  const rows = await db.select().from(schema.parkingOptions).where(eq(schema.parkingOptions.iata, base.origin));
+  const parkingChoices = rows
+    .map((r) => ({
+      id: r.id,
+      name: r.name,
+      kind: r.kind,
+      price: parkingFromRules(r.priceRules, parkingDays),
+      shuttleMin: r.shuttleMin,
+      url: r.url,
+    }))
+    .sort((a, b) => a.price - b.price);
+  const chosen = sel.parkingOptionId ? parkingChoices.find((c) => c.id === sel.parkingOptionId) : null;
+  let parkingTotal: Money | null = base.parkingTotal ?? null;
+  if (chosen) parkingTotal = { amount: chosen.price, currency: 'EUR', source: 'seed' };
+  else if (manualParking != null) parkingTotal = { amount: manualParking, currency: 'EUR', source: 'manual' };
+  else if (!parkingTotal && parkingChoices.length)
+    parkingTotal = { amount: parkingChoices[0].price, currency: 'EUR', source: 'seed' };
+  const parkingLabel = chosen?.name ?? (manualParking != null ? 'zadané ručne' : parkingChoices[0]?.name ?? null);
+
+  const lines: FlightBreakdown['lines'] = [
+    {
+      id: 'fare',
+      label: `Letenky ${base.origin} ⇄ ${base.dest ?? 'KEF'}`,
+      hint: `${pax} × ${Math.round(eurOf(base.farePp))} €`,
+      amount: Math.round(eurOf(base.farePp) * pax * 100) / 100,
+      excluded: false,
+      source: base.farePp.source,
+    },
+  ];
+  if (base.bagsTotal && eurOf(base.bagsTotal) > 0)
+    lines.push({
+      id: 'bags',
+      label: 'Batožina',
+      hint: 'podľa kufrov cestujúcich (krok 01) · stred cenníka aerolinky',
+      amount: eurOf(base.bagsTotal),
+      excluded: excluded.has('bags'),
+      source: base.bagsTotal.source,
+    });
+  if (parkingTotal)
+    lines.push({
+      id: 'parking',
+      label: `Parkovanie ${base.origin}`,
+      hint: `${parkingLabel ?? ''} · ${parkingDays} dní`,
+      amount: eurOf(parkingTotal),
+      excluded: excluded.has('parking'),
+      source: parkingTotal.source,
+    });
+  if (base.airportAccessTotal)
+    lines.push({
+      id: 'access',
+      label: 'Cesta na letisko a späť',
+      hint: 'palivo + diaľničné známky autom z Bratislavy (alebo bus)',
+      amount: eurOf(base.airportAccessTotal),
+      excluded: excluded.has('access'),
+      source: base.airportAccessTotal.source,
+    });
+  if (hubNight > 0)
+    lines.push({
+      id: 'hub_night',
+      label: 'Nocľah na hube (self-transfer)',
+      hint: null,
+      amount: hubNight,
+      excluded: excluded.has('hub_night'),
+      source: 'seed',
+    });
+  const on = (id: FlightExtraId) => lines.find((l) => l.id === id && !l.excluded);
+  const input: FlightSelectionInput = {
+    ...base,
+    bagsTotal: on('bags') ? base.bagsTotal : null,
+    parkingTotal: on('parking') ? parkingTotal : null,
+    airportAccessTotal: on('access') ? base.airportAccessTotal : null,
+    hubNightTotal: on('hub_night') ? { amount: hubNight, currency: 'EUR', source: 'seed' } : null,
+  };
+  const totalGroup = Math.round(lines.filter((l) => !l.excluded).reduce((a, l) => a + l.amount, 0) * 100) / 100;
+  return {
+    input,
+    pax,
+    lines,
+    parkingChoices,
+    parkingOptionId: sel.parkingOptionId ?? null,
+    parkingDays,
+    totalGroup,
+  };
+}
+
+/** Vybraný let ako vstup enginu (z flight_options alebo ručný záznam) – s vyradenými položkami a zvoleným parkoviskom. */
+export async function loadFlightInput(tripId: string): Promise<FlightSelectionInput | null> {
+  return (await loadFlightBreakdown(tripId))?.input ?? null;
 }
 
 async function countTravelersFor(tripId: string): Promise<number> {

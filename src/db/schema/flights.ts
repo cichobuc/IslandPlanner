@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import { boolean, index, integer, jsonb, numeric, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import type { FlightLeg } from '@/engine/types';
 import { accessModeEnum, createdAt, id, money, searchStatusEnum, tripScoped, updatedAt } from './_shared';
@@ -100,8 +101,17 @@ export const flightSelection = pgTable(
       url?: string;
       /** cena letenky na osobu (EUR) – lockedPrice je za skupinu */
       farePp?: number;
+      /** batožina za skupinu (EUR), ak ju používateľ zadal zvlášť */
+      bagsTotal?: number;
+      /** parkovanie za skupinu (EUR), ak ho zadal ručne (inak seed podľa letiska) */
+      parkingTotal?: number;
     }>(),
     parkingOptionId: uuid('parking_option_id').references(() => parkingOptions.id),
+    /** Položky letu, ktoré používateľ vyradil: bags · parking · access · hub_night. */
+    excluded: text('excluded')
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     airportAccessMode: accessModeEnum('airport_access_mode').notNull().default('car'),
     lockedPrice: money('locked_price'),
     verifiedAt: timestamp('verified_at', { withTimezone: true }),

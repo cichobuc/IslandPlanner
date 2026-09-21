@@ -37,6 +37,18 @@ export type SelectedFlight = {
   source: 'api' | 'seed' | 'manual' | 'estimate';
   deepLink: string | null;
   airline: string | null;
+  /** rozpis: letenky · batožina · parkovanie · cesta na letisko · nocľah na hube (vyradené = excluded) */
+  lines: {
+    id: 'fare' | 'bags' | 'parking' | 'access' | 'hub_night';
+    label: string;
+    hint: string | null;
+    amount: number;
+    excluded: boolean;
+    source: 'api' | 'seed' | 'manual' | 'estimate';
+  }[];
+  parkingChoices: { id: string; name: string; kind: string; price: number; shuttleMin: number | null; url: string | null }[];
+  parkingOptionId: string | null;
+  parkingDays: number;
 };
 
 export type SearchMeta = {

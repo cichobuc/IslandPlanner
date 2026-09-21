@@ -31,6 +31,8 @@ import {
   clearFlightAction,
   selectFlightAction,
   selectManualFlightAction,
+  setFlightExtraAction,
+  setParkingOptionAction,
   type SelectState,
 } from '../step02-actions';
 import type { OptionLite, SearchMeta, SelectedFlight } from './step02-types';
@@ -61,6 +63,16 @@ const AIRLINE: Record<string, string> = {
   OG: 'PLAY',
 };
 const airlineName = (c: string) => AIRLINE[c] ?? c;
+/** „2× 20 kg · 4× 10 kg príručná“ z kufrov cestujúcich (krok 01). */
+function bagsSummary(bags: Bags[]): string | null {
+  const n = (k: keyof Bags) => bags.reduce((a, b) => a + (Number(b?.[k]) || 0), 0);
+  const parts = [
+    n('checked32') ? `${n('checked32')}× 32 kg` : null,
+    n('checked20') ? `${n('checked20')}× 20 kg` : null,
+    n('cabin10') ? `${n('cabin10')}× 10 kg príručná` : null,
+  ].filter(Boolean);
+  return parts.length ? `${parts.join(' · ')} · zmeň v kroku 01 (kufre)` : null;
+}
 
 type Progress = { label: string; done: boolean }[];
 
@@ -214,6 +226,8 @@ export function Step02Client(props: {
     if (r?.ok) setToast({ title: 'Výber zrušený', lines: r.changes, suggestions: [] });
     return r;
   }, null);
+  const [extraState, extraAct, extraPending] = useActionState<SelectState, FormData>(setFlightExtraAction, null);
+  const [, parkingAct, parkingPending] = useActionState<SelectState, FormData>(setParkingOptionAction, null);
   const [manualState, manualAct, manualPending] = useActionState<SelectState, FormData>(async (prev, fd) => {
     const r = await selectManualFlightAction(prev, fd);
     if (r?.ok) {
@@ -290,6 +304,61 @@ export function Step02Client(props: {
                 <span className="text-ink-3 text-[12px] tabular-nums">{fmtEur(selected.totalPp)}/os</span>
               </div>
             </div>
+            {/* rozpis: čo je v cene a čo sa dá dať preč */}
+            <ul className="divide-line border-line flex flex-col divide-y rounded-[10px] border">
+              {selected.lines.map((l) => {
+                const bagsHint =
+                  l.id === 'bags'
+                    ? bagsSummary(props.travelersBags) || l.hint
+                    : l.hint;
+                return (
+                  <li key={l.id} className={cn('flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2', l.excluded && 'opacity-60')}>
+                    <div className="flex min-w-0 grow flex-col">
+                      <span className={cn('text-[13px] font-medium', l.excluded && 'line-through')}>{l.label}</span>
+                      {bagsHint && <span className="text-ink-3 text-[12px]">{bagsHint}</span>}
+                      {l.id === 'parking' && !l.excluded && selected.parkingChoices.length > 1 && canEdit && (
+                        <form action={parkingAct} className="mt-1 flex flex-wrap items-center gap-1.5">
+                          <input type="hidden" name="tripId" value={tripId} />
+                          {selected.parkingChoices.map((c) => (
+                            <button
+                              key={c.id}
+                              type="submit"
+                              name="parkingOptionId"
+                              value={c.id}
+                              disabled={parkingPending}
+                              className={cn(
+                                'rounded-chip inline-flex h-7 items-center gap-1 border px-2 text-[12px]',
+                                (selected.parkingOptionId ?? selected.parkingChoices[0]?.id) === c.id
+                                  ? 'border-accent-line bg-accent-soft text-accent font-semibold'
+                                  : 'bg-mut-bg text-ink border-transparent',
+                              )}
+                            >
+                              {c.name.replace(/\s*\(.*\)$/, '')} · {fmtEur(c.price)}
+                              {c.shuttleMin ? ` · shuttle ${c.shuttleMin} min` : ''}
+                            </button>
+                          ))}
+                        </form>
+                      )}
+                    </div>
+                    <span className={cn('text-[13px] font-semibold tabular-nums', l.excluded && 'line-through')}>
+                      {fmtEur(l.amount)}
+                    </span>
+                    <Tag tone={sourceTag[l.source].tone}>{sourceTag[l.source].label}</Tag>
+                    {l.id !== 'fare' && canEdit && (
+                      <form action={extraAct}>
+                        <input type="hidden" name="tripId" value={tripId} />
+                        <input type="hidden" name="item" value={l.id} />
+                        <input type="hidden" name="on" value={l.excluded ? '1' : '0'} />
+                        <Button type="submit" size="sm" variant="ghost" disabled={extraPending}>
+                          {l.excluded ? 'Vrátiť' : 'Dať preč'}
+                        </Button>
+                      </form>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            {extraState && !extraState.ok && <Notice tone="bad">{extraState.error}</Notice>}
             <div className="flex flex-wrap items-center gap-1.5">
               {selected.deepLink && (
                 <a
@@ -664,8 +733,14 @@ export function Step02Client(props: {
           <FieldRow label="Airline">
             <Input name="airline" placeholder="Wizz Air" maxLength={40} className="max-w-[220px]" />
           </FieldRow>
-          <FieldRow label="Cena skupina (€)" hint="letenky + batožina za všetkých">
+          <FieldRow label="Letenky skupina (€)" hint="za všetkých, bez batožiny">
             <Input name="priceGroup" type="number" min={0} step={1} required className="max-w-[140px]" />
+          </FieldRow>
+          <FieldRow label="Batožina spolu (€)" hint="voliteľné – kufre za všetkých">
+            <Input name="bagsTotal" type="number" min={0} step={1} className="max-w-[140px]" />
+          </FieldRow>
+          <FieldRow label="Parkovanie (€)" hint="voliteľné – inak najlacnejšie zo seedu, dá sa dať preč">
+            <Input name="parkingTotal" type="number" min={0} step={1} className="max-w-[140px]" />
           </FieldRow>
           <FieldRow label="Odkaz na rezerváciu">
             <Input name="url" type="url" placeholder="https://" />
